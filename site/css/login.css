@@ -60,9 +60,12 @@
     width: 45%;
     font-weight: 500;
 }
-.transparency a{
+.spanOption a{
     color: rgba(0, 0, 0, 0.31);
     text-decoration: none;
+}
+.transparency{
+    color: rgb(0, 0, 0);
 }
 .imgBanner{
     height: 80%;
@@ -71,7 +74,7 @@
 }
 .formRegister{
     /* background-color: #61A5E3; */
-    height: 70%;
+    height: 55%;
     width: 350px;
     border: 2px solid rgba(0, 0, 0, 0.14);
     border-radius: 13px;
