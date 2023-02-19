@@ -217,6 +217,10 @@
         background: url(../img/key_icon.svg) no-repeat left / 1.5em;
         padding-left: 25px;
     }
+    .cpf{
+        background: url(../img/vector.svg) no-repeat left / 1.5em;
+        padding-left: 25px;
+    }
     .btnForm{
         height: 35px;
         width: 140px;
