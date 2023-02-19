@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/cadastro.css">
     <title>Cadastre-se</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    
 </head>
 <body>
     <header class="header">
@@ -29,12 +33,12 @@
             </div>
         </section>
         <section class="register">
-            <form class="formRegister" action="">
-                <label class="labelForm">Cadastro Empresa</label>
-                <input placeholder="Razão social" class="inputRegister name" type="text">
+            <form class="formRegister">
+                <label class="labelForm">Cadastre-se</label>
+                <input placeholder="Nome" class="inputRegister name" type="text">
+                <input placeholder="CPF" class="inputRegister cpf" id="cpfUsuario" type="text" maxlength="11">
                 <input placeholder="Email" class="inputRegister email" type="email">
                 <input placeholder="Senha" class="inputRegister password" type="password">
-                <input placeholder="Confirmação de senha" class="inputRegister password" type="password">
                 <button class="btnForm">Cadastrar</button>
             </form>
 
@@ -43,3 +47,9 @@
     </main>
 </body>
 </html>
+<script>
+    $(document).ready(function(){
+		$("#cpfUsuario").mask("999.999.999-99");
+	});
+
+</script>

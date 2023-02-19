@@ -118,6 +118,10 @@
     background: url(../img/key_icon.svg) no-repeat left / 2.0em;
     padding-left:35px ;
 }
+.cpf{
+    background: url(../img/Vector.svg) no-repeat left / 2.0em;
+    padding-left: 35px;
+}
 
 @media (max-width:768px){
     .navbar{
