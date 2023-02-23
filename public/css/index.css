@@ -182,7 +182,7 @@ footer {
 
 .sectionFooter {
     height: 40vh;
-    width: 71%;
+    width: 100%;
     color: white;
     display: flex;
     flex-direction: row;
@@ -191,21 +191,22 @@ footer {
 }
 
 .divPycem {
-    margin: 3% 0;
+    margin: 3% 0 0 17%;
     font-weight: 500;
     font-size: 25px;
 }
 
 .caixas {
     margin: 3%;
-    width: 60%;
+    width: 40%;
+    margin-right: 10%;
     display: flex;
     flex-direction: row;
 }
 
 .caixaItem {
     width: 100%;
-    margin: 0 5%;
+    margin: 0 3%;
     color: white;
     display: flex;
     flex-direction: column;
@@ -224,7 +225,7 @@ footer {
 }
 
 .copyright {
-    width: 70%;
+    width: 66%;
 }
 
 .copyright p {
