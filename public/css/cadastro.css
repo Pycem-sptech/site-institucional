@@ -1,0 +1,229 @@
+.mainContent{
+    height: 86vh;
+    display: flex;
+}
+.banner{
+    height: 100%;
+    width: 50%;
+}
+.register{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnLoginRegister{
+    height: 12%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.spanOption{
+    width: 45%;
+    font-weight: 500;
+}
+.transparency{
+    color: rgba(0, 0, 0, 0.31);
+}
+.imgBanner{
+    height: 80%;
+    display: flex;
+    justify-content: center;
+}
+.formRegister{
+    /* background-color: #61A5E3; */
+    height: 70%;
+    width: 350px;
+    border: 2px solid rgba(0, 0, 0, 0.14);
+    border-radius: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.inputRegister{
+    height: 40px;
+    margin-top: 10px;
+    width: 250px;
+    border-radius: 13px;
+    border: solid 1px  rgba(0, 0, 0, 0.18);
+    outline: none;
+    font-size: 15px;
+    /* padding-left: 5px; */
+}
+.btnForm{
+    margin-top: 10px;
+    height: 40px;
+    width: 170px;
+    border-radius: 13px;
+    outline: none;
+    border: none;
+    background-color: #61A5E3;
+    font-size: 17px;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+}
+.labelForm{
+    font-size: 25px;
+    font-weight: 600;
+}
+.name{
+    background: url(../img/user_icon.svg) no-repeat left / 2.0em;
+    padding-left:35px ;
+}
+.email{
+    background: url(../img/mail_icon.svg) no-repeat left / 2.0em;
+    padding-left:35px ;
+}
+.password{
+    background: url(../img/key_icon.svg) no-repeat left / 2.0em;
+    padding-left:35px ;
+}
+
+@media (max-width:768px){
+    .navbar{
+        width: 50%;
+        font-size: 11px;
+    }
+    .headerTitle{
+        font-size: 20px;
+    }
+    .btnRegister{
+        padding: 4px;
+        border-radius: 4px;
+    }
+    .formRegister{
+        width: 300px;
+    }
+    .labelForm{
+        font-size: 22px;
+    }
+    .inputRegister{
+        width: 200px;
+        font-size: 13px;
+    }
+    .btnForm{
+        width: 150px;
+        height: 35px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width:425px){
+    .navbtn{
+        display: none;
+    }
+    .navbar{
+        justify-content: flex-end;
+    }
+    .btnRegister{
+        display: block;
+        font-size: 15px;
+        padding: 6px;
+        border-radius: 6px;
+        
+    }
+    .headerTitle{
+        font-size: 26px;
+    }
+    .mainContent{
+        flex-direction: column;
+    }
+    .banner{
+        height: 20%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .btnLoginRegister{
+        width: 100%;
+        height: 70%;
+    }
+    .spanOption{
+        width:36%;
+    }
+    .imgBanner{
+        display: none;
+    }
+    .register{
+        width: 100%;
+        align-items: flex-start;
+    }
+    .formRegister{
+        height: 80%;
+        width: 280px;
+    }
+    .labelForm{
+        font-size: 20px;
+    }
+    .inputRegister{
+        width: 200px;
+        height: 38px;
+        font-size: 12px;
+    }
+    .name{
+        background: url(../img/user_icon.svg) no-repeat left / 1.5em;
+        padding-left: 25px;
+    }
+    .email{
+        background: url(../img/mail_icon.svg) no-repeat left / 1.5em;
+        padding-left: 25px;
+    }
+    .password{
+        background: url(../img/key_icon.svg) no-repeat left / 1.5em;
+        padding-left: 25px;
+    }
+    .btnForm{
+        height: 35px;
+        width: 140px;
+        margin-top:5px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width:375px){
+    .navbtn{
+        display: none;
+    }
+    .navbar{
+        justify-content: flex-end;
+    }
+    .btnRegister{
+        display: block;
+        font-size: 14px;
+        padding: 6px;
+        border-radius: 6px;
+    }
+    .headerTitle{
+        font-size: 24px;
+    }
+    .spanOption{
+        width:41%;
+    }
+     
+}
+
+@media (max-width:320px){
+    .navbtn{
+        display: none;
+    }
+    .navbar{
+        justify-content: flex-end;
+    }
+    .btnRegister{
+        display: block;
+        font-size: 12px;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    .headerTitle{
+        font-size: 20px;
+    }
+    .spanOption{
+        width:50%;
+    }
+    
+}

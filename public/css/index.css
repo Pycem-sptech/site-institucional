@@ -1,0 +1,235 @@
+/*
+PRIMEIRA SESSÃO
+*/
+
+.sectionUm {
+    padding: 0 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.corpo {
+    width: 50%;
+}
+
+.corpoTitulo {
+    margin: 5%;
+    font-size: 50px;
+}
+
+.corpoTexto {
+    margin: 0 5%
+}
+
+.corpoBotao {
+    margin: 5%;
+    padding: 2%;
+    border-radius: 10px;
+    background-color: rgb(97, 165, 227);
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.divImagem {
+    width: 50%;
+}
+
+.imgSectionUm {
+    margin: 4%;
+    max-width: 90%;
+}
+
+/*
+SESSÃO DOIS
+*/
+
+.sectionDois {
+    background-color: rgb(249, 249, 249);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.corpoTitBen {
+    font-size: 50px;
+}
+
+.corpoTxtBen {
+    width: 70%;
+    margin: 5% 0;
+}
+
+.corpoBenBtn {
+    padding: 2%;
+    border-radius: 10px;
+    background-color: rgb(236, 236, 236);
+    border: none;
+    color: rgb(97, 165, 227);
+    cursor: pointer;
+}
+
+/*
+edição dos cards
+*/
+
+.divCards {
+    margin: 4%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardTopBot {
+    display: flex;
+    flex-direction: row;
+}
+
+.card {
+    margin: 2%;
+    width: 40%;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.3);
+}
+
+.imgCard {
+    margin: 5%;
+    max-width: 27%;
+    padding: 20px;
+    background-color: rgb(249, 249, 249);
+    border-radius: 100px;
+}
+
+.cardTitulo {
+    text-align: center;
+    font-size: 17px;
+}
+
+.cardCorpo {
+    margin: 5%;
+    font-style: oblique;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+/*
+SEÇÃO TRÊS
+*/
+
+.sectionTres {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    /*
+    background: linear-gradient(90deg, rgba(1,123,236,1) 0%, rgba(36,187,197,1) 100%);
+    
+    */
+    background: linear-gradient(90deg, rgba(0,111,214,1) 0%, rgba(36,187,197,1) 81%, rgba(0,111,214,1) 100%);
+}
+
+.sectionFilho {
+    display: flex;
+    align-items: center;
+    width: 67%;
+}
+
+.bannerTitulo {
+    margin-top: 4%;
+    font-size: 40px;
+    font-weight: 500;
+    color: white;
+}
+
+.bannerBotao {
+    padding: 1.5%;
+    margin: 4% 0;
+    border-radius: 10px;
+    background-color: rgb(236, 236, 236);
+    border: none;
+    color: rgb(97, 165, 227);
+    cursor: pointer;
+}
+
+.bannerImagem {
+    display: flex;
+    height: 100%;
+    align-items: flex-end;
+}
+
+.imagemBanner {
+    max-width: 100%;
+}
+
+/*
+INICIO FOOTER
+*/
+
+footer {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sectionFooter {
+    height: 40vh;
+    width: 100%;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+}
+
+.divPycem {
+    margin: 3% 0 0 17%;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.caixas {
+    margin: 3%;
+    width: 40%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: row;
+}
+
+.caixaItem {
+    width: 100%;
+    margin: 0 3%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.itemTitulo {
+    color: white;
+    margin-bottom: 10%;
+    font-size: 20px;
+}
+
+.item {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 17px;
+    margin: 2% 0;
+}
+
+.copyright {
+    width: 66%;
+}
+
+.copyright p {
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 200;
+    margin: 2% 0;
+}
