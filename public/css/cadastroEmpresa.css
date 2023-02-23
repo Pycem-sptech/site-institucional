@@ -1,0 +1,164 @@
+/* TIRANDO VISUALIZAÇÃO DOS ICONS DA SIDE BAR */
+
+.navigationIcon{
+    display: none;
+}
+.navigationButtons{
+    justify-content: flex-start;
+    margin-top: 35%;
+}
+
+/* TITULO DE PRIMEIROS PASSOS E SEJA BEM VINDO */
+
+.guideText{
+    height: 12vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: default;
+}
+.welcomeSentence {
+    font-size: 2em;
+    margin-left: 4%;
+}
+.firstStep{
+    margin-left: 4%;
+    color: #adadad;
+}
+
+/* CONTEUDO PRINCIPAL */
+.main{
+    height: 70vh;
+    display: flex;
+}
+.registerCompany{
+    width: 35%;
+    display: flex;
+    justify-content: flex-end;
+}
+.registerUnit{
+    width: 60%;
+}
+.formRegisterCompany{
+    background-color: #fff;
+    height: 85%;
+    width: 86%;
+    margin-right: 8px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.formRegisterUnit{
+    background-color: #fff;
+    height: 75%;
+    width: 98%;
+    margin-left: 8px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
+    display: flex;
+    padding: 10px;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+input{
+    height: 40px;
+    border-radius: 10px;
+    border: solid 1px  rgba(0, 0, 0, 0.18);
+    outline: none;
+    font-size: 15px;
+    padding-left: 35px;
+}
+.inputRegisterCompany{
+    width: 70%;
+}
+.titleFormRegisterCompany{
+    align-self: flex-start;
+    margin-left: 10%;
+    margin-bottom: 10px;
+}
+.btnRegister{
+    margin-top: 20px;
+    outline: none;
+    border: none;
+    background-color: #0078E8;
+    color: #fff;
+    width: 40%;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 0px 5px  6px 0px rgba(0, 0, 0, 0.20);
+}
+.unit{
+    justify-self: center;
+    width: 35%;
+}
+.titleFormRegisterUnit{
+    align-self: flex-start;
+    margin-left: 5.5%;
+    margin-top: 3px;
+}
+.boxInputUnit{
+    padding: 0 5.5%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    height: 50%;
+}
+.nomeUnit{
+    width: 40%;
+    margin-right: 10px;
+    background: url(../img/storeIconOpacity.svg) no-repeat left / 2.0em;
+    padding-left:35px ;
+}
+.cepUnit{
+    width: 40%;
+    background: url(../img/alfineteIcon.svg) no-repeat left / 1.8em;
+}
+.ufUnit{
+    width: 5%;
+    margin-right: 10px;
+    background: url(../img/bandeiraIcon.svg) no-repeat left / 2.0em;
+}
+.cidadeUnit{
+    width: 25%;
+    margin-right: 10px;
+    background: url(../img/cidadeIcon.svg) no-repeat left / 1.8em;
+}
+.logradouroUnit{
+    width: 43%;
+    background: url(../img/localizacaoIcon.svg) no-repeat left / 1.8em;
+}
+.bairroUnit{
+    width: 20%;
+    margin-right: 10px;
+    background: url(../img/bairroIcon.svg) no-repeat left / 2.0em;
+}
+.numeroUnit{
+    width: 15%;
+    margin-right: 10px;
+    background: url(../img/numeroIcon.svg) no-repeat left / 2.0em;
+}
+.telefoneUnit{
+    width: 38%;
+    background: url(../img/telefoneIcon.svg) no-repeat left / 2.0em;
+}
+.nomeCompany{
+    background: url(../img/user_icon.svg) no-repeat left / 2.0em;
+}
+.emailCompany{
+    background: url(../img/mail_icon.svg) no-repeat left / 2.0em;
+}
+.telefoneCompany{
+    background: url(../img/telefoneIcon.svg) no-repeat left / 2.0em;
+}
+.cnpjCompany{
+    background: url(../img/idIcon.svg) no-repeat left / 2.0em;
+}
