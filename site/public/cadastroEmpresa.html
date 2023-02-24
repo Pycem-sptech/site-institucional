@@ -7,6 +7,8 @@
     <title>Pycem</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/cadastroEmpresa.css">
+    <script src="./js/cadastro.js"></script>
+    <script src="./js/geral.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     
@@ -57,13 +59,13 @@
             <form class="formRegisterUnit">
                 <h3 class="titleFormRegisterUnit">Cadastre suas unidades</h3>
                 <div class="boxInputUnit">
-                    <input class="inputRegisterUnit nomeUnit" type="text" placeholder="Nome">
-                    <input class="inputRegisterUnit cepUnit" type="text" placeholder="CEP" maxlength="8" id="idCep">
-                    <input class="inputRegisterUnit ufUnit" type="text" placeholder="UF" maxlength="2">
-                    <input class="inputRegisterUnit cidadeUnit" type="text" placeholder="Cidade">
-                    <input class="inputRegisterUnit logradouroUnit" type="text" placeholder="Logradouro">
-                    <input class="inputRegisterUnit bairroUnit" type="text" placeholder="Bairro">
-                    <input class="inputRegisterUnit numeroUnit" type="text" placeholder="Número">
+                    <input class="inputRegisterUnit nomeUnit"  type="text" placeholder="Nome">
+                    <input class="inputRegisterUnit cepUnit" onblur="pesquisacep(this.value);" type="text" placeholder="CEP" maxlength="8" id="idCep">
+                    <input class="inputRegisterUnit ufUnit" id="ufUnit" type="text" placeholder="UF" maxlength="2">
+                    <input class="inputRegisterUnit cidadeUnit" id="cidadeUnit" type="text" placeholder="Cidade">
+                    <input class="inputRegisterUnit logradouroUnit" id="logradouroUnit" type="text" placeholder="Logradouro">
+                    <input class="inputRegisterUnit bairroUnit" id="bairroUnit" type="text" placeholder="Bairro">
+                    <input class="inputRegisterUnit numeroUnit"  type="text" placeholder="Número">
                     <input class="inputRegisterUnit telefoneUnit" type="tel" placeholder="Telefone" id="idTelefoneUnidade">
                 </div>
                 <button class="btnRegister unit">Cadastrar</button>
