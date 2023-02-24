@@ -5,11 +5,10 @@ function cadastrar() {
     const telefoneVar = idTelefone.value;
     const cnpjVar = idCnpj.value;
     if (nomeVar == "") {
-        div_erros.innerHTML = "Campo nome inválido";
+        // div_erros.innerHTML = "Campo nome inválido";
         return false;
     }
-        // Enviando o valor da nova input
-        fetch("/usuarios/cadastrar", {
+        fetch("/empresa/cadastrar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -25,18 +24,12 @@ function cadastrar() {
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                // cardErro.style.display = "block";
-
-                // mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
                 setTimeout(() => {
-                    window.location = "inOrUp.html";
+                    window.location = "#";
                 }, "1000")
 
-            } else {
-                div_erros.innerHTML = "Houve um erro ao tentar realizar o cadastro! Tente novamente.";
-                throw ("Houve um erro ao tentar realizar o cadastro!");
-            }
+            } 
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
