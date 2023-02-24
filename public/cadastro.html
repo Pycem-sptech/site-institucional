@@ -40,8 +40,8 @@
                 <label class="labelForm">Cadastro Empresa</label>
                 <input placeholder="Razão social" class="inputRegister name" type="text">
                 <input placeholder="Email" class="inputRegister email" type="email">
-                <input placeholder="CPF" class="inputRegister cpf" type="text">
-                <input placeholder="Senha" class="inputRegister password" type="password"
+                <input placeholder="CPF" class="inputRegister cpf" type="text" maxlength="11">
+                <input placeholder="Senha" class="inputRegister password" type="password" 
                     onkeyup="mostrarSituacaoSenha(validarSenha(this))">
                 <input placeholder="Confirmação de senha" class="inputRegister password" type="password">
                 <section class="situacaoSenha">
@@ -51,7 +51,8 @@
                     <div class="colunas">
                         <div class="coluna">
                             <span id="digito" class="dadosEsquerda"><img src="img/linha.svg" alt=""> 6 dígitos</span>
-                            <span id="maiuscula" class="dadosDireita"><img src="img/linha.svg" alt=""> Letra maiúculas</span>
+                            <span id="maiuscula" class="dadosDireita"><img src="img/linha.svg" alt=""> Letra
+                                maiúculas</span>
                         </div>
                         <div class="coluna direita">
                             <span id="caracterEspecial"><img src="img/linha.svg" alt=""> Carac. Especial</span>

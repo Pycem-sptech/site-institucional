@@ -17,7 +17,7 @@ function validarSenha(senhaVar) {
                 senha.dadosSenha.qtdEspeciais++;
             } else if (numeros.indexOf(senhaVar.value[posicao]) >= 0) {
                 senha.dadosSenha.qtdNumeros++;
-            } else {
+            } else if (senhaVar.value[posicao] == senhaVar.value[posicao].toUpperCase()){
                 senha.dadosSenha.qtdMaiusculas++;
             }          
             posicao++

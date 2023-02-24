@@ -35,7 +35,7 @@
     /* background-color: #61A5E3; */
     height: 70%;
     width: 350px;
-    padding: 12px 0;
+    padding: 14px 0;
     border: 2px solid rgba(0, 0, 0, 0.14);
     border-radius: 13px;
     display: flex;
@@ -56,7 +56,7 @@
 
 
 .situacaoSenha {
-    padding: 5px 0;
+    padding: 10px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
