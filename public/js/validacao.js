@@ -5,35 +5,55 @@ function validarSenha(senhaVar) {
             qtdEspeciais: 0,
             qtdMaiusculas: 0,
             qtdNumeros: 0,
+            qtdDigitos: senhaVar.value.length,
     }};
-    if (senhaVar.value.length >= 6) {
-        let posicao = 0;
-        const caracteresEspeciais = '@#$%¨&*(){}`^~:;><.,?/+-=§_';
-        const numeros = '0123456789';
-        while (posicao < senhaVar.length) {
-            console.log(senhaVar[posicao])
-            if (caracteresEspeciais.indexOf(senhaVar[posicao]) >= 0) {
+    
+    let posicao = 0;
+    const caracteresEspeciais = '@#$%¨&*(){}`^~:;><.,?/+-=§_';
+    const numeros = '0123456789';
+    while (posicao < senhaVar.value.length) {
+            console.log(senhaVar.value[posicao])
+            if (caracteresEspeciais.indexOf(senhaVar.value[posicao]) >= 0) {
                 senha.dadosSenha.qtdEspeciais++;
-            } else if (numeros.indexOf(senhaVar[posicao]) >= 0) {
+            } else if (numeros.indexOf(senhaVar.value[posicao]) >= 0) {
                 senha.dadosSenha.qtdNumeros++;
-            } else if (senhaVar[posicao] == String(senhaVar[posicao]).toLowerCase()) {
-                senha.dadosSenha.qtdMinusculas++;
             } else {
                 senha.dadosSenha.qtdMaiusculas++;
-            }
-
-            if (senha.dadosSenha.qtdEspeciais >= 1 && senha.dadosSenha.qtdMaiusculas >= 1 && senha.dadosSenha.qtdNumeros >= 1) {
-                senha.valida = true;
-                break;
-            }
+            }          
             posicao++
-        }
-    return senha;
+     
     }
+
+    if (senha.dadosSenha.qtdDigitos >= 6 && senha.dadosSenha.qtdEspeciais >= 1 && senha.dadosSenha.qtdMaiusculas >= 1 && senha.dadosSenha.qtdNumeros >= 1) {
+        senha.valida = true;
+    }
+    return senha;
 }
 
-function mostrarSituacaoSenha(senha){
-    senha.dadosSenha
+function mostrarSituacaoSenha(senhaJ){
+    if (senhaJ.dadosSenha.qtdDigitos >= 6){
+        digito.innerHTML = `<img src="img/certo.svg"> 6 dígitos`
+    }else {
+        digito.innerHTML = `<img src="img/errado.svg"> 6 dígitos`
+    }
+
+    if (senhaJ.dadosSenha.qtdMaiusculas >= 1){
+        maiuscula.innerHTML = `<img src="img/certo.svg"> Letra maiúculas`
+    }else {
+        maiuscula.innerHTML = `<img src="img/errado.svg"> Letra maiúculas`
+    }
+
+    if (senhaJ.dadosSenha.qtdEspeciais >= 1){
+        caracterEspecial.innerHTML = `<img src="img/certo.svg"> Carac. Especial`
+    }else {
+        caracterEspecial.innerHTML = `<img src="img/errado.svg"> Carac. Especial`
+    }
+
+    if (senhaJ.dadosSenha.qtdNumeros >= 1){
+        numeros.innerHTML = `<img src="img/certo.svg"> Números`
+    }else {
+        numeros.innerHTML = `<img src="img/errado.svg"> Números`
+    }
 }
 
 function validarConfimarSenha(senha, confirmarSenha) {

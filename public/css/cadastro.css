@@ -82,10 +82,17 @@
 
 .coluna {
     display: flex;
+    align-items: flex-start;
     flex-direction: column;    
-    justify-content: flex-start;
+    justify-content: center;
     width:40%;
-    font-size: 14px
+    font-size: 13px
+}
+
+
+.coluna span img{
+    width: 9px;
+    margin: 0 3px 0 3px;
 }
 
 
@@ -110,22 +117,22 @@
 }
 .name{
     background: url(../img/user_icon.svg) no-repeat left / 2.0em;
-    padding: 5px 0 5px 35px;
+    padding: 5px 0 5px 40px;
     background-position: 4px;
 }
 .email{
     background: url(../img/mail_icon.svg) no-repeat left / 2.0em;
-    padding: 5px 0 5px 35px;
+    padding: 5px 0 5px 40px;
     background-position: 4px;
 }
 .cpf{
-    background: url(../img/mail_icon.svg) no-repeat left / 2.0em;
-    padding: 5px 0 5px 35px;
+    background: url(../img/doc.svg) no-repeat left / 2.0em;
+    padding: 5px 0 5px 40px;
     background-position: 4px;
 }
 .password{
     background: url(../img/key_icon.svg) no-repeat left / 2.0em;
-    padding: 5px 0 5px 35px;
+    padding: 5px 0 5px 40px;
     background-position: 4px;
 }
 
