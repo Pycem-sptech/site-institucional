@@ -65,7 +65,7 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var cnpj = req.body.cnpjServer;
     var telefone = req.body.telefoneServer;
-    var email = req.body.senhaServer;
+    var email = req.body.emailServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {

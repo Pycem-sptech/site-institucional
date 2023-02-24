@@ -2,7 +2,7 @@ function cadastrar() {
 
     const nomeVar = idNome.value;
     const emailVar = idEmail.value;
-    const telefoneVar = idTelefone.value;
+    const telefoneVar = idTelefoneEmpresa.value;
     const cnpjVar = idCnpj.value;
     if (nomeVar == "") {
         // div_erros.innerHTML = "Campo nome inválido";
