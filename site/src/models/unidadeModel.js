@@ -29,7 +29,7 @@ function cadastrarUnidade(nome, telefone, fkEmpresa) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO unidade (nome, telefone, fkEmpresa, fkEndereco) VALUES ('${nome}', '${telefone}' '${fkEmpresa}');
+        INSERT INTO unidade (nome, telefone, fkEmpresa, fkEndereco) VALUES ('${nome}', '${telefone}' 1);
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
