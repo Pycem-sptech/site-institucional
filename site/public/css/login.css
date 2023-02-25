@@ -1,3 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&family=Hurricane&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    height: 13vh;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #eee;
+}
+.header .container{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar{
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-weight: 500;
+}
+.navbtn{
+    cursor: pointer;
+}
+.btnRegister{
+    padding: 8px;
+    border-radius: 8px;
+    background-color: rgba(236, 236, 236, 0.5);
+    color: #61A5E3;
+}
+
 .mainContent{
     height: 86vh;
     display: flex;
@@ -23,8 +60,12 @@
     width: 45%;
     font-weight: 500;
 }
-.transparency{
+.spanOption a{
     color: rgba(0, 0, 0, 0.31);
+    text-decoration: none;
+}
+.transparency{
+    color: rgb(0, 0, 0);
 }
 .imgBanner{
     height: 80%;
@@ -32,10 +73,8 @@
     justify-content: center;
 }
 .formRegister{
-    /* background-color: #61A5E3; */
-    height: 70%;
+    height: 50%;
     width: 350px;
-    padding: 14px 0;
     border: 2px solid rgba(0, 0, 0, 0.14);
     border-radius: 13px;
     display: flex;
@@ -51,50 +90,7 @@
     border: solid 1px  rgba(0, 0, 0, 0.18);
     outline: none;
     font-size: 15px;
-    /* padding-left: 5px; */
 }
-
-
-.situacaoSenha {
-    padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.titulo {
-    width: 81.5%;
-    display: flex;
-    justify-content: flex-start;
-    align-items:start;
-}
-
-.colunas {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 82.5%;
-    margin: 5px 0 0 0;
-
-}
-
-.coluna {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;    
-    justify-content: center;
-    width:40%;
-    font-size: 13px
-}
-
-
-.coluna span img{
-    width: 9px;
-    margin: 0 3px 0 3px;
-}
-
 .btnForm{
     margin-top: 10px;
     height: 40px;
@@ -114,23 +110,15 @@
 }
 .name{
     background: url(../img/user_icon.svg) no-repeat left / 2.0em;
-    padding: 5px 0 5px 40px;
-    background-position: 4px;
+    padding-left:35px ;
 }
 .email{
     background: url(../img/mail_icon.svg) no-repeat left / 2.0em;
-    padding: 5px 0 5px 40px;
-    background-position: 4px;
-}
-.cpf{
-    background: url(../img/doc.svg) no-repeat left / 2.0em;
-    padding: 5px 0 5px 40px;
-    background-position: 4px;
+    padding-left:35px ;
 }
 .password{
     background: url(../img/key_icon.svg) no-repeat left / 2.0em;
-    padding: 5px 0 5px 40px;
-    background-position: 4px;
+    padding-left:35px ;
 }
 
 @media (max-width:768px){
@@ -219,17 +207,10 @@
         background: url(../img/user_icon.svg) no-repeat left / 1.5em;
         padding-left: 25px;
     }
-    .email{
-        background: url(../img/mail_icon.svg) no-repeat left / 1.5em;
-        padding-left: 25px;
-    }
     .password{
         background: url(../img/key_icon.svg) no-repeat left / 1.5em;
         padding-left: 25px;
     }
-
-
-
     .btnForm{
         height: 35px;
         width: 140px;
