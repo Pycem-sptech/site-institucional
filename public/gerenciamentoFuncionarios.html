@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pycem</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="padrao.css">
+    <link rel="stylesheet" href="css/gerenciamentoFuncionarios.css">
+</head>
+<body>
+        <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
+        <nav class="sidebar">
+            <div class="container">
+                <div class="navigationButtons">
+                    <h2>Py</h2>
+                    <img class="iconSidebar navigationIcon" src="img/userIcon.svg" >
+                    <img class="iconSidebar navigationIcon" src="img/storeIcon.svg">
+                    <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">
+                    <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                    <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+                </div>
+                <div class="footerButtons">
+                    <img class="iconSidebar" src="img/settingIcon.svg">
+                    <img class="iconSidebar" src="img/exitIcon.svg">
+                </div>
+            </div>
+        </nav>
+        <header class="header">
+            <div class="container">
+                <h3>Home</h3>
+                <div class="user">
+                    <h4>Usuário</h4>
+                    <img class="iconUser" src="img/personIcon.svg">
+                </div>
+            </div>
+        </header>
+        <div class="guideText">
+                <span class="welcomeSentence">Gerenciamento Funcionarios</span>
+                <span class="firstStep">Funcionarios</span>
+        </div>
+        <main class="main">
+            <section class="registerCompany">
+                <form class="formRegisterCompany">
+                    <h3 class="titleFormRegisterCompany">Cadastre seu Funcionário</h3>
+                    <div class="inputCampo">
+                    <select class="inputRegisterFuncionarios unidadeFuncionario" >
+                        <option value="unidade">Unidade</option>
+                    </select>
+                    <select class="inputRegisterFuncionarios cargoFuncionario">
+                        <option value="cargo">Cargo</option>
+                        <option value="supervisor">Supervisor</option>
+                        <option value="tecnico">Tecnico</option>
+                    </select>
+                    <input class="inputRegisterFuncionarios nomeFuncionario" type="text" placeholder="Nome Completo" id="idNomeFuncionario">
+                    <input class="inputRegisterFuncionarios cpfFuncionario" type="text" placeholder="CPF" id="idCpfFuncioonario">
+                    <input class="inputRegisterFuncionarios emailFuncionario" type="email" placeholder="Email">
+                    <input class="inputRegisterFuncionarios senha" type="text" placeholder="Senha">
+                    <input class="inputRegisterFuncionarios confirmaçãoSenha" type="text" placeholder="Confirmação de Senha">
+                    </div>
+                    <button class="btnRegister">Cadastrar</button>
+                </form>
+            </section>
+            <section class="registerUnit">
+                <form class="formRegisterUnit">
+                    <h3 class="titleFormRegisterUnit">Funcionarios Cadastrados</h3>
+                    <hr>
+                    <div class="caixaFuncionariosCadastrados">
+                        <div class="boxspan">
+                            <span class="logoFuncionarios"></span>
+                            <div class="blocoFuncionarios">
+                                <span id="nomeFuncionario" class="nomeFun">Nome funcionario</span>
+                                <span id="cargoUnid" class="cargoUnid">
+                                    Cargo - Unidade</span>
+                            </div>
+                            <div class="divEditarExluir">
+                                <div class="caixaAzulEditar">
+                                    <span class="editar"></span>
+                                </div>
+                                <div class="caixaVermelhaExcluir">
+                                    <span class="excluir"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </section>
+        </main>
+</body>
+</html>
