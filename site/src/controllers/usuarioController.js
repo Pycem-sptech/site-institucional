@@ -24,65 +24,36 @@ function listar(req, res) {
         );
 }
 
-function verificarEmail(email){
-    var email = req.body.emailServer;
+function verificarEmail(req, res) {
+    var email = req.params.email;
 
-    if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    }else {
-        
-        usuarioModel.verificarEmail(email)
-            .then(
-                function (resultado) {
-                    console.log(`\nResultados encontrados: ${resultado.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
-
-                    if (resultado.length == 0) {
-                        console.log(resultado);
-                        res.json(resultado[0]);
-                    } 
-                     else {
-                        res.status(403).send("O email já existe!");
-                    }
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
+    usuarioModel.verificarEmail(email).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
 }
-function verificarCpf(){
-    var cpf = req.body.cpfServer;
 
-    if (cpf == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    }else {
-        
-        usuarioModel.verificarCpf(cpf)
-            .then(
-                function (resultado) {
-                    console.log(`\nResultados encontrados: ${resultado.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+function verificarCpf(req, res) {
+    var cpf = req.params.cpf;
 
-                    if (resultado.length == 0) {
-                        console.log(resultado);
-                        res.json(resultado[0]);
-                    } 
-                     else {
-                        res.status(403).send("cpf já existe!");
-                    }
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
+    usuarioModel.verificarCpf(cpf).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
 }
 
 function entrar(req, res) {
