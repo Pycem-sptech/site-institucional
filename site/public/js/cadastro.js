@@ -1,7 +1,7 @@
-var emailExiste = sessionStorage.getItem("EMAIL_EXISTE");
-var cpfExiste = sessionStorage.getItem("CPF_EXISTE");
 
 function criarConta() {
+  var emailExistente = sessionStorage.getItem("EMAIL_EXISTE");
+  var cpfExiste = sessionStorage.getItem("CPF_EXISTE");
   sessionStorage.clear();
   const nome = document.getElementById("name");
   const email = document.getElementById("email");
@@ -64,10 +64,11 @@ function criarConta() {
   }
 
  
-  console.log(emailExiste);
+  console.log(emailExistente);
   console.log(cpfExiste);
 
-  if (emailExiste == "true") {
+  if (emailExistente == "true") {
+    sessionStorage.clear();
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
@@ -85,6 +86,7 @@ function criarConta() {
       title: "O email digitado já está cadastrado",
     });
   } else if (cpfExiste == "true") {
+    sessionStorage.clear();
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
@@ -154,18 +156,14 @@ function criarConta() {
 }
 
 function validarEmail(emailVar) {
-  console.log(emailVar);
-
   fetch(`/usuario/verificarEmail/${emailVar}`)
     .then(function (resposta) {
       if (resposta.ok) {
-        validado = false;
         if (resposta.status == 204) {
           console.log("Nenhum resultado encontrado!!");
-          sessionStorage.EMAIL_EXISTE = false;
           throw "Nenhum resultado encontrado!!";
         }
-        resposta.json().then(function (resposta) {
+          resposta.json().then(function (resposta) {
           console.log("Dados recebidos: ", JSON.stringify(resposta));
           console.log("O email " + resposta[0].email + " já existe");
           sessionStorage.EMAIL_EXISTE = true;
@@ -177,7 +175,7 @@ function validarEmail(emailVar) {
     .catch(function (resposta) {
       console.error(resposta);
     });
-
+  sessionStorage.EMAIL_EXISTE = false;
   return false;
 }
 
@@ -187,7 +185,6 @@ function validarCpf(cpfVar) {
       if (resposta.ok) {
         if (resposta.status == 204) {
           console.log("Nenhum resultado encontrado!!");
-          sessionStorage.CPF_EXISTE = false;
           throw "Nenhum resultado encontrado!!";
         }
         resposta.json().then(function (resposta) {
@@ -202,5 +199,7 @@ function validarCpf(cpfVar) {
     .catch(function (resposta) {
       console.error(resposta);
     });
+
+    sessionStorage.CPF_EXISTE = false;
   return false;
 }
