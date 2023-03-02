@@ -203,3 +203,37 @@ function validarCpf(cpfVar) {
     sessionStorage.CPF_EXISTE = false;
   return false;
 }
+
+// funcao reCAPCHA
+
+function mostrarRegra() {
+  let recaptcha = document.getElementById('recaptcha');
+  let regraSenha = document.getElementById('sessionSenha');
+
+  recaptcha.style.display="none";
+  regraSenha.style.display="";
+
+}
+
+function ocultarRegra() {
+  let recaptcha = document.getElementById('recaptcha');
+  let regraSenha = document.getElementById('sessionSenha');
+
+  recaptcha.style.display="";
+  regraSenha.style.display="none";
+
+}
+
+function reCaptcha() {
+  let form = document.querySelector('#formRegister');
+  form.addEventListener('submit',  e => {
+    e.preventDefault();
+    
+    grecaptcha.execute();
+       
+  });
+    
+  criarConta();
+
+}
+
