@@ -32,17 +32,15 @@
     display: flex;
 }
 .registerCompany{
-    width: 35%;
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
-.registerUnit{
-    width: 60%;
-}
+
 .formRegisterCompany{
     background-color: #fff;
     height: 85%;
-    width: 86%;
+    width: 25%;
     margin-right: 8px;
     margin-top: 10px;
     border-radius: 10px;
@@ -53,20 +51,7 @@
     align-items: center;
     justify-content: space-evenly;
 }
-.formRegisterUnit{
-    background-color: #fff;
-    height: 75%;
-    width: 98%;
-    margin-left: 8px;
-    margin-top: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
-    display: flex;
-    padding: 10px;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-}
+
 input{
     height: 40px;
     border-radius: 10px;
@@ -74,6 +59,7 @@ input{
     outline: none;
     font-size: 15px;
     padding-left: 35px;
+
 }
 .inputRegisterCompany{
     width: 70%;
@@ -96,69 +82,20 @@ input{
     font-weight: 500;
     box-shadow: 0px 5px  6px 0px rgba(0, 0, 0, 0.20);
 }
-.unit{
-    justify-self: center;
-    width: 35%;
-}
-.titleFormRegisterUnit{
-    align-self: flex-start;
-    margin-left: 5.5%;
-    margin-top: 3px;
-}
-.boxInputUnit{
-    padding: 0 5.5%;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: space-between;
-    height: 50%;
-}
-.nomeUnit{
-    width: 40%;
-    margin-right: 10px;
-    background: url(../img/storeIconOpacity.svg) no-repeat left / 2.0em;
-    padding-left:35px ;
-}
-.cepUnit{
-    width: 40%;
-    background: url(../img/alfineteIcon.svg) no-repeat left / 1.8em;
-}
-.ufUnit{
-    width: 5%;
-    margin-right: 10px;
-    background: url(../img/bandeiraIcon.svg) no-repeat left / 2.0em;
-}
-.cidadeUnit{
-    width: 25%;
-    margin-right: 10px;
-    background: url(../img/cidadeIcon.svg) no-repeat left / 1.8em;
-}
-.logradouroUnit{
-    width: 43%;
-    background: url(../img/localizacaoIcon.svg) no-repeat left / 1.8em;
-}
-.bairroUnit{
-    width: 20%;
-    margin-right: 10px;
-    background: url(../img/bairroIcon.svg) no-repeat left / 2.0em;
-}
-.numeroUnit{
-    width: 15%;
-    margin-right: 10px;
-    background: url(../img/numeroIcon.svg) no-repeat left / 2.0em;
-}
-.telefoneUnit{
-    width: 38%;
-    background: url(../img/telefoneIcon.svg) no-repeat left / 2.0em;
-}
+
+
 .nomeCompany{
     background: url(../img/user_icon.svg) no-repeat left / 2.0em;
 }
 .emailCompany{
     background: url(../img/mail_icon.svg) no-repeat left / 2.0em;
+    background-position: 5px;
 }
 .telefoneCompany{
     background: url(../img/telefoneIcon.svg) no-repeat left / 2.0em;
 }
 .cnpjCompany{
     background: url(../img/idIcon.svg) no-repeat left / 2.0em;
+    background-position: 5px;
+    padding-left: 40px;
 }
