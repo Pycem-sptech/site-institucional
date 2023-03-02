@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pycem</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/cadastroEmpresa.css">
+    <script src="./js/cadastro.js"></script>
+    <script src="./js/geral.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    
+</head>
+<body>
+    <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
+    <nav class="sidebar">
+        <div class="container">
+            <div class="navigationButtons">
+                <h2>Py</h2>
+                <img class="iconSidebar navigationIcon" src="img/userIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+            </div>
+            <div class="footerButtons">
+                <img class="iconSidebar" src="img/settingIcon.svg">
+                <img class="iconSidebar" src="img/exitIcon.svg">
+            </div>
+        </div>
+    </nav>
+    <header class="header">
+        <div class="container">
+            <h3>Home</h3>
+            <div class="user">
+                <h4>Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg">
+            </div>
+        </div>
+    </header>
+    <div class="guideText">
+            <span class="welcomeSentence">Olá <span>Usuário</span>, seja bem-vindo!</span>
+            <span class="firstStep">Primeiros passos</span>
+    </div>
+    <main class="main">
+        <section class="registerCompany">
+            <form class="formRegisterCompany">
+                <h3 class="titleFormRegisterCompany">Cadastre sua empresa</h3>
+                <input class="inputRegisterCompany nomeCompany" type="text" placeholder="Nome Fantasia">
+                <input class="inputRegisterCompany cnpjCompany" type="text" placeholder="CNPJ" id="idCnpj">
+                <input class="inputRegisterCompany telefoneCompany" type="tel" placeholder="Telefone" id="idTelefoneEmpresa">
+                <input class="inputRegisterCompany emailCompany" type="email" placeholder="Email">
+                <button class="btnRegister">Cadastrar</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
+<script>
+    $(document).ready(function(){
+		$("#idTelefoneEmpresa").mask("(99) 99999-9999");
+		$("#idCnpj").mask("99.999.999/9999-99");
+	});
+</script>
