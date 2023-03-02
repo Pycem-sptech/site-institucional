@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/cadastro.css">
+    <link rel="stylesheet" href="css/padrao.css">
+    <script src="js/validacao.js"></script>
+    <title>Cadastre-se | Pycem²</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="headerTitle">
+                <h1>Pycem²</h1>
+            </a>
+            <nav class="navbar">
+                <a class="navbtn" href="">Produto</a>
+                <a class="navbtn" href="">Sobre nós</a>
+                <a class="navbtn" href="">Solução</a>
+                <a class="navbtn btnRegister" href="cadastro.html"><b>Registrar-se</b></a>
+            </nav>
+        </div>
+    </header>
+    <main class="mainContent">
+        <section class="banner">
+            <div class="btnLoginRegister">
+                <span class="spanOption">Cadastre-se <span class="transparency">/ Login</span></span>
+            </div>
+            <div class="imgBanner">
+                <img src="img/New entries-amico 1.svg"
+                    alt="Mulher sentada em uma poltrona com um notebook realizando cadastro em um site">
+            </div>
+        </section>
+        <section class="register">
+            <form class="formRegister" action="">
+                <label class="labelForm">Cadastro Empresa</label>
+                <input placeholder="Razão social" class="inputRegister name" type="text">
+                <input placeholder="Email" class="inputRegister email" type="email">
+                <input placeholder="CPF" class="inputRegister cpf" type="text" maxlength="11">
+                <input placeholder="Senha" class="inputRegister password" type="password" 
+                    onkeyup="mostrarSituacaoSenha(validarSenha(this))">
+                <input placeholder="Confirmação de senha" class="inputRegister password" type="password">
+                <section class="situacaoSenha">
+                    <div class="titulo">
+                        <p>Sua senha deve conter: </p>
+                    </div>
+                    <div class="colunas">
+                        <div class="coluna">
+                            <span id="digito" class="dadosEsquerda"><img src="img/linha.svg" alt=""> 6 dígitos</span>
+                            <span id="maiuscula" class="dadosDireita"><img src="img/linha.svg" alt=""> Letra
+                                maiúculas</span>
+                        </div>
+                        <div class="coluna direita">
+                            <span id="caracterEspecial"><img src="img/linha.svg" alt=""> Carac. Especial</span>
+                            <span id="numeros"><img src="img/linha.svg" alt=""> Números</span>
+                        </div>
+                    </div>
+                </section>
+
+                <button class="btnForm">Cadastrar</button>
+            </form>
+
+
+        </section>
+    </main>
+</body>
+
+</html>
