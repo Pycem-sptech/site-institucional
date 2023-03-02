@@ -21,8 +21,21 @@ fkEmpresa int not null, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
 primary key(idUsuario, fkEmpresa)
 );
 
-create table endereco(
-idEndereco int primary key auto_increment,
+-- create table endereco(
+-- idEndereco int primary key auto_increment,
+-- sigla CHAR(2) not null,
+-- cidade VARCHAR(60) not null,
+-- logradouro VARCHAR(70) not null,
+-- bairro VARCHAR(70) not null, 
+-- numero INT not null,
+-- cep CHAR(9) not null,
+-- complemento VARCHAR(80)
+-- );
+
+create table unidade(
+idUnidade int auto_increment,
+nome varchar(45) not null,
+telefone varchar(13) not null,
 sigla CHAR(2) not null,
 cidade VARCHAR(60) not null,
 logradouro VARCHAR(70) not null,
@@ -30,14 +43,7 @@ bairro VARCHAR(70) not null,
 numero INT not null,
 cep CHAR(9) not null,
 complemento VARCHAR(80)
-);
-
-create table unidade(
-idUnidade int auto_increment,
-nome varchar(45) not null,
-telefone varchar(13) not null,
 fkEmpresa int not null, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
-fkEndereco int not null unique, FOREIGN KEY (fkEndereco) REFERENCES endereco(idEndereco),
 primary key(idUnidade, fkEmpresa)
 );
 

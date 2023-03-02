@@ -20,6 +20,7 @@ function entrar(email, senha) {
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
 function cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero, complemento) {
+<<<<<<< HEAD
     console.log(nome);
     console.log(telefone);
     console.log(fkEmpresa);
@@ -41,10 +42,16 @@ function cadastrarUnidade(nome, telefone, fkEmpresa) {
     var instrucao = `
         INSERT INTO unidade (nome, telefone, fkEmpresa, fkEndereco) VALUES ('${nome}', '${telefone}', 1,1));
     `;
+=======
+    var instrucao = `
+    INSERT INTO unidade (nome, telefone, cep, sigla, cidade, logradouro, bairro, numero, complemento, fkEmpresa) VALUES ('${nome}', '${telefone}', '${cep}', '${uf}', '${cidade}', '${logragouro}', '${bairro}', '${numero}', '${complemento}' , 1);
+`;
+>>>>>>> 14cde49f51208ef38234a5b1c52f592ae8238965
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
+<<<<<<< HEAD
 function cadastrarEndereco(cep, uf, cidade, logragouro, bairro, numero, complemento) {
     console.log("ACESSEI O unidade MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", cep, uf, cidade, logragouro, bairro, numero, complemento);
     
@@ -59,6 +66,8 @@ function cadastrarEndereco(cep, uf, cidade, logragouro, bairro, numero, compleme
 }
 
 
+=======
+>>>>>>> 14cde49f51208ef38234a5b1c52f592ae8238965
 
 function deletar(idAviso) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idAviso);
