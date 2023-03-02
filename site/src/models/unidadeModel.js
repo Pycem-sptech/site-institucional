@@ -20,23 +20,33 @@ function entrar(email, senha) {
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
 function cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero, complemento) {
+    console.log(nome);
+    console.log(telefone);
+    console.log(fkEmpresa);
+    console.log(cep);
+    console.log(uf);
+    console.log(cidade);
+    console.log(logragouro);
+    console.log(bairro);
+    console.log(numero);
+    console.log(complemento);
     cadastrarEndereco(cep, uf, cidade, logragouro, bairro, numero, complemento);
     cadastrarUnidade(nome, telefone, fkEmpresa);
 }
 function cadastrarUnidade(nome, telefone, fkEmpresa) {
-    console.log("ACESSEI O unidade MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
+    console.log("ACESSEI O unidade MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO unidade (nome, telefone, fkEmpresa, fkEndereco) VALUES ('${nome}', '${telefone}' 1);
+        INSERT INTO unidade (nome, telefone, fkEmpresa, fkEndereco) VALUES ('${nome}', '${telefone}', 1,1));
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
 function cadastrarEndereco(cep, uf, cidade, logragouro, bairro, numero, complemento) {
-    console.log("ACESSEI O unidade MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
+    console.log("ACESSEI O unidade MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", cep, uf, cidade, logragouro, bairro, numero, complemento);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
@@ -65,4 +75,6 @@ module.exports = {
     cadastrar,
     listar,
     deletar,
+    cadastrarUnidade,
+    cadastrarEndereco
 };

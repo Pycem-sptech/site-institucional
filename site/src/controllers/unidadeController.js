@@ -72,6 +72,7 @@ function cadastrar(req, res) {
     var bairro = req.body.bairroServer;
     var numero = req.body.numeroServer;
     var complemento = req.body.complementoServer;
+
     // nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero, complemento
 
     // Faça as validações dos valores

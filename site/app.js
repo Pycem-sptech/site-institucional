@@ -13,7 +13,8 @@ var usuarioRouter = require("./src/routes/usuarios");
 var empresaRouter = require("./src/routes/empresa");
 var unidadeRouter = require("./src/routes/unidade");
 var avisosRouter = require("./src/routes/avisos");
-var maquinaRouter = require("./src/routes/maquina");
+var medidasRouter = require("./src/routes/medidas");
+// var maquinaRouter = require("./src/routes/maquina");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -27,7 +28,7 @@ app.use("/empresa", empresaRouter);
 app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter)
 app.use("/unidade", unidadeRouter)
-app.use("/maquina", maquinaRouter)
+// app.use("/maquina", maquinaRouter)
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
