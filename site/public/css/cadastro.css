@@ -23,8 +23,9 @@
     width: 45%;
     font-weight: 500;
 }
-.transparency{
+.transparency a{
     color: rgba(0, 0, 0, 0.31);
+    text-decoration: none;
 }
 .imgBanner{
     height: 80%;

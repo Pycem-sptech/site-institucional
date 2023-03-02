@@ -22,7 +22,7 @@ var mySqlConfig = {
     host: "localhost",
     database: "pycem",
     user: "root",
-    password: "31052001",
+    password: "root",
 };
 
 function executar(instrucao) {

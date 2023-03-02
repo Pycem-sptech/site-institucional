@@ -73,7 +73,8 @@
     justify-content: center;
 }
 .formRegister{
-    height: 50%;
+    /* background-color: #61A5E3; */
+    height: 55%;
     width: 350px;
     border: 2px solid rgba(0, 0, 0, 0.14);
     border-radius: 13px;
@@ -162,7 +163,6 @@
         font-size: 15px;
         padding: 6px;
         border-radius: 6px;
-        
     }
     .headerTitle{
         font-size: 26px;
@@ -207,6 +207,12 @@
         background: url(../img/user_icon.svg) no-repeat left / 1.5em;
         padding-left: 25px;
     }
+
+    .email{
+        background: url(../img/mail_icon.svg) no-repeat left / 1.5em;
+        padding-left: 25px;
+    }
+    
     .password{
         background: url(../img/key_icon.svg) no-repeat left / 1.5em;
         padding-left: 25px;
@@ -238,7 +244,7 @@
     .spanOption{
         width:41%;
     }
-     
+
 }
 
 @media (max-width:320px){
@@ -260,5 +266,5 @@
     .spanOption{
         width:50%;
     }
-    
+
 }
