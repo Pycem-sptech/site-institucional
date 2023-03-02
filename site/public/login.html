@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
     <title>Login</title>
+    <script src="./js/login.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script> 
 </head>
 <body>
     <header class="header">
@@ -29,14 +32,13 @@
             </div>
         </section>
         <section class="register">
-            <form class="formRegister" action="">
-                <label class="labelForm">Login</label>
-                <input placeholder="Email" class="inputRegister email" type="email">
-                <input placeholder="Senha" class="inputRegister password" type="password">
-                <button class="btnForm">Entra</button>
-            </form>
 
-            
+            <div class="formRegister" action="">
+                <label class="labelForm">Login</label>
+                <input placeholder="Email" class="inputRegister email" id="email" type="email">
+                <input placeholder="Senha" class="inputRegister password" id="password" type="password">
+                <button class="btnForm" onclick="fazerLogin()">Entrar</button>
+            </div>
         </section>
     </main>
 </body>
