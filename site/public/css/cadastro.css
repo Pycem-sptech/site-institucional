@@ -56,20 +56,13 @@
     /* padding-left: 5px; */
 }
 
-<<<<<<< HEAD:site/public/css/cadastro.css
-=======
-
->>>>>>> 65f01e0911e557532af5661aa53ab41914fa8f58:public/css/cadastro.css
 .situacaoSenha {
     padding: 10px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-<<<<<<< HEAD:site/public/css/cadastro.css
-    height: 23%;
-=======
->>>>>>> 65f01e0911e557532af5661aa53ab41914fa8f58:public/css/cadastro.css
+    height: 15%;
 }
 
 .titulo {
@@ -104,12 +97,6 @@
     margin: 0 3px 0 3px;
 }
 
-<<<<<<< HEAD:site/public/css/cadastro.css
-=======
-
-
-
->>>>>>> 65f01e0911e557532af5661aa53ab41914fa8f58:public/css/cadastro.css
 .btnForm{
     margin-top: 10px;
     height: 40px;
@@ -243,11 +230,6 @@
         padding-left: 25px;
     }
 
-<<<<<<< HEAD:site/public/css/cadastro.css
-=======
-
-
->>>>>>> 65f01e0911e557532af5661aa53ab41914fa8f58:public/css/cadastro.css
     .btnForm{
         height: 35px;
         width: 140px;
