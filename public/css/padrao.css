@@ -63,98 +63,14 @@ a {
   display: none;
 }
 @media (max-width:800px) {
-    .navbar{
-        display: flex;
-        position: absolute;
-        visibility: hidden;
-        width: 40%;
-        top: 0px;
-        right: 0px;
-        background: #61A5E3;
-        transition: 0.6s;
-        z-index: 1000;
-        height: 0px;
-        overflow-y: hidden;
-        justify-content: center;
-    }
-    .btnSairMenu{
-      display: block;
-      cursor: pointer;
+    .hiddenMobile{
+      display: none;
     }
     .navbar ul{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        justify-content: flex-end;
         height: 40%;
         width: 80%;
-        /* background-color: red; */
-    }
-    .btnRegister{
-        background-color: #fff;
-        color: #61A5E3;
-    }
-    .btnHamburguer{
-        display: block;
-        background: url(../img/menuHamburguer.svg) no-repeat left / 2em;
-        height: 35px;
-        width: 30px;
-        border: none;
-        cursor: pointer;
         
     }
 
-    .navbar.active  {
-        height: 100vh;
-        visibility: visible;
-        overflow-y: auto;
-      }
-      /* .navbar::after {
-        content: "sair";
-        display: block;
-        width: 20px;
-        height: 2px;
-        
-        right: 0px;
-        margin-top: 5px;
-        transition: 0.3s;
-      } */
-      /* ARRUMAR */
-      /* .navbar a {
-        padding: 1rem 0;
-        margin: 0 1rem;
-        border-bottom: 2px solid rgba(0, 0, 0, 0.05);
-      }
-      .btnHamburguer {
-        display: flex;
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-        border: none;
-        background: none;
-        cursor: pointer;
-      }
-      .btnHamburguer {
-        /* border-top: 2px solid; */
-        /* width: 20px;
-      }  */
-      /* .btnHamburguer::after,
-      .btnHamburguer::before {
-        content: '';
-        display: block;
-        width: 20px;
-        height: 2px;
-        background: currentColor;
-        margin-top: 5px;
-        transition: 0.3s;
-        position: relative;
-      } */
-      /* .navbar.active .btnHamburguer {
-        border-top-color: transparent;
-      } */
-      /* .navbar.active .btnHamburguer::before {
-        transform: rotate(135deg);
-      }
-      .navbar.active .btnHamburguer::after {
-        transform: rotate(-135deg);
-        top: -7px;
-      } */
 }

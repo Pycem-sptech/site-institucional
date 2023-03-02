@@ -12,12 +12,10 @@
     <header id="header" class="header">
         <div class="container">
             <a href="index.html"class="headerTitle"><h1 >Pycem²</h1></a>
-            <button class="btnHamburguer" id="btnHamburguer"></button>
             <nav class="navbar" id="nav">
                 <ul>
-                    <li class="btnSairMenu"><img src="img/sairMenu.svg"></li>
-                    <li><a class="navbtn" href="#sectionUm">Home</a></li>
-                    <li><a class="navbtn" href="#sectionDois">Solução</a></li>
+                    <li class="hiddenMobile"><a class="navbtn" href="#sectionUm">Home</a></li>
+                    <li class="hiddenMobile"><a class="navbtn" href="#sectionDois">Solução</a></li>
                     <li><a class="navbtn btnRegister" href="cadastro.html">Registrar-se</a></li>
                 </ul>
             </nav>
@@ -134,17 +132,7 @@
 </body>
 </html>
 <script>
-    const btnMobile = document.getElementById('btnHamburguer');
-
-function toggleMenu(event) {
-  if (event.type === 'touchstart') event.preventDefault();
-  const nav = document.getElementById('nav');
-  nav.classList.toggle('active');
-}
-
-btnMobile.addEventListener('click', toggleMenu);
-btnMobile.addEventListener('touchstart', toggleMenu);
-
+  
     function paginaCadastro(){
         window.location="cadastro.html"
     }
