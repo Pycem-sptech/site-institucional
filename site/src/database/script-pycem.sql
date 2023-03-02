@@ -36,14 +36,14 @@ primary key(idUsuario, fkEmpresa)
 create table unidade(
 idUnidade int auto_increment,
 nome varchar(45) not null,
-telefone varchar(13) not null,
+telefone varchar(15) not null,
 sigla CHAR(2) not null,
 cidade VARCHAR(60) not null,
 logradouro VARCHAR(70) not null,
 bairro VARCHAR(70) not null, 
 numero INT not null,
 cep CHAR(9) not null,
-complemento VARCHAR(80)
+complemento VARCHAR(80),
 fkEmpresa int not null, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
 primary key(idUnidade, fkEmpresa)
 );
