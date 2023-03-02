@@ -13,6 +13,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var empresaRouter = require("./src/routes/empresa");
 var unidadeRouter = require("./src/routes/unidade");
 var avisosRouter = require("./src/routes/avisos");
+var medidasRouter = require("./src/routes/medidas")
 var maquinaRouter = require("./src/routes/maquina");
 
 app.use(express.json());

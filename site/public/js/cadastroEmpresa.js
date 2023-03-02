@@ -37,22 +37,22 @@ function cadastrarEmp() {
     }
 
 function cadastrarUni(){
-    const nomeVar = idNome.value;
-    const telefoneVar = idTelefoneEmpresa.value;
-    const cepVar = idCep.value;
-    const fkEmpresaVar = sessionStorage.fkEmpresa;
-    const ufVar = idUf.value;
-    const cidadeVar = idCidade.value;
-    const logradouroVar = idLogradouro.value;
-    const bairroVar = idBairro.value;
-    const numeroVar = idNumero.value;
-    const complementoVar = idComplemento.value;
+    // const nomeVar = nomeUnit.value;
+    // const telefoneVar = telefoneUnit.value;
+    // const cepVar = cepUnit.value;
+    // const fkEmpresaVar = 1;//sessionStorage.fkEmpresa;
+    // const ufVar = ufUnit.value;
+    // const cidadeVar = cidadeUnit.value;
+    // const logradouroVar = logradouroUnit.value;
+    // const bairroVar = bairroUnit.value;
+    // const numeroVar = numeroUnit.value;
+    // const complementoVar = "";
 
     if (nomeVar == "") {
         
         return false;
     }
-        fetch("/empresa/cadastrar", {
+        fetch("/unidade/cadastrar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
