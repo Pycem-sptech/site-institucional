@@ -37,16 +37,16 @@ function cadastrarEmp() {
     }
 
 function cadastrarUni(){
-    // const nomeVar = nomeUnit.value;
-    // const telefoneVar = telefoneUnit.value;
-    // const cepVar = cepUnit.value;
-    // const fkEmpresaVar = 1;//sessionStorage.fkEmpresa;
-    // const ufVar = ufUnit.value;
-    // const cidadeVar = cidadeUnit.value;
-    // const logradouroVar = logradouroUnit.value;
-    // const bairroVar = bairroUnit.value;
-    // const numeroVar = numeroUnit.value;
-    // const complementoVar = "";
+    const nomeVar = nomeUnit.value;
+    const telefoneVar = telefoneUnit.value;
+    const cepVar = cepUnit.value;
+    const fkEmpresaVar = 1;//sessionStorage.fkEmpresa;
+    const ufVar = ufUnit.value;
+    const cidadeVar = cidadeUnit.value;
+    const logradouroVar = logradouroUnit.value;
+    const bairroVar = bairroUnit.value;
+    const numeroVar = numeroUnit.value;
+    const complementoVar = "";
 
     if (nomeVar == "") {
         
