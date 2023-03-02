@@ -4,9 +4,10 @@ use pycem;
 
 create table empresa(
 idEmpresa int primary key auto_increment,
-nome_fantasia varchar(60) not null,
-cnpj varchar(15) not null,
-telefone varchar(13) not null,
+nome varchar(60) not null,
+cnpj varchar(18) not null,
+telefone varchar(15) not null,
+email varchar(100) not null unique,
 data_cadastro datetime not null default current_timestamp
 );
 
@@ -21,23 +22,29 @@ fkEmpresa int not null, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
 primary key(idUsuario, fkEmpresa)
 );
 
-create table endereco(
-idEndereco int primary key auto_increment,
+-- create table endereco(
+-- idEndereco int primary key auto_increment,
+-- sigla CHAR(2) not null,
+-- cidade VARCHAR(60) not null,
+-- logradouro VARCHAR(70) not null,
+-- bairro VARCHAR(70) not null, 
+-- numero INT not null,
+-- cep CHAR(9) not null,
+-- complemento VARCHAR(80)
+-- );
+
+create table unidade(
+idUnidade int auto_increment,
+nome varchar(45) not null,
+telefone varchar(15) not null,
 sigla CHAR(2) not null,
 cidade VARCHAR(60) not null,
 logradouro VARCHAR(70) not null,
 bairro VARCHAR(70) not null, 
 numero INT not null,
 cep CHAR(9) not null,
-complemento VARCHAR(80)
-);
-
-create table unidade(
-idUnidade int auto_increment,
-nome varchar(45) not null,
-telefone varchar(13) not null,
+complemento VARCHAR(80),
 fkEmpresa int not null, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
-fkEndereco int not null unique, FOREIGN KEY (fkEndereco) REFERENCES endereco(idEndereco),
 primary key(idUnidade, fkEmpresa)
 );
 
