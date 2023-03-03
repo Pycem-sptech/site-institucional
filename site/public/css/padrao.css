@@ -72,5 +72,14 @@ a {
         width: 80%;
         
     }
+}
+@media (max-width:500px){
 
+    .btnRegister{
+        padding: 5px;
+        font-size: 13px;
+    }
+    .navbar{
+        width: 45%;
+    }
 }

@@ -57,13 +57,16 @@ SESSÃO DOIS
     justify-content: center;
     align-items: center;
 }
+.sectionDois .corpo{
+    width: 35%;
+}
 
 .corpoTitBen {
     font-size: 50px;
 }
 
 .corpoTxtBen {
-    width: 70%;
+    width: 75%;
     margin: 5% 0;
 }
 
@@ -138,8 +141,9 @@ SEÇÃO TRÊS
 
 .sectionFilho {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    width: 67%;
+    width: 77%;
 }
 
 .bannerTitulo {
@@ -192,7 +196,7 @@ footer {
 }
 
 .divPycem {
-    margin: 3% 0 0 17%;
+    margin: 3% 0 0 12%;
     font-weight: 500;
     font-size: 25px;
 }
@@ -200,7 +204,7 @@ footer {
 .caixas {
     margin: 3%;
     width: 40%;
-    margin-right: 10%;
+    margin-right: 9%;
     display: flex;
     flex-direction: row;
 }
@@ -274,6 +278,9 @@ footer {
     }
     .card{
         width: 100%;
+    }
+    .imagemBanner{
+        height: 85%;
     }
 }
 
