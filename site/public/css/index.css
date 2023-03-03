@@ -1,6 +1,8 @@
+
 html{
     scroll-behavior: smooth;
 }
+
 
 /*
 PRIMEIRA SESSÃO
@@ -61,12 +63,15 @@ SESSÃO DOIS
     width: 35%;
 }
 
+
 .corpoTitBen {
     font-size: 50px;
 }
 
 .corpoTxtBen {
+
     width: 75%;
+
     margin: 5% 0;
 }
 
@@ -94,6 +99,7 @@ edição dos cards
     display: flex;
     flex-direction: row;
     justify-content: center;
+
 }
 
 .card {
@@ -136,6 +142,7 @@ SEÇÃO TRÊS
     display: flex;
     justify-content: center;
     margin: 0;
+
     background: linear-gradient(90deg, rgba(0,111,214,1) 0%, rgba(36,187,197,1) 81%, rgba(0,111,214,1) 100%);
 }
 
@@ -144,6 +151,7 @@ SEÇÃO TRÊS
     justify-content: space-between;
     align-items: center;
     width: 77%;
+
 }
 
 .bannerTitulo {
@@ -196,7 +204,9 @@ footer {
 }
 
 .divPycem {
+
     margin: 3% 0 0 12%;
+
     font-weight: 500;
     font-size: 25px;
 }
@@ -237,6 +247,7 @@ footer {
     color: rgba(255, 255, 255, 0.75);
     font-weight: 200;
     margin: 2% 0;
+
 }
 
 /* MEDIA QUERIES */
@@ -384,3 +395,4 @@ footer {
     width: 26%;
    }
 }
+
