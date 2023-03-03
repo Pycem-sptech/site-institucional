@@ -228,8 +228,13 @@ function reCaptcha() {
   let form = document.querySelector('#formRegister');
   form.addEventListener('submit',  e => {
     e.preventDefault();
+    let execucao = grecaptcha.execute();
+    if(execucao){
+      alert("funcionou")
+    }else{
+      alert("nao funcionou")
+    }
     
-    grecaptcha.execute();
        
   });
     
