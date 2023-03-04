@@ -1,24 +1,39 @@
 // sessão
 function validarSessao() {
 
-    var email = sessionStorage.EMAIL_USUARIO;
-    var nome = sessionStorage.NOME_USUARIO;
+    var email = sessionStorage.USER_EMAIL;
+    var nome = sessionStorage.USER_NAME;
+    var fkEmpresa = sessionStorage.FK_EMPRESA;
 
-    var b_usuario = document.getElementById("b_usuario");
+    if (email != null && nome != null && fkEmpresa == "null") {
+        usuarioLogado.innerHTML = nome;
+        usuarioLogado2.innerHTML = nome;
 
-    if (email != null && nome != null) {
-        b_usuario.innerHTML = nome;
-        
-    } else {
-        window.location = "../login.html";
+    } else if(email != null && nome != null){
+        usuarioLogado.innerHTML = nome;
     }
+    // else {
+    //     window.location = "../login.html";
+    // }
 }
 
 function limparSessao() {
-    // aguardar();
-    sessionStorage.clear();
-    // finalizarAguardar();
-    window.location = "../login.html";
+    Swal.fire({
+        title: 'Tem certeza que deseja sair?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Não, quero ficar!',
+        confirmButtonText: 'Sim, quero sair!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+         
+          sessionStorage.clear();
+ 
+          window.location = "../index.html";
+        }
+      })
 }
 
 // API DO CEP
@@ -80,7 +95,22 @@ if (cep != "") {
     else {
         //cep é inválido.
         limpa_formulário_cep();
-        alert("Formato de CEP inválido.");
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: "error",
+            title: "Formato de CEP inválido.",
+          });
     }
 } //end if.
 else {

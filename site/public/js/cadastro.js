@@ -1,8 +1,7 @@
+var emailExiste = false;
+var cpfExiste = false;
 
 function criarConta() {
-  var emailExistente = sessionStorage.getItem("EMAIL_EXISTE");
-  var cpfExiste = sessionStorage.getItem("CPF_EXISTE");
-  sessionStorage.clear();
   const nome = document.getElementById("name");
   const email = document.getElementById("email");
   const cpf = document.getElementById("cpf");
@@ -14,21 +13,13 @@ function criarConta() {
   var cpfVar = cpf.value;
   var senhaVar = senha.value;
   var confirmaSenhaVar = confirmaSenha.value;
-  validarEmail(emailVar);
-  validarCpf(cpfVar);
 
-  if (
-    nomeVar == "" ||
-    emailVar == "" ||
-    cpfVar == "" ||
-    senhaVar == "" ||
-    confirmaSenhaVar == ""
-  ) {
+  if (nomeVar == "" || emailVar == "" || cpfVar == "" || senhaVar == "" || confirmaSenhaVar == "") {
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
       showConfirmButton: false,
-      timer: 5000,
+      timer: 3000,
       timerProgressBar: true,
       didOpen: (toast) => {
         toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -46,7 +37,7 @@ function criarConta() {
       toast: true,
       position: "top-end",
       showConfirmButton: false,
-      timer: 5000,
+      timer: 3000,
       timerProgressBar: true,
       didOpen: (toast) => {
         toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -58,22 +49,13 @@ function criarConta() {
       icon: "error",
       title: "Suas senhas não são iguais!",
     });
-
     return false;
-  } else {
-  }
-
- 
-  console.log(emailExistente);
-  console.log(cpfExiste);
-
-  if (emailExistente == "true") {
-    sessionStorage.clear();
+  } else if (emailExiste) {
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
       showConfirmButton: false,
-      timer: 5000,
+      timer: 3000,
       timerProgressBar: true,
       didOpen: (toast) => {
         toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -85,13 +67,12 @@ function criarConta() {
       icon: "error",
       title: "O email digitado já está cadastrado",
     });
-  } else if (cpfExiste == "true") {
-    sessionStorage.clear();
+  } else if (cpfExiste) {
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
       showConfirmButton: false,
-      timer: 5000,
+      timer: 3000,
       timerProgressBar: true,
       didOpen: (toast) => {
         toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -104,15 +85,12 @@ function criarConta() {
       title: "O cpf digitado já está cadastrado",
     });
   } else {
-    // Enviando o valor da nova input
     fetch("/usuario/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
 
         nomeServer: nomeVar,
         emailServer: emailVar,
@@ -142,7 +120,7 @@ function criarConta() {
           });
           setTimeout(() => {
             window.location = "./login.html";
-          }, "2000");
+          }, "3000");
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
@@ -161,12 +139,13 @@ function validarEmail(emailVar) {
       if (resposta.ok) {
         if (resposta.status == 204) {
           console.log("Nenhum resultado encontrado!!");
+          emailExiste = false;
           throw "Nenhum resultado encontrado!!";
         }
-          resposta.json().then(function (resposta) {
+        resposta.json().then(function (resposta) {
           console.log("Dados recebidos: ", JSON.stringify(resposta));
           console.log("O email " + resposta[0].email + " já existe");
-          sessionStorage.EMAIL_EXISTE = true;
+          emailExiste = true;
         });
       } else {
         throw "Houve um erro na API!";
@@ -175,7 +154,6 @@ function validarEmail(emailVar) {
     .catch(function (resposta) {
       console.error(resposta);
     });
-  sessionStorage.EMAIL_EXISTE = false;
   return false;
 }
 
@@ -185,12 +163,13 @@ function validarCpf(cpfVar) {
       if (resposta.ok) {
         if (resposta.status == 204) {
           console.log("Nenhum resultado encontrado!!");
+          cpfExiste = false;
           throw "Nenhum resultado encontrado!!";
         }
         resposta.json().then(function (resposta) {
           console.log("Dados recebidos: ", JSON.stringify(resposta));
           console.log("O cpf " + resposta[0].cpf + " já existe");
-          sessionStorage.CPF_EXISTE = true;
+          cpfExiste = true;
         });
       } else {
         throw "Houve um erro na API!";
@@ -200,40 +179,36 @@ function validarCpf(cpfVar) {
       console.error(resposta);
     });
 
-    sessionStorage.CPF_EXISTE = false;
   return false;
 }
 
 // funcao reCAPCHA
 
 function mostrarRegra() {
-  let recaptcha = document.getElementById('recaptcha');
-  let regraSenha = document.getElementById('sessionSenha');
+  let recaptcha = document.getElementById("recaptcha");
+  let regraSenha = document.getElementById("sessionSenha");
 
-  recaptcha.style.display="none";
-  regraSenha.style.display="";
-
+  recaptcha.style.display = "none";
+  regraSenha.style.display = "";
 }
 
 function ocultarRegra() {
-  let recaptcha = document.getElementById('recaptcha');
-  let regraSenha = document.getElementById('sessionSenha');
+  let recaptcha = document.getElementById("recaptcha");
+  let regraSenha = document.getElementById("sessionSenha");
 
-  recaptcha.style.display="";
-  regraSenha.style.display="none";
-
+  recaptcha.style.display = "";
+  regraSenha.style.display = "none";
 }
 
 function reCaptcha() {
-  let form = document.querySelector('#formRegister');
-  form.addEventListener('submit',  e => {
+  let form = document.querySelector("#formRegister");
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
     sendForm();
-    
   });
-  if(captchaOn){
+  if (captchaOn) {
     criarConta();
-  }else{
+  } else {
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
@@ -255,7 +230,6 @@ function reCaptcha() {
 
 var captchaOn = false;
 
-function sendForm(){
+function sendForm() {
   captchaOn = true;
-
 }

@@ -64,10 +64,18 @@ function fazerLogin() {
                 
                 sessionStorage.USER_EMAIL = json.email;
                 sessionStorage.USER_NAME = json.nome;
+                sessionStorage.USER_CARGO = json.cargo;
+                sessionStorage.FK_EMPRESA = json.fkEmpresa;
 
+              if(json.fkEmpresa == null && json.cargo == 'Dono'){
                 setTimeout(function () {
-                    window.location = "./cadastroEmpresa.html";
-                }, 2000); 
+                  window.location = "./cadastroEmpresa.html";
+              }, 2000); 
+              }else{
+                setTimeout(function () {
+                  window.location = "./cadastroUnidade.html";
+              }, 2000); 
+              }
             });
 
         } else {

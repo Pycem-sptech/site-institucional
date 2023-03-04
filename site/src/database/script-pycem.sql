@@ -8,9 +8,8 @@ nome varchar(60) not null,
 cnpj varchar(18) not null,
 telefone varchar(15) not null,
 email varchar(100) not null unique,
-
 data_cadastro datetime not null default current_timestamp
-);
+)auto_increment = 100;
 
 create table usuario(
 idUsuario int auto_increment primary key,
@@ -19,9 +18,9 @@ email varchar(100) not null unique,
 cpf varchar(45) not null,
 senha varchar(45) not null,
 cargo varchar(10) not null, constraint chkCargo check (cargo in('Tecnico','Supervisor','Dono')),
-fkEmpresa int not null, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+fkEmpresa int, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
-
+select * from usuario;
 -- create table endereco(
 -- idEndereco int primary key auto_increment,
 -- sigla CHAR(2) not null,

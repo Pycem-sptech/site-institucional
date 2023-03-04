@@ -11,9 +11,9 @@
     <title>Cadastre-se | Pycem²</title>
 
     <script src="./js/cadastro.js"></script>
+    <script src="./js/geral.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-    
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
@@ -48,8 +48,8 @@
             <div class="formRegister" id="formRegister" action="">
                 <label class="labelForm">Cadastro Usuário</label>
                 <input placeholder="Nome" onfocus="ocultarRegra()" class="inputRegister name" id="name" type="text">
-                <input placeholder="Email" onfocus="ocultarRegra()" class="inputRegister email" id="email" type="email">
-                <input placeholder="CPF" onfocus="ocultarRegra()" class="inputRegister cpf" id="cpf" type="text" maxlength="11">
+                <input placeholder="Email" onfocus="ocultarRegra()" onblur="validarEmail(this.value)" class="inputRegister email" id="email" type="email">
+                <input placeholder="CPF" onfocus="ocultarRegra()" onblur="validarCpf(this.value)" class="inputRegister cpf" id="cpf" type="text" maxlength="11">
                 <input placeholder="Senha" class="inputRegister password" id="password" type="password" onfocus="mostrarRegra()" onkeyup="mostrarSituacaoSenha(validarSenha(this))">
                 <input onfocus="ocultarRegra()" placeholder="Confirmação de senha" class="inputRegister password" id="confirmPassword" type="password">
                 
