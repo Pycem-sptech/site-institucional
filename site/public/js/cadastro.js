@@ -228,17 +228,34 @@ function reCaptcha() {
   let form = document.querySelector('#formRegister');
   form.addEventListener('submit',  e => {
     e.preventDefault();
-    let execucao = grecaptcha.execute();
-    if(execucao){
-      alert("funcionou")
-    }else{
-      alert("nao funcionou")
-    }
+    sendForm();
     
-       
   });
-    
-  criarConta();
+  if(captchaOn){
+    criarConta();
+  }else{
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
 
+    Toast.fire({
+      icon: "warning",
+      title: "Faça a verificação do ReCAPTCHA",
+    });
+  }
 }
 
+var captchaOn = false;
+
+function sendForm(){
+  captchaOn = true;
+
+}
