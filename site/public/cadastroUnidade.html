@@ -7,11 +7,14 @@
     <title>Pycem</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/cadastroUnidade.css">
+    <script src="./js/geral.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     <script src="js/cadastroEmpresa.js"></script>
 </head>
-<body>
+<body onload="validarSessao()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -25,7 +28,7 @@
             </div>
             <div class="footerButtons">
                 <img class="iconSidebar" src="img/settingIcon.svg">
-                <img class="iconSidebar" src="img/exitIcon.svg">
+                <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
             </div>
         </div>
     </nav>
@@ -33,7 +36,7 @@
         <div class="container">
             <h3>Home</h3>
             <div class="user">
-                <h4>Usuário</h4>
+                <h4 id="usuarioLogado"></h4>
                 <img class="iconUser" src="img/personIcon.svg">
             </div>
         </div>
@@ -47,14 +50,16 @@
             <div class="formRegisterUnit">
                 <h3 class="titleFormRegisterUnit">Cadastre suas unidades</h3>
                 <div class="boxInputUnit">
-                    <input class="inputRegisterUnit nomeUnit"  id="nomeUnit" type="text" placeholder="Nome">
-                    <input class="inputRegisterUnit cepUnit" id="cepUnit" onblur="pesquisacep(this.value);" type="text" placeholder="CEP" maxlength="8">
+
+                    <input class="inputRegisterUnit nomeUnit" id="nomeUnit" type="text" placeholder="Nome">
+                    <input class="inputRegisterUnit cepUnit"id="cepUnit" type="text" onblur="pesquisacep(this.value);" placeholder="CEP" maxlength="8">
                     <input class="inputRegisterUnit ufUnit" id="ufUnit" type="text" placeholder="UF" maxlength="2">
                     <input class="inputRegisterUnit cidadeUnit" id="cidadeUnit" type="text" placeholder="Cidade">
-                    <input class="inputRegisterUnit logradouroUnit" id="logradouroUnit" type="text" placeholder="Logradouro">
+                    <input class="inputRegisterUnit logradouroUnit" id="logradouroUnit"type="text" placeholder="Logradouro">
                     <input class="inputRegisterUnit bairroUnit" id="bairroUnit" type="text" placeholder="Bairro">
                     <input class="inputRegisterUnit numeroUnit" id="numeroUnit" type="text" placeholder="Número">
-                    <input class="inputRegisterUnit telefoneUnit" id="telefoneUnit"type="tel" placeholder="Telefone">
+                    <input class="inputRegisterUnit telefoneUnit" id="telefoneUnit" type="tel" placeholder="Telefone">
+
                 </div>
                 <button class="btnRegister" onclick="cadastrarUni()">Cadastrar</button>
             </div>

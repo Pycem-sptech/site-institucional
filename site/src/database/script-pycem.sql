@@ -9,19 +9,18 @@ cnpj varchar(18) not null,
 telefone varchar(15) not null,
 email varchar(100) not null unique,
 data_cadastro datetime not null default current_timestamp
-);
+)auto_increment = 100;
 
 create table usuario(
-idUsuario int auto_increment,
+idUsuario int auto_increment primary key,
 nome varchar(50) not null,
 email varchar(100) not null unique,
-senha varchar(45) not null,
 cpf varchar(45) not null,
-cargo varchar(10) not null, constraint chkCargo check (cargo in('Tecnico','Supervisor')),
-fkEmpresa int not null, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
-primary key(idUsuario, fkEmpresa)
+senha varchar(45) not null,
+cargo varchar(10) not null, constraint chkCargo check (cargo in('Tecnico','Supervisor','Dono')),
+fkEmpresa int, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
-
+select * from usuario;
 -- create table endereco(
 -- idEndereco int primary key auto_increment,
 -- sigla CHAR(2) not null,

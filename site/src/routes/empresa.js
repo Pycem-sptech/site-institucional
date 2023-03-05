@@ -12,6 +12,15 @@ router.get("/listar", function (req, res) {
 });
 
 //Recebendo os dados do html e direcionando para a função cadastrar de empresaController.js
+
+router.get("/verificarCnpj/:cnpj", function (req, res) {
+    empresaController.verificarCnpj(req, res);
+});
+
+router.get("/verificarEmail/:email", function (req, res) {
+    empresaController.verificarEmail(req, res);
+});
+
 router.post("/cadastrar", function (req, res) {
     empresaController.cadastrar(req, res);
 })
