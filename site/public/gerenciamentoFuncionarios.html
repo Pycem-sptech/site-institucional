@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="padrao.css">
     <link rel="stylesheet" href="css/gerenciamentoFuncionarios.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="./js/modal.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
 </head>
 <body>
         <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
@@ -75,11 +80,8 @@
                                     Cargo - Unidade</span>
                             </div>
                             <div class="divEditarExluir">
-                                <div class="caixaAzulEditar">
-                                    <span class="editar"></span>
-                                </div>
-                                <div class="caixaVermelhaExcluir">
-                                    <span class="excluir"></span>
+                                <img src="img/Botão Editar.svg" onclick="mostrarModal()">
+                                <img src="img/Botao Fechar.svg" onclick="deletarRegistroFuncionario()()">
                                 </div>
                             </div>
                         </div>
@@ -87,6 +89,52 @@
                     
                 </form>
             </section>
+             <div class="overlay" id="overlay">
+        <div class="modal" id="modal">
+            <div class="headerModal">
+                <span class="tituloModal">Funcionário</span>
+                <span class="fecharModal btnFechar" onclick="fecharModal()"></span>
+            </div>
+            <div class="bodyModal">
+                <div class="bloco">
+                   
+                    <span class="estilo tamanho1"><span class="subTitulo">Nome:</span>
+                        <input class="inputModal" id="nomeFuncionarioModal"></span>
+                        <span class="estilo tamanho1"><span class="subTitulo">Unidade:</span>
+                        <select class="selectModal" id="unidadeFuncionarioModal">
+                            <option></option>
+                            <option value="0">Paulista</option>
+                            <option value="1">Paulista</option>
+                            <option value="2">Paulista</option>
+                            <option value="3">Paulista</option>
+                        </select></span>
+                </div>
+
+                <div class="bloco">
+                    <span class="estilo tamanho3"><span class="subTitulo">Cargo:</span>
+                        <select class="selectModal" id="escolherCargoModal">
+                            <option></option>
+                            <option value="Supervisor">Supervisor</option>
+                            <option value="Tecnico">Tecnico</option>
+                        </select></span>
+
+                    <span class="estilo tamanho1"><span class="subTitulo">Email:</span>
+                        <input class="inputModal" id="emailModal"></span>
+
+                    
+                </div>
+                <div class="bloco">
+                    <span class="estilo tamanho1"><span class="subTitulo">CPF:</span>
+                        <input class="inputModal" id="cpfModal"></span>
+
+                        <span class="estilo tamanho1"><span class="subTitulo">Senha:</span>
+                        <input class="inputModal" id="senhaModal"></span>
+                </div>
+            </div>
+            <div class="modalFooter">
+                <button class="btnSalvar" onclick="salvarEdicaoFuncionario()">Salvar</button>
+            </div>
+        </div>
         </main>
 </body>
 </html>

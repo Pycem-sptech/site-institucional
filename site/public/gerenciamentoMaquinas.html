@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pycem</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/gerenciamentoMaquinas.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="./js/modal.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    
+</head>
+<body>
+    <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
+    <nav class="sidebar">
+        <div class="container">
+            <div class="navigationButtons">
+                <h2>Py</h2>
+                <img class="iconSidebar navigationIcon" src="img/userIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+            </div>
+            <div class="footerButtons">
+                <img class="iconSidebar" src="img/settingIcon.svg">
+                <img class="iconSidebar" src="img/exitIcon.svg">
+            </div>
+        </div>
+    </nav>
+    <header class="header">
+        <div class="container">
+            <h3>Home</h3>
+            <div class="user">
+                <h4 id="usuarioLogado">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg">
+            </div>
+        </div>
+    </header>
+    <div class="guideText">
+            <span class="welcomeSentence">Gerenciar Máquinas</span>
+            <span class="firstStep">Máquinas</span>
+    </div>
+    <main class="main">
+        <section class="registerUnit">
+            <form class="formRegisterUnit">
+                <h3 class="titleFormRegisterUnit">Cadastre suas máquinas</h3>
+                <div class="boxInputUnit">
+                    <select required class="inputRegisterUnit nameUnit" placeholder="Unidade">
+                        <option value="" disabled selected>Unidade</option>
+                     
+                    </select>
+                    <input class="inputRegisterUnit serialNumber" id="serialNumber" type="text" placeholder="Número de Série">
+                    <input class="inputRegisterUnit processor" id="processor" type="text" placeholder="Processador">
+                    <input class="inputRegisterUnit ram" id="ram" type="text" placeholder="Mem. RAM">
+                    <select class="inputRegisterUnit storageSelect" placeholder="Armazenamento">
+                        <option disabled selected>Armazenamento</option>
+                        <option value="0">HD</option>
+                        <option value="1">SSD</option>
+                    </select>
+                    <input class="inputRegisterUnit storage" type="text" placeholder="Qtd. Armazenamento">
+                </div>
+                <button class="btnRegister">Cadastrar</button>
+            </form>
+        </section>
+        <section class="machine">
+            <div class="boxMachine">
+                <h3 class="titleBoxMachine">Máquinas cadastradas</h3>
+                <hr>
+                <div class="registeredMachine">
+                    <div class="idMachine">
+                        <span>5129731289</span>
+                        <span class="addresOpacity">Unidade Paulista</span>
+                    </div>
+                    <div class="btnEditDelete">
+                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
+                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
+                    </div>
+                </div>
+                <div class="registeredMachine">
+                    <div class="idMachine">
+                        <span>0123982489</span>
+                        <span class="addresOpacity">Unidade Alphaville</span>
+                    </div>
+                    <div class="btnEditDelete">
+                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
+                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
+                    </div>
+                </div>
+                <div class="registeredMachine">
+                    <div class="idMachine">
+                        <span>412124159</span>
+                        <span class="addresOpacity">Unidade São Matheus</span>
+                    </div>
+                    <div class="btnEditDelete">
+                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
+                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
+                    </div>
+                </div>
+                <div class="registeredMachine">
+                    <div class="idMachine">
+                        <span>238975192</span>
+                        <span class="addresOpacity">Unidade Ipiranga</span>
+                    </div>
+                    <div class="btnEditDelete">
+                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
+                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
+                    </div>
+                </div>
+
+            </div>
+            <div class="overlay" id="overlay">
+                <div class="modal" id="modal">
+                    <div class="headerModal">
+                        <span class="tituloModal">Máquinas</span>
+                        <span class="fecharModal btnFechar" onclick="fecharModal()"></span>
+                    </div>
+                    <div class="bodyModal">
+                        <div class="bloco">
+                            <span class="estilo tamanho1"><span class="subTitulo">Unidade:</span>
+                                <select class="selectModal" id="escolherUnidadeModal">
+                                    <option></option>
+                                    <option value="0">Unidade Paulista</option>
+                                    <option value="1">Unidade Paulista</option>
+                                    <option value="2">Unidade Paulista</option>
+                                    <option value="3">Unidade Paulista</option>
+                                </select></span>
+                            <span class="estilo tamanho1"><span class="subTitulo">Número de Série:</span>
+                                <input class="inputModal" id="numeroDeSerieModal"></span>
+                        </div>
+        
+                        <div class="bloco">
+                            <span class="estilo tamanho2"><span class="subTitulo">Processador:</span>
+                                <input class="inputModal" id="processadorModal"></span>
+        
+                            <span class="estilo tamanho2"><span class="subTitulo">Memória RAM:</span>
+                                <input class="inputModal" id="memoriaRamModal"></span>
+        
+                            <span class="estilo tamanho3"><span class="subTitulo">Armazenamento:</span>
+                                <select class="selectModal" id="escolherArmazenamentoModal">
+                                    <option></option>
+                                    <option value="0">HD</option>
+                                    <option value="1">SSD</option>
+                                </select></span>
+                        </div>
+                        <div class="bloco">
+                            <span class="estilo tamanho1"><span class="subTitulo">Qtd. Armazenamento:</span>
+                                <input class="inputModal" id="qtdArmazenamentoModal"></span>
+        
+                        </div>
+                    </div>
+                    <div class="modalFooter">
+                        <button class="btnSalvar" onclick="salvarEdicaoMaquina()">Salvar</button>
+                    </div>
+                </div>
+        </section>
+    </main>
+</body>
+</html>
+<script>
+    $(document).ready(function(){
+		$("#idCep").mask("99999-999");
+		$("#idTelefoneUnidade").mask("(99) 99999-9999");
+	});
+</script>
