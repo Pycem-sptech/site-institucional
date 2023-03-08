@@ -23,6 +23,23 @@ function listar(req, res) {
             }
         );
 }
+function listarUnidades(req, res) {
+    fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.listarUnidades(fkEmpresa)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
 function entrar(req, res) {
     var email = req.body.emailServer;
@@ -33,7 +50,7 @@ function entrar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
-        
+
         unidadeModel.entrar(email, senha)
             .then(
                 function (resultado) {
@@ -71,14 +88,14 @@ function cadastrar(req, res) {
     var bairro = req.body.bairroServer;
     var numero = req.body.numeroServer;
     var complemento = req.body.complementoServer;
-   
+
     if (nome == undefined) {
         res.status(400).send("Seu nome es tá undefined!");
-    }  else if (telefone == undefined) {
+    } else if (telefone == undefined) {
         res.status(400).send("Seu telefone está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("Sua fkEmpresa está undefined!");
-    }  else if (cep == undefined) {
+    } else if (cep == undefined) {
         res.status(400).send("Sua cep está undefined!");
     } else if (uf == undefined) {
         res.status(400).send("Sua uf está undefined!");
@@ -90,8 +107,8 @@ function cadastrar(req, res) {
         res.status(400).send("Sua numero está undefined!");
     } else if (complemento == undefined) {
         res.status(400).send("Sua complemento está undefined!");
-    }else {
-        
+    } else {
+
         unidadeModel.cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero, complemento)
             .then(
                 function (resultado) {
@@ -112,41 +129,41 @@ function cadastrar(req, res) {
 
 function verificarTelefone(req, res) {
     var telefone = req.params.telefone;
-  
+
     unidadeModel
-      .verificarTelefone(telefone)
-      .then(function (resultado) {
-        if (resultado.length > 0) {
-          res.status(200).json(resultado);
-        } else {
-          res.status(204).send("Nenhum resultado encontrado!");
-        }
-      })
-      .catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-      });
-  }
-  
-  function verificarNumero(req, res) {
+        .verificarTelefone(telefone)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!");
+            }
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function verificarNumero(req, res) {
     var numero = req.params.numero;
-  
+
     unidadeModel
-      .verificarNumero(numero)
-      .then(function (resultado) {
-        if (resultado.length > 0) {
-          res.status(200).json(resultado);
-        } else {
-          res.status(204).send("Nenhum resultado encontrado!");
-        }
-      })
-      .catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-      });
-  }
+        .verificarNumero(numero)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!");
+            }
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
 
 
 function deletar(req, res) {
@@ -173,5 +190,6 @@ module.exports = {
     testar,
     deletar,
     verificarTelefone,
-    verificarNumero
+    verificarNumero,
+    listarUnidades
 }

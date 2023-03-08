@@ -160,55 +160,6 @@ function validarEmail(emailVar) {
     return false;
   }
 
-function cadastrarMaquina() {
-  const nomeVar = idNome.value;
-  const telefoneVar = idTelefoneEmpresa.value;
-  const cepVar = idCep.value;
-  const fkEmpresaVar = sessionStorage.fkEmpresa;
-  const ufVar = idUf.value;
-  const cidadeVar = idCidade.value;
-  const logradouroVar = idLogradouro.value;
-  const bairroVar = idBairro.value;
-  const numeroVar = idNumero.value;
-  const complementoVar = idComplemento.value;
-
-  if (nomeVar == "") {
-    return false;
-  }
-  fetch("/empresa/cadastrar", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      nomeServer: nomeVar,
-      telefoneServer: telefoneVar,
-      cepServer: cepVar,
-      fkEmpresaServer: fkEmpresaVar,
-      ufServer: ufVar,
-      cidadeServer: cidadeVar,
-      logradouroServer: logradouroVar,
-      bairroServer: bairroVar,
-      numeroServer: numeroVar,
-      complementoServer: complementoVar,
-    }),
-  })
-    .then(function (resposta) {
-      console.log("resposta: ", resposta);
-
-      if (resposta.ok) {
-        setTimeout(() => {
-          window.location = "#";
-        }, "1000");
-      }
-    })
-    .catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`);
-    });
-
-  return false;
-}
-
 function verificarUni() {
   const idUsuario = sessionStorage.ID_USUARIO;
 

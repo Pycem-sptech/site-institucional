@@ -19,6 +19,47 @@ function listar(req, res) {
     });
 }
 
+
+function cadastrarMaquina(req, res) {
+    var nome = req.body.nomeServer;
+    var numeroSerial = req.body.numeroSerialServer;
+    var processador = req.body.processadorServer;
+    var ram = req.body.ramServer;
+    var qtdArmazenamento = req.body.qtdArmazenamentoServer;
+    var storageSelect = req.body.storageSelectServer;
+    
+    if (nome == undefined) {
+        res.status(400).send("Seu nome es tá undefined!");
+    } else if (numeroSerial == undefined) {
+        res.status(400).send("Seu numeroSerial está undefined!");
+    } else if (processador == undefined) {
+        res.status(400).send("Sua processador está undefined!");
+    } else if (ram == undefined) {
+        res.status(400).send("Sua ram está undefined!");
+    } else if (storageSelect == undefined) {
+        res.status(400).send("Sua storageSelect está undefined!");
+    } else if (qtdArmazenamento == undefined) {
+        res.status(400).send("Sua qtdArmazenamento está undefined!");
+    } else {
+
+        maquinaModel.cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 function listarPorUsuario(req, res) {
     var idUsuario = req.params.idUsuario;
 
@@ -138,5 +179,6 @@ module.exports = {
     pesquisarDescricao,
     publicar,
     editar,
-    deletar
+    deletar,
+    cadastrarMaquina
 }

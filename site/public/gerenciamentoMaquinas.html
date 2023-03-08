@@ -10,13 +10,14 @@
     <link rel="stylesheet" href="css/modal.css">
     <script src="./js/modal.js"></script>
     <script src="./js/geral.js"></script>
+    <script src="./js/gerenciarMaquina.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     
 </head>
-<body>
+<body onload="validarSessao(), atualizarSelectUnidades()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -49,25 +50,25 @@
     </div>
     <main class="main">
         <section class="registerUnit">
-            <form class="formRegisterUnit">
+            <div class="formRegisterUnit">
                 <h3 class="titleFormRegisterUnit">Cadastre suas máquinas</h3>
                 <div class="boxInputUnit">
-                    <select required class="inputRegisterUnit nameUnit" placeholder="Unidade">
+                    <select required class="inputRegisterUnit nameUnit" id="nameUnit" placeholder="Unidade">
                         <option value="" disabled selected>Unidade</option>
                      
                     </select>
                     <input class="inputRegisterUnit serialNumber" id="serialNumber" type="text" placeholder="Número de Série">
                     <input class="inputRegisterUnit processor" id="processor" type="text" placeholder="Processador">
                     <input class="inputRegisterUnit ram" id="ram" type="text" placeholder="Mem. RAM">
-                    <select class="inputRegisterUnit storageSelect" placeholder="Armazenamento">
+                    <select class="inputRegisterUnit storageSelect" id="storageSelect" placeholder="Armazenamento">
                         <option disabled selected>Armazenamento</option>
-                        <option value="0">HD</option>
-                        <option value="1">SSD</option>
+                        <option value="HD">HD</option>
+                        <option value="SSD">SSD</option>
                     </select>
-                    <input class="inputRegisterUnit storage" type="text" placeholder="Qtd. Armazenamento">
+                    <input class="inputRegisterUnit storage" id="qtdArmazenamento" type="text" placeholder="Qtd. Armazenamento">
                 </div>
-                <button class="btnRegister">Cadastrar</button>
-            </form>
+                <button class="btnRegister" onclick="cadastrarMaquina()">Cadastrar</button>
+            </div>
         </section>
         <section class="machine">
             <div class="boxMachine">
@@ -83,37 +84,7 @@
                         <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
                     </div>
                 </div>
-                <div class="registeredMachine">
-                    <div class="idMachine">
-                        <span>0123982489</span>
-                        <span class="addresOpacity">Unidade Alphaville</span>
-                    </div>
-                    <div class="btnEditDelete">
-                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
-                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
-                    </div>
-                </div>
-                <div class="registeredMachine">
-                    <div class="idMachine">
-                        <span>412124159</span>
-                        <span class="addresOpacity">Unidade São Matheus</span>
-                    </div>
-                    <div class="btnEditDelete">
-                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
-                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
-                    </div>
-                </div>
-                <div class="registeredMachine">
-                    <div class="idMachine">
-                        <span id="identification">238975192</span>
-                        <span class="addresOpacity">Unidade Ipiranga</span>
-                    </div>
-                    <div class="btnEditDelete">
-                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
-                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
-                    </div>
-                </div>
-
+             
             </div>
             <div class="overlay" id="overlay">
                 <div class="modal" id="modal">
@@ -145,8 +116,8 @@
                             <span class="estilo tamanho3"><span class="subTitulo">Armazenamento:</span>
                                 <select class="selectModal" id="escolherArmazenamentoModal">
                                     <option></option>
-                                    <option value="0">HD</option>
-                                    <option value="1">SSD</option>
+                                    <option value="HD">HD</option>
+                                    <option value="SSD">SSD</option>
                                 </select></span>
                         </div>
                         <div class="bloco">

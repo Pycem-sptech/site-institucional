@@ -11,6 +11,10 @@ router.get("/listar", function (req, res) {
     unidadeController.listar(req, res);
 });
 
+router.get("/listarUnidades/:fkEmpresa", function (req, res) {
+    unidadeController.listarUnidades(req, res);
+});
+
 router.get("/verificarNumero/:numero", function (req, res) {
     unidadeController.verificarNumero(req, res);
 });
