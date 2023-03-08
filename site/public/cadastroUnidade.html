@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,9 +16,10 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-    
+
 </head>
-<body onload="validarSessao()">
+
+<body onload="validarSessao(), atualizarUnidadesCadastradas()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -45,8 +47,8 @@
         </div>
     </header>
     <div class="guideText">
-            <span class="welcomeSentence">Gerenciar Unidades</span>
-            <span class="firstStep">Unidades</span>
+        <span class="welcomeSentence">Gerenciar Unidades</span>
+        <span class="firstStep">Unidades</span>
     </div>
     <main class="main">
         <section class="registerUnit">
@@ -54,60 +56,36 @@
                 <h3 class="titleFormRegisterUnit">Cadastre suas unidades</h3>
                 <div class="boxInputUnit">
                     <input class="inputRegisterUnit nomeUnit" id="nomeUnit" type="text" placeholder="Nome">
-                    <input class="inputRegisterUnit cepUnit"id="cepUnit" type="text" onblur="pesquisacep(this.value);" placeholder="CEP" maxlength="8">
+                    <input class="inputRegisterUnit cepUnit" id="cepUnit" type="text" onblur="pesquisacep(this.value);"
+                        placeholder="CEP" maxlength="8">
                     <input class="inputRegisterUnit ufUnit" id="ufUnit" type="text" placeholder="UF" maxlength="2">
                     <input class="inputRegisterUnit cidadeUnit" id="cidadeUnit" type="text" placeholder="Cidade">
-                    <input class="inputRegisterUnit logradouroUnit" id="logradouroUnit"type="text" placeholder="Logradouro">
+                    <input class="inputRegisterUnit logradouroUnit" id="logradouroUnit" type="text"
+                        placeholder="Logradouro">
                     <input class="inputRegisterUnit bairroUnit" id="bairroUnit" type="text" placeholder="Bairro">
-                    <input class="inputRegisterUnit numeroUnit" id="numeroUnit" onblur="validarNumero(this.value)" type="text" placeholder="Número">
-                    <input class="inputRegisterUnit telefoneUnit" id="telefoneUnit" onblur="validarTelefone(this.value)" type="tel" placeholder="Telefone">
+                    <input class="inputRegisterUnit numeroUnit" id="numeroUnit" onblur="validarNumero(this.value)"
+                        type="text" placeholder="Número">
+                    <input class="inputRegisterUnit telefoneUnit" id="telefoneUnit" onblur="validarTelefone(this.value)"
+                        type="tel" placeholder="Telefone">
                 </div>
                 <button class="btnRegister" onclick="cadastrarUni()">Cadastrar</button>
             </div>
         </section>
         <section class="units">
-            <div class="boxUnits">
+            <div class="boxUnits" id="boxUnits">
                 <h3 class="titleBoxUnit">Unidades cadastradas</h3>
                 <hr>
-                <div class="registeredUnit">
-                    <div class="nameUnit">
-                        <span>Unidade Paulista</span>
-                        <span class="addresOpacity">Av. Paulista</span>
-                    </div>
-                    <div class="btnEditDelete">
-                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
-                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
-                    </div>
-                </div>
-                <div class="registeredUnit">
-                    <div class="nameUnit">
-                        <span>Unidade Mooca</span>
-                        <span class="addresOpacity">Av. do Estado</span>
-                    </div>
-                    <div class="btnEditDelete">
-                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
-                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
-                    </div>
-                </div>
-                <div class="registeredUnit">
-                    <div class="nameUnit">
-                        <span>Unidade São Matheus</span>
-                        <span class="addresOpacity">Rua Gemêos</span>
-                    </div>
-                    <div class="btnEditDelete">
-                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
-                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
-                    </div>
-                </div>
-                <div class="registeredUnit">
-                    <div class="nameUnit">
-                        <span>Unidade Santos</span>
-                        <span class="addresOpacity">Rua Jose Carpim</span>
-                    </div>
-                    <div class="btnEditDelete">
-                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
-                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
-                    </div>
+                <div class="feed" id="feed">
+                    <!-- <div class="registeredUnit" id="registeredUnit">
+                        <div class="nameUnit">
+                            <span>Unidade Paulista</span>
+                            <span class="addresOpacity">Av. Paulista</span>
+                        </div>
+                        <div class="btnEditDelete">
+                            <img src="img/Botão Editar.svg" onclick="mostrarModal()">
+                            <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
+                        </div>
+                    </div> -->
                 </div>
 
             </div>
@@ -124,26 +102,26 @@
                             <span class="estilo tamanho1"><span class="subTitulo">CEP:</span>
                                 <input class="inputModal" id="cepUnidadeModal"></span>
                         </div>
-        
+
                         <div class="bloco">
                             <span class="estilo tamanho7"><span class="subTitulo">UF:</span>
                                 <input class="inputModal" id="ufUnidadeModal"></span>
-        
+
                             <span class="estilo tamanho2"><span class="subTitulo">Cidade:</span>
                                 <input class="inputModal" id="cidadeUnidadeModal"></span>
-        
-                                <span class="estilo tamanho8"><span class="subTitulo">Logradouro:</span>
+
+                            <span class="estilo tamanho8"><span class="subTitulo">Logradouro:</span>
                                 <input class="inputModal" id="logradouroUnidadeModal"></span>
-    
+
                         </div>
                         <div class="bloco">
                             <span class="estilo tamanho2"><span class="subTitulo">Bairro:</span>
                                 <input class="inputModal" id="bairroUnidadeModal"></span>
-    
-                                <span class="estilo tamanho6"><span class="subTitulo">Numero:</span>
+
+                            <span class="estilo tamanho6"><span class="subTitulo">Numero:</span>
                                 <input class="inputModal" id="numeroUnidadeModal"></span>
-        
-                                <span class="estilo tamanho1"><span class="subTitulo">Telefone:</span>
+
+                            <span class="estilo tamanho1"><span class="subTitulo">Telefone:</span>
                                 <input class="inputModal" id="telefoneUnidadeModal"></span>
                         </div>
                     </div>
@@ -151,19 +129,20 @@
                         <button class="btnSalvar" onclick="salvarEdicaoUnidade()">Salvar</button>
                     </div>
                 </div>
-        </div>
+            </div>
         </section>
     </main>
 </body>
+
 </html>
 <script>
-    $(document).ready(function(){
-		$("#cepUnit").mask("99999-999");
-		$("#telefoneUnit").mask("(99) 99999-9999");
-	});
+    $(document).ready(function () {
+        $("#cepUnit").mask("99999-999");
+        $("#telefoneUnit").mask("(99) 99999-9999");
+    });
 
     var fkEmpresa = sessionStorage.fkEmpresa;
-    if(fkEmpresa == null){
+    if (fkEmpresa == null) {
         autenticar()
     }
 </script>

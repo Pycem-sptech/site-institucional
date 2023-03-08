@@ -102,6 +102,8 @@ function cadastrarUni() {
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
+                    atualizarUnidadesCadastradas();
+                    limparCamposUnidade();
                     const Toast = Swal.mixin({
                         toast: true,
                         position: "top-end",
@@ -113,11 +115,12 @@ function cadastrarUni() {
                             toast.addEventListener("mouseleave", Swal.resumeTimer);
                         },
                     });
-
+                    
                     Toast.fire({
                         icon: "success",
                         title: "Cadastro realizado com sucesso!",
                     });
+                    
                 } else {
                     const Toast = Swal.mixin({
                         toast: true,
@@ -192,4 +195,88 @@ function validarNumero(numeroVar) {
         });
 
     return false;
+}
+
+
+function atualizarUnidadesCadastradas() {
+
+    fetch("/unidade/listar")
+        .then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Infelizmente, nenhuma unidade foi encontrada.";
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+
+                        var divFeed = document.createElement("div");
+                        var divRegisteredUnit = document.createElement("div");
+                        var divnameUnit = document.createElement("div");
+                        var spanNome = document.createElement("span");
+                        var spanEndereco = document.createElement("span");
+                        var divBtnEditDelete = document.createElement("div");
+
+
+
+                        divFeed.className = "feed"
+                        divRegisteredUnit.className = "registeredUnit";
+                        divnameUnit.className = "nameUnit";
+                        spanEndereco.className = "addresOpacity";
+                        spanNome.innerHTML = publicacao.nome;
+                        spanEndereco.innerHTML = publicacao.logradouro;
+                        divBtnEditDelete.className = "btnEditDelete";
+                        divBtnEditDelete.innerHTML += "<img src='img/Botão Editar.svg' onclick='mostrarModal()'>";
+                        divBtnEditDelete.innerHTML += "<img src='img/Botao Fechar.svg' onclick='deletarRegistroUnidade()'>";
+
+
+                        feed.appendChild(divRegisteredUnit);
+                        divRegisteredUnit.appendChild(divnameUnit);
+                        divRegisteredUnit.appendChild(divBtnEditDelete);
+                        divnameUnit.appendChild(spanNome);
+                        divnameUnit.appendChild(spanEndereco);
+
+
+                        // <div class="registeredUnit">
+                        //     <div class="nameUnit">
+                        //         <span>Unidade Paulista</span>
+                        //         <span class="addresOpacity">Av. Paulista</span>
+                        //     </div>
+                        //     <div class="btnEditDelete">
+                        //         <img src="img/Botão Editar.svg">
+                        //         <img src="img/Botao Fechar.svg" >
+                        //     </div>
+                        // </div>
+                    }
+
+
+                });
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+}
+
+function limparCamposUnidade() {
+    document.getElementById('nomeUnit').value=("");
+    document.getElementById('cepUnit').value=("");
+    document.getElementById('logradouroUnit').value=("");
+    document.getElementById('cidadeUnit').value=("");
+    document.getElementById('ufUnit').value=("");
+    document.getElementById('bairroUnit').value=("");
+    document.getElementById('numeroUnit').value=("");
+    document.getElementById('telefoneUnit').value=("");
 }

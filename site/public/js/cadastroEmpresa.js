@@ -160,15 +160,6 @@ function validarEmail(emailVar) {
     return false;
   }
 
-  
-  
-
-
-
-
-
-
-
 function cadastrarMaquina() {
   const nomeVar = idNome.value;
   const telefoneVar = idTelefoneEmpresa.value;
