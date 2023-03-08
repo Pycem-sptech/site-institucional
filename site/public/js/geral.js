@@ -119,4 +119,64 @@ else {
 }
 };
 
+function autenticar() {
+    var email = sessionStorage.USER_EMAIL;
+    fetch("/usuario/autenticar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            emailServer: email,
+           
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {                
+                sessionStorage.FK_EMPRESA = json.fkEmpresa;
+            });
 
+        } else {
+            console.log("Houve um erro ao validar!");
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+    return false;
+}
+
+function redirectFunc(){
+    setTimeout(function () {
+        window.location = "./gerenciamentoFuncionarios.html";
+    }, 250); 
+}
+function redirectMachine(){
+    setTimeout(function () {
+        window.location = "./gerenciamentoMaquinas.html";
+    }, 250); 
+}
+function redirectUnit(){
+    setTimeout(function () {
+        window.location = "./cadastroUnidade.html";
+    }, 250); 
+}
+function redirectDashboard(){
+    setTimeout(function () {
+        window.location = "#";
+    }, 250); 
+}
+function redirectSuport(){
+    setTimeout(function () {
+        window.location = "#";
+    }, 250); 
+}
+function redirectConfig(){
+    setTimeout(function () {
+        window.location = "#";
+    }, 250); 
+}

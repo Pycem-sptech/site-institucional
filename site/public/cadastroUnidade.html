@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/modal.css">
     <script src="./js/modal.js"></script>
     <script src="./js/geral.js"></script>
+    <script src="./js/gerenciarUnidade.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -22,9 +23,9 @@
         <div class="container">
             <div class="navigationButtons">
                 <h2>Py</h2>
-                <img class="iconSidebar navigationIcon" src="img/userIcon.svg">
-                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg"><!-- onclick="redirectUnit()" -->
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
@@ -58,8 +59,8 @@
                     <input class="inputRegisterUnit cidadeUnit" id="cidadeUnit" type="text" placeholder="Cidade">
                     <input class="inputRegisterUnit logradouroUnit" id="logradouroUnit"type="text" placeholder="Logradouro">
                     <input class="inputRegisterUnit bairroUnit" id="bairroUnit" type="text" placeholder="Bairro">
-                    <input class="inputRegisterUnit numeroUnit" id="numeroUnit" type="text" placeholder="Número">
-                    <input class="inputRegisterUnit telefoneUnit" id="telefoneUnit" type="tel" placeholder="Telefone">
+                    <input class="inputRegisterUnit numeroUnit" id="numeroUnit" onblur="validarNumero(this.value)" type="text" placeholder="Número">
+                    <input class="inputRegisterUnit telefoneUnit" id="telefoneUnit" onblur="validarTelefone(this.value)" type="tel" placeholder="Telefone">
                 </div>
                 <button class="btnRegister" onclick="cadastrarUni()">Cadastrar</button>
             </div>
@@ -160,4 +161,9 @@
 		$("#cepUnit").mask("99999-999");
 		$("#telefoneUnit").mask("(99) 99999-9999");
 	});
+
+    var fkEmpresa = sessionStorage.fkEmpresa;
+    if(fkEmpresa == null){
+        autenticar()
+    }
 </script>

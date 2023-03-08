@@ -28,7 +28,7 @@ function fazerLogin() {
         return false;
     }
 
-    fetch("/usuario/autenticar", {
+    fetch("/usuario/entrar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -110,4 +110,3 @@ function fazerLogin() {
     return false;
 }
 
-  
