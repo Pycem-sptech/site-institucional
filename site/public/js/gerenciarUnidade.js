@@ -219,15 +219,12 @@ function atualizarUnidadesCadastradas() {
                     for (let i = 0; i < resposta.length; i++) {
                         var publicacao = resposta[i];
 
-
                         var divFeed = document.createElement("div");
                         var divRegisteredUnit = document.createElement("div");
                         var divnameUnit = document.createElement("div");
                         var spanNome = document.createElement("span");
                         var spanEndereco = document.createElement("span");
                         var divBtnEditDelete = document.createElement("div");
-
-
 
                         divFeed.className = "feed"
                         divRegisteredUnit.className = "registeredUnit";
@@ -239,24 +236,12 @@ function atualizarUnidadesCadastradas() {
                         divBtnEditDelete.innerHTML += "<img src='img/Botão Editar.svg' onclick='mostrarModal()'>";
                         divBtnEditDelete.innerHTML += "<img src='img/Botao Fechar.svg' onclick='deletarRegistroUnidade()'>";
 
-
                         feed.appendChild(divRegisteredUnit);
                         divRegisteredUnit.appendChild(divnameUnit);
                         divRegisteredUnit.appendChild(divBtnEditDelete);
                         divnameUnit.appendChild(spanNome);
                         divnameUnit.appendChild(spanEndereco);
 
-
-                        // <div class="registeredUnit">
-                        //     <div class="nameUnit">
-                        //         <span>Unidade Paulista</span>
-                        //         <span class="addresOpacity">Av. Paulista</span>
-                        //     </div>
-                        //     <div class="btnEditDelete">
-                        //         <img src="img/Botão Editar.svg">
-                        //         <img src="img/Botao Fechar.svg" >
-                        //     </div>
-                        // </div>
                     }
 
 

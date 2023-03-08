@@ -17,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     
 </head>
-<body onload="validarSessao(), atualizarSelectUnidades()">
+<body onload="validarSessao(), atualizarSelectUnidades(), atualizarMaquinasCadastradas()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -74,6 +74,7 @@
             <div class="boxMachine">
                 <h3 class="titleBoxMachine">Máquinas cadastradas</h3>
                 <hr>
+                <div class="feed" id="feed">
                 <div class="registeredMachine">
                     <div class="idMachine">
                         <span>5129731289</span>
