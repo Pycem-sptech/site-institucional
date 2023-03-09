@@ -1,3 +1,7 @@
+html{
+    scroll-behavior: smooth;
+}
+
 /*
 PRIMEIRA SESSÃO
 */
@@ -54,12 +58,16 @@ SESSÃO DOIS
     align-items: center;
 }
 
+.sectionDois .corpo{
+    width: 35%;
+}
+
 .corpoTitBen {
     font-size: 50px;
 }
 
 .corpoTxtBen {
-    width: 70%;
+    width: 75%;
     margin: 5% 0;
 }
 
@@ -86,6 +94,7 @@ edição dos cards
 .cardTopBot {
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 .card {
@@ -128,17 +137,14 @@ SEÇÃO TRÊS
     display: flex;
     justify-content: center;
     margin: 0;
-    /*
-    background: linear-gradient(90deg, rgba(1,123,236,1) 0%, rgba(36,187,197,1) 100%);
-    
-    */
     background: linear-gradient(90deg, rgba(0,111,214,1) 0%, rgba(36,187,197,1) 81%, rgba(0,111,214,1) 100%);
 }
 
 .sectionFilho {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    width: 67%;
+    width: 77%;
 }
 
 .bannerTitulo {
@@ -191,7 +197,7 @@ footer {
 }
 
 .divPycem {
-    margin: 3% 0 0 17%;
+    margin: 3% 0 0 12%;
     font-weight: 500;
     font-size: 25px;
 }
@@ -199,7 +205,7 @@ footer {
 .caixas {
     margin: 3%;
     width: 40%;
-    margin-right: 10%;
+    margin-right: 9%;
     display: flex;
     flex-direction: row;
 }
@@ -232,4 +238,147 @@ footer {
     color: rgba(255, 255, 255, 0.75);
     font-weight: 200;
     margin: 2% 0;
+}
+
+/* MEDIA QUERIES */
+@media (max-width:880px) {
+    .corpoTitulo{
+        font-size: 40px;
+    }
+    .card{
+        width: 100%;
+    }
+    .bannerTitulo{
+        font-size: 30px;
+    }
+}
+@media (max-width:768px){
+    .corpoTitulo{
+        font-size: 35px;
+    }
+    .corpoTexto{
+        font-size: 14px;
+    }
+    .corpoBotao{
+        padding: 8px;
+    }
+    .corpoTitBen{
+        font-size: 35px;
+    }
+    .corpoTxtBen{
+        font-size: 14px;
+    }
+    .cardCorpo{
+        font-size: 12px;
+    }
+    .divCards{
+        width: 68%;
+    }
+    .bannerTitulo{
+        font-size: 25px;
+    }
+    .card{
+        width: 100%;
+    }
+}
+
+
+@media (max-width:600px){
+    .sectionUm{
+        height: 55vh;
+    }
+    .divImagem{
+        display: none;
+    }
+    .corpo{
+        width: 100%;
+    }
+    .corpoTitulo{
+        font-size: 34px;
+    }
+    .corpoTexto{
+        color: #747474;
+        font-size: 13px;
+    }
+    .corpoBotao{
+        padding: 12px;
+    }
+    .sectionDois{
+        flex-direction: column-reverse;
+    }
+    .sectionDois .corpo{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 70%;
+        height: 40vh;
+    }
+    .corpoTitBen{
+        font-size: 2.5rem;
+    }
+    .corpoTxtBen{
+        color: #747474;
+        padding: 0;
+        font-size: 13px;
+        margin: 0;
+        width: 100%;
+    }
+    .corpoBenBtn{
+        display: none;
+    }
+    .divCards{
+        width: 55%;
+    }
+    .cardTopBot{
+        flex-wrap: wrap;
+    }
+    .card{
+        width: 100%;
+        margin-top: 20px;
+    }
+    .cardCorpo{
+        font-size: 12px;
+    }
+    .sectionTres{
+        height: 30vh;
+    }
+    .bannerTitulo{
+        font-size: 14px;
+    }
+    .bannerBotao{
+        padding: 7px;
+        margin-top: 10px;
+    }
+   .sectionFilho{
+        width: 83%;
+   }
+   .sectionFooter{
+    justify-content: space-evenly;
+    height: 15vh;
+   }
+   .divPycem{
+    margin: 0;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+   }
+   .caixas{
+    margin: 0;
+    width: 65%;
+   }
+   .caixaItem{
+    justify-content: center;
+    align-items: center;
+   }
+   .itemTitulo{
+    font-size: 15px;
+    margin: 0;
+   }
+   .item{
+    display: none;
+   }
+   .copyright{
+    font-size: 13px;
+    width: 26%;
+   }
 }

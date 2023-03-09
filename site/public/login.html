@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/padrao.css">
     <link rel="stylesheet" href="css/login.css">
     <title>Login</title>
 </head>
 <body>
-    <header class="header">
+    <header id="header" class="header">
         <div class="container">
-            <h1 class="headerTitle">Pycem</h1>
-            <nav class="navbar">
-                <span class="navbtn">Produto</span>
-                <span class="navbtn">Sobre nós</span>
-                <span class="navbtn">Solução</span>
-                <span class="navbtn btnRegister">Registrar-se</span>
+            <a href="index.html"class="headerTitle"><h1 >Pycem²</h1></a>
+            <nav class="navbar" id="nav">
+                <ul>
+                    <li class="hiddenMobile"><a class="navbtn" href="#sectionUm">Home</a></li>
+                    <li class="hiddenMobile"><a class="navbtn" href="#sectionDois">Solução</a></li>
+                    <li><a class="navbtn btnRegister" href="cadastro.html">Registrar-se</a></li>
+                </ul>
             </nav>
         </div>
     </header>
@@ -33,7 +35,7 @@
                 <label class="labelForm">Login</label>
                 <input placeholder="Email" class="inputRegister email" type="email">
                 <input placeholder="Senha" class="inputRegister password" type="password">
-                <button class="btnForm">Entra</button>
+                <button class="btnForm">Entrar</button>
             </form>
 
             
