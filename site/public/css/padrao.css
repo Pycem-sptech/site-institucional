@@ -27,7 +27,6 @@
 }
 
 .navbar{
-
     width: 40%;
     font-weight: 500;
 }
@@ -57,14 +56,6 @@ a {
     background-color: rgba(236, 236, 236, 0.5);
     color: #61A5E3;
 }
-
-
-.btnHamburguer{
-    display: none;
-}
-.btnSairMenu{
-  display: none;
-}
 @media (max-width:800px) {
     .hiddenMobile{
       display: none;
@@ -76,6 +67,7 @@ a {
         
     }
 }
+
 @media (max-width:500px){
 
     .btnRegister{

@@ -4,35 +4,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/padrao.css">
     <link rel="stylesheet" href="css/login.css">
-    <title>Login</title>
     <script src="./js/login.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script> 
     <script src="./js/geral.js"></script>
+    <title>Login | Pycem²</title>
 </head>
 <body>
-    <header class="header">
+    <header id="header" class="header">
         <div class="container">
-            <h1 class="headerTitle">Pycem</h1>
-            <nav class="navbar">
-                <span class="navbtn">Produto</span>
-                <span class="navbtn">Sobre nós</span>
-                <span class="navbtn">Solução</span>
-                <span class="navbtn btnRegister">Registrar-se</span>
+            <a href="index.html"class="headerTitle"><h1 >Pycem²</h1></a>
+            <nav class="navbar" id="nav">
+                <ul>
+                    <li class="hiddenMobile"><a class="navbtn" href="#sectionUm">Home</a></li>
+                    <li class="hiddenMobile"><a class="navbtn" href="#sectionDois">Solução</a></li>
+                    <li><a class="navbtn btnRegister" href="cadastro.html">Registrar-se</a></li>
+                </ul>
             </nav>
         </div>
     </header>
     <main class="mainContent">
         <section class="banner">
             <div class="btnLoginRegister">
-                <span class="spanOption"><a href="cadastro.html">Cadastre-se / </a ><span class="transparency">Login</span></span>
+                <span class="spanOption"><a class="transparency" href="cadastro.html">Cadastre-se </a >/ Login</span>
             </div>
             <div class="imgBanner">
                 <img src="img/New entries-amico 1.svg" alt="Mulher sentada em uma poltrona com um notebook realizando cadastro em um site">
             </div>
         </section>
         <section class="register">
+
+            <form class="formRegister" action="">
+                <label class="labelForm">Login</label>
+                <input placeholder="Email" class="inputRegister email" type="email">
+                <input placeholder="Senha" class="inputRegister password" type="password">
+                <button class="btnForm">Entrar</button>
+            </form>
+
 
             <div class="formRegister" action="">
                 <label class="labelForm">Login</label>
