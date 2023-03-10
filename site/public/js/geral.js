@@ -13,7 +13,7 @@ function validarSessao() {
         usuarioLogado.innerHTML = nome;
     }
     // else {
-    //     window.location = "../login.html";
+    //     window.location = "./login.html";
     // }
 }
 
