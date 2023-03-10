@@ -1,6 +1,8 @@
+
 html{
     scroll-behavior: smooth;
 }
+
 
 /*
 PRIMEIRA SESSÃO
@@ -57,6 +59,10 @@ SESSÃO DOIS
     justify-content: center;
     align-items: center;
 }
+.sectionDois .corpo{
+    width: 35%;
+}
+
 
 .sectionDois .corpo{
     width: 35%;

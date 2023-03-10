@@ -7,6 +7,10 @@
     <title>Pycem</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/cadastroUnidade.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="./js/modal.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     
@@ -69,8 +73,8 @@
                         <span class="addresOpacity">Av. Paulista</span>
                     </div>
                     <div class="btnEditDelete">
-                        <img src="img/Botão Editar.svg">
-                        <img src="img/Botao Fechar.svg">
+                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
+                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
                     </div>
                 </div>
                 <div class="registeredUnit">
@@ -79,8 +83,8 @@
                         <span class="addresOpacity">Av. do Estado</span>
                     </div>
                     <div class="btnEditDelete">
-                        <img src="img/Botão Editar.svg">
-                        <img src="img/Botao Fechar.svg">
+                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
+                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
                     </div>
                 </div>
                 <div class="registeredUnit">
@@ -89,8 +93,8 @@
                         <span class="addresOpacity">Rua Gemêos</span>
                     </div>
                     <div class="btnEditDelete">
-                        <img src="img/Botão Editar.svg">
-                        <img src="img/Botao Fechar.svg">
+                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
+                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
                     </div>
                 </div>
                 <div class="registeredUnit">
@@ -99,12 +103,53 @@
                         <span class="addresOpacity">Rua Jose Carpim</span>
                     </div>
                     <div class="btnEditDelete">
-                        <img src="img/Botão Editar.svg">
-                        <img src="img/Botao Fechar.svg">
+                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
+                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
                     </div>
                 </div>
 
             </div>
+            <div class="overlay" id="overlay">
+                <div class="modal" id="modal">
+                    <div class="headerModal">
+                        <span class="tituloModal">Unidades</span>
+                        <span class="fecharModal btnFechar" onclick="fecharModal()"></span>
+                    </div>
+                    <div class="bodyModal">
+                        <div class="bloco">
+                            <span class="estilo tamanho1"><span class="subTitulo">Nome:</span>
+                                <input class="inputModal" id="nomeUnidadeModal"></span>
+                            <span class="estilo tamanho1"><span class="subTitulo">CEP:</span>
+                                <input class="inputModal" id="cepUnidadeModal"></span>
+                        </div>
+        
+                        <div class="bloco">
+                            <span class="estilo tamanho7"><span class="subTitulo">UF:</span>
+                                <input class="inputModal" id="ufUnidadeModal"></span>
+        
+                            <span class="estilo tamanho2"><span class="subTitulo">Cidade:</span>
+                                <input class="inputModal" id="cidadeUnidadeModal"></span>
+        
+                                <span class="estilo tamanho8"><span class="subTitulo">Logradouro:</span>
+                                <input class="inputModal" id="logradouroUnidadeModal"></span>
+    
+                        </div>
+                        <div class="bloco">
+                            <span class="estilo tamanho2"><span class="subTitulo">Bairro:</span>
+                                <input class="inputModal" id="bairroUnidadeModal"></span>
+    
+                                <span class="estilo tamanho6"><span class="subTitulo">Numero:</span>
+                                <input class="inputModal" id="numeroUnidadeModal"></span>
+        
+                                <span class="estilo tamanho1"><span class="subTitulo">Telefone:</span>
+                                <input class="inputModal" id="telefoneUnidadeModal"></span>
+                        </div>
+                    </div>
+                    <div class="modalFooter">
+                        <button class="btnSalvar" onclick="salvarEdicaoUnidade()">Salvar</button>
+                    </div>
+                </div>
+        </div>
         </section>
     </main>
 </body>
