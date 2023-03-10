@@ -67,13 +67,16 @@
 .transparency{
     color: rgb(0, 0, 0);
 }
+.spanOption a:hover{
+    color: rgba(0, 0, 0, 1);
+    transition: 0.8s ease;
+}
 .imgBanner{
     height: 80%;
     display: flex;
     justify-content: center;
 }
 .formRegister{
-    /* background-color: #61A5E3; */
     height: 55%;
     width: 350px;
     border: 2px solid rgba(0, 0, 0, 0.14);
@@ -91,7 +94,7 @@
     border: solid 1px  rgba(0, 0, 0, 0.18);
     outline: none;
     font-size: 15px;
-    /* padding-left: 5px; */
+
 }
 .btnForm{
     margin-top: 10px;
@@ -122,21 +125,11 @@
     background: url(../img/key_icon.svg) no-repeat left / 2.0em;
     padding-left:35px ;
 }
+@media (max-width:800px){   
 
-@media (max-width:768px){
-    .navbar{
-        width: 50%;
-        font-size: 11px;
-    }
-    .headerTitle{
-        font-size: 20px;
-    }
-    .btnRegister{
-        padding: 4px;
-        border-radius: 4px;
-    }
     .formRegister{
         width: 300px;
+        height: 50%;
     }
     .labelForm{
         font-size: 22px;
@@ -147,28 +140,12 @@
     }
     .btnForm{
         width: 150px;
-        height: 35px;
+        padding: 8px;
         font-size: 15px;
     }
 }
 
-@media (max-width:425px){
-    .navbtn{
-        display: none;
-    }
-    .navbar{
-        justify-content: flex-end;
-    }
-    .btnRegister{
-        display: block;
-        font-size: 15px;
-        padding: 6px;
-        border-radius: 6px;
-
-    }
-    .headerTitle{
-        font-size: 26px;
-    }
+@media (max-width:700px){
     .mainContent{
         flex-direction: column;
     }
@@ -184,7 +161,10 @@
         height: 70%;
     }
     .spanOption{
-        width:36%;
+        width:100%;
+        margin: 20px;
+        font-size: 18px;
+        text-align: center;
     }
     .imgBanner{
         display: none;
@@ -194,29 +174,42 @@
         align-items: flex-start;
     }
     .formRegister{
-        height: 80%;
-        width: 280px;
+        height: 85%;
+        width: 55%;
     }
     .labelForm{
-        font-size: 20px;
+        font-size: 28px;
     }
     .inputRegister{
-        width: 200px;
-        height: 38px;
+        width: 75%;
+        height: 45px;
         font-size: 12px;
+        background-position: 3px;
     }
     .name{
         background: url(../img/user_icon.svg) no-repeat left / 1.5em;
         padding-left: 25px;
+        background-position: 3px;
     }
     .email{
         background: url(../img/mail_icon.svg) no-repeat left / 1.5em;
         padding-left: 25px;
+        background-position: 3px;
     }
     .password{
         background: url(../img/key_icon.svg) no-repeat left / 1.5em;
         padding-left: 25px;
+        background-position: 3px;
     }
+    .cpf{
+        background: url(../img/doc.svg) no-repeat left / 1.4em;
+        padding: 5px 0 5px 27px;
+        background-position: 4px;
+        
+    }
+
+
+
     .btnForm{
         height: 35px;
         width: 140px;
@@ -225,46 +218,43 @@
     }
 }
 
-@media (max-width:375px){
-    .navbtn{
-        display: none;
+@media (max-width:500px){
+    .situacaoSenha .titulo{
+        font-size: 13px;
     }
-    .navbar{
-        justify-content: flex-end;
+    .situacaoSenha .dadosEsquerda{
+        font-size: 11px;    
+        display: flex;
+        align-items: center;
     }
-    .btnRegister{
-        display: block;
-        font-size: 14px;
-        padding: 6px;
-        border-radius: 6px;
+    .situacaoSenha .dadosDireita{
+        font-size: 11px;    
+        display: flex;
+        align-items: center;
     }
-    .headerTitle{
-        font-size: 24px;
+    #caracterEspecial{
+        font-size: 11px;
+        display: flex;
+        align-items: center;
     }
-    .spanOption{
-        width:41%;
+    #numeros{
+        font-size: 11px;
+        display: flex;
+        align-items: center;
     }
-
+    .coluna{
+        width: 50%;
+    }
 }
 
-@media (max-width:320px){
-    .navbtn{
-        display: none;
-    }
-    .navbar{
-        justify-content: flex-end;
-    }
-    .btnRegister{
-        display: block;
-        font-size: 12px;
-        padding: 5px;
-        border-radius: 5px;
-    }
+@media (max-width:430px){
     .headerTitle{
-        font-size: 20px;
+        font-size: 14px;
     }
-    .spanOption{
-        width:50%;
-    }
+    
+    .formRegister{
+        width: 80%;
 
+    }
+     
 }
