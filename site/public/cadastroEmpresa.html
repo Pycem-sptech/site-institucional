@@ -52,7 +52,7 @@
             <div class="formRegisterCompany">
                 <h3 class="titleFormRegisterCompany">Cadastre sua empresa</h3>
                 <input class="inputRegisterCompany nomeCompany" id="nomeCompany" type="text" placeholder="Nome Fantasia">
-                <input class="inputRegisterCompany cnpjCompany" id="cnpjCompany" onblur="validarCnpj(this.value)" type="text" placeholder="CNPJ">
+                <input class="inputRegisterCompany cnpjCompany" id="cnpjCompany" onblur="validarCnpj(this.value)" type="text" placeholder="CNPJ" maxlength="18">
                 <input class="inputRegisterCompany telefoneCompany"id="telefoneCompany" type="tel" placeholder="Telefone" >
                 <input class="inputRegisterCompany emailCompany" id="emailCompany" onblur="validarEmail(this.value)" type="email" placeholder="Email">
                 <button class="btnRegister" onclick="cadastrarEmp()">Cadastrar</button>
@@ -63,7 +63,7 @@
 </html>
 <script>
     $(document).ready(function(){
-		$("#idTelefoneEmpresa").mask("(99) 99999-9999");
-		$("#idCnpj").mask("99.999.999/9999-99");
+		$("#telefoneCompany").mask("(99) 99999-9999");
+		$("#cnpjCompany").mask("99.999.999/9999-99");
 	});
 </script>

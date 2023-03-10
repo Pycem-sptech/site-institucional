@@ -48,7 +48,7 @@
                 <label class="labelForm">Cadastro Usuário</label>
                 <input placeholder="Nome" onfocus="ocultarRegra()" class="inputRegister name" id="name" type="text">
                 <input placeholder="Email" onfocus="ocultarRegra()" onblur="validarEmail(this.value)" class="inputRegister email" id="email" type="email">
-                <input placeholder="CPF" onfocus="ocultarRegra()" onblur="validarCpf(this.value)" class="inputRegister cpf" id="cpf" type="text" maxlength="11">
+                <input placeholder="CPF" onfocus="ocultarRegra()" onblur="validarCpf(this.value)" class="inputRegister cpf" id="cpf" type="text" maxlength="14">
                 <input placeholder="Senha" class="inputRegister password" id="password" type="password" onfocus="mostrarRegra()" onkeyup="mostrarSituacaoSenha(validarSenha(this))">
                 <input onfocus="ocultarRegra()" placeholder="Confirmação de senha" class="inputRegister password" id="confirmPassword" type="password">
                 
@@ -84,7 +84,7 @@
 
 <script>
     $(document).ready(function(){
-        $("#idCPF").mask("999.999.999-99");
+        $("#cpf").mask("999.999.999-99");
     });
 </script>
 
