@@ -61,9 +61,9 @@ idTotem int primary key auto_increment,
 numeroSerie varchar(45) not null,
 processador varchar(45) not null,
 ram varchar(45) not null,
-armazenamento varchar(45) not null,  constraint chkArmazenamento check (estado in('HD','SSD')),
+armazenamento varchar(45) not null,  constraint chkArmazenamento check (armazenamento in('HD','SSD')),
 qtdArmazenamento varchar(45) not null,
-estado varchar(10) not null, constraint chkEstado check (estado in('Disponivel','Manutencao','Desligado')),
+estado varchar(10) not null default 'Desligado', constraint chkEstado check (estado in('Disponivel','Manutencao','Desligado')),
 fkUnidade int, FOREIGN KEY (fkUnidade) REFERENCES unidade(idUnidade)
 );
 
