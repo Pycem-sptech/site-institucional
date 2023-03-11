@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="css/padrao.css">
     <script src="js/validacao.js"></script>
     <title>Cadastre-se | Pycem²</title>
+    <script src="./js/cadastro.js"></script>
+    <script src="./js/geral.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 </head>
 
 <body>
@@ -35,15 +42,17 @@
             </div>
         </section>
         <section class="register">
-            <form class="formRegister" action="">
-                <label class="labelForm">Cadastro Empresa</label>
-                <input placeholder="Razão social" class="inputRegister name" type="text">
-                <input placeholder="Email" class="inputRegister email" type="email">
-                <input placeholder="CPF" class="inputRegister cpf" type="text" maxlength="11">
-                <input placeholder="Senha" class="inputRegister password" type="password" 
-                    onkeyup="mostrarSituacaoSenha(validarSenha(this))">
-                <input placeholder="Confirmação de senha" class="inputRegister password" type="password">
-                <section class="situacaoSenha">
+
+            <div class="formRegister" id="formRegister" action="">
+                <label class="labelForm">Cadastro Usuário</label>
+                <input placeholder="Nome" onfocus="ocultarRegra()" class="inputRegister name" id="name" type="text">
+                <input placeholder="Email" onfocus="ocultarRegra()" onblur="validarEmail(this.value)" class="inputRegister email" id="email" type="email">
+                <input placeholder="CPF" onfocus="ocultarRegra()" onblur="validarCpf(this.value)" class="inputRegister cpf" id="cpf" type="text" maxlength="14">
+                <input placeholder="Senha" class="inputRegister password" id="password" type="password" onfocus="mostrarRegra()" onkeyup="mostrarSituacaoSenha(validarSenha(this))">
+                <input onfocus="ocultarRegra()" placeholder="Confirmação de senha" class="inputRegister password" id="confirmPassword" type="password">
+                
+                <section id="sessionSenha" style="display: none;" class="situacaoSenha">
+
                     <div class="titulo">
                         <p>Sua senha deve conter: </p>
                     </div>
@@ -60,12 +69,21 @@
                     </div>
                 </section>
 
-                <button class="btnForm">Cadastrar</button>
-            </form>
+                <div style="margin-top: 15px;" id='recaptcha' class="g-recaptcha" data-sitekey="6LcdO8UkAAAAAI9z162BA4MRpSHWX1i_KmmQSQNG" data-callback="sendForm" onclick="sendForm()" data-size="visible"></div>
+                <button type="submit" class="btnForm" onclick="reCaptcha()">Cadastrar</button>
+            </div>
 
+            </form>
 
         </section>
     </main>
 </body>
 
 </html>
+
+<script>
+    $(document).ready(function(){
+        $("#cpf").mask("999.999.999-99");
+    });
+</script>
+

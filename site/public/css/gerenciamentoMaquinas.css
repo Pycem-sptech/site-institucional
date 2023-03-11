@@ -139,6 +139,15 @@ input{
     flex-direction: column;
     align-items: center;
 }
+.feed{
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .titleBoxMachine{
     margin-left: 10%;
     margin-top: 7%;
@@ -170,4 +179,5 @@ input{
 .btnEditDelete img{
     height: 25px;
     cursor: pointer;
+    width: 40px;
 }

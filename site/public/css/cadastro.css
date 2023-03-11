@@ -38,7 +38,9 @@
     justify-content: center;
 }
 .formRegister{
+
     height: 70%;
+
     width: 350px;
     padding: 14px 0;
     border: 2px solid rgba(0, 0, 0, 0.14);
@@ -48,6 +50,7 @@
     align-items: center;
     justify-content: space-evenly;
 }
+
 .inputRegister{
     height: 40px;
     margin-top: 10px;
@@ -59,13 +62,13 @@
     
 }
 
-
 .situacaoSenha {
     padding: 10px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: 15%;
 }
 
 .titulo {
@@ -222,8 +225,6 @@
         background-position: 4px;
         
     }
-
-
 
     .btnForm{
         height: 35px;

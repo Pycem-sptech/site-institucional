@@ -1,4 +1,3 @@
-
 function validarSenha(senhaVar) {
     const senha = {valida: false, 
         dadosSenha: {
