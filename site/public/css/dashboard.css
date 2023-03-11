@@ -14,7 +14,7 @@ body{
     float: left;
     background-color: #fff;
     height: 100vh;
-    width: 12vh;
+    width: 5vw;
     border-radius: 0 10px 10px 0;
     box-shadow: 0 0 6px 6px rgba(0, 0, 0, 0.15);
     display: flex;
@@ -80,4 +80,52 @@ body{
 }
 .iconUser{
     height: 35px;
+}   
+.btnHamburguer{
+    background: none;
+    border:none;
+    outline: none;
+    display: none;
+    
+}
+@media (max-width:800px){
+    .sidebar{
+        display: none;
+    }
+    .header{
+        width: 100%;       
+    }
+    .guideText{
+        text-align: center;
+    }
+    .homeHeader{
+        display: none;
+    }
+    .btnHamburguer{
+        display: block;
+    }
+    .menuImg{
+        height: 40px;
+    }
+    .user{
+        width: 27%;
+    }
+    .welcomeSentence{
+        margin-left: 0;    
+        font-size: 1.7em;
+    }
+    .firstStep{
+        margin-left: 0;    
+    }
+}
+@media (max-width:600px){
+    .header{
+        align-items: flex-start;
+    }
+    .header .container{
+        width: 100%;
+        height: 80%;
+        border-radius: 0;
+    }
+    
 }

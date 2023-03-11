@@ -183,3 +183,86 @@ input{
     width: 40px;
     cursor: pointer;
 }
+@media(max-width:1100px){
+    .welcomeSentence{
+        font-size: 1.8em;
+    }
+    .cepUnit{
+        width: 39%;
+    }
+    .logradouroUnit{
+        width: 37%;
+    }
+    .telefoneUnit{
+        width: 32%git s;
+    }
+
+}
+
+@media (max-width:800px){
+    .main{
+        flex-direction: column;
+        height: 100vh;
+    }
+    .registerUnit{
+        width: 100%;
+        justify-content: center ;
+        height: 120%;
+        
+    }
+    .formRegisterUnit{
+        margin-left:0;
+        height: 100%;
+    }
+    .units{
+        width: 100%;
+        justify-content: center;
+    }
+    .boxUnits{
+        width: 93%;
+    }
+    .boxUnits{
+        margin-top: 10%;
+    }
+    .titleBoxUnit{
+        margin-top: 4%;
+        margin-left: 7%;
+    }
+    .welcomeSentence{
+        margin-left: 0;    
+        font-size: 1.7em;
+    }
+    .firstStep{
+        margin-left: 0;
+    }
+}
+@media (max-width:750px){
+    .titleFormRegisterUnit{
+        align-self: center;
+        margin: 0;
+    }
+    .boxInputUnit{
+        height: 100%;
+        width: 50%;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+    }
+    .inputRegisterUnit{
+        width: 100%;
+        margin-top: 5px;
+        margin-right: 0;
+    }
+    .btnRegister{
+        margin-top:10px ;
+    }
+}
+@media (max-width:500px){
+    .boxInputUnit{
+        width: 70%;
+    }
+    .welcomeSentence{
+        font-size: 1.6em;
+    }
+}
