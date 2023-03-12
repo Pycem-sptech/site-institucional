@@ -38,7 +38,15 @@
     <header class="header">
         <div class="container">
             <h3 class="homeHeader">Home</h3>
-            <button class="btnHamburguer"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+            <nav id="nav" class="navbarHamburguer">
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <ul class="menu" id="menu">
+                    <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                    <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                    <li onclick="redirectUnit()">Gerenciar Unidades</li>
+                    <li onclick="limparSessao()">Sair</li>
+                </ul>
+            </nav>
             <div class="user">
                 <h4 id="usuarioLogado">Usuário</h4>
                 <img class="iconUser" src="img/personIcon.svg">
@@ -54,7 +62,7 @@
             <div class="formRegisterUnit">
                 <h3 class="titleFormRegisterUnit">Cadastre suas máquinas</h3>
                 <div class="boxInputUnit">
-                    <select required class="inputRegisterUnit nameUnit" id="nameUnit" placeholder="Unidade">
+                    <select required class="inputRegisterUnit selectMachine" id="nameUnit" placeholder="Unidade">
                         <option value="" disabled selected>Unidade</option>
                      
                     </select>
@@ -76,16 +84,7 @@
                 <h3 class="titleBoxMachine">Máquinas cadastradas</h3>
                 <hr>
                 <div class="feed" id="feed">
-                <!-- <div class="registeredMachine">
-                    <div class="idMachine">
-                        <span>5129731289</span>
-                        <span class="addresOpacity">Unidade Paulista</span>
-                    </div>
-                    <div class="btnEditDelete">
-                        <img src="img/Botão Editar.svg" onclick="mostrarModal()">
-                        <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
-                    </div>
-                -->
+                
                 </div>
             </div>
             <div class="overlay" id="overlay">
@@ -141,4 +140,16 @@
 		$("#idCep").mask("99999-999");
 		$("#idTelefoneUnidade").mask("(99) 99999-9999");
 	});
+    
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+      if (event.type === 'touchstart') event.preventDefault();  
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('active');
+    
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
 </script>

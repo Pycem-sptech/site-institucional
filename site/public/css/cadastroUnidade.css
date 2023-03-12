@@ -194,48 +194,48 @@ input{
         width: 37%;
     }
     .telefoneUnit{
-        width: 32%git s;
+        width: 32%;
     }
 
 }
 
-@media (max-width:800px){
-    .main{
-        flex-direction: column;
-        height: 100vh;
+    @media (max-width:800px){
+        .main{
+            flex-direction: column;
+            height: 100vh;
+        }
+        .registerUnit{
+            width: 100%;
+            justify-content: center ;
+            height: 120%;
+            
+        }
+        .formRegisterUnit{
+            margin-left:0;
+            height: 100%;
+        }
+        .units{
+            width: 100%;
+            justify-content: center;
+        }
+        .boxUnits{
+            width: 93%;
+        }
+        .boxUnits{
+            margin-top: 10%;
+        }
+        .titleBoxUnit{
+            margin-top: 4%;
+            margin-left: 7%;
+        }
+        .welcomeSentence{
+            margin-left: 0;    
+            font-size: 1.7em;
+        }
+        .firstStep{
+            margin-left: 0;
+        }
     }
-    .registerUnit{
-        width: 100%;
-        justify-content: center ;
-        height: 120%;
-        
-    }
-    .formRegisterUnit{
-        margin-left:0;
-        height: 100%;
-    }
-    .units{
-        width: 100%;
-        justify-content: center;
-    }
-    .boxUnits{
-        width: 93%;
-    }
-    .boxUnits{
-        margin-top: 10%;
-    }
-    .titleBoxUnit{
-        margin-top: 4%;
-        margin-left: 7%;
-    }
-    .welcomeSentence{
-        margin-left: 0;    
-        font-size: 1.7em;
-    }
-    .firstStep{
-        margin-left: 0;
-    }
-}
 @media (max-width:750px){
     .titleFormRegisterUnit{
         align-self: center;
@@ -256,6 +256,10 @@ input{
     }
     .btnRegister{
         margin-top:10px ;
+    }
+    .titleBoxUnit{
+        align-self: center;
+        margin-left: 0;
     }
 }
 @media (max-width:500px){

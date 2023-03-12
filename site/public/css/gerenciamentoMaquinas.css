@@ -75,35 +75,39 @@ input{
     padding-left: 35px;
 
 }
-.nameUnit{
+.selectMachine{
     width: 50%;
     margin-right: 10px;
     background: url(../img/storeIconOpacity.svg) no-repeat left / 2.0em;
     background-position: 3px;
     border: 0.2vh solid rgba(0, 0, 0, 0.18);
-    border-radius: 0.8vw;
-    padding-left: 6%;
+    border-radius: 10px;
+    padding-left: 35px;
+    font-size: 15px;
+    outline: none;
+    color: rgba(0, 0, 0, 0.6);
+    height: 42px;
 }
 .serialNumber{
     width: 40%;
     margin-right: 10px;
     background: url(../img/numeroIcon.svg) no-repeat left / 2.0em;
     background-position: 3px;
-    padding-left: 6%;
+    padding-left: 38px;
 }
 .processor{
     width: 25%;
     margin-right: 10px;
     background: url(../img/processor-chip.svg) no-repeat left / 2.0em;
     background-position: 4px;
-    padding-left: 6%;
+    padding-left: 38px;
 }
 .ram{
     width: 15%;
     margin-right: 10px;
     background: url(../img/ram.svg) no-repeat left / 1.6em;
     background-position: 5px;
-    padding-left: 6%;
+    padding-left: 38px;
 }
 .storageSelect{
     width: 43%;
@@ -111,16 +115,19 @@ input{
     background: url(../img/data-storage.svg) no-repeat left / 1.8em;
     background-position: 5px;
     border: 0.2vh solid rgba(0, 0, 0, 0.18);
-    border-radius: 0.8vw;
-    padding-left: 6%;
+    border-radius: 10px;
+    padding-left: 35px;
+    font-size: 15px;
+    outline: none;
+    color: rgba(0, 0, 0, 0.6);
 }
 .storage{
     width: 38%;
     background: url(../img/data-storage.svg) no-repeat left / 1.8em;
     background-position: 5px;
     border: 0.2vh solid rgba(0, 0, 0, 0.18);
-    border-radius: 0.8vw;
-    padding-left: 6%;
+    border-radius: 10px;
+    padding-left: 38px;
 }
 .machine{
     width: 32%;
@@ -180,4 +187,90 @@ input{
     height: 25px;
     cursor: pointer;
     width: 40px;
+}
+
+@media (max-width:800px){
+    .main{
+        flex-direction: column;
+        height: 100vh;
+    }
+    .registerUnit{
+        width: 100%;
+        justify-content: center ;
+        height: 120%;
+        
+    }
+    .formRegisterUnit{
+        margin-left:0;
+        height: 100%;
+    }
+    .machine{
+        width: 100%;
+        justify-content: center;
+    }
+    .boxMachine{
+        width: 93%;
+        margin-top: 10%;
+    }
+    .titleBoxMachine{
+        margin-top: 4%;
+        margin-left: 7%;
+    }
+    .welcomeSentence{
+        margin-left: 0;    
+        font-size: 1.7em;
+    }
+    .firstStep{
+        margin-left: 0;
+    }
+}
+
+@media (max-width:750px){
+    .titleFormRegisterUnit{
+        align-self: center;
+        margin: 0;
+    }
+    .boxInputUnit{
+        height: 100%;
+        width: 50%;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .inputRegisterUnit{
+        width: 100%;
+        margin-top: 5px;
+        margin-right: 0;
+    }
+    .selectMachine{
+        height: 42px;
+        width: 110%;
+    }
+    .storageSelect{
+        height: 42px;
+        width: 110%;
+    }
+    .btnRegister{
+        margin-top:10px ;
+    }
+    .titleBoxMachine{
+        margin-left: 0;
+        align-self: center;
+    }
+}
+@media (max-width:500px){
+    .boxInputUnit{
+        width: 70%;
+    }
+    .welcomeSentence{
+        font-size: 1.6em;
+    }
+    .selectMachine{
+        width: 115%;
+    }
+    .storageSelect{
+     
+        width: 115%;
+    }
 }

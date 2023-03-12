@@ -125,6 +125,10 @@ input{
     .firstStep{
         margin: 0;    
     }
+    .titleFormRegisterCompany{
+        margin-left: 0;
+        align-self: center;
+    }
 }
 @media (max-width:600px){
     .formRegisterCompany{
