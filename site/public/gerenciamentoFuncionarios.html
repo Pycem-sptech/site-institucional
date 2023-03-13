@@ -35,7 +35,16 @@
         </nav>
         <header class="header">
             <div class="container">
-                <h3>Home</h3>
+                <h3 class="homeHeader">Home</h3>
+                <nav id="nav" class="navbarHamburguer">
+                    <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                    <ul class="menu" id="menu">
+                        <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                        <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                        <li onclick="redirectUnit()">Gerenciar Unidades</li>
+                        <li onclick="limparSessao()">Sair</li>
+                    </ul>
+                </nav>
                 <div class="user">
                     <h4 id="usuarioLogado">Usuário</h4>
                     <img class="iconUser" src="img/personIcon.svg">
@@ -51,10 +60,6 @@
                 <form class="formRegisterCompany">
                     <h3 class="titleFormRegisterCompany">Cadastre seu Funcionário</h3>
                     <div class="inputCampo">
-                    <!-- <select class="inputRegisterFuncionarios unidadeFuncionario" id="selectUnidade">
-                        <option value="unidade">Unidade</option>
-                    </select> -->
-
                     <select class="inputRegisterFuncionarios cargoFuncionario" id="selectCargo">
                         <option disabled selected>Cargo</option>
                         <option value="Tecnico">Tecnico</option>
@@ -63,8 +68,8 @@
                     <input class="inputRegisterFuncionarios nomeFuncionario" id="nomeFuncionario" type="text" placeholder="Nome Completo" >
                     <input class="inputRegisterFuncionarios cpfFuncionario" id="cpfFuncionario" type="text" placeholder="CPF" >
                     <input class="inputRegisterFuncionarios emailFuncionario" id="emailFuncionario" type="email" placeholder="Email">
-                    <input class="inputRegisterFuncionarios senha" type="text" id="senha" placeholder="Senha">
-                    <input class="inputRegisterFuncionarios confirmaçãoSenha" id="confirmacaoSenha" type="text" placeholder="Confirmação de Senha">
+                    <input class="inputRegisterFuncionarios password" type="text" id="senha" placeholder="Senha">
+                    <input class="inputRegisterFuncionarios password" id="confirmacaoSenha" type="text" placeholder="Confirmação de Senha">
                     </div>
                     <button class="btnRegister" onclick="cadastrarFuncionario()">Cadastrar</button>
                 </form>
@@ -140,3 +145,16 @@
         </main>
 </body>
 </html>
+<script>
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+      if (event.type === 'touchstart') event.preventDefault();  
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('active');
+    
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+</script>

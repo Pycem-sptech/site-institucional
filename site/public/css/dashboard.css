@@ -14,7 +14,7 @@ body{
     float: left;
     background-color: #fff;
     height: 100vh;
-    width: 12vh;
+    width: 5vw;
     border-radius: 0 10px 10px 0;
     box-shadow: 0 0 6px 6px rgba(0, 0, 0, 0.15);
     display: flex;
@@ -80,4 +80,89 @@ body{
 }
 .iconUser{
     height: 35px;
+}   
+.btn-mobile{
+    background: none;
+    border:none;
+    outline: none;
+}
+.navbarHamburguer{
+    display: none;
+}
+.menu{
+    display: none;
+    list-style: none;
+}
+@media (max-width:800px){
+    .header{
+        align-items: flex-start;
+    }
+    .header .container{
+        width: 100%;
+        height: 80%;
+        border-radius: 0;
+    }
+    .sidebar{
+        display: none;
+    }
+    .header{
+        width: 100%;       
+    }
+    .guideText{
+        text-align: center;
+    }
+    .homeHeader{
+        display: none;
+    }
+    .btnHamburguer{
+        display: block;
+    }
+    .menuImg{
+        height: 40px;
+    }
+    .user{
+        width: 27%;
+    }
+    .welcomeSentence{
+        margin-left: 0;    
+        font-size: 1.7em;
+    }
+    .firstStep{
+        margin-left: 0;    
+    }
+    .navbarHamburguer{
+        display: block;
+    }
+    .menu{
+        display: block;
+        position: absolute;
+        top: 11vh;
+        width: 100%;
+        text-align: center;
+        border-top: 1px #ececec solid;
+        left: 0;
+        background-color: #fff;
+        height: 0;
+        z-index: 1000;
+        transition: 0.6s;
+        overflow-y: hidden;
+    }
+    .menu li{
+        margin-top: 20px;
+        font-size: 25px;
+        cursor: pointer;
+        padding-bottom: 20px;
+        border-bottom: 1px #ececec solid;
+        font-weight: 500;
+    }
+    .menu a{
+        color: black;
+        text-decoration: none;
+    }
+    #nav.active .menu{
+        height: 100vh;
+        overflow-y: auto;
+        border-top: 1px #ececec solid;
+    }
+    
 }

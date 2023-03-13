@@ -16,7 +16,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-
+    <!-- <script src="js/menu.js"></script> -->
 </head>
 
 <body onload="validarSessao(), atualizarUnidadesCadastradas()">
@@ -39,7 +39,16 @@
     </nav>
     <header class="header">
         <div class="container">
-            <h3>Home</h3>
+            <h3 class="homeHeader">Home</h3>
+            <nav id="nav" class="navbarHamburguer">
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <ul class="menu" id="menu">
+                    <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                    <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                    <li onclick="redirectUnit()">Gerenciar Unidades</li>
+                    <li onclick="limparSessao()">Sair</li>
+                </ul>
+            </nav>
             <div class="user">
                 <h4 id="usuarioLogado"></h4>
                 <img class="iconUser" src="img/personIcon.svg">
@@ -76,16 +85,7 @@
                 <h3 class="titleBoxUnit">Unidades cadastradas</h3>
                 <hr>
                 <div class="feed" id="feed">
-                    <!-- <div class="registeredUnit" id="registeredUnit">
-                        <div class="nameUnit">
-                            <span>Unidade Paulista</span>
-                            <span class="addresOpacity">Av. Paulista</span>
-                        </div>
-                        <div class="btnEditDelete">
-                            <img src="img/Botão Editar.svg" onclick="mostrarModal()">
-                            <img src="img/Botao Fechar.svg" onclick="deletarRegistroUnidade()">
-                        </div>
-                    </div> -->
+                 
                 </div>
 
             </div>
@@ -145,4 +145,16 @@
     if (fkEmpresa == null) {
         autenticar()
     }
+
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+      if (event.type === 'touchstart') event.preventDefault();  
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('active');
+    
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
 </script>

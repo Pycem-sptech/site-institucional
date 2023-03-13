@@ -100,3 +100,47 @@ input{
     background-position: 5px;
     padding-left: 40px;
 }
+@media (max-width:1200px){
+    .side{
+        width: 7vw;
+    }
+
+    .formRegisterCompany{
+        width: 40%;
+        height: 100%;
+    }
+}
+@media (max-width:800px){
+    .main{
+        height: 80vh;
+    }
+    .formRegisterCompany{
+        width: 50%;
+        height: 100%;
+    }
+    .welcomeSentence{
+        margin: 0;    
+        font-size: 1.7em;
+    }
+    .firstStep{
+        margin: 0;    
+    }
+    .titleFormRegisterCompany{
+        margin-left: 0;
+        align-self: center;
+    }
+}
+@media (max-width:600px){
+    .formRegisterCompany{
+        width: 70%;
+    }
+}
+@media (max-width:425px){
+    .welcomeSentence{
+        font-size: 1.4em;
+    }
+    .formRegisterCompany{
+        width: 80%;
+    }
+
+}
