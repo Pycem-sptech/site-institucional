@@ -1,0 +1,146 @@
+/* TIRANDO VISUALIZAÇÃO DOS ICONS DA SIDE BAR */
+
+.navigationIcon{
+    display: none;
+}
+.navigationButtons{
+    justify-content: flex-start;
+    margin-top: 35%;
+}
+
+/* TITULO DE PRIMEIROS PASSOS E SEJA BEM VINDO */
+
+.guideText{
+    height: 12vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: default;
+}
+.welcomeSentence {
+    font-size: 2em;
+    margin-left: 4%;
+}
+.firstStep{
+    margin-left: 4%;
+    color: #adadad;
+}
+
+/* CONTEUDO PRINCIPAL */
+.main{
+    height: 70vh;
+    display: flex;
+}
+.registerCompany{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.formRegisterCompany{
+    background-color: #fff;
+    height: 85%;
+    width: 25%;
+    margin-right: 8px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+input{
+    height: 40px;
+    border-radius: 10px;
+    border: solid 1px  rgba(0, 0, 0, 0.18);
+    outline: none;
+    font-size: 15px;
+    padding-left: 35px;
+
+}
+.inputRegisterCompany{
+    width: 70%;
+}
+.titleFormRegisterCompany{
+    align-self: flex-start;
+    margin-left: 10%;
+    margin-bottom: 10px;
+}
+.btnRegister{
+    margin-top: 20px;
+    outline: none;
+    border: none;
+    background-color: #0078E8;
+    color: #fff;
+    width: 40%;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 0px 5px  6px 0px rgba(0, 0, 0, 0.20);
+    cursor: pointer;
+}
+
+
+.nomeCompany{
+    background: url(../img/user_icon.svg) no-repeat left / 2.0em;
+}
+.emailCompany{
+    background: url(../img/mail_icon.svg) no-repeat left / 2.0em;
+    background-position: 5px;
+}
+.telefoneCompany{
+    background: url(../img/telefoneIcon.svg) no-repeat left / 2.0em;
+}
+.cnpjCompany{
+    background: url(../img/idIcon.svg) no-repeat left / 2.0em;
+    background-position: 5px;
+    padding-left: 40px;
+}
+@media (max-width:1200px){
+    .side{
+        width: 7vw;
+    }
+
+    .formRegisterCompany{
+        width: 40%;
+        height: 100%;
+    }
+}
+@media (max-width:800px){
+    .main{
+        height: 80vh;
+    }
+    .formRegisterCompany{
+        width: 50%;
+        height: 100%;
+    }
+    .welcomeSentence{
+        margin: 0;    
+        font-size: 1.7em;
+    }
+    .firstStep{
+        margin: 0;    
+    }
+    .titleFormRegisterCompany{
+        margin-left: 0;
+        align-self: center;
+    }
+}
+@media (max-width:600px){
+    .formRegisterCompany{
+        width: 70%;
+    }
+}
+@media (max-width:425px){
+    .welcomeSentence{
+        font-size: 1.4em;
+    }
+    .formRegisterCompany{
+        width: 80%;
+    }
+
+}

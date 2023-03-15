@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/padrao.css">
+    <script src="./js/geral.js"></script>
+    <title>Home | Pycem²</title>
+</head>
+<body>
+    <header id="header" class="header">
+        <div class="container">
+            <a href="index.html"class="headerTitle"><h1 >Pycem²</h1></a>
+            <nav class="navbar" id="nav">
+                <ul>
+                    <li class="hiddenMobile"><a class="navbtn" href="#sectionUm">Home</a></li>
+                    <li class="hiddenMobile"><a class="navbtn" href="#sectionDois">Solução</a></li>
+                    <li><a class="navbtn btnRegister" href="cadastro.html">Registrar-se</a></li>
+                </ul>
+
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <section id="sectionUm" class="sectionUm">
+            <div class="corpo">
+                <h1 class="corpoTitulo">
+                    Monitoramento inteligente
+                </h1>
+                <p class="corpoTexto">A Pycem é seu aliado para monitorar o seu sistema, mitigando erros, trazendo melhorias e previsibilidade ao negócio </p>
+                <button class="corpoBotao" onclick="secaoSolucao()">Conheça nossa solução</button>
+            </div>
+            <div class="divImagem">
+                <img class="imgSectionUm" src="./img/Website Creator-amico 1.svg" alt="Mulher e homem analisando gráficos em um monitor">
+            </div>
+        </section>
+        <section id="sectionDois" class="sectionDois">
+            <div class="divCards">
+                <div class="cardTopBot">
+                    <div class="card">
+                        <img class="imgCard" src="./img/notebook3d 1.svg" alt="nootebook">
+                        <p class="cardTitulo">
+                            <b>Controle de informações</b>
+                        </p>
+                        <p class="cardCorpo">
+                            A nossa plataforma te garante o acesso de informações sobre o hardware do seu totem
+                        </p>
+                    </div>
+                    <div class="card">
+                        <img class="imgCard" src="./img/shop_s 1.svg" alt="loja">
+                        <p class="cardTitulo">
+                            <b>Vantagem comercial</b>
+                        </p>
+                        <p class="cardCorpo">
+                            Seu estabelecimento atenderá mais clientes de uma só vez, alavancando suas vendas 
+                        </p>
+                    </div>
+                </div>
+                <div class="cardTopBot">
+                    <div class="card">
+                        <img class="imgCard" src="./img/server3d 1.svg" alt="servidor">
+                        <p class="cardTitulo">
+                            <b>Monitoração</b>
+                        </p>
+                        <p class="cardCorpo">
+                            A monitoração desses dados ajudam com medidas preventivas, causando menos inatividade de totem
+                        </p>
+                    </div>
+                    <div class="card">
+                        <img class="imgCard" src="./img/cash3d 1.svg" alt="dinheiro">
+                        <p class="cardTitulo">
+                            <b>Rendimento</b>
+                        </p>
+                        <p class="cardCorpo">
+                            Com Pycem² você tem mais clientes em menos tempo, mais dinheiro e menos preocupações!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="corpo">
+                <h1 class="corpoTitBen">
+                    Nossa <br> Solução
+                </h1>
+                <p class="corpoTxtBen">
+                    Nosso software te dará diversos benefícios para que você assuma a liderança no mercado, entre eles estão o aumento de produtividade pela monitoração remota etc.
+                </p>
+                <button class="corpoBenBtn" onclick="paginaCadastro()">Inscreva-se</button>
+            </div>
+        </section>
+
+        <section class="sectionTres">
+            <div class="sectionFilho">
+                <div class="corpoBanner">
+                    <h1 class="bannerTitulo">
+
+                        Se registre e faça seu <br> negócio mais rentável
+                    </h1>
+                    <button class="bannerBotao" onclick="paginaCadastro()">Registrar-se</button>
+                </div>
+                <div class="bannerImagem">
+                    <img class="imagemBanner" src="./img/coinUSD3d 1.svg" alt="">
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <section class="sectionFooter">
+            <div class="divPycem">Pycem²</div>
+            <div class="caixas">
+                <div class="caixaItem">
+                    <a class="itemTitulo" href="#header">Home</a>
+                    <a class="item" href="#header">Início</a>
+                    
+                </div>
+                <div class="caixaItem">
+                    <a class="itemTitulo" href="#sectionUm">Produto</a>
+                    <a class="item" href="#sectionUm">Pycem</a>
+                </div>
+                <div class="caixaItem">
+                    <a class="itemTitulo" href="#sectionDois">Solução</a>
+                    <a class="item" href="#sectionDois">Vantagens</a>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="copyright">
+            <p>Copyright &copy 2023</p>
+        </section>
+    </footer>
+</body>
+</html>
+<script>
+  
+    function paginaCadastro(){
+        window.location="cadastro.html"
+    }
+    function secaoSolucao(){
+        location = "#sectionDois";
+    }
+</script>
+

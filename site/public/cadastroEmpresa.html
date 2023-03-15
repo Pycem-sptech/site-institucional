@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pycem</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/cadastroEmpresa.css">
+    <script src="./js/cadastro.js"></script>
+    <script src="./js/cadastroEmpresa.js"></script>
+    <script src="./js/geral.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+        
+</head>
+<body onload="validarSessao()">
+    <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
+    <nav class="sidebar">
+        <div class="container">
+            <div class="navigationButtons">
+                <h2>Py</h2>
+                <img class="iconSidebar navigationIcon" src="img/userIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+            </div>
+            <div class="footerButtons">
+                <img class="iconSidebar" src="img/settingIcon.svg">
+                <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
+            </div>
+        </div>
+    </nav>
+    <header class="header">
+        <div class="container">
+            <h3 class="homeHeader">Home</h3><nav id="nav" class="navbarHamburguer">
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <ul class="menu" id="menu">
+                    <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                    <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                    <li onclick="redirectUnit()">Gerenciar Unidades</li>
+                    <li onclick="limparSessao()">Sair</li>
+                </ul>
+            </nav>
+            <div class="user">
+                <h4 id="usuarioLogado">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg">
+            </div>
+        </div>
+    </header>
+    <div class="guideText">
+            <span class="welcomeSentence">Olá <span id="usuarioLogado2"></span>, seja bem-vindo!</span>
+            <span class="firstStep">Primeiros passos</span>
+    </div>
+    <main class="main">
+        <section class="registerCompany">
+            <div class="formRegisterCompany">
+                <h3 class="titleFormRegisterCompany">Cadastre sua empresa</h3>
+                <input class="inputRegisterCompany nomeCompany" id="nomeCompany" type="text" placeholder="Nome Fantasia">
+                <input class="inputRegisterCompany cnpjCompany" id="cnpjCompany" onblur="validarCnpj(this.value)" type="text" placeholder="CNPJ" maxlength="18">
+                <input class="inputRegisterCompany telefoneCompany"id="telefoneCompany" type="tel" placeholder="Telefone" >
+                <input class="inputRegisterCompany emailCompany" id="emailCompany" onblur="validarEmail(this.value)" type="email" placeholder="Email">
+                <button class="btnRegister" onclick="cadastrarEmp()">Cadastrar</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+<script>
+    $(document).ready(function(){
+		$("#telefoneCompany").mask("(99) 99999-9999");
+		$("#cnpjCompany").mask("99.999.999/9999-99");
+	});
+    
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+      if (event.type === 'touchstart') event.preventDefault();  
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('active');
+    
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+</script>

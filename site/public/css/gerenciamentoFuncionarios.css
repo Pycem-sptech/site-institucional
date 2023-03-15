@@ -1,0 +1,286 @@
+
+/* TITULO DE PRIMEIROS PASSOS E SEJA BEM VINDO */
+
+.guideText{
+    height: 12vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: default;
+}
+.welcomeSentence {
+    font-size: 2em;
+    margin-left: 4%;
+}
+.firstStep{
+    margin-left: 4%;
+    color: #adadad;
+}
+/*Conteudo*/
+
+.main{
+    height: 70vh;
+    display: flex;
+}
+.registerCompany{
+    width: 64%;
+    display: flex;
+    justify-content: flex-end;
+}
+.registerUnit{
+    width: 30%;
+}
+.formRegisterCompany{
+    background-color: #fff;
+    height: 75%;
+    width: 91%;
+    margin-right: 8px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
+    display: flex;
+    padding: 10px;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+.formRegisterUnit{
+    background-color: #fff;
+    height: 90%;
+    width: 95%;
+    margin-left: 8px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
+    display: flex;
+    padding: 10px;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+input{
+    height: 42px;
+    border-radius: 10px;
+    border: solid 1px  rgba(0, 0, 0, 0.18);
+    outline: none;
+    font-size: 15px;
+    padding-left: 35px;
+}
+.inputRegisterFuncionarios{
+    width: 40%;
+}
+.titleFormRegisterCompany{
+    align-self: flex-start;
+    font-size: 20px;
+    margin: 10px 0px 10px 40px;
+}
+.inputCampo{
+    display: flex;
+    flex-wrap: wrap;
+    height: 65%;
+    width: 95%;  
+}
+.nomeFuncionario{
+    width: 86%;
+}
+.btnRegister{
+    margin-top: 20px;
+    outline: none;
+    border: none;
+    background-color: #0078E8;
+    color: #fff;
+    width: 35%;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 0px 5px  6px 0px rgba(0, 0, 0, 0.20);
+    cursor: pointer;
+}
+.titleFormRegisterUnit{
+    margin-left: 10%;
+    margin-top: 7%;
+    margin-bottom: 3%;
+    align-self: flex-start;
+}
+.caixaFuncionariosCadastrados{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+}
+hr{
+    width: 104%;
+    opacity: 0.2;
+}
+.boxspan{
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    width: 85%;
+    height: 13%;
+    margin: 10px;
+}
+.blocoFuncionarios{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 80%;
+    font-size: 14px;
+    justify-content: center;
+}
+
+.cargoUnid{
+    color: #adadad;
+}
+.divEditarExluir{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 22%;
+    height: 100%;
+    margin-left: 10%;
+}
+.caixaAzulEditar{
+    background-color: rgb(67, 142, 255);
+    width: 45%;
+    height: 60%;
+    border-radius: 10px;
+    display: flex;
+}
+.caixaVermelhaExcluir{
+    background-color: rgb(255, 0, 0);
+    width: 45%;
+    height: 60%;
+    border-radius: 10px;
+    display: flex;
+}
+/*IMG*/
+.unidadeFuncionario{
+    width: 48%;
+    height: 16%;
+    margin-right: 10px;
+    font-size: 15px;
+    background: url(../img/storeIconOpacity.svg) no-repeat left / 2.0em;
+    padding-left: 35px ;
+    border-radius: 8px;
+    border-color: #c9c9c9;
+    color: #727272;
+    
+}
+.nomeFuncionario{
+    background: url(../img/user_icon.svg) no-repeat left / 2.0em;
+    background-position: 4px;
+    padding-left: 40px;
+}
+.emailFuncionario{
+    background: url(../img/mail_icon.svg) no-repeat left / 2.0em;
+    background-position: 4px;
+    padding-left: 40px;   
+
+}
+.cpfFuncionario{
+    background: url(../img/idIcon.svg) no-repeat left / 2.0em;
+    background-position: 4px;
+    padding-left: 40px;
+    margin-right: 5px;
+}
+.password{
+    background: url(../img/key_icon.svg) no-repeat left / 2.0em;
+    padding-left: 40px;
+    background-position: 4px;
+    margin-right: 5px;
+}
+.cargoFuncionario{
+    width: 92%;
+    height: 42px;
+    padding-left: 40px;
+    border-radius: 8px;
+    font-size: 15px;
+    background: url(../img/idIcon.svg) no-repeat left / 2.0em;
+    border-color: #c9c9c9;
+    color: #727272;
+    background-position: 4px;
+
+}
+.logoFuncionarios{
+    background: url(../img/user_icon.svg) no-repeat left / 2em;
+    height: 41px;
+    width: 60px;
+
+}
+
+
+
+@media (max-width:800px){
+    .main{
+        flex-direction: column;
+        height: 100vh;
+    }
+    .registerCompany{
+        width: 100%;
+        justify-content: center ;
+        height: 130%;
+        
+    }
+    .welcomeSentence{
+        margin-left: 0;    
+        font-size: 1.7em;
+    }
+    .firstStep{
+        margin-left: 0;
+    }
+    .formRegisterCompany{
+        display: flex;
+        align-items:  center;
+        height: 100%;
+        margin-right: 0;
+    }
+    .inputCampo{
+        justify-content: center;
+    }
+    .titleFormRegisterCompany{
+        margin-left: 0;
+        align-self: center;
+        margin-bottom: 10px;
+    }
+    .registerUnit{
+        margin-top: 10%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .formRegisterUnit{
+        margin: 0;
+        width: 91%;
+    }
+    .titleFormRegisterUnit{
+        margin-left: 0;
+        margin-top: 3%;
+        align-self: center;
+    }
+    .boxspan{
+        margin-top: 4%;
+    }
+}
+@media (max-width:600px){
+    .inputCampo{
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: center;
+    }
+    .inputRegisterFuncionarios{
+        margin-top: 8px;
+        width: 80%;
+    }
+    .cargoFuncionario{
+        width: 88%;
+    }
+}
+@media (max-width:500px){
+    .welcomeSentence{
+        font-size: 1.6em;
+    }
+}
