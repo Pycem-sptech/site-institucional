@@ -11,6 +11,16 @@ function listar() {
   return database.executar(instrucao);
 }
 
+function listarFuncionarios(fkEmpresa) {
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
+  );
+  var instrucao = `
+         select nome, cargo, idUsuario from usuario where fkEmpresa = ${fkEmpresa} AND (cargo = 'Tecnico' OR cargo = 'Supervisor');
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
 function entrar(email, senha) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
@@ -53,20 +63,20 @@ function cadastrar(nome, email, cpf, senha) {
   return database.executar(instrucao);
 }
 
-function cadastrarFuncionario(nome, email, cpf, senha, cargo, unidade) {
+function cadastrarFuncionario(nome, email, cpf, senha, cargo, fkEmpresa) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
     nome,
     email,
     senha,
     cargo,
-    unidade
+    fkEmpresa
   );
 
   // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
   //  e na ordem de inserção dos dados.
   var instrucao = `
-            INSERT INTO usuario (nome, email, cpf, senha, cargo, fkUnidade ) VALUES ('${nome}', '${email}', '${cpf}','${senha}','${cargo}','${unidade}');
+            INSERT INTO usuario (nome, email, cpf, senha, cargo, fkEmpresa) VALUES ('${nome}', '${email}', '${cpf}','${senha}','${cargo}','${fkEmpresa}');
         `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -101,7 +111,9 @@ module.exports = {
   entrar,
   cadastrar,
   listar,
+  listarFuncionarios,
   verificarCpf,
   verificarEmail,
   autenticar,
+  cadastrarFuncionario
 };

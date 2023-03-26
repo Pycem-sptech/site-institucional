@@ -9,7 +9,7 @@ function validarSessao() {
         usuarioLogado.innerHTML = nome;
         usuarioLogado2.innerHTML = nome;
 
-    } else if(email != null && nome != null){
+    } else if (email != null && nome != null) {
         usuarioLogado.innerHTML = nome;
     }
     // else {
@@ -26,97 +26,97 @@ function limparSessao() {
         cancelButtonColor: '#d33',
         cancelButtonText: 'Não, quero ficar!',
         confirmButtonText: 'Sim, quero sair!'
-      }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
-         
-          sessionStorage.clear();
- 
-          window.location = "../index.html";
+
+            sessionStorage.clear();
+
+            window.location = "../index.html";
         }
-      })
+    })
 }
 
 // API DO CEP
 
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.
-    document.getElementById('logradouroUnit').value=("");
-    document.getElementById('bairroUnit').value=("");
-    document.getElementById('cidadeUnit').value=("");
-    document.getElementById('ufUnit').value=("");
+    document.getElementById('logradouroUnit').value = ("");
+    document.getElementById('bairroUnit').value = ("");
+    document.getElementById('cidadeUnit').value = ("");
+    document.getElementById('ufUnit').value = ("");
 }
 
 function meu_callback(conteudo) {
-if (!("erro" in conteudo)) {
-    //Atualiza os campos com os valores.
-    document.getElementById('logradouroUnit').value=(conteudo.logradouro);
-    document.getElementById('bairroUnit').value=(conteudo.bairro);
-    document.getElementById('cidadeUnit').value=(conteudo.localidade);
-    document.getElementById('ufUnit').value=(conteudo.uf);
-} //end if.
-else {
-    //CEP não Encontrado.
-    limpa_formulário_cep();
-    alert("CEP não encontrado.");
-}
+    if (!("erro" in conteudo)) {
+        //Atualiza os campos com os valores.
+        document.getElementById('logradouroUnit').value = (conteudo.logradouro);
+        document.getElementById('bairroUnit').value = (conteudo.bairro);
+        document.getElementById('cidadeUnit').value = (conteudo.localidade);
+        document.getElementById('ufUnit').value = (conteudo.uf);
+    } //end if.
+    else {
+        //CEP não Encontrado.
+        limpa_formulário_cep();
+        alert("CEP não encontrado.");
+    }
 }
 
 function pesquisacep(valor) {
 
-//Nova variável "cep" somente com dígitos.
-var cep = valor.replace(/\D/g, '');
+    //Nova variável "cep" somente com dígitos.
+    var cep = valor.replace(/\D/g, '');
 
-//Verifica se campo cep possui valor informado.
-if (cep != "") {
+    //Verifica se campo cep possui valor informado.
+    if (cep != "") {
 
-    //Expressão regular para validar o CEP.
-    var validacep = /^[0-9]{8}$/;
+        //Expressão regular para validar o CEP.
+        var validacep = /^[0-9]{8}$/;
 
-    //Valida o formato do CEP.
-    if(validacep.test(cep)) {
+        //Valida o formato do CEP.
+        if (validacep.test(cep)) {
 
-        //Preenche os campos com "..." enquanto consulta webservice.
-        document.getElementById('logradouroUnit').value="...";
-        document.getElementById('bairroUnit').value="...";
-        document.getElementById('cidadeUnit').value="...";
-        document.getElementById('ufUnit').value="...";
-       
+            //Preenche os campos com "..." enquanto consulta webservice.
+            document.getElementById('logradouroUnit').value = "...";
+            document.getElementById('bairroUnit').value = "...";
+            document.getElementById('cidadeUnit').value = "...";
+            document.getElementById('ufUnit').value = "...";
 
-        //Cria um elemento javascript.
-        var script = document.createElement('script');
 
-        //Sincroniza com o callback.
-        script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+            //Cria um elemento javascript.
+            var script = document.createElement('script');
 
-        //Insere script no documento e carrega o conteúdo.
-        document.body.appendChild(script);
+            //Sincroniza com o callback.
+            script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
 
+            //Insere script no documento e carrega o conteúdo.
+            document.body.appendChild(script);
+
+        } //end if.
+        else {
+            //cep é inválido.
+            limpa_formulário_cep();
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener("mouseenter", Swal.stopTimer);
+                    toast.addEventListener("mouseleave", Swal.resumeTimer);
+                },
+            });
+
+            Toast.fire({
+                icon: "error",
+                title: "Formato de CEP inválido.",
+            });
+        }
     } //end if.
     else {
-        //cep é inválido.
+        //cep sem valor, limpa formulário.
         limpa_formulário_cep();
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", Swal.stopTimer);
-              toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-          });
-
-          Toast.fire({
-            icon: "error",
-            title: "Formato de CEP inválido.",
-          });
     }
-} //end if.
-else {
-    //cep sem valor, limpa formulário.
-    limpa_formulário_cep();
-}
 };
 
 function autenticar() {
@@ -128,11 +128,11 @@ function autenticar() {
         },
         body: JSON.stringify({
             emailServer: email,
-           
+
         })
     }).then(function (resposta) {
         if (resposta.ok) {
-            resposta.json().then(json => {                
+            resposta.json().then(json => {
                 sessionStorage.FK_EMPRESA = json.fkEmpresa;
             });
 
@@ -150,33 +150,33 @@ function autenticar() {
     return false;
 }
 
-function redirectFunc(){
+function redirectFunc() {
     setTimeout(function () {
         window.location = "./gerenciamentoFuncionarios.html";
-    }, 250); 
+    }, 250);
 }
-function redirectMachine(){
+function redirectMachine() {
     setTimeout(function () {
         window.location = "./gerenciamentoMaquinas.html";
-    }, 250); 
+    }, 250);
 }
-function redirectUnit(){
+function redirectUnit() {
     setTimeout(function () {
         window.location = "./cadastroUnidade.html";
-    }, 250); 
+    }, 250);
 }
-function redirectDashboard(){
+function redirectDashboard() {
     setTimeout(function () {
         window.location = "#";
-    }, 250); 
+    }, 250);
 }
-function redirectSuport(){
+function redirectSuport() {
     setTimeout(function () {
         window.location = "#";
-    }, 250); 
+    }, 250);
 }
-function redirectConfig(){
+function redirectConfig() {
     setTimeout(function () {
         window.location = "#";
-    }, 250); 
+    }, 250);
 }

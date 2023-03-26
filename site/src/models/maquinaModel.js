@@ -58,12 +58,12 @@ function listarPorUsuario(idUsuario) {
   return database.executar(instrucao);
 }
 
-function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect){
+function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect) {
   var instrucao = `
     INSERT INTO totem (numeroSerie, processador, ram, qtdArmazenamento, armazenamento, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}','${nome}');
 `;
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
 }
 
 function publicar(titulo, descricao, idUsuario) {

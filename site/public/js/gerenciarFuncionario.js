@@ -1,14 +1,15 @@
 var emailExiste = false;
 var cpfExiste = false;
 
-function cadastrarFuncionarios() {
-  const nome = document.getElementById("name");
-  const email = document.getElementById("email");
-  const cpf = document.getElementById("cpf");
+function cadastrarFuncionario() {
+  const nome = document.getElementById("nomeFuncionario");
+  const email = document.getElementById("emailFuncionario");
+  const cpf = document.getElementById("cpfFuncionario");
   const senha = document.getElementById("password");
   const confirmaSenha = document.getElementById("confirmPassword");
   const cargo = document.getElementById("selectCargo");
-  const unidade = document.getElementById("selectUnidade");
+  const fkEmpresa = sessionStorage.FK_EMPRESA;
+
 
   var nomeVar = nome.value;
   var emailVar = email.value;
@@ -16,9 +17,8 @@ function cadastrarFuncionarios() {
   var senhaVar = senha.value;
   var confirmaSenhaVar = confirmaSenha.value;
   var cargoVar = cargo.value;
-  var unidadeVar = unidade.value;
-
-  if (nomeVar == "" || emailVar == "" || cpfVar == "" || senhaVar == "" || confirmaSenhaVar == "" || cargoVar == "" || unidadeVar == "" ) {
+  var fkEmpresaVar = fkEmpresa;
+  if (nomeVar == "" || emailVar == "" || cpfVar == "" || senhaVar == "" || confirmaSenhaVar == "" || cargoVar == "" || fkEmpresaVar == "") {
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
@@ -101,14 +101,16 @@ function cadastrarFuncionarios() {
         cpfServer: cpfVar,
         senhaServer: senhaVar,
         cargoServer: cargoVar,
-        unidadeServer: unidadeVar
-    
+        fkEmpresaServer: fkEmpresaVar
+
       }),
     })
       .then(function (resposta) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
+          atualizarFuncionariosCadastrados();
+          limparCamposFuncionarios();
           const Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -125,7 +127,7 @@ function cadastrarFuncionarios() {
             icon: "success",
             title: "Cadastro realizado com sucesso!",
           });
-         
+
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
@@ -237,4 +239,72 @@ var captchaOn = false;
 
 function sendForm() {
   captchaOn = true;
+}
+
+function atualizarFuncionariosCadastrados() {
+  const fkEmpresa = sessionStorage.FK_EMPRESA;
+  var fkEmpresaVar = fkEmpresa;
+  fetch(`/usuario/listarFuncionarios/${fkEmpresaVar}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          var feed = document.getElementById("feed");
+          var mensagem = document.createElement("span");
+          mensagem.innerHTML = "Infelizmente, nenhuma máquina foi encontrada.";
+          feed.appendChild(mensagem);
+          throw "Nenhum resultado encontrado!!";
+        }
+
+        resposta.json().then(function (resposta) {
+          console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+          var feed = document.getElementById("feed");
+          feed.innerHTML = "";
+          for (let i = 0; i < resposta.length; i++) {
+            var publicacao = resposta[i];
+
+            var divFeed = document.createElement("div");
+            var divRegisteredEmployee = document.createElement("div");
+            var divIdEmployee = document.createElement("div");
+            var spanEmployeeName = document.createElement("span");
+            var spanCargoEmployee = document.createElement("span");
+            var divBtnEditDelete = document.createElement("div");
+
+            divFeed.className = "feed"
+
+            divRegisteredEmployee.className = "RegisteredEmployee";
+            divIdEmployee.className = "IdEmployee";
+            spanCargoEmployee.className = "addresOpacity";
+            spanCargoEmployee.innerHTML = publicacao.cargo;
+            spanEmployeeName.innerHTML = publicacao.nome;
+
+            divBtnEditDelete.className = "btnEditDelete";
+            divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUsuario})'>`;
+            divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarRegistroUnidade(${publicacao.idUsuario})'>`;
+
+            feed.appendChild(divRegisteredEmployee);
+            divRegisteredEmployee.appendChild(divIdEmployee);
+            divRegisteredEmployee.appendChild(divBtnEditDelete);
+            divIdEmployee.appendChild(spanEmployeeName);
+            divIdEmployee.appendChild(spanCargoEmployee);
+
+          }
+
+        });
+      } else {
+        throw "Houve um erro na API!";
+      }
+    })
+    .catch(function (resposta) {
+      console.error(resposta);
+    });
+}
+
+function limparCamposFuncionarios() {
+  document.getElementById('nomeFuncionario').value = ("");
+  document.getElementById('cpfFuncionario').value = ("");
+  document.getElementById('emailFuncionario').value = ("");
+  document.getElementById('password').value = ("");
+  document.getElementById('confirmPassword').value = ("");
+  // document.getElementById('selectCargo').value=("");
 }

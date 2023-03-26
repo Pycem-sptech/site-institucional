@@ -11,7 +11,7 @@ function atualizarSelectUnidades() {
                     throw "Nenhum resultado encontrado!!";
                 }
                 resposta.json().then(function (resposta) {
-                    for(var i = 0;i < resposta.length;i++){
+                    for (var i = 0; i < resposta.length; i++) {
                         select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
                     }
                 }
@@ -27,7 +27,6 @@ function atualizarSelectUnidades() {
     return false;
 }
 
-
 function cadastrarMaquina() {
     const nomeVar = nameUnit.value;
     const numeroSerialVar = serialNumber.value;
@@ -36,74 +35,72 @@ function cadastrarMaquina() {
     const storageSelectVar = storageSelect.value;
     const qtdArmazenamentoVar = qtdArmazenamento.value;
 
-console.log(storageSelectVar)
-
     if (nomeVar == "") {
-      return false;
+        return false;
     }
     fetch("/maquina/cadastrarMaquina", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nomeServer: nomeVar,
-        numeroSerialServer: numeroSerialVar,
-        processadorServer: processadorVar,
-        ramServer: ramVar,
-        storageSelectServer: storageSelectVar,
-        qtdArmazenamentoServer: qtdArmazenamentoVar
-      }),
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nomeServer: nomeVar,
+            numeroSerialServer: numeroSerialVar,
+            processadorServer: processadorVar,
+            ramServer: ramVar,
+            storageSelectServer: storageSelectVar,
+            qtdArmazenamentoServer: qtdArmazenamentoVar
+        }),
     })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-  
-        if (resposta.ok) {
-            atualizarMaquinasCadastradas();
-            limparCamposMaquina();
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener("mouseenter", Swal.stopTimer);
-                    toast.addEventListener("mouseleave", Swal.resumeTimer);
-                },
-            });
-            
-            Toast.fire({
-                icon: "success",
-                title: "Cadastro realizado com sucesso!",
-            });
-            
-        } else {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener("mouseenter", Swal.stopTimer);
-                    toast.addEventListener("mouseleave", Swal.resumeTimer);
-                },
-            });
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
 
-            Toast.fire({
-                icon: "error",
-                title: "Houve um erro ao tentar realizar o cadastro!",
-            });
-            throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  
+            if (resposta.ok) {
+                atualizarMaquinasCadastradas();
+                limparCamposMaquina();
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener("mouseenter", Swal.stopTimer);
+                        toast.addEventListener("mouseleave", Swal.resumeTimer);
+                    },
+                });
+
+                Toast.fire({
+                    icon: "success",
+                    title: "Cadastro realizado com sucesso!",
+                });
+
+            } else {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener("mouseenter", Swal.stopTimer);
+                        toast.addEventListener("mouseleave", Swal.resumeTimer);
+                    },
+                });
+
+                Toast.fire({
+                    icon: "error",
+                    title: "Houve um erro ao tentar realizar o cadastro!",
+                });
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
     return false;
-  }
+}
 
 function atualizarMaquinasCadastradas() {
     const fkEmpresa = sessionStorage.FK_EMPRESA;
@@ -165,10 +162,10 @@ function atualizarMaquinasCadastradas() {
 }
 
 function limparCamposMaquina() {
-    document.getElementById('nameUnit').value=("");
-    document.getElementById('serialNumber').value=("");
-    document.getElementById('processor').value=("");
-    document.getElementById('ram').value=("");
-    document.getElementById('storageSelect').value=("");
-    document.getElementById('qtdArmazenamento').value=("");
+    document.getElementById('nameUnit').value = ("");
+    document.getElementById('serialNumber').value = ("");
+    document.getElementById('processor').value = ("");
+    document.getElementById('ram').value = ("");
+    document.getElementById('storageSelect').value = ("");
+    document.getElementById('qtdArmazenamento').value = ("");
 }
