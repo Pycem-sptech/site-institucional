@@ -199,8 +199,9 @@ function validarNumero(numeroVar) {
 
 
 function atualizarUnidadesCadastradas() {
-
-    fetch("/unidade/listar")
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
+    var fkEmpresaVar = fkEmpresa;
+    fetch(`/unidade/listar/${fkEmpresaVar}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -233,8 +234,8 @@ function atualizarUnidadesCadastradas() {
                         spanNome.innerHTML = publicacao.nome;
                         spanEndereco.innerHTML = publicacao.logradouro;
                         divBtnEditDelete.className = "btnEditDelete";
-                        divBtnEditDelete.innerHTML += "<img src='img/Botão Editar.svg' onclick='mostrarModal()'>";
-                        divBtnEditDelete.innerHTML += "<img src='img/Botao Fechar.svg' onclick='deletarRegistroUnidade()'>";
+                        divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUnidade})'>`;
+                        divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarRegistroUnidade(${publicacao.idUnidade})'>`;
 
                         feed.appendChild(divRegisteredUnit);
                         divRegisteredUnit.appendChild(divnameUnit);

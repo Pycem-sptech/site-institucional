@@ -8,7 +8,8 @@ function testar(req, res) {
 }
 
 function listar(req, res) {
-    unidadeModel.listar()
+    fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.listar(fkEmpresa)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);

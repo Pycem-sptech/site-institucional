@@ -6,7 +6,8 @@ function testar(req, res) {
 }
 
 function listar(req, res) {
-    maquinaModel.listar().then(function (resultado) {
+    fkEmpresa = req.params.fkEmpresa;
+    maquinaModel.listar(fkEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

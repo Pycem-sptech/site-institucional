@@ -106,8 +106,9 @@ console.log(storageSelectVar)
   }
 
 function atualizarMaquinasCadastradas() {
-
-    fetch("/maquina/listar")
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
+    var fkEmpresaVar = fkEmpresa;
+    fetch(`/maquina/listar/${fkEmpresaVar}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -142,8 +143,8 @@ function atualizarMaquinasCadastradas() {
                         spanNumeroSerie.innerHTML = publicacao.numeroSerie;
 
                         divBtnEditDelete.className = "btnEditDelete";
-                        divBtnEditDelete.innerHTML += "<img src='img/Botão Editar.svg' onclick='mostrarModal()'>";
-                        divBtnEditDelete.innerHTML += "<img src='img/Botao Fechar.svg' onclick='deletarRegistroUnidade()'>";
+                        divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idTotem})'>`;
+                        divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarRegistroUnidade(${publicacao.idTotem})'>`;
 
                         feed.appendChild(divRegisteredMachine);
                         divRegisteredMachine.appendChild(divIdMachine);
