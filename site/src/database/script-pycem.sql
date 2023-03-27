@@ -16,7 +16,7 @@ idUsuario int auto_increment primary key,
 nome varchar(50) not null,
 email varchar(100) not null unique,
 cpf varchar(45) not null,
-senha varchar(45) not null,
+senha varchar(64) not null,
 cargo varchar(10) not null, constraint chkCargo check (cargo in('Tecnico','Supervisor','Dono')),
 fkEmpresa int, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
@@ -46,12 +46,7 @@ complemento VARCHAR(80),
 fkEmpresa int not null, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
 primary key(idUnidade, fkEmpresa)
 );
-select * from usuario;
-select * from unidade;
-select * from totem;
-select unidade.nome as nomeUnidade, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = 102; 
 
-SELECT nome, logradouro, idUnidade FROM unidade where fkEmpresa = 102;
 create table supervisiona(
 fkUsuario int not null, FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
 fkEmpresa int not null, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
@@ -70,8 +65,7 @@ estado varchar(10) not null default 'Desligado', constraint chkEstado check (est
 fkUnidade int, FOREIGN KEY (fkUnidade) REFERENCES unidade(idUnidade)
 );
 
-select unidade.nome, totem.numeroSerie from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade;
- 
+
 create table registro(
 idRegistro int primary key auto_increment,
 uso_processador varchar(45),
@@ -80,6 +74,13 @@ uso_hd varchar(45),
 data_registro datetime not null default current_timestamp,
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 );
-
+select * from usuario;
+-- select unidade.nome, totem.numeroSerie from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade;
 -- select * from usuario where fkEmpresa = 100 AND cargo = 'Tecnico' OR cargo = 'Supervisor';
 -- select nome, cargo, idUsuario from usuario where fkEmpresa = 102 AND (cargo = 'Tecnico' OR cargo = 'Supervisor');
+-- select * from unidade;
+-- select * from totem;
+-- select unidade.nome as nomeUnidade, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = 102; 
+-- SELECT * FROM usuario WHERE email = 'matheus' AND senha = (select sha2('M@theus', 256));
+-- select sha2('matheus',256);
+-- SELECT nome, logradouro, idUnidade FROM unidade where fkEmpresa = 102;
