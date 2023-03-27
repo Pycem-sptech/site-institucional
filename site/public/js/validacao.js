@@ -55,6 +55,3 @@ function mostrarSituacaoSenha(senhaJ){
     }
 }
 
-function validarConfimarSenha(senha, confirmarSenha) {
-    return senha == confirmarSenha;
-}

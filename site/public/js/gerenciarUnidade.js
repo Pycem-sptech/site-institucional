@@ -115,12 +115,12 @@ function cadastrarUni() {
                             toast.addEventListener("mouseleave", Swal.resumeTimer);
                         },
                     });
-                    
+
                     Toast.fire({
                         icon: "success",
                         title: "Cadastro realizado com sucesso!",
                     });
-                    
+
                 } else {
                     const Toast = Swal.mixin({
                         toast: true,
@@ -256,13 +256,13 @@ function atualizarUnidadesCadastradas() {
 }
 
 function limparCamposUnidade() {
-    document.getElementById('nomeUnit').value=("");
-    document.getElementById('cepUnit').value=("");
-    document.getElementById('logradouroUnit').value=("");
-    document.getElementById('cidadeUnit').value=("");
-    document.getElementById('ufUnit').value=("");
-    document.getElementById('bairroUnit').value=("");
-    document.getElementById('numeroUnit').value=("");
-    document.getElementById('telefoneUnit').value=("");
+    document.getElementById('nomeUnit').value = ("");
+    document.getElementById('cepUnit').value = ("");
+    document.getElementById('logradouroUnit').value = ("");
+    document.getElementById('cidadeUnit').value = ("");
+    document.getElementById('ufUnit').value = ("");
+    document.getElementById('bairroUnit').value = ("");
+    document.getElementById('numeroUnit').value = ("");
+    document.getElementById('telefoneUnit').value = ("");
 }
 

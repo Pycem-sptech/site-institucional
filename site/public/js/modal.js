@@ -48,6 +48,7 @@ function salvarEdicaoMaquina(){
                 'Suas alterações foram gravadas',
                 'success'
               )
+              
             }
           })
     }else{
