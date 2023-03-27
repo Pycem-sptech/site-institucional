@@ -388,5 +388,4 @@ function limparCamposFuncionarios() {
   document.getElementById('emailFuncionario').value = ("");
   document.getElementById('password').value = ("");
   document.getElementById('confirmPassword').value = ("");
-  // document.getElementById('selectCargo').value=("");
 }

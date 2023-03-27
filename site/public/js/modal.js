@@ -32,27 +32,27 @@ function salvarEdicaoMaquina() {
   let escolherArmazenamento = document.getElementById('escolherArmazenamentoModal').value;
   let qtdArmazenamento = document.getElementById('qtdArmazenamentoModal').value;
 
-        if(unidade != undefined && unidade != '' && numeroDeSerie != undefined && numeroDeSerie != '' && processador != undefined && processador != '' && memoriaRam != undefined && memoriaRam != '' && escolherArmazenamento != undefined && escolherArmazenamento != ''&& qtdArmazenamento != undefined && qtdArmazenamento != ''){
-          Swal.fire({
-            title: 'Deseja mesmo salvar as alterações?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim, salvar',
-            cancelButtonText: 'Cancelar'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire(
-                'Pronto!',
-                'Suas alterações foram gravadas',
-                'success'
-              )
-            }
-          })
-    }else{
-        alert("Verifique os campos");
-    }
+  if (unidade != undefined && unidade != '' && numeroDeSerie != undefined && numeroDeSerie != '' && processador != undefined && processador != '' && memoriaRam != undefined && memoriaRam != '' && escolherArmazenamento != undefined && escolherArmazenamento != '' && qtdArmazenamento != undefined && qtdArmazenamento != '') {
+    Swal.fire({
+      title: 'Deseja mesmo salvar as alterações?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, salvar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Pronto!',
+          'Suas alterações foram gravadas',
+          'success'
+        )
+      }
+    })
+  } else {
+    alert("Verifique os campos");
+  }
 
 }
 
@@ -77,7 +77,37 @@ function deletarRegistroMaquina() {
   })
 }
 
-function salvarEdicaoUnidade() {
+// function editar() {
+//   fetch(`/editar/idUnidade`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify({
+//       nome: nomeUnidadeModal.value,
+//       logradouro: logradouroUnidadeModal.value,
+//       cep: cepUnidadeModal.value,
+//       uf: ufUnidadeModal.value,
+//       cidade: cidadeUnidadeModal.value,
+//       bairro: bairroUnidadeModal.value,
+//       numero: numeroUnidadeModal.value,
+//       telefone: telefoneUnidadeModal.value,
+//     })
+//   }).then(function (resposta) {
+
+//     if (resposta.ok) {
+//       window.location = "../cadastroUnidade.html"
+//     } else if (resposta.status == 404) {
+//       window.alert("Deu 404!");
+//     } else {
+//       throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+//     }
+//   }).catch(function (resposta) {
+//     console.log(`#ERRO: ${resposta}`);
+//   });
+// }
+
+function salvarEdicaoUnidade(idUnidade) {
   let nomeUnidade = document.getElementById('nomeUnidadeModal').value;
   let cepUnidade = document.getElementById('cepUnidadeModal').value;
   let ufUnidade = document.getElementById('ufUnidadeModal').value;
@@ -98,20 +128,49 @@ function salvarEdicaoUnidade() {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Pronto!',
-          'Suas alterações foram gravadas',
-          'success'
-        )
+        fetch(`unidade/editar/${idUnidade}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nome: nomeUnidadeModal.value,
+            logradouro: logradouroUnidadeModal.value,
+            cep: cepUnidadeModal.value,
+            uf: ufUnidadeModal.value,
+            cidade: cidadeUnidadeModal.value,
+            bairro: bairroUnidadeModal.value,
+            numero: numeroUnidadeModal.value,
+            telefone: telefoneUnidadeModal.value,
+          })
+        }).then(function (resposta) {
+
+          if (resposta.ok) {
+            window.location = "../cadastroUnidade.html"
+            Swal.fire(
+              'Pronto!',
+              'Suas alterações foram gravadas',
+              'success'
+            )
+          } else if (resposta.status == 404) {
+            return false
+          } else { 
+            return false
+          }
+        }).catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
       }
     })
+
   } else {
     alert("Verifique os campos");
   }
 
 }
 
-function deletarRegistroUnidade() {
+function deletarRegistroUnidade(idUnidade) {
+
   Swal.fire({
     title: 'Você tem certeza?',
     text: "Você não irá conseguir reverter isso!",

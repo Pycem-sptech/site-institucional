@@ -32,4 +32,13 @@ router.post("/autenticar", function (req, res) {
     unidadeController.entrar(req, res);
 });
 
+router.delete("/deletar/:idUnidade", function (req, res) {
+    unidadeController.deletar(req, res);
+});
+
+router.put("/editar/:idUnidade", function (req, res) {
+    unidadeController.editar(req, res);
+});
+
+
 module.exports = router;

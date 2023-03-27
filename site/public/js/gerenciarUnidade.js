@@ -205,18 +205,19 @@ function atualizarUnidadesCadastradas() {
 
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-
+                    var divBtnEditUpdate = document.getElementById("btn1");
                     var feed = document.getElementById("feed");
                     feed.innerHTML = "";
                     for (let i = 0; i < resposta.length; i++) {
                         var publicacao = resposta[i];
-
+                        sessionStorage.idUnidade = publicacao.idUnidade;
                         var divFeed = document.createElement("div");
                         var divRegisteredUnit = document.createElement("div");
                         var divnameUnit = document.createElement("div");
                         var spanNome = document.createElement("span");
                         var spanEndereco = document.createElement("span");
                         var divBtnEditDelete = document.createElement("div");
+                        
 
                         divFeed.className = "feed"
                         divRegisteredUnit.className = "registeredUnit";
@@ -227,6 +228,7 @@ function atualizarUnidadesCadastradas() {
                         divBtnEditDelete.className = "btnEditDelete";
                         divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUnidade})'>`;
                         divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarRegistroUnidade(${publicacao.idUnidade})'>`;
+                        ;
 
                         feed.appendChild(divRegisteredUnit);
                         divRegisteredUnit.appendChild(divnameUnit);
