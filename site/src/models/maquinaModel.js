@@ -1,11 +1,11 @@
 var database = require("../database/config");
 
-function listar() {
+function listar(fkEmpresa) {
   console.log(
     "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucao = `
-    select unidade.nome as nomeUnidade, totem.numeroSerie as numeroSerie from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade;
+    select unidade.nome as nomeUnidade, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';
 
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
@@ -58,12 +58,12 @@ function listarPorUsuario(idUsuario) {
   return database.executar(instrucao);
 }
 
-function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect){
+function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect) {
   var instrucao = `
     INSERT INTO totem (numeroSerie, processador, ram, qtdArmazenamento, armazenamento, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}','${nome}');
 `;
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
 }
 
 function publicar(titulo, descricao, idUsuario) {

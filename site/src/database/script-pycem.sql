@@ -48,7 +48,10 @@ primary key(idUnidade, fkEmpresa)
 );
 select * from usuario;
 select * from unidade;
+select * from totem;
+select unidade.nome as nomeUnidade, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = 102; 
 
+SELECT nome, logradouro, idUnidade FROM unidade where fkEmpresa = 102;
 create table supervisiona(
 fkUsuario int not null, FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
 fkEmpresa int not null, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
@@ -77,3 +80,6 @@ uso_hd varchar(45),
 data_registro datetime not null default current_timestamp,
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 );
+
+-- select * from usuario where fkEmpresa = 100 AND cargo = 'Tecnico' OR cargo = 'Supervisor';
+-- select nome, cargo, idUsuario from usuario where fkEmpresa = 102 AND (cargo = 'Tecnico' OR cargo = 'Supervisor');

@@ -30,15 +30,15 @@ function cadastrar(nome, email, telefone, cnpj, emailUser) {
     return database.executar(instrucao);
 }
 
-function cadastrarEmpresa(nome, email, telefone, cnpj){
+function cadastrarEmpresa(nome, email, telefone, cnpj) {
     var instrucao = `
     INSERT INTO empresa (nome, email, telefone, cnpj) VALUES ('${nome}', '${email}', '${telefone}', '${cnpj}');
 `;
-console.log("Executando a instrução SQL: \n" + instrucao);
-return database.executar(instrucao);
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
 }
 
-function verificarEmail(email){
+function verificarEmail(email) {
     console.log("ACESSEI O EMPRESA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verificarEmail(): ", email)
     var instrucao = `
      select email from empresa where email = '${email}';
@@ -47,7 +47,7 @@ function verificarEmail(email){
     return database.executar(instrucao);
 }
 
-function verificarCnpj(cnpj){
+function verificarCnpj(cnpj) {
     console.log("ACESSEI O EMPRESA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", cnpj)
     console.log(cnpj)
     var instrucao = `

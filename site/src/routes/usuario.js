@@ -10,6 +10,9 @@ router.get("/", function (req, res) {
 router.get("/listar", function (req, res) {
     usuarioController.listar(req, res);
 });
+router.get("/listarFuncionarios/:fkEmpresa", function (req, res) {
+    usuarioController.listarFuncionarios(req, res);
+});
 
 router.get("/verificarCpf/:cpf", function (req, res) {
     usuarioController.verificarCpf(req, res);
