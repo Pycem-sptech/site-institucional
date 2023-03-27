@@ -36,18 +36,19 @@ function cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairr
   return database.executar(instrucao);
 }
 
-function editar(nome, idUnidade) {
+function editar(nome, logradouro, cep, uf, cidade, bairro, numero, telefone, idUnidade) {
   var instrucao = `
-      UPDATE unidade SET nome = '${nome}' WHERE idUnidade = ${idUnidade};
+      UPDATE unidade SET nome = '${nome}', logradouro = '${logradouro}', cep = '${cep}', sigla = '${uf}', cidade = '${cidade}', 
+      bairro = '${bairro}', numero = ${numero}, telefone = '${telefone}' WHERE idUnidade = ${idUnidade};
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
 
-function deletar(idAviso) {
+function deletar(idUnidade) {
   console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idAviso);
   var instrucao = `
-        DELETE FROM aviso WHERE id = ${idAviso};
+        DELETE FROM aviso WHERE id = ${idUnidade};
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

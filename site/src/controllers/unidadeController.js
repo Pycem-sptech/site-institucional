@@ -174,10 +174,18 @@ function deletar(req, res) {
 }
 
 function editar(req, res) {
-    var nome = req.body.nome;
     var idUnidade = req.params.idUnidade;
+    var nome = req.body.nome;
+    var logradouro = req.body.logradouro;
+    var cep = req.body.cep;
+    var uf = req.body.uf;
+    var cidade = req.body.cidade;
+    var bairro = req.body.bairro;
+    var numero = req.body.numero;
+    var telefone = req.body.telefone;
+    
 
-    unidadeModel.editar(nome, idUnidade)
+    unidadeModel.editar(nome, logradouro, cep, uf, cidade, bairro, numero, telefone, idUnidade)
         .then(
             function (resultado) {
                 res.json(resultado);
