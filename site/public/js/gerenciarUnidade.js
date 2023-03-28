@@ -205,7 +205,6 @@ function atualizarUnidadesCadastradas() {
 
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-                    var divBtnEditUpdate = document.getElementById("btn1");
                     var feed = document.getElementById("feed");
                     feed.innerHTML = "";
                     for (let i = 0; i < resposta.length; i++) {

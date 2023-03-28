@@ -74,6 +74,7 @@ function fazerLogin() {
         } else {
           setTimeout(function () {
             window.location = "./cadastroUnidade.html";
+
           }, 2000);
         }
       });

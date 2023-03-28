@@ -123,7 +123,8 @@ function atualizarMaquinasCadastradas() {
                     feed.innerHTML = "";
                     for (let i = 0; i < resposta.length; i++) {
                         var publicacao = resposta[i];
-
+                        sessionStorage.idTotem = publicacao.idTotem
+                        
                         var divFeed = document.createElement("div");
                         var divRegisteredMachine = document.createElement("div");
                         var divIdMachine = document.createElement("div");

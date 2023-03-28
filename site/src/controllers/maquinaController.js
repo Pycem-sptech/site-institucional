@@ -130,10 +130,21 @@ function publicar(req, res) {
 }
 
 function editar(req, res) {
-    var novaDescricao = req.body.descricao;
-    var idmaquina = req.params.idmaquina;
-
-    maquinaModel.editar(novaDescricao, idmaquina).then(
+    var nome = req.body.unidade;
+    var numeroSerial = req.body.numeroDeSerie;
+    var processador = req.body.processador;
+    var ram = req.body.memoriaRam;
+    var qtdArmazenamento = req.body.qtdArmazenamento;
+    var storageSelect = req.body.escolherArmazenamento;
+    var idMaquina = req.params.idMaquina;
+    console.log(nome)
+    console.log(numeroSerial)
+    console.log(processador)
+    console.log(ram)
+    console.log(qtdArmazenamento)
+    console.log(storageSelect)
+    console.log(idMaquina)
+    maquinaModel.editar(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina).then(
         function (resultado) {
             res.json(resultado);
         }

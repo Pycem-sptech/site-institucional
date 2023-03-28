@@ -16,7 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 </head>
-<body onload="validarSessao(), atualizarFuncionariosCadastrados()">
+<body id="body" onload="validarSessao(), atualizarFuncionariosCadastrados(), privaFunc()">
         <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
         <nav class="sidebar">
             <div class="container">
@@ -40,7 +40,7 @@
                 <nav id="nav" class="navbarHamburguer">
                     <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                     <ul class="menu" id="menu">
-                        <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                        <li  onclick="redirectFunc()">Gerenciar Funcionarios</li>
                         <li onclick="redirectMachine()">Gerenciar Maquinas</li>
                         <li onclick="redirectUnit()">Gerenciar Unidades</li>
                         <li onclick="limparSessao()">Sair</li>
