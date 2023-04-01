@@ -25,14 +25,13 @@ const cliqueFora = (event) => {
 }
 
 function salvarEdicaoMaquina(idMaquina) {
-  let unidade = document.getElementById('escolherUnidadeModal').value;
   let numeroDeSerie = document.getElementById('numeroDeSerieModal').value;
   let processador = document.getElementById('processadorModal').value;
   let memoriaRam = document.getElementById('memoriaRamModal').value;
   let escolherArmazenamento = document.getElementById('escolherArmazenamentoModal').value;
   let qtdArmazenamento = document.getElementById('qtdArmazenamentoModal').value;
 
-  if (unidade != undefined && unidade != '' && numeroDeSerie != undefined && numeroDeSerie != '' && processador != undefined && processador != '' && memoriaRam != undefined && memoriaRam != '' && escolherArmazenamento != undefined && escolherArmazenamento != '' && qtdArmazenamento != undefined && qtdArmazenamento != '') {
+  if (numeroDeSerie != undefined && numeroDeSerie != '' && processador != undefined && processador != '' && memoriaRam != undefined && memoriaRam != '' && escolherArmazenamento != undefined && escolherArmazenamento != '' && qtdArmazenamento != undefined && qtdArmazenamento != '') {
     Swal.fire({
       title: 'Deseja mesmo salvar as alterações?',
       icon: 'warning',
@@ -49,7 +48,6 @@ function salvarEdicaoMaquina(idMaquina) {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            nomeUnit: unidade,
             numeroDeSerie: numeroDeSerie,
             processador: processador,
             memoriaRam: memoriaRam,

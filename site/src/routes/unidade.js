@@ -11,6 +11,11 @@ router.get("/listar/:fkEmpresa", function (req, res) {
     unidadeController.listar(req, res);
 });
 
+router.get("/listarDadosUnidade/:fkEmpresa", function (req, res) {
+    unidadeController.listarDadosUnidade(req, res);
+});
+
+
 router.get("/listarUnidades/:fkEmpresa", function (req, res) {
     unidadeController.listarUnidades(req, res);
 });

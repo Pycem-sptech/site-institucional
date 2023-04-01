@@ -188,6 +188,27 @@ function validarNumero(numeroVar) {
     return false;
 }
 
+function buscarDadosUnidade(){
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
+    var fkEmpresaVar = fkEmpresa;
+    fetch(`/unidade/listar/${fkEmpresaVar}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+
+                });
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+
+}
+
 
 function atualizarUnidadesCadastradas() {
     const fkEmpresa = sessionStorage.FK_EMPRESA;

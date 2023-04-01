@@ -23,6 +23,24 @@ function listar(req, res) {
         }
     );
 }
+
+function listarDadosUnidade(req, res) {
+    fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.listarDadosUnidade(fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
 function listarUnidades(req, res) {
     fkEmpresa = req.params.fkEmpresa;
     unidadeModel.listarUnidades(fkEmpresa).then(function (resultado) {
@@ -209,5 +227,6 @@ module.exports = {
     verificarTelefone,
     verificarNumero,
     listarUnidades,
-    editar
+    editar,
+    listarDadosUnidade
 }

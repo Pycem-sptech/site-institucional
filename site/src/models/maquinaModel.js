@@ -12,6 +12,8 @@ function listar(fkEmpresa) {
   return database.executar(instrucao);
 }
 
+
+
 function pesquisarDescricao(texto) {
   console.log(
     "ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pesquisarDescricao()"
@@ -80,10 +82,10 @@ function publicar(titulo, descricao, idUsuario) {
   return database.executar(instrucao);
 }
 
-function editar(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina) {
+function editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina) {
 
   var instrucao = `
-        UPDATE totem SET  fkUnidade = '${nome}', numeroSerie = '${numeroSerial}', processador = '${processador}', ram = '${ram}', qtdArmazenamento = '${qtdArmazenamento}', 
+        UPDATE totem SET numeroSerie = '${numeroSerial}', processador = '${processador}', ram = '${ram}', qtdArmazenamento = '${qtdArmazenamento}', 
         armazenamento = '${storageSelect}' 
         WHERE idTotem = ${idMaquina};
     `;
@@ -110,5 +112,5 @@ module.exports = {
   publicar,
   editar,
   deletar,
-  cadastrarMaquina
+  cadastrarMaquina,
 };

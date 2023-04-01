@@ -9,6 +9,15 @@ function listar(fkEmpresa) {
   return database.executar(instrucao);
 }
 
+function listarDadosUnidade(fkEmpresa) {
+  var instrucao = `
+    select unidade.nome as nomeUnidade, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';
+
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function listarUnidades(fkEmpresa) {
   console.log("ACESSEI O unidade MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
   var instrucao = `
@@ -87,5 +96,6 @@ module.exports = {
   verificarTelefone,
   verificarNumero,
   listarUnidades, 
-  editar
+  editar,
+  listarDadosUnidade
 };
