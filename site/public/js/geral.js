@@ -4,7 +4,7 @@ function privaFunc() {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Esta página não exite!',
+            text: 'Esta página não existe!',
         }).then((result) => {
             if (result.isConfirmed) {
                 window.location = "../cadastroUnidade.html"

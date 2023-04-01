@@ -142,7 +142,7 @@ function atualizarMaquinasCadastradas() {
 
                         divBtnEditDelete.className = "btnEditDelete";
                         divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idTotem})'>`;
-                        divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarRegistroUnidade(${publicacao.idTotem})'>`;
+                        divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarMaquina(${publicacao.idTotem})'>`;
 
                         feed.appendChild(divRegisteredMachine);
                         divRegisteredMachine.appendChild(divIdMachine);

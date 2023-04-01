@@ -93,13 +93,9 @@ function editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect,
   return database.executar(instrucao);
 }
 
-function deletar(idMaquina) {
-  console.log(
-    "ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():",
-    idAviso
-  );
+function deletarRegistroMaquina(idMaquina) {
   var instrucao = `
-        DELETE FROM totem WHERE id = ${idMaquina};
+        DELETE FROM totem WHERE idTotem = ${idMaquina};
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -111,6 +107,6 @@ module.exports = {
   pesquisarDescricao,
   publicar,
   editar,
-  deletar,
   cadastrarMaquina,
+  deletarRegistroMaquina
 };

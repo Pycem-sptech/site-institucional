@@ -151,10 +151,10 @@ function editar(req, res) {
 
 }
 
-function deletar(req, res) {
-    var idmaquina = req.params.idmaquina;
+function deletarRegistroMaquina(req, res) {
+    var idMaquina = req.params.idMaquina;
 
-    maquinaModel.deletar(idmaquina).then(
+    maquinaModel.deletarRegistroMaquina(idMaquina).then(
         function (resultado) {
             res.json(resultado);
         }
@@ -174,6 +174,6 @@ module.exports = {
     pesquisarDescricao,
     publicar,
     editar,
-    deletar,
+    deletarRegistroMaquina,
     cadastrarMaquina
 }

@@ -201,6 +201,47 @@ function cadastrarFuncionario(req, res) {
   }
 }
 
+function editarFuncinario(req, res) {
+  var idFuncionario = req.params.idFuncionario;
+  var nome = req.body.nome;
+  var cargo = req.body.cargo;
+  var email = req.body.email;
+  var cpf = req.body.cpf;
+  var senha = req.body.senha;
+
+
+  usuarioModel.editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario)
+      .then(
+          function (resultado) {
+              res.json(resultado);
+          }
+      )
+      .catch(
+          function (erro) {
+              console.log(erro);
+              console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+              res.status(500).json(erro.sqlMessage);
+          }
+      );
+
+}
+
+function deletar(req, res) {
+  var idFuncionario = req.params.idFuncionario;
+
+  usuarioModel.deletar(idFuncionario).then(
+      function (resultado) {
+          res.json(resultado);
+      }
+  ).catch(
+      function (erro) {
+          console.log(erro);
+          console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+          res.status(500).json(erro.sqlMessage);
+      }
+  );
+}
+
 module.exports = {
   entrar,
   cadastrar,
@@ -211,4 +252,6 @@ module.exports = {
   autenticar,
   cadastrarFuncionario,
   listarFuncionarios,
+  editarFuncinario,
+  deletar
 };

@@ -344,6 +344,7 @@ function atualizarFuncionariosCadastrados() {
           feed.innerHTML = "";
           for (let i = 0; i < resposta.length; i++) {
             var publicacao = resposta[i];
+            sessionStorage.idFuncionario = publicacao.idUsuario;
 
             var divFeed = document.createElement("div");
             var divRegisteredEmployee = document.createElement("div");
@@ -362,7 +363,7 @@ function atualizarFuncionariosCadastrados() {
 
             divBtnEditDelete.className = "btnEditDelete";
             divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUsuario})'>`;
-            divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarRegistroUnidade(${publicacao.idUsuario})'>`;
+            divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarFuncionario(${publicacao.idUsuario})'>`;
 
             feed.appendChild(divRegisteredEmployee);
             divRegisteredEmployee.appendChild(divIdEmployee);

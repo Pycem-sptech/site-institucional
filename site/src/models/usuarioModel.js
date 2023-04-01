@@ -97,6 +97,27 @@ function verificarCpf(cpf) {
   return database.executar(instrucao);
 }
 
+function editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario) {
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verificarEmail(): ",
+    email
+  );
+  var instrucao = `
+     UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = sha2('${senha}', 256)
+    WHERE idUsuario = ${idFuncionario};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function deletar(idFuncionario) {
+  var instrucao = `
+      DELETE FROM usuario where idUsuario = ${idFuncionario};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   entrar,
   cadastrar,
@@ -105,5 +126,7 @@ module.exports = {
   verificarCpf,
   verificarEmail,
   autenticar,
-  cadastrarFuncionario
+  cadastrarFuncionario,
+  editarFuncionario,
+  deletar
 };

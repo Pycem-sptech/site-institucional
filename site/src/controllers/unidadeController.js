@@ -176,9 +176,9 @@ function verificarNumero(req, res) {
 
 
 function deletar(req, res) {
-    var idAviso = req.params.idAviso;
+    var idUnidade = req.params.idUnidade;
 
-    avisoModel.deletar(idAviso).then(
+    usuarioModel.deletar(idUnidade).then(
         function (resultado) {
             res.json(resultado);
         }

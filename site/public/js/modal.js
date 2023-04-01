@@ -84,7 +84,7 @@ function salvarEdicaoMaquina(idMaquina) {
 
 }
 
-function deletarRegistroMaquina() {
+function deletarMaquina(idMaquina) {
   Swal.fire({
     title: 'Você tem certeza?',
     text: "Você não irá conseguir reverter isso!",
@@ -96,11 +96,31 @@ function deletarRegistroMaquina() {
     cancelButtonText: 'Cancelar'
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire(
-        'Pronto!',
-        'O registro da unidade foi deletado com sucesso!',
-        'success'
-      )
+      fetch(`/maquina/deletar/${idMaquina}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+          Swal.fire(
+            'Pronto!',
+            'Suas alterações foram gravadas',
+            'success'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              window.location = "../../gerenciamentoMaquinas.html"
+            }
+          })
+        } else if (resposta.status == 404) {
+            console.log("Deu 404!");
+        } else {
+            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
     }
   })
 }
@@ -173,7 +193,7 @@ function salvarEdicaoUnidade(idUnidade) {
 
 }
 
-function deletarRegistroUnidade(idUnidade) {
+function deletarUnidade(idUnidade) {
 
   Swal.fire({
     title: 'Você tem certeza?',
@@ -186,15 +206,37 @@ function deletarRegistroUnidade(idUnidade) {
     cancelButtonText: 'Cancelar'
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire(
-        'Pronto!',
-        'O registro da unidade foi deletado com sucesso!',
-        'success'
-      )
+      fetch(`/unidade/deletar/${idUnidade}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+          Swal.fire(
+            'Pronto!',
+            'Suas alterações foram gravadas',
+            'success'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              window.location = "../cadastroUnidade.html"
+            }
+          })
+        } else if (resposta.status == 404) {
+            console.log("Deu 404!");
+        } else {
+            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
     }
   })
 }
-function salvarEdicaoFuncionario() {
+
+
+function salvarEdicaoFuncionario(idFuncionario) {
   let nomeFuncionario = document.getElementById('nomeFuncionarioModal').value;
   let unidadeFuncionario = document.getElementById('unidadeFuncionarioModal').value;
   let cargoFuncionario = document.getElementById('escolherCargoModal').value;
@@ -213,11 +255,38 @@ function salvarEdicaoFuncionario() {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Pronto!',
-          'Suas alterações foram gravadas',
-          'success'
-        )
+        fetch(`usuario/editar/${idFuncionario}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nome: nomeFuncionario,
+            cargo: cargoFuncionario,
+            email: emailFuncionario,
+            cpf: cpfFuncionario,
+            senha: senhaFuncionario 
+          })
+        }).then(function (resposta) {
+
+          if (resposta.ok) {
+            Swal.fire(
+              'Pronto!',
+              'Suas alterações foram gravadas',
+              'success'
+            ).then((result) => {
+              if (result.isConfirmed) {
+                window.location = "../gerenciamentoFuncionarios.html"
+              }
+            })
+          } else if (resposta.status == 404) {
+            return false
+          } else {
+            return false
+          }
+        }).catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
       }
     })
   } else {
@@ -225,7 +294,8 @@ function salvarEdicaoFuncionario() {
   }
 
 }
-function deletarRegistroFuncionario() {
+
+function deletarFuncionario(idFuncionario) {
   Swal.fire({
     title: 'Você tem certeza?',
     text: "Você não irá conseguir reverter isso!",
@@ -237,11 +307,31 @@ function deletarRegistroFuncionario() {
     cancelButtonText: 'Cancelar'
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire(
-        'Pronto!',
-        'O registro do funcionário foi deletado com sucesso!',
-        'success'
-      )
+      fetch(`/usuario/deletar/${idFuncionario}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+          Swal.fire(
+            'Pronto!',
+            'Suas alterações foram gravadas',
+            'success'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              window.location = "../gerenciamentoFuncionarios.html"
+            }
+          })
+        } else if (resposta.status == 404) {
+            console.log("Deu 404!");
+        } else {
+            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
     }
   })
 }

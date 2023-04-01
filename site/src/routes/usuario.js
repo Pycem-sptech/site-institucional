@@ -38,6 +38,13 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+router.put("/editar/:idFuncionario", function (req, res) {
+    usuarioController.editarFuncinario(req, res);
+});
+router.delete("/deletar/:idFuncionario", function (req, res) {
+    usuarioController.deletar(req, res);
+});
+
 
 
 module.exports = router;

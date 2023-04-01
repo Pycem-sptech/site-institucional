@@ -21,7 +21,7 @@ router.put("/editar/:idMaquina", function (req, res) {
 });
 
 router.delete("/deletar/:idMaquina", function (req, res) {
-    maquinaController.deletar(req, res);
+    maquinaController.deletarRegistroMaquina(req, res);
 });
 
 module.exports = router;

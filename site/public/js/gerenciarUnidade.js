@@ -247,7 +247,7 @@ function atualizarUnidadesCadastradas() {
                         spanEndereco.innerHTML = publicacao.logradouro;
                         divBtnEditDelete.className = "btnEditDelete";
                         divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUnidade})'>`;
-                        divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarRegistroUnidade(${publicacao.idUnidade})'>`;
+                        divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarUnidade(${publicacao.idUnidade})'>`;
                         ;
 
                         feed.appendChild(divRegisteredUnit);
