@@ -35,6 +35,7 @@
     align-items: flex-end;
     justify-content: center;
 }
+
 .titleBoxHardInfo .container{
     width: 80%;
 }
@@ -144,6 +145,7 @@
     font-weight: 500;
     color: #fff;
     box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);  
+    cursor: pointer;
 }
 
 /* BOX DE MAQUINAS */
@@ -191,6 +193,12 @@
     width: 80%;
     height: 90%;
     justify-content: space-between;
+    cursor: pointer;
+}
+
+.machine:hover{
+    background-color: #F2F2F2;
+    transition: 0.9s ease;
 }
 .iconMachine{
     height: 65%;
@@ -233,4 +241,147 @@
 .machineField::-webkit-scrollbar-thumb {
     background-color: rgba(97, 165, 227, 0.6);    
     border-radius: 20px;       
+}
+
+@media (max-width:1400px){
+    .problemReport .container span{
+        font-size: 13px;
+    }
+    .btnAddReport{
+        height: 68%;
+        width: 25%;
+        font-size: 0.9em;
+    }
+    .titleBoxHardInfo h3{
+        font-size: 15px;
+    }
+    .subtitleHardInfo{
+        font-size: 12px;
+    }
+    .titleBoxHardInfo{
+        height: 35%;
+    }
+    .percent{
+        font-size: 3.2em;
+    }
+}
+@media (max-width:1050px){
+    .titleBoxHardInfo h3{
+        font-size: 12px;
+    }
+}
+@media (max-width:1020px){
+    .detailsReport{
+        display: none;
+    }
+    .btnAddReport{
+        width: 40%;
+        height: 70%;
+    }
+}
+
+@media (max-width:800px){
+    .titleBoxHardInfo h3{
+        font-size: 15px;
+    }
+    .detailsReport{
+        display: block;
+    }
+    .main{
+        flex-direction: column;
+        height: 170vh;
+    }
+    .leftMain{
+        width: 100%;
+        align-items: center;
+    }
+    .titleBoxReports .container{
+        justify-content: center;
+    }
+    .problemReport{
+        padding: 5px 0;
+    }
+    .btnAddReport{
+        height: 85%;
+        width: 30%;
+        font-size: 1em;
+    }
+    .rightMain{
+        padding: 3% 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .listMachine{
+        width: 93%;
+    }
+    .titleListMachine .container{
+        justify-content: center;
+    }
+}
+@media(max-width:600px){
+    .detailsReport{
+        display: none;
+    }
+    .btnAddReport{
+        height: 75%;
+        font-size: 0.9em;
+    }
+    .machine{
+        padding: 5px 0;
+    }
+}
+@media (max-width:500px){
+    .hardInfo{
+        border-radius: 20px;
+        box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);   
+    }
+    .boxHardInfo{
+        width: 33.33%;
+        box-shadow: none;
+    }
+    .left{
+        border-radius: 20px 0 0 20px;
+        border-right: 1px solid rgba(0, 0, 0, 0.18);
+    }
+    .right{
+        border-radius: 0 20px 20px 0;
+        border-left: 1px solid rgba(0, 0, 0, 0.18);
+    }
+    .center{
+        border-radius: 0;
+    }
+    .titleBoxHardInfo .container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .titleBoxHardInfo h3{
+        font-size: 13px;
+        padding-bottom: 5px;
+        text-align: center;
+
+    }
+    .percent{
+        font-size: 2.5em;
+    }
+}
+@media (max-width:450px){
+    .btnAddReport{
+        width: 50%;
+    }
+    .dateReport{
+        display: none;
+    }
+    .problemReport .container{
+        padding: 10px 0;
+    }
+    .machine{
+        padding: 8px 0;
+    }
+}
+@media (max-width:320px){
+    .percent{
+        font-size: 2em;
+    }   
 }

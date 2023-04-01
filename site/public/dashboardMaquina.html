@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Totem</title>
+    <title>Pycem</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/dashboardMaquina.css">
 </head>
@@ -51,7 +51,7 @@
     <main class="main">
         <div class="leftMain">
             <section class="hardInfo">
-                <div class="boxHardInfo">
+                <div class="boxHardInfo left">
                     <div class="titleBoxHardInfo">
                         <div class="container">
                             <h3>Processador</h3>
@@ -62,7 +62,7 @@
                         <h1 class="percent cpu">20%</h1>
                     </div>
                 </div>
-                <div class="boxHardInfo">
+                <div class="boxHardInfo center">
                     <div class="titleBoxHardInfo">
                         <div class="container">
                             <h3>Memória RAM</h3>
@@ -73,10 +73,10 @@
                         <h1 class="percent ram">70%</h1>
                     </div>
                 </div>
-                <div class="boxHardInfo">
+                <div class="boxHardInfo right">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3>Memória de Massa</h3>
+                            <h3 class="memoryTitle">Memória de Massa</h3>
                             <h5 class="subtitleHardInfo">500GB HD</h5>
                         </div>
                     </div>
@@ -261,3 +261,17 @@
     </main>
 </body>
 </html>
+<script>
+    
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+      if (event.type === 'touchstart') event.preventDefault();  
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('active');
+    
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+</script>
