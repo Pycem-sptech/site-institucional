@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Totem</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/dashboardMaquina.css">
+</head>
+<body>
+     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
+     <nav class="sidebar">
+        <div class="container">
+            <div class="navigationButtons">
+                <h2>Py</h2>
+                <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectUnit()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">   <!-- onclick="redirectMachine()" -->
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+            </div>
+            <div class="footerButtons">
+                <img class="iconSidebar" src="img/settingIcon.svg">
+                <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
+            </div>
+        </div>
+    </nav>
+    <header class="header">
+        <div class="container">
+            <h3 class="homeHeader">Home</h3>
+            <nav id="nav" class="navbarHamburguer">
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <ul class="menu" id="menu">
+                    <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                    <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                    <li onclick="redirectUnit()">Gerenciar Unidades</li>
+                    <li onclick="limparSessao()">Sair</li>
+                </ul>
+            </nav>
+            <div class="user">
+                <h4 id="usuarioLogado">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg">
+            </div>
+        </div>
+    </header>
+    <div class="guideText">
+        <span class="welcomeSentence">Unidade Paulista</span>
+        <span class="firstStep">Unidade</span>
+    </div>
+    <main class="main">
+        <div class="leftMain">
+            <section class="hardInfo">
+                <div class="boxHardInfo">
+                    <div class="titleBoxHardInfo">
+                        <div class="container">
+                            <h3>Processador</h3>
+                            <h5 class="subtitleHardInfo">Inter I5</h5>
+                        </div>
+                    </div>
+                    <div class="percentageUse">
+                        <h1 class="percent cpu">20%</h1>
+                    </div>
+                </div>
+                <div class="boxHardInfo">
+                    <div class="titleBoxHardInfo">
+                        <div class="container">
+                            <h3>Memória RAM</h3>
+                            <h5 class="subtitleHardInfo">8GB</h5>
+                        </div>
+                    </div>
+                    <div class="percentageUse">
+                        <h1 class="percent ram">70%</h1>
+                    </div>
+                </div>
+                <div class="boxHardInfo">
+                    <div class="titleBoxHardInfo">
+                        <div class="container">
+                            <h3>Memória de Massa</h3>
+                            <h5 class="subtitleHardInfo">500GB HD</h5>
+                        </div>
+                    </div>
+                    <div class="percentageUse">
+                        <h1 class="percent memory">90%</h1>
+                    </div>
+                </div>
+            </section>
+            <section class="reports">
+                <div class="boxReports">
+                    <div class="titleBoxReports">
+                        <div class="container">
+                            <h3>Histórico de problemas</h3>
+                        </div>
+                    </div>
+                    <div class="reportsField">
+                        <div class="problemReport">
+                            <div class="container">
+                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
+                                <span class="idReport">01</span>
+                                <span class="titleReport">Sobrecarga no sistema</span>
+                                <span class="dateReport">31/03</span>
+                                <span class="detailsReport">A máquina apresentou problemas...</span>
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                            </div>
+                        </div>
+                        <div class="problemReport">
+                            <div class="container">
+                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
+                                <span class="idReport">02</span>
+                                <span class="titleReport">Sobrecarga no sistema</span>
+                                <span class="dateReport">30/03</span>
+                                <span class="detailsReport">A máquina apresentou problemas...</span>
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                            </div>
+                        </div>
+                        <div class="problemReport">
+                            <div class="container">
+                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
+                                <span class="idReport">03</span>
+                                <span class="titleReport">Sobrecarga no sistema</span>
+                                <span class="dateReport">29/03</span>
+                                <span class="detailsReport">A máquina apresentou problemas...</span>
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                            </div>
+                        </div>
+                        <div class="problemReport">
+                            <div class="container">
+                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
+                                <span class="idReport">04</span>
+                                <span class="titleReport">Sobrecarga no sistema</span>
+                                <span class="dateReport">28/03</span>
+                                <span class="detailsReport">A máquina apresentou problemas...</span>
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                            </div>
+                        </div>
+                        <div class="problemReport">
+                            <div class="container">
+                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
+                                <span class="idReport">05</span>
+                                <span class="titleReport">Sobrecarga no sistema</span>
+                                <span class="dateReport">27/03</span>
+                                <span class="detailsReport">A máquina apresentou problemas...</span>
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                            </div>
+                        </div>
+                        <div class="problemReport">
+                            <div class="container">
+                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
+                                <span class="idReport">06</span>
+                                <span class="titleReport">Sobrecarga no sistema</span>
+                                <span class="dateReport">26/03</span>
+                                <span class="detailsReport">A máquina apresentou problemas...</span>
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="divBtnAddReport">
+                        <button class="btnAddReport">
+                            Adicionar relatório
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="rightMain">
+            <section class="listMachine">
+                <div class="titleListMachine">
+                    <div class="container">
+                        <h3>Máquinas</h3>
+                    </div>
+                </div>
+                <div class="machineField">
+                    <div class="machine">
+                        <div class="container">
+                            <div class="machineDetails">
+                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
+                                <div class="infoMachine">
+                                    <span>012032020</span>
+                                    <span class="txtDetailMachine">Lorem ipsum</span>
+                                </div>
+                            </div>
+                            <div class="status ok"></div>
+                        </div>
+                    </div>
+                    <div class="machine">
+                        <div class="container">
+                            <div class="machineDetails">
+                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
+                                <div class="infoMachine">
+                                    <span>012032020</span>
+                                    <span class="txtDetailMachine">Lorem ipsum</span>
+                                </div>
+                            </div>
+                            <div class="status ok"></div>
+                        </div>
+                    </div>
+                    <div class="machine">
+                        <div class="container">
+                            <div class="machineDetails">
+                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
+                                <div class="infoMachine">
+                                    <span>012032020</span>
+                                    <span class="txtDetailMachine">Lorem ipsum</span>
+                                </div>
+                            </div>
+                            <div class="status alert"></div>
+                        </div>
+                    </div>
+                    <div class="machine">
+                        <div class="container">
+                            <div class="machineDetails">
+                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
+                                <div class="infoMachine">
+                                    <span>012032020</span>
+                                    <span class="txtDetailMachine">Lorem ipsum</span>
+                                </div>
+                            </div>
+                            <div class="status danger"></div>
+                        </div>
+                    </div>
+                    <div class="machine">
+                        <div class="container">
+                            <div class="machineDetails">
+                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
+                                <div class="infoMachine">
+                                    <span>012032020</span>
+                                    <span class="txtDetailMachine">Lorem ipsum</span>
+                                </div>
+                            </div>
+                            <div class="status ok"></div>
+                        </div>
+                    </div>
+                    <div class="machine">
+                        <div class="container">
+                            <div class="machineDetails">
+                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
+                                <div class="infoMachine">
+                                    <span>012032020</span>
+                                    <span class="txtDetailMachine">Lorem ipsum</span>
+                                </div>
+                            </div>
+                            <div class="status alert"></div>
+                        </div>
+                    </div>
+                    <div class="machine">
+                        <div class="container">
+                            <div class="machineDetails">
+                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
+                                <div class="infoMachine">
+                                    <span>012032020</span>
+                                    <span class="txtDetailMachine">Lorem ipsum</span>
+                                </div>
+                            </div>
+                            <div class="status danger"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
