@@ -12,7 +12,6 @@ function listar(fkEmpresa) {
 function listarDadosUnidade(fkEmpresa) {
   var instrucao = `
     select unidade.nome as nomeUnidade, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';
-
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

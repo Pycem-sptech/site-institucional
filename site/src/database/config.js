@@ -3,10 +3,10 @@ var sql = require('mssql');
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-    server: "SEU_SERVIDOR",
-    database: "SEU_BANCO_DE_DADOS",
-    user: "SEU_USUARIO",
-    password: "SUA_SENHA",
+    server: "servidor-pycem.database.windows.net",
+    database: "pycem-db",
+    user: "adminpy",
+    password: "#Gfgrupo8",
     pool: {
         max: 10,
         min: 0,

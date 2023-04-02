@@ -23,9 +23,20 @@ function listarFuncionarios(fkEmpresa) {
 }
 
 function entrar(email, senha) {
-  var instrucao = `
-        SELECT * FROM usuario WHERE email = '${email}' AND senha = (select sha2('${senha}', 256));
-    `;
+
+  var instrucao = ''
+
+  if (process.env.AMBIENTE_PROCESSO == "producao") {
+      instrucao = `SELECT * FROM [dbo].[usuario] WHERE email = '${email}' AND senha = (select HASHBYTES('SHA2_256','${senha}'));`;
+
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+      instrucao = `SELECT * FROM usuario WHERE email = '${email}' AND senha = (select sha2('${senha}', 256));
+      `;
+  } else {
+      console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+      return
+  }
+
   return database.executar(instrucao);
 }
 
@@ -48,11 +59,18 @@ function cadastrar(nome, email, cpf, senha) {
     nome,email,senha
   );
 
-  // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-  //  e na ordem de inserção dos dados.
-  var instrucao = `
-            INSERT INTO usuario (nome, email, cpf, senha, cargo ) VALUES ('${nome}', '${email}', '${cpf}',sha2('${senha}', 256),'Dono');
-        `;
+  instrucao = ''
+
+  if (process.env.AMBIENTE_PROCESSO == "producao") {
+      instrucao = `insert into [dbo].[usuario] (nome, email, cpf, senha, cargo) values ('${nome}', '${email}', '${cpf}',HASHBYTES('SHA2_256','${senha}'),'Dono');`;
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+      instrucao = `INSERT INTO usuario (nome, email, cpf, senha, cargo ) VALUES ('${nome}', '${email}','${cpf}',sha2('${senha}', 256),'Dono');
+      `;
+  } else {
+      console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+      return
+  }
+
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
