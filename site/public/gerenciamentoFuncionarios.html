@@ -69,8 +69,8 @@
                     <input class="inputRegisterFuncionarios nomeFuncionario" id="nomeFuncionario" type="text" placeholder="Nome Completo" >
                     <input class="inputRegisterFuncionarios cpfFuncionario" id="cpfFuncionario" onblur="validarCpf(this.value)" type="text" placeholder="CPF" >
                     <input class="inputRegisterFuncionarios emailFuncionario" id="emailFuncionario" onblur="validarEmail(this.value)" type="email" placeholder="Email">
-                    <input class="inputRegisterFuncionarios password" type="text" id="password" placeholder="Senha">
-                    <input class="inputRegisterFuncionarios password" id="confirmPassword" type="text" placeholder="Confirmação de Senha">
+                    <input class="inputRegisterFuncionarios password" type="password" id="password" placeholder="Senha">
+                    <input class="inputRegisterFuncionarios password" id="confirmPassword" type="password" placeholder="Confirmação de Senha">
                     </div>
                     <button class="btnRegister" onclick="cadastrarFuncionario()">Cadastrar</button>
                 </div>
@@ -96,14 +96,6 @@
                    
                     <span class="estilo tamanho1"><span class="subTitulo">Nome:</span>
                         <input class="inputModal" id="nomeFuncionarioModal"></span>
-                        <span class="estilo tamanho1"><span class="subTitulo">Unidade:</span>
-                        <select class="selectModal" id="unidadeFuncionarioModal">
-                            <option></option>
-                            <option value="0">Paulista</option>
-                            <option value="1">Paulista</option>
-                            <option value="2">Paulista</option>
-                            <option value="3">Paulista</option>
-                        </select></span>
                 </div>
 
                 <div class="bloco">
@@ -124,7 +116,7 @@
                         <input class="inputModal" id="cpfModal"></span>
 
                         <span class="estilo tamanho1"><span class="subTitulo">Senha:</span>
-                        <input class="inputModal" id="senhaModal"></span>
+                        <input class="inputModal" id="senhaModal" type="password"></span>
                 </div>
             </div>
             <div class="modalFooter">

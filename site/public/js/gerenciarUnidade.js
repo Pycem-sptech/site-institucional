@@ -196,8 +196,14 @@ function buscarDadosUnidade(){
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-
+                    nomeUnidadeModal.value = JSON.NOME_UNIDADE;
+                    cepUnidadeModal.value = JSON.CEP_UNIDADE;
+                    ufUnidadeModal.value = JSON.UF_UNIDADE;
+                    cidadeUnidadeModal.value = JSON.CIDADE_UNIDADE;
+                    logradouroUnidadeModal.value = JSON.LOGRADOURO_UNIDADE;
+                    bairroUnidadeModal.value = JSON.BAIRRO_UNIDADE;
+                    numeroUnidadeModal.value = JSON.NUMERO_UNIDADE;
+                    telefoneUnidadeModal.value = JSON.TELEFONE_UNIDADE;
                 });
             } else {
                 throw "Houve um erro na API!";

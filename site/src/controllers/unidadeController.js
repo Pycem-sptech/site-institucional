@@ -178,7 +178,7 @@ function verificarNumero(req, res) {
 function deletar(req, res) {
     var idUnidade = req.params.idUnidade;
 
-    usuarioModel.deletar(idUnidade).then(
+    unidadeModel.deletar(idUnidade).then(
         function (resultado) {
             res.json(resultado);
         }

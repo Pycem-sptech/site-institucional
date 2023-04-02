@@ -56,7 +56,7 @@ function editar(nome, logradouro, cep, uf, cidade, bairro, numero, telefone, idU
 
 function deletar(idUnidade) {
   var instrucao = `
-      DELETE u FROM unidade u right JOIN totem on u.idUnidade = totem.FkUnidade where u.idUnidade = ${idUnidade};
+  DELETE u FROM unidade u left JOIN totem on u.idUnidade = totem.FkUnidade where u.idUnidade = ${idUnidade};
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
