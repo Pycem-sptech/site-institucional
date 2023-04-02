@@ -3,7 +3,6 @@ function mostrarModal() {
   let modal = document.querySelector('.modal')
   overlay.style.display = 'block';
   modal.style.display = 'block';
-  setTimeout(() => { document.addEventListener('click', cliqueFora, false) }, 200);
 }
 
 function fecharModal() {
@@ -11,17 +10,6 @@ function fecharModal() {
   let modal = document.querySelector('.modal')
   overlay.style.display = 'none';
   modal.style.display = 'none';
-}
-
-const cliqueFora = (event) => {
-  let overlay = document.getElementById("overlay");
-  let modal = document.getElementById("modal");
-
-  if (!modal.contains(event.target)) {
-    modal.style.display = 'none';
-    overlay.style.display = 'none';
-    document.removeEventListener('click', cliqueFora, false);
-  }
 }
 
 function salvarEdicaoMaquina(idMaquina) {

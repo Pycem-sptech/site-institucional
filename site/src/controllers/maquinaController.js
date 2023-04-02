@@ -1,10 +1,5 @@
 var maquinaModel = require("../models/maquinaModel");
 
-function testar(req, res) {
-    console.log("ENTRAMOS NO maquinaController");
-    res.send("ENTRAMOS NO maquina CONTROLLER");
-}
-
 function listar(req, res) {
     fkEmpresa = req.params.fkEmpresa;
     maquinaModel.listar(fkEmpresa).then(function (resultado) {
@@ -83,6 +78,22 @@ function listarPorUsuario(req, res) {
     );
 }
 
+function listarDadosMaquina(req, res) {
+    idMaquina = req.params.idMaquina;
+    maquinaModel.listarDadosMaquina(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 function pesquisarDescricao(req, res) {
     var descricao = req.params.descricao;
 
@@ -168,12 +179,12 @@ function deletarRegistroMaquina(req, res) {
 }
 
 module.exports = {
-    testar,
     listar,
     listarPorUsuario,
     pesquisarDescricao,
     publicar,
     editar,
     deletarRegistroMaquina,
-    cadastrarMaquina
+    cadastrarMaquina,
+    listarDadosMaquina
 }

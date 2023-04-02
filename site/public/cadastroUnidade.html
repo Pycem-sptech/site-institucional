@@ -105,7 +105,7 @@
                         </div>
 
                         <div class="bloco">
-                            <span class="estilo tamanho7"><span class="subTitulo">UF:</span>
+                            <span class="estilo tamanho7"><span class="subTitulo" >UF:</span>
                                 <input class="inputModal" id="ufUnidadeModal"></span>
 
                             <span class="estilo tamanho2"><span class="subTitulo">Cidade:</span>
@@ -174,7 +174,12 @@
         nav.classList.toggle('active');
 
     }
-
+    var overlay = document.getElementById('overlay');
+    overlay.addEventListener('click', function(e) {
+    if (e.target == this){
+        fecharModal()
+    } ;
+    });
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
 </script>

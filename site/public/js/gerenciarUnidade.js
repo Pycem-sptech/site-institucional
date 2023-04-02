@@ -188,22 +188,19 @@ function validarNumero(numeroVar) {
     return false;
 }
 
-function buscarDadosUnidade(){
-    const fkEmpresa = sessionStorage.FK_EMPRESA;
-    var fkEmpresaVar = fkEmpresa;
-    fetch(`/unidade/listar/${fkEmpresaVar}`)
+function buscarDadosUnidade(idUnidade){
+    fetch(`/unidade/listarDadosUnidade/${idUnidade}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta));
-                    nomeUnidadeModal.value = JSON.NOME_UNIDADE;
-                    cepUnidadeModal.value = JSON.CEP_UNIDADE;
-                    ufUnidadeModal.value = JSON.UF_UNIDADE;
-                    cidadeUnidadeModal.value = JSON.CIDADE_UNIDADE;
-                    logradouroUnidadeModal.value = JSON.LOGRADOURO_UNIDADE;
-                    bairroUnidadeModal.value = JSON.BAIRRO_UNIDADE;
-                    numeroUnidadeModal.value = JSON.NUMERO_UNIDADE;
-                    telefoneUnidadeModal.value = JSON.TELEFONE_UNIDADE;
+                    nomeUnidadeModal.value = resposta[0].nomeUnidade;
+                    cepUnidadeModal.value = resposta[0].cepUnidade;
+                    ufUnidadeModal.value = resposta[0].ufUnidade;
+                    cidadeUnidadeModal.value = resposta[0].cidadeUnidade;
+                    logradouroUnidadeModal.value = resposta[0].logradouroUnidade;
+                    bairroUnidadeModal.value = resposta[0].bairroUnidade;
+                    numeroUnidadeModal.value = resposta[0].numeroUnidade;
+                    telefoneUnidadeModal.value = resposta[0].telefoneUnidade;
                 });
             } else {
                 throw "Houve um erro na API!";
@@ -252,7 +249,7 @@ function atualizarUnidadesCadastradas() {
                         spanNome.innerHTML = publicacao.nome;
                         spanEndereco.innerHTML = publicacao.logradouro;
                         divBtnEditDelete.className = "btnEditDelete";
-                        divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUnidade})'>`;
+                        divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUnidade}), buscarDadosUnidade(${publicacao.idUnidade})'>`;
                         divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarUnidade(${publicacao.idUnidade})'>`;
                         ;
 

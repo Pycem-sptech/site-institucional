@@ -95,14 +95,6 @@
                     </div>
                     <div class="bodyModal">
                         <div class="bloco">
-                            <!-- <span class="estilo tamanho1"><span class="subTitulo">Unidade:</span>
-                                <select class="selectModal" id="escolherUnidadeModal">
-                                    <option></option>
-                                    <option value="0">Unidade Paulista</option>
-                                    <option value="1">Unidade Paulista</option>
-                                    <option value="2">Unidade Paulista</option>
-                                    <option value="3">Unidade Paulista</option>
-                                </select></span> -->
                             <span class="estilo tamanho1"><span class="subTitulo">Número de Série:</span>
                                 <input class="inputModal" id="numeroDeSerieModal"></span>
                         </div>
@@ -168,7 +160,12 @@
     nav.classList.toggle('active');
     
     }
-
+    var overlay = document.getElementById('overlay');
+    overlay.addEventListener('click', function(e) {
+    if (e.target == this){
+        fecharModal()
+    } ;
+    });
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
 </script>

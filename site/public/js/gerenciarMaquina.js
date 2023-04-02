@@ -102,6 +102,29 @@ function cadastrarMaquina() {
     return false;
 }
 
+function buscarDadosMaquina(idMaquina){
+    fetch(`/maquina/listarDadosMaquina/${idMaquina}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    numeroDeSerieModal.value = resposta[0].numeroSerie;
+                    processadorModal.value = resposta[0].processador;
+                    memoriaRamModal.value = resposta[0].ram;
+                    escolherArmazenamentoModal.value = resposta[0].armazenamento;
+                    qtdArmazenamentoModal.value = resposta[0].qtdArmazenamento;
+                    
+                });
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+
+}
+
+
 function atualizarMaquinasCadastradas() {
     const fkEmpresa = sessionStorage.FK_EMPRESA;
     var fkEmpresaVar = fkEmpresa;
@@ -141,7 +164,7 @@ function atualizarMaquinasCadastradas() {
                         spanNumeroSerie.innerHTML = publicacao.numeroSerie;
 
                         divBtnEditDelete.className = "btnEditDelete";
-                        divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idTotem})'>`;
+                        divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idTotem}), buscarDadosMaquina(${publicacao.idTotem})'>`;
                         divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarMaquina(${publicacao.idTotem})'>`;
 
                         feed.appendChild(divRegisteredMachine);
