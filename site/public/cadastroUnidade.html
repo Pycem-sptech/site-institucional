@@ -101,23 +101,23 @@
                             <span class="estilo tamanho1"><span class="subTitulo">Nome:</span>
                                 <input class="inputModal" id="nomeUnidadeModal"></span>
                             <span class="estilo tamanho1"><span class="subTitulo">CEP:</span>
-                                <input class="inputModal" id="cepUnidadeModal"></span>
+                                <input class="inputModal" id="cepUnidadeModal" onblur="pesquisacepModal(this.value);"></span>
                         </div>
 
                         <div class="bloco">
                             <span class="estilo tamanho7"><span class="subTitulo" >UF:</span>
-                                <input class="inputModal" id="ufUnidadeModal"></span>
+                                <input class="inputModal" id="ufUnidadeModal" disabled></span>
 
                             <span class="estilo tamanho2"><span class="subTitulo">Cidade:</span>
-                                <input class="inputModal" id="cidadeUnidadeModal"></span>
+                                <input class="inputModal" id="cidadeUnidadeModal" disabled></span>
 
                             <span class="estilo tamanho8"><span class="subTitulo">Logradouro:</span>
-                                <input class="inputModal" id="logradouroUnidadeModal"></span>
+                                <input class="inputModal" id="logradouroUnidadeModal" disabled></span>
 
                         </div>
                         <div class="bloco">
                             <span class="estilo tamanho2"><span class="subTitulo">Bairro:</span>
-                                <input class="inputModal" id="bairroUnidadeModal"></span>
+                                <input class="inputModal" id="bairroUnidadeModal" disabled></span>
 
                             <span class="estilo tamanho6"><span class="subTitulo">Numero:</span>
                                 <input class="inputModal" id="numeroUnidadeModal"></span>
@@ -158,7 +158,9 @@
     }
     $(document).ready(function () {
         $("#cepUnit").mask("99999-999");
+        $("#cepUnidadeModal").mask("99999-999");
         $("#telefoneUnit").mask("(99) 99999-9999");
+        $("#telefoneUnidadeModal").mask("(99) 99999-9999");;
     });
 
     var fkEmpresa = sessionStorage.fkEmpresa;
