@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/cadastroUnidade.css">
     <link rel="stylesheet" href="css/modal.css">
     <script src="./js/modal.js"></script>
-    <script src="./js/geral.js"></script>
+    <script src="js/geral.js"></script>
     <script src="./js/gerenciarUnidade.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
@@ -19,7 +19,7 @@
     <!-- <script src="js/menu.js"></script> -->
 </head>
 
-<body onload="validarSessao(), atualizarUnidadesCadastradas()">
+<body id="body" onload="validarSessao(), atualizarUnidadesCadastradas(), privaFunc()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -143,7 +143,6 @@
     if (sessionStorage.USER_CARGO == "Tecnico") {
         menuHamb.innerHTML = `
             <li onclick="redirectMachine()">Cadastro de Máquinas</li>
-            <li onclick="redirectMachine()">Cadastro de Unidades</li>
             <li onclick="redirectMachine()">Gerenciar Máquinas</li>
             <li onclick="">Suporte</li>            
             <li onclick="">Configurações</li>
@@ -154,6 +153,19 @@
                 <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">         
+        `;
+    } else if (sessionStorage.USER_CARGO == "Supervisor") {
+        menuHamb.innerHTML = `
+            <li onclick="redirectMachine()">Gerenciar Máquinas</li>
+            <li onclick="">Suporte</li>            
+            <li onclick="">Configurações</li>
+            <li onclick="limparSessao()">Sair</li>
+            `
+        menuIcons.innerHTML = `
+        <h2>Py</h2>
+        <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">                
         `;
     }
     $(document).ready(function () {

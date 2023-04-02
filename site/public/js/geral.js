@@ -7,7 +7,18 @@ function privaFunc() {
             text: 'Esta página não existe!',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location = "../cadastroUnidade.html"
+                window.location = "../gerenciamentoMaquinas.html"
+            }
+        })
+    }else if (sessionStorage.USER_CARGO == "Supervisor") {
+        body.innerHTML = `<h1>ERRO</h1>`;
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Esta página não existe!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location = "../gerenciamentoMaquinas.html"
             }
         })
     }

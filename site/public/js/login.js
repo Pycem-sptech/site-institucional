@@ -71,7 +71,15 @@ function fazerLogin() {
           setTimeout(function () {
             window.location = "./cadastroEmpresa.html";
           }, 2000);
-        } else {
+        } else if (json.cargo == "Tecnico") {
+          setTimeout(function () {
+            window.location = "./gerenciamentoMaquinas.html";
+          }, 2000);
+        } else if (json.cargo == "Supervisor") {
+          setTimeout(function () {
+            window.location = "./gerenciamentoMaquinas.html";
+          }, 2000);
+        }else {
           setTimeout(function () {
             window.location = "./cadastroUnidade.html";
 
