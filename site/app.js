@@ -32,9 +32,23 @@ app.use("/unidade", unidadeRouter)
 app.use("/maquina", maquinaRouter)
 
 app.listen(PORTA, function () {
-    console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
-    Você está rodando sua aplicação em Ambiente de ${process.env.AMBIENTE_PROCESSO} \n
-    \t\tSe "desenvolvimento", você está se conectando ao banco LOCAL (MySQL Workbench). \n
-    \t\tSe "producao", você está se conectando ao banco REMOTO (SQL Server em nuvem Azure) \n
-    \t\t\t\tPara alterar o ambiente, comente ou descomente as linhas 1 ou 2 no arquivo 'app.js'`);
-});
+    if (process.env.AMBIENTE_PROCESSO == 'desenvolvimento') {
+        console.log(`
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n
+\t\t\t\t\tO servidor PYCEM^2 está online!
+\t\t\tAcesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n
+\t\t\t\t\t**** Ambiente de Desenvolvimento ****
+\t\t\tVocê está utilizando o banco de dados local(MySQL Workbench).\n
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n`
+        );
+    } else {
+console.log(`
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n
+|\t\t\t\t\tO servidor PYCEM^2 está online!
+|\t\t\tAcesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n
+\t\t\t\t\t**** Ambiente de Produção ****
+\t\t\tVocê está utilizando o banco de dados remoto(SQL SERVER).\n
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n`
+);}});
