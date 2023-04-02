@@ -21,7 +21,9 @@ router.get("/verificarCpf/:cpf", function (req, res) {
 router.get("/verificarEmail/:email", function (req, res) {
     usuarioController.verificarEmail(req, res);
 });
-
+router.get("/listarDadosFuncionario/:idFuncionario", function (req, res) {
+    usuarioController.listarDadosFuncionario(req, res);
+});
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);

@@ -9,9 +9,10 @@ function listar(fkEmpresa) {
   return database.executar(instrucao);
 }
 
-function listarDadosUnidade(fkEmpresa) {
+function listarDadosUnidade(idUnidade) {
   var instrucao = `
-    select unidade.nome as nomeUnidade, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';
+  select nome as nomeUnidade, telefone as telefoneUnidade, sigla as ufUnidade, cidade as cidadeUnidade, logradouro as logradouroUnidade, bairro as bairroUnidade, numero as numeroUnidade, cep as cepUnidade
+    from unidade where idUnidade = ${idUnidade};
 
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
@@ -94,7 +95,7 @@ module.exports = {
   deletar,
   verificarTelefone,
   verificarNumero,
-  listarUnidades, 
+  listarUnidades,
   editar,
   listarDadosUnidade
 };

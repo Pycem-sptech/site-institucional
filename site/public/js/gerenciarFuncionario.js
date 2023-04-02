@@ -323,6 +323,28 @@ function validarConfimarSenha(senha, confirmarSenha) {
   return senha == confirmarSenha;
 }
 
+function buscarDadosFuncionario(idFuncionario){
+  fetch(`/usuario/listarDadosFuncionario/${idFuncionario}`)
+      .then(function (resposta) {
+          if (resposta.ok) {
+              resposta.json().then(function (resposta) {
+                nomeFuncionarioModal.value = resposta[0].nome;
+                escolherCargoModal.value = resposta[0].cargo;
+                emailModal.value = resposta[0].email;
+                cpfModal.value = resposta[0].cpf;
+                senhaModal.value = resposta[0].senha;
+                  
+              });
+          } else {
+              throw "Houve um erro na API!";
+          }
+      })
+      .catch(function (resposta) {
+          console.error(resposta);
+      });
+
+}
+
 function atualizarFuncionariosCadastrados() {
   const fkEmpresa = sessionStorage.FK_EMPRESA;
   var fkEmpresaVar = fkEmpresa;
@@ -362,7 +384,7 @@ function atualizarFuncionariosCadastrados() {
             spanEmployeeName.innerHTML = publicacao.nome;
 
             divBtnEditDelete.className = "btnEditDelete";
-            divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUsuario})'>`;
+            divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUsuario}), buscarDadosFuncionario(${publicacao.idUsuario})'>`;
             divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarFuncionario(${publicacao.idUsuario})'>`;
 
             feed.appendChild(divRegisteredEmployee);

@@ -60,6 +60,15 @@ function listarPorUsuario(idUsuario) {
   return database.executar(instrucao);
 }
 
+function listarDadosMaquina(idMaquina) {
+  var instrucao = `
+  select * from totem where idTotem = ${idMaquina};
+
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect) {
   var instrucao = `
     INSERT INTO totem (numeroSerie, processador, ram, qtdArmazenamento, armazenamento, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}','${nome}');
@@ -108,5 +117,6 @@ module.exports = {
   publicar,
   editar,
   cadastrarMaquina,
-  deletarRegistroMaquina
+  deletarRegistroMaquina,
+  listarDadosMaquina
 };

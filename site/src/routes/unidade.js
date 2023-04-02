@@ -11,7 +11,7 @@ router.get("/listar/:fkEmpresa", function (req, res) {
     unidadeController.listar(req, res);
 });
 
-router.get("/listarDadosUnidade/:fkEmpresa", function (req, res) {
+router.get("/listarDadosUnidade/:idUnidade", function (req, res) {
     unidadeController.listarDadosUnidade(req, res);
 });
 

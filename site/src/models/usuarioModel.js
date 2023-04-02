@@ -41,6 +41,15 @@ function autenticar(email) {
   return database.executar(instrucao);
 }
 
+function listarDadosFuncionario(idFuncionario) {
+  var instrucao = `
+  select * from usuario where idUsuario = ${idFuncionario};
+
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
 function cadastrar(nome, email, cpf, senha) {
   console.log(
@@ -128,5 +137,6 @@ module.exports = {
   autenticar,
   cadastrarFuncionario,
   editarFuncionario,
-  deletar
+  deletar,
+  listarDadosFuncionario
 };
