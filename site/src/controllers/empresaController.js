@@ -2,11 +2,6 @@ var empresaModel = require("../models/empresaModel");
 
 var sessoes = [];
 
-function testar(req, res) {
-    console.log("ENTRAMOS NA empresaController");
-    res.json("ESTAMOS FUNCIONANDO!");
-}
-
 function listar(req, res) {
     empresaModel.listar().then(function (resultado) {
         if (resultado.length > 0) {
@@ -131,7 +126,6 @@ module.exports = {
     entrar,
     cadastrar,
     listar,
-    testar,
     verificarEmail,
     verificarCnpj
 }

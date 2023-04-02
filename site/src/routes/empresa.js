@@ -11,8 +11,6 @@ router.get("/listar", function (req, res) {
     empresaController.listar(req, res);
 });
 
-//Recebendo os dados do html e direcionando para a função cadastrar de empresaController.js
-
 router.get("/verificarCnpj/:cnpj", function (req, res) {
     empresaController.verificarCnpj(req, res);
 });

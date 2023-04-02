@@ -1,10 +1,5 @@
 var maquinaModel = require("../models/maquinaModel");
 
-function testar(req, res) {
-    console.log("ENTRAMOS NO maquinaController");
-    res.send("ENTRAMOS NO maquina CONTROLLER");
-}
-
 function listar(req, res) {
     fkEmpresa = req.params.fkEmpresa;
     maquinaModel.listar(fkEmpresa).then(function (resultado) {
@@ -184,7 +179,6 @@ function deletarRegistroMaquina(req, res) {
 }
 
 module.exports = {
-    testar,
     listar,
     listarPorUsuario,
     pesquisarDescricao,
