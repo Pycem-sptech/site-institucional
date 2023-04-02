@@ -238,13 +238,12 @@ function deletarUnidade(idUnidade) {
 
 function salvarEdicaoFuncionario(idFuncionario) {
   let nomeFuncionario = document.getElementById('nomeFuncionarioModal').value;
-  let unidadeFuncionario = document.getElementById('unidadeFuncionarioModal').value;
   let cargoFuncionario = document.getElementById('escolherCargoModal').value;
   let emailFuncionario = document.getElementById('emailModal').value;
   let cpfFuncionario = document.getElementById('cpfModal').value;
   let senhaFuncionario = document.getElementById('senhaModal').value;
 
-  if (nomeFuncionario != undefined && nomeFuncionario != '' && unidadeFuncionario != undefined && unidadeFuncionario != '' && cargoFuncionario != undefined && cargoFuncionario != '' && emailFuncionario != undefined && emailFuncionario != '' && cpfFuncionario != undefined && cpfFuncionario != '' && senhaFuncionario != undefined && senhaFuncionario != '') {
+  if (nomeFuncionario != undefined && nomeFuncionario != ''  && cargoFuncionario != undefined && cargoFuncionario != '' && emailFuncionario != undefined && emailFuncionario != '' && cpfFuncionario != undefined && cpfFuncionario != '' && senhaFuncionario != undefined && senhaFuncionario != '') {
     Swal.fire({
       title: 'Deseja mesmo salvar as alterações?',
       icon: 'warning',
