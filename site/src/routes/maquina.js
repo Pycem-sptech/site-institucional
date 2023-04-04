@@ -7,11 +7,14 @@ router.get("/", function (req, res) {
     maquinaController.testar(req, res);
 });
 
-router.get("/listar", function (req, res) {
+router.get("/listar/:fkEmpresa", function (req, res) {
     maquinaController.listar(req, res);
 });
 
-//Recebendo os dados do html e direcionando para a função cadastrar de maquinaController.js
+router.get("/listarDadosMaquina/:idMaquina", function (req, res) {
+    maquinaController.listarDadosMaquina(req, res);
+});
+
 router.post("/cadastrarMaquina", function (req, res) {
     maquinaController.cadastrarMaquina(req, res);
 })
@@ -21,7 +24,7 @@ router.put("/editar/:idMaquina", function (req, res) {
 });
 
 router.delete("/deletar/:idMaquina", function (req, res) {
-    maquinaController.deletar(req, res);
+    maquinaController.deletarRegistroMaquina(req, res);
 });
 
 module.exports = router;

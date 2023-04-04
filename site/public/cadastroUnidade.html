@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/cadastroUnidade.css">
     <link rel="stylesheet" href="css/modal.css">
     <script src="./js/modal.js"></script>
-    <script src="./js/geral.js"></script>
+    <script src="js/geral.js"></script>
     <script src="./js/gerenciarUnidade.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
@@ -19,11 +19,11 @@
     <!-- <script src="js/menu.js"></script> -->
 </head>
 
-<body onload="validarSessao(), atualizarUnidadesCadastradas()">
+<body id="body" onload="validarSessao(), atualizarUnidadesCadastradas(), privaFunc()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
-            <div class="navigationButtons">
+            <div class="navigationButtons" id="navIcons">
                 <h2>Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg"><!-- onclick="redirectUnit()" -->
@@ -41,7 +41,8 @@
         <div class="container">
             <h3 class="homeHeader">Home</h3>
             <nav id="nav" class="navbarHamburguer">
-                <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg"
+                        src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
                     <li onclick="redirectMachine()">Gerenciar Maquinas</li>
@@ -85,7 +86,7 @@
                 <h3 class="titleBoxUnit">Unidades cadastradas</h3>
                 <hr>
                 <div class="feed" id="feed">
-                 
+
                 </div>
 
             </div>
@@ -100,10 +101,11 @@
                             <span class="estilo tamanho1"><span class="subTitulo">Nome:</span>
                                 <input class="inputModal" id="nomeUnidadeModal"></span>
                             <span class="estilo tamanho1"><span class="subTitulo">CEP:</span>
-                                <input class="inputModal" id="cepUnidadeModal"></span>
+                                <input class="inputModal" id="cepUnidadeModal" onblur="pesquisacepModal(this.value);"></span>
                         </div>
 
                         <div class="bloco">
+
                             <span class="estilo tamanho7"><span class="subTitulo">UF:</span>
                                 <input class="inputModal" id="ufUnidadeModal" disabled></span>
 
@@ -126,7 +128,8 @@
                         </div>
                     </div>
                     <div class="modalFooter">
-                        <button class="btnSalvar" onclick="salvarEdicaoUnidade()">Salvar</button>
+                        <button class="btnSalvar" id="btn1"
+                            onclick="salvarEdicaoUnidade(sessionStorage.idUnidade)">Salvar</button>
                     </div>
                 </div>
             </div>
@@ -136,6 +139,36 @@
 
 </html>
 <script>
+    const menuHamb = document.getElementById("menu");
+    const menuIcons = document.getElementById("navIcons");
+    if (sessionStorage.USER_CARGO == "Tecnico") {
+        menuHamb.innerHTML = `
+            <li onclick="redirectMachine()">Cadastro de Máquinas</li>
+            <li onclick="redirectMachine()">Gerenciar Máquinas</li>
+            <li onclick="">Suporte</li>            
+            <li onclick="">Configurações</li>
+            <li onclick="limparSessao()">Sair</li>
+            `
+        menuIcons.innerHTML = `
+        <h2>Py</h2>
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">         
+        `;
+    } else if (sessionStorage.USER_CARGO == "Supervisor") {
+        menuHamb.innerHTML = `
+            <li onclick="redirectMachine()">Gerenciar Máquinas</li>
+            <li onclick="">Suporte</li>            
+            <li onclick="">Configurações</li>
+            <li onclick="limparSessao()">Sair</li>
+            `
+        menuIcons.innerHTML = `
+        <h2>Py</h2>
+        <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">                
+        `;
+    }
     $(document).ready(function () {
         $("#cepUnit").mask("99999-999");
         $("#cepUnidadeModal").mask("99999-999");
@@ -151,12 +184,17 @@
     const btnMobile = document.getElementById('btn-mobile');
 
     function toggleMenu(event) {
-      if (event.type === 'touchstart') event.preventDefault();  
-    const nav = document.getElementById('nav');
-    nav.classList.toggle('active');
-    
-    }
+        if (event.type === 'touchstart') event.preventDefault();
+        const nav = document.getElementById('nav');
+        nav.classList.toggle('active');
 
+    }
+    var overlay = document.getElementById('overlay');
+    overlay.addEventListener('click', function(e) {
+    if (e.target == this){
+        fecharModal()
+    } ;
+    });
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
 </script>

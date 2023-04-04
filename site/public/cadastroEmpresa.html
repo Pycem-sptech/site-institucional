@@ -7,6 +7,7 @@
     <title>Pycem</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/cadastroEmpresa.css">
+    <script src="js/geral.js"></script>
     <script src="./js/cadastro.js"></script>
     <script src="./js/cadastroEmpresa.js"></script>
     <script src="./js/geral.js"></script>
@@ -16,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
         
 </head>
-<body onload="validarSessao()">
+<body id="body" onload="validarSessao(), privaFunc()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">

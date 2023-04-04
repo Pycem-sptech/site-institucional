@@ -21,7 +21,7 @@
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
-            <div class="navigationButtons">
+            <div class="navigationButtons" id="navIcons">
                 <h2>Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectUnit()">
@@ -95,14 +95,6 @@
                     </div>
                     <div class="bodyModal">
                         <div class="bloco">
-                            <span class="estilo tamanho1"><span class="subTitulo">Unidade:</span>
-                                <select class="selectModal" id="escolherUnidadeModal">
-                                    <option></option>
-                                    <option value="0">Unidade Paulista</option>
-                                    <option value="1">Unidade Paulista</option>
-                                    <option value="2">Unidade Paulista</option>
-                                    <option value="3">Unidade Paulista</option>
-                                </select></span>
                             <span class="estilo tamanho1"><span class="subTitulo">Número de Série:</span>
                                 <input class="inputModal" id="numeroDeSerieModal"></span>
                         </div>
@@ -128,14 +120,45 @@
                         </div>
                     </div>
                     <div class="modalFooter">
-                        <button class="btnSalvar" onclick="salvarEdicaoMaquina()">Salvar</button>
+                        <button class="btnSalvar" onclick="salvarEdicaoMaquina(sessionStorage.idTotem)">Salvar</button>
                     </div>
                 </div>
         </section>
     </main>
 </body>
+
 </html>
 <script>
+    const menuHamb = document.getElementById("menu");
+    const menuIcons = document.getElementById("navIcons");
+    if (sessionStorage.USER_CARGO == "Tecnico") {
+        menuHamb.innerHTML = `
+            <li onclick="redirectMachine()">Cadastro de Máquinas</li>
+            <li onclick="redirectMachine()">Gerenciar Máquinas</li>
+            <li onclick="">Suporte</li>            
+            <li onclick="">Configurações</li>
+            <li onclick="limparSessao()">Sair</li>
+            `
+        menuIcons.innerHTML = `
+        <h2>Py</h2>
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">         
+        `;
+    } else if (sessionStorage.USER_CARGO == "Supervisor") {
+        menuHamb.innerHTML = `
+            <li onclick="redirectMachine()">Gerenciar Máquinas</li>
+            <li onclick="">Suporte</li>            
+            <li onclick="">Configurações</li>
+            <li onclick="limparSessao()">Sair</li>
+            `
+        menuIcons.innerHTML = `
+        <h2>Py</h2>
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">         
+        `;
+    }
     $(document).ready(function(){
 		$("#idCep").mask("99999-999");
 		$("#idTelefoneUnidade").mask("(99) 99999-9999");
@@ -149,7 +172,12 @@
     nav.classList.toggle('active');
     
     }
-
+    var overlay = document.getElementById('overlay');
+    overlay.addEventListener('click', function(e) {
+    if (e.target == this){
+        fecharModal()
+    } ;
+    });
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
 </script>
