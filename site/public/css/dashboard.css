@@ -9,6 +9,25 @@ body{
     background-color: #EFF6FD;
 }
 
+/* TEXTO DE TITULO DE PAGINAS */
+
+.guideText{
+    height: 12vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: default;
+}
+.welcomeSentence {
+    font-size: 2em;
+    margin-left: 4%;
+}
+.firstStep{
+    margin-left: 4%;
+    color: #adadad;
+}
+
+
 /* SIDEBAR */
 .sidebar{
     float: left;

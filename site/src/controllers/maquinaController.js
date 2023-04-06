@@ -1,12 +1,8 @@
 var maquinaModel = require("../models/maquinaModel");
 
-function testar(req, res) {
-    console.log("ENTRAMOS NO maquinaController");
-    res.send("ENTRAMOS NO maquina CONTROLLER");
-}
-
 function listar(req, res) {
-    maquinaModel.listar().then(function (resultado) {
+    fkEmpresa = req.params.fkEmpresa;
+    maquinaModel.listar(fkEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -27,7 +23,7 @@ function cadastrarMaquina(req, res) {
     var ram = req.body.ramServer;
     var qtdArmazenamento = req.body.qtdArmazenamentoServer;
     var storageSelect = req.body.storageSelectServer;
-    
+
     if (nome == undefined) {
         res.status(400).send("Seu nome es tá undefined!");
     } else if (numeroSerial == undefined) {
@@ -42,68 +38,80 @@ function cadastrarMaquina(req, res) {
         res.status(400).send("Sua qtdArmazenamento está undefined!");
     } else {
 
-        maquinaModel.cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+        maquinaModel.cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect).then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
     }
 }
 
 function listarPorUsuario(req, res) {
     var idUsuario = req.params.idUsuario;
 
-    maquinaModel.listarPorUsuario(idUsuario)
-        .then(
-            function (resultado) {
-                if (resultado.length > 0) {
-                    res.status(200).json(resultado);
-                } else {
-                    res.status(204).send("Nenhum resultado encontrado!");
-                }
+    maquinaModel.listarPorUsuario(idUsuario).then(
+        function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!");
             }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log(
-                    "Houve um erro ao buscar os maquinas: ",
-                    erro.sqlMessage
-                );
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log(
+                "Houve um erro ao buscar os maquinas: ",
+                erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
 }
 
+function listarDadosMaquina(req, res) {
+    idMaquina = req.params.idMaquina;
+    maquinaModel.listarDadosMaquina(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 function pesquisarDescricao(req, res) {
     var descricao = req.params.descricao;
 
-    maquinaModel.pesquisarDescricao(descricao)
-        .then(
-            function (resultado) {
-                if (resultado.length > 0) {
-                    res.status(200).json(resultado);
-                } else {
-                    res.status(204).send("Nenhum resultado encontrado!");
-                }
+    maquinaModel.pesquisarDescricao(descricao).then(
+        function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!");
             }
-        ).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao buscar os maquinas: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar os maquinas: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
 }
 
 function publicar(req, res) {
@@ -118,67 +126,65 @@ function publicar(req, res) {
     } else if (idUsuario == undefined) {
         res.status(403).send("O id do usuário está indefinido!");
     } else {
-        maquinaModel.publicar(titulo, descricao, idUsuario)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            )
-            .catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
-}
-
-function editar(req, res) {
-    var novaDescricao = req.body.descricao;
-    var idmaquina = req.params.idmaquina;
-
-    maquinaModel.editar(novaDescricao, idmaquina)
-        .then(
+        maquinaModel.publicar(titulo, descricao, idUsuario).then(
             function (resultado) {
                 res.json(resultado);
             }
-        )
-        .catch(
+        ).catch(
             function (erro) {
                 console.log(erro);
                 console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }
         );
+    }
+}
+
+function editar(req, res) {
+    var numeroSerial = req.body.numeroDeSerie;
+    var processador = req.body.processador;
+    var ram = req.body.memoriaRam;
+    var qtdArmazenamento = req.body.qtdArmazenamento;
+    var storageSelect = req.body.tipoArmazenamento;
+    var idMaquina = req.params.idMaquina;
+
+    maquinaModel.editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
 
 }
 
-function deletar(req, res) {
-    var idmaquina = req.params.idmaquina;
+function deletarRegistroMaquina(req, res) {
+    var idMaquina = req.params.idMaquina;
 
-    maquinaModel.deletar(idmaquina)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+    maquinaModel.deletarRegistroMaquina(idMaquina).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
 }
 
 module.exports = {
-    testar,
     listar,
     listarPorUsuario,
     pesquisarDescricao,
     publicar,
     editar,
-    deletar,
-    cadastrarMaquina
+    deletarRegistroMaquina,
+    cadastrarMaquina,
+    listarDadosMaquina
 }

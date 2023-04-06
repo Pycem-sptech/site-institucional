@@ -1,184 +1,324 @@
-function mostrarModal(){
-    let overlay = document.querySelector('.overlay')
-    let modal = document.querySelector('.modal')
-    overlay.style.display = 'block';
-    modal.style.display = 'block';
-    setTimeout(() => { document.addEventListener('click', cliqueFora, false) }, 200);
+function mostrarModal() {
+  let overlay = document.querySelector('.overlay')
+  let modal = document.querySelector('.modal')
+  overlay.style.display = 'block';
+  modal.style.display = 'block';
 }
 
-function fecharModal(){
-    let overlay = document.querySelector('.overlay')
-    let modal = document.querySelector('.modal')
-    overlay.style.display = 'none';
-    modal.style.display = 'none';
+function fecharModal() {
+  let overlay = document.querySelector('.overlay')
+  let modal = document.querySelector('.modal')
+  overlay.style.display = 'none';
+  modal.style.display = 'none';
 }
 
-const cliqueFora = (event) => {
-    let overlay = document.getElementById("overlay");
-    let modal = document.getElementById("modal");
+function salvarEdicaoMaquina(idMaquina) {
+  let numeroDeSerie = document.getElementById('numeroDeSerieModal').value;
+  let processador = document.getElementById('processadorModal').value;
+  let memoriaRam = document.getElementById('memoriaRamModal').value;
+  let escolherArmazenamento = document.getElementById('escolherArmazenamentoModal').value;
+  let qtdArmazenamento = document.getElementById('qtdArmazenamentoModal').value;
 
-    if (!modal.contains(event.target)) {
-        modal.style.display = 'none';
-        overlay.style.display = 'none';
-        document.removeEventListener('click', cliqueFora, false);
-    }
-}
-
-function salvarEdicaoMaquina(){
-    let unidade = document.getElementById('escolherUnidadeModal').value;
-    let numeroDeSerie = document.getElementById('numeroDeSerieModal').value;
-    let processador = document.getElementById('processadorModal').value;
-    let memoriaRam = document.getElementById('memoriaRamModal').value;
-    let escolherArmazenamento = document.getElementById('escolherArmazenamentoModal').value;
-    let qtdArmazenamento = document.getElementById('qtdArmazenamentoModal').value;
-
-        if(unidade != undefined && unidade != '' && numeroDeSerie != undefined && numeroDeSerie != '' && processador != undefined && processador != '' && memoriaRam != undefined && memoriaRam != '' && escolherArmazenamento != undefined && escolherArmazenamento != ''&& qtdArmazenamento != undefined && qtdArmazenamento != ''){
-          Swal.fire({
-            title: 'Deseja mesmo salvar as alterações?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim, salvar',
-            cancelButtonText: 'Cancelar'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire(
-                'Pronto!',
-                'Suas alterações foram gravadas',
-                'success'
-              )
-            }
-          })
-    }else{
-        alert("Verifique os campos");
-    }
-
-}
-
-function deletarRegistroMaquina(){
-  Swal.fire({
-      title: 'Você tem certeza?',
-      text: "Você não irá conseguir reverter isso!",
+  if (numeroDeSerie != undefined && numeroDeSerie != '' && processador != undefined && processador != '' && memoriaRam != undefined && memoriaRam != '' && escolherArmazenamento != undefined && escolherArmazenamento != '' && qtdArmazenamento != undefined && qtdArmazenamento != '') {
+    Swal.fire({
+      title: 'Deseja mesmo salvar as alterações?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sim, deletar!',
+      confirmButtonText: 'Sim, salvar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Pronto!',
-          'O registro da unidade foi deletado com sucesso!',
-          'success'
-        )
+        fetch(`maquina/editar/${idMaquina}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            numeroDeSerie: numeroDeSerie,
+            processador: processador,
+            memoriaRam: memoriaRam,
+            tipoArmazenamento: escolherArmazenamento,
+            qtdArmazenamento: qtdArmazenamento,
+          })
+        }).then(function (resposta) {
+
+          if (resposta.ok) {
+            Swal.fire(
+              'Pronto!',
+              'Suas alterações foram gravadas',
+              'success'
+            ).then((result) => {
+              if (result.isConfirmed) {
+                window.location = "../gerenciamentoMaquinas.html"
+              }
+            })
+          } else if (resposta.status == 404) {
+            return false
+          } else {
+            return false
+          }
+        }).catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
       }
     })
+
+
+  } else {
+    alert("Verifique os campos");
+  }
+
 }
 
-function salvarEdicaoUnidade(){
-    let nomeUnidade = document.getElementById('nomeUnidadeModal').value;
-    let cepUnidade = document.getElementById('cepUnidadeModal').value;
-    let ufUnidade = document.getElementById('ufUnidadeModal').value;
-    let cidadeUnidade = document.getElementById('cidadeUnidadeModal').value;
-    let logradouroUnidade = document.getElementById('logradouroUnidadeModal').value;
-    let bairroUnidade = document.getElementById('bairroUnidadeModal').value;
-    let numeroUnidade = document.getElementById('numeroUnidadeModal').value;
-    let telefoneUnidade = document.getElementById('telefoneUnidadeModal').value;
-
-        if(nomeUnidade != undefined && nomeUnidade != '' && cepUnidade != undefined && cepUnidade != '' && ufUnidade != undefined && ufUnidade != '' && cidadeUnidade != undefined && cidadeUnidade != '' && logradouroUnidade != undefined && logradouroUnidade != '' && bairroUnidade != undefined && bairroUnidade != '' && numeroUnidade != undefined && numeroUnidade != '' && telefoneUnidade != undefined && telefoneUnidade != ''){
-            Swal.fire({
-                title: 'Deseja mesmo salvar as alterações?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sim, salvar',
-                cancelButtonText: 'Cancelar'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  Swal.fire(
-                    'Pronto!',
-                    'Suas alterações foram gravadas',
-                    'success'
-                  )
-                }
-              })
-        }else{
-            alert("Verifique os campos");
+function deletarMaquina(idMaquina) {
+  Swal.fire({
+    title: 'Você tem certeza?',
+    text: "Você não irá conseguir reverter isso!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, deletar!',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch(`/maquina/deletar/${idMaquina}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
         }
+    }).then(function (resposta) {
 
-}
-
-function deletarRegistroUnidade(){
-    Swal.fire({
-        title: 'Você tem certeza?',
-        text: "Você não irá conseguir reverter isso!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sim, deletar!',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if (result.isConfirmed) {
+        if (resposta.ok) {
           Swal.fire(
             'Pronto!',
-            'O registro da unidade foi deletado com sucesso!',
+            'Suas alterações foram gravadas',
             'success'
-          )
-        }
-      })
-}
-function salvarEdicaoFuncionario(){
-    let nomeFuncionario = document.getElementById('nomeFuncionarioModal').value;
-    let unidadeFuncionario = document.getElementById('unidadeFuncionarioModal').value;
-    let cargoFuncionario = document.getElementById('escolherCargoModal').value;
-    let emailFuncionario = document.getElementById('emailModal').value;
-    let cpfFuncionario = document.getElementById('cpfModal').value;
-    let senhaFuncionario = document.getElementById('senhaModal').value;
-
-        if(nomeFuncionario != undefined && nomeFuncionario != '' && unidadeFuncionario != undefined && unidadeFuncionario != '' && cargoFuncionario != undefined && cargoFuncionario != '' && emailFuncionario != undefined && emailFuncionario != '' && cpfFuncionario != undefined && cpfFuncionario != ''&& senhaFuncionario != undefined && senhaFuncionario != ''){
-          Swal.fire({
-            title: 'Deseja mesmo salvar as alterações?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim, salvar',
-            cancelButtonText: 'Cancelar'
-          }).then((result) => {
+          ).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire(
-                'Pronto!',
-                'Suas alterações foram gravadas',
-                'success'
-              )
+              window.location = "../../gerenciamentoMaquinas.html"
             }
           })
-    }else{
-        alert("Verifique os campos");
+        } else if (resposta.status == 404) {
+            console.log("Deu 404!");
+        } else {
+            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
     }
-
+  })
 }
-function deletarRegistroFuncionario(){
-  Swal.fire({
-      title: 'Você tem certeza?',
-      text: "Você não irá conseguir reverter isso!",
+
+
+
+function salvarEdicaoUnidade(idUnidade) {
+  let nomeUnidade = document.getElementById('nomeUnidadeModal').value;
+  let cepUnidade = document.getElementById('cepUnidadeModal').value;
+  let ufUnidade = document.getElementById('ufUnidadeModal').value;
+  let cidadeUnidade = document.getElementById('cidadeUnidadeModal').value;
+  let logradouroUnidade = document.getElementById('logradouroUnidadeModal').value;
+  let bairroUnidade = document.getElementById('bairroUnidadeModal').value;
+  let numeroUnidade = document.getElementById('numeroUnidadeModal').value;
+  let telefoneUnidade = document.getElementById('telefoneUnidadeModal').value;
+
+  if (nomeUnidade != undefined && nomeUnidade != '' && cepUnidade != undefined && cepUnidade != '' && ufUnidade != undefined && ufUnidade != '' && cidadeUnidade != undefined && cidadeUnidade != '' && logradouroUnidade != undefined && logradouroUnidade != '' && bairroUnidade != undefined && bairroUnidade != '' && numeroUnidade != undefined && numeroUnidade != '' && telefoneUnidade != undefined && telefoneUnidade != '') {
+    Swal.fire({
+      title: 'Deseja mesmo salvar as alterações?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sim, deletar!',
+      confirmButtonText: 'Sim, salvar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Pronto!',
-          'O registro do funcionário foi deletado com sucesso!',
-          'success'
-        )
+        fetch(`unidade/editar/${idUnidade}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nome: nomeUnidadeModal.value,
+            logradouro: logradouroUnidadeModal.value,
+            cep: cepUnidadeModal.value,
+            uf: ufUnidadeModal.value,
+            cidade: cidadeUnidadeModal.value,
+            bairro: bairroUnidadeModal.value,
+            numero: numeroUnidadeModal.value,
+            telefone: telefoneUnidadeModal.value,
+          })
+        }).then(function (resposta) {
+
+          if (resposta.ok) {
+            Swal.fire(
+              'Pronto!',
+              'Suas alterações foram gravadas',
+              'success'
+            ).then((result) => {
+              if (result.isConfirmed) {
+                window.location = "../cadastroUnidade.html"
+              }
+            })
+          } else if (resposta.status == 404) {
+            return false
+          } else {
+            return false
+          }
+        }).catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
       }
     })
+
+
+  } else {
+    alert("Verifique os campos");
+  }
+
+}
+
+function deletarUnidade(idUnidade) {
+
+  Swal.fire({
+    title: 'Você tem certeza?',
+    text: "Você não irá conseguir reverter isso!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, deletar!',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch(`/unidade/deletar/${idUnidade}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+          Swal.fire(
+            'Pronto!',
+            'Suas alterações foram gravadas',
+            'success'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              window.location = "../cadastroUnidade.html"
+            }
+          })
+        } else if (resposta.status == 404) {
+            console.log("Deu 404!");
+        } else {
+            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
+    }
+  })
+}
+
+
+function salvarEdicaoFuncionario(idFuncionario) {
+  let nomeFuncionario = document.getElementById('nomeFuncionarioModal').value;
+  let cargoFuncionario = document.getElementById('escolherCargoModal').value;
+  let emailFuncionario = document.getElementById('emailModal').value;
+  let cpfFuncionario = document.getElementById('cpfModal').value;
+  let senhaFuncionario = document.getElementById('senhaModal').value;
+
+  if (nomeFuncionario != undefined && nomeFuncionario != ''  && cargoFuncionario != undefined && cargoFuncionario != '' && emailFuncionario != undefined && emailFuncionario != '' && cpfFuncionario != undefined && cpfFuncionario != '' && senhaFuncionario != undefined && senhaFuncionario != '') {
+    Swal.fire({
+      title: 'Deseja mesmo salvar as alterações?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, salvar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`usuario/editar/${idFuncionario}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nome: nomeFuncionario,
+            cargo: cargoFuncionario,
+            email: emailFuncionario,
+            cpf: cpfFuncionario,
+            senha: senhaFuncionario 
+          })
+        }).then(function (resposta) {
+
+          if (resposta.ok) {
+            Swal.fire(
+              'Pronto!',
+              'Suas alterações foram gravadas',
+              'success'
+            ).then((result) => {
+              if (result.isConfirmed) {
+                window.location = "../gerenciamentoFuncionarios.html"
+              }
+            })
+          } else if (resposta.status == 404) {
+            return false
+          } else {
+            return false
+          }
+        }).catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+      }
+    })
+  } else {
+    alert("Verifique os campos");
+  }
+
+}
+
+function deletarFuncionario(idFuncionario) {
+  Swal.fire({
+    title: 'Você tem certeza?',
+    text: "Você não irá conseguir reverter isso!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, deletar!',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch(`/usuario/deletar/${idFuncionario}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+          Swal.fire(
+            'Pronto!',
+            'Suas alterações foram gravadas',
+            'success'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              window.location = "../gerenciamentoFuncionarios.html"
+            }
+          })
+        } else if (resposta.status == 404) {
+            console.log("Deu 404!");
+        } else {
+            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
+    }
+  })
 }

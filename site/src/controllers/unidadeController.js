@@ -8,37 +8,54 @@ function testar(req, res) {
 }
 
 function listar(req, res) {
-    unidadeModel.listar()
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+    fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.listar(fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
 }
+
+function listarDadosUnidade(req, res) {
+    idUnidade = req.params.idUnidade;
+    unidadeModel.listarDadosUnidade(idUnidade).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
 function listarUnidades(req, res) {
     fkEmpresa = req.params.fkEmpresa;
-    unidadeModel.listarUnidades(fkEmpresa)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+    unidadeModel.listarUnidades(fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
 }
 
 function entrar(req, res) {
@@ -51,28 +68,27 @@ function entrar(req, res) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        unidadeModel.entrar(email, senha)
-            .then(
-                function (resultado) {
-                    console.log(`\nResultados encontrados: ${resultado.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+        unidadeModel.entrar(email, senha).then(
+            function (resultado) {
+                console.log(`\nResultados encontrados: ${resultado.length}`);
+                console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
 
-                    if (resultado.length == 1) {
-                        console.log(resultado);
-                        res.json(resultado[0]);
-                    } else if (resultado.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
-                    } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                    }
+                if (resultado.length == 1) {
+                    console.log(resultado);
+                    res.json(resultado[0]);
+                } else if (resultado.length == 0) {
+                    res.status(403).send("Email e/ou senha inválido(s)");
+                } else {
+                    res.status(403).send("Mais de um usuário com o mesmo login e senha!");
                 }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
     }
 
 }
@@ -109,67 +125,85 @@ function cadastrar(req, res) {
         res.status(400).send("Sua complemento está undefined!");
     } else {
 
-        unidadeModel.cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero, complemento)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+        unidadeModel.cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero, complemento).then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
     }
 }
 
 function verificarTelefone(req, res) {
     var telefone = req.params.telefone;
 
-    unidadeModel
-        .verificarTelefone(telefone)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!");
-            }
-        })
-        .catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        });
+    unidadeModel.verificarTelefone(telefone).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!");
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
 }
 
 function verificarNumero(req, res) {
     var numero = req.params.numero;
 
-    unidadeModel
-        .verificarNumero(numero)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!");
-            }
-        })
-        .catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        });
+    unidadeModel.verificarNumero(numero).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!");
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
 }
 
 
 function deletar(req, res) {
-    var idAviso = req.params.idAviso;
+    var idUnidade = req.params.idUnidade;
 
-    avisoModel.deletar(idAviso)
+    unidadeModel.deletar(idUnidade).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
+function editar(req, res) {
+    var idUnidade = req.params.idUnidade;
+    var nome = req.body.nome;
+    var logradouro = req.body.logradouro;
+    var cep = req.body.cep;
+    var uf = req.body.uf;
+    var cidade = req.body.cidade;
+    var bairro = req.body.bairro;
+    var numero = req.body.numero;
+    var telefone = req.body.telefone;
+    
+
+    unidadeModel.editar(nome, logradouro, cep, uf, cidade, bairro, numero, telefone, idUnidade)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -178,10 +212,11 @@ function deletar(req, res) {
         .catch(
             function (erro) {
                 console.log(erro);
-                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }
         );
+
 }
 module.exports = {
     entrar,
@@ -191,5 +226,7 @@ module.exports = {
     deletar,
     verificarTelefone,
     verificarNumero,
-    listarUnidades
+    listarUnidades,
+    editar,
+    listarDadosUnidade
 }

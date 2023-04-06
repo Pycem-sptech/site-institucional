@@ -4,5 +4,5 @@ package-lock.json
 
 ./site/node_modules
 ./site/package-lock.json
-
+.vscode
 .github

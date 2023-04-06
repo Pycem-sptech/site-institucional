@@ -16,16 +16,7 @@ function cadastrarUni() {
     console.log(numeroExiste);
     console.log(telefoneExiste);
 
-    if (
-        nomeVar == "" ||
-        telefoneVar == "" ||
-        cepVar == "" ||
-        cepVar == "" ||
-        ufVar == "" ||
-        cidadeVar == "" ||
-        logradouroVar == "" ||
-        bairroVar == "" ||
-        numeroVar == ""
+    if (nomeVar == "" || telefoneVar == "" || cepVar == "" || cepVar == "" || ufVar == "" || cidadeVar == "" || logradouroVar == "" || bairroVar == "" || numeroVar == ""
     ) {
         const Toast = Swal.mixin({
             toast: true,
@@ -115,12 +106,12 @@ function cadastrarUni() {
                             toast.addEventListener("mouseleave", Swal.resumeTimer);
                         },
                     });
-                    
+
                     Toast.fire({
                         icon: "success",
                         title: "Cadastro realizado com sucesso!",
                     });
-                    
+
                 } else {
                     const Toast = Swal.mixin({
                         toast: true,
@@ -197,10 +188,35 @@ function validarNumero(numeroVar) {
     return false;
 }
 
+function buscarDadosUnidade(idUnidade){
+    fetch(`/unidade/listarDadosUnidade/${idUnidade}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    nomeUnidadeModal.value = resposta[0].nomeUnidade;
+                    cepUnidadeModal.value = resposta[0].cepUnidade;
+                    ufUnidadeModal.value = resposta[0].ufUnidade;
+                    cidadeUnidadeModal.value = resposta[0].cidadeUnidade;
+                    logradouroUnidadeModal.value = resposta[0].logradouroUnidade;
+                    bairroUnidadeModal.value = resposta[0].bairroUnidade;
+                    numeroUnidadeModal.value = resposta[0].numeroUnidade;
+                    telefoneUnidadeModal.value = resposta[0].telefoneUnidade;
+                });
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+
+}
+
 
 function atualizarUnidadesCadastradas() {
-
-    fetch("/unidade/listar")
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
+    var fkEmpresaVar = fkEmpresa;
+    fetch(`/unidade/listar/${fkEmpresaVar}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -213,18 +229,18 @@ function atualizarUnidadesCadastradas() {
 
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-
                     var feed = document.getElementById("feed");
                     feed.innerHTML = "";
                     for (let i = 0; i < resposta.length; i++) {
                         var publicacao = resposta[i];
-
+                        sessionStorage.idUnidade = publicacao.idUnidade;
                         var divFeed = document.createElement("div");
                         var divRegisteredUnit = document.createElement("div");
                         var divnameUnit = document.createElement("div");
                         var spanNome = document.createElement("span");
                         var spanEndereco = document.createElement("span");
                         var divBtnEditDelete = document.createElement("div");
+                        
 
                         divFeed.className = "feed"
                         divRegisteredUnit.className = "registeredUnit";
@@ -233,8 +249,9 @@ function atualizarUnidadesCadastradas() {
                         spanNome.innerHTML = publicacao.nome;
                         spanEndereco.innerHTML = publicacao.logradouro;
                         divBtnEditDelete.className = "btnEditDelete";
-                        divBtnEditDelete.innerHTML += "<img src='img/Botão Editar.svg' onclick='mostrarModal()'>";
-                        divBtnEditDelete.innerHTML += "<img src='img/Botao Fechar.svg' onclick='deletarRegistroUnidade()'>";
+                        divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUnidade}), buscarDadosUnidade(${publicacao.idUnidade})'>`;
+                        divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarUnidade(${publicacao.idUnidade})'>`;
+                        ;
 
                         feed.appendChild(divRegisteredUnit);
                         divRegisteredUnit.appendChild(divnameUnit);
@@ -256,13 +273,13 @@ function atualizarUnidadesCadastradas() {
 }
 
 function limparCamposUnidade() {
-    document.getElementById('nomeUnit').value=("");
-    document.getElementById('cepUnit').value=("");
-    document.getElementById('logradouroUnit').value=("");
-    document.getElementById('cidadeUnit').value=("");
-    document.getElementById('ufUnit').value=("");
-    document.getElementById('bairroUnit').value=("");
-    document.getElementById('numeroUnit').value=("");
-    document.getElementById('telefoneUnit').value=("");
+    document.getElementById('nomeUnit').value = ("");
+    document.getElementById('cepUnit').value = ("");
+    document.getElementById('logradouroUnit').value = ("");
+    document.getElementById('cidadeUnit').value = ("");
+    document.getElementById('ufUnit').value = ("");
+    document.getElementById('bairroUnit').value = ("");
+    document.getElementById('numeroUnit').value = ("");
+    document.getElementById('telefoneUnit').value = ("");
 }
 

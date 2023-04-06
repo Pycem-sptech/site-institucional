@@ -212,7 +212,50 @@ hr{
 
 }
 
-
+.feed{
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.titleBoxMachine{
+    margin-left: 10%;
+    margin-top: 7%;
+    margin-bottom: 3%;
+    align-self: flex-start;
+}
+.RegisteredEmployee{
+    margin-top: 10px;
+    background: url(../img/user_icon.svg) no-repeat left / 2.5em;
+    width: 70%;
+    height: 40px;
+    padding-left: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.boxMachine hr{
+    width: 100%;
+    opacity: 0.18;
+}
+.IdEmployee{
+    display: flex;
+    flex-direction: column;
+}
+.addresOpacity{
+    opacity: 0.5;
+    font-size: 13px;
+}
+.btnEditDelete img{
+    height: 25px;
+    cursor: pointer;
+    width: 40px;
+}
 
 @media (max-width:800px){
     .main{
