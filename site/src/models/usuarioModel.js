@@ -36,15 +36,10 @@ function editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario) {
 }
 
 function entrar(email, senha) {
+  console.log("Estou no Entrar model()")
   var instrucao = ''
-  if (process.env.AMBIENTE_PROCESSO == "producao") {
-    instrucao = `SELECT * FROM [dbo].[usuario] WHERE email = '${email}' AND senha = (select HASHBYTES('SHA2_256','${senha}'));`;
-  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-    instrucao = `SELECT * FROM usuario WHERE email = '${email}' AND senha = (select sha2('${senha}', 256));`;
-  } else {
-    console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-    return
-  }
+  instrucao = `SELECT * FROM usuario WHERE email = '${email}' AND senha = '${senha}';`;
+  
   return database.executar(instrucao);
 }
 
