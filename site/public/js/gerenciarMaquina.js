@@ -185,6 +185,68 @@ function atualizarMaquinasCadastradas() {
         });
 }
 
+function filtrarMaquinas(nomeDigitado) {
+    if (nomeDigitado.length > 0) {
+        fetch(`/maquina/filtrarMaquinas/${nomeDigitado}`)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        var feed = document.getElementById("feed");
+                        feed.innerHTML = "";
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Infelizmente, nenhuma máquina foi encontrada.";
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+                    resposta.json().then(function (resposta) {
+                        console.log("Dados recebidos: ", JSON.stringify(resposta));
+    
+                        var feed = document.getElementById("feed");
+                        feed.innerHTML = "";
+                        for (let i = 0; i < resposta.length; i++) {
+                            var publicacao = resposta[i];
+                            sessionStorage.idTotem = publicacao.idTotem
+                            
+                            var divFeed = document.createElement("div");
+                            var divRegisteredMachine = document.createElement("div");
+                            var divIdMachine = document.createElement("div");
+                            var spanNumeroSerie = document.createElement("span");
+                            var spanNomeUnidade = document.createElement("span");
+                            var divBtnEditDelete = document.createElement("div");
+    
+                            divFeed.className = "feed"
+    
+                            divRegisteredMachine.className = "registeredMachine";
+                            divIdMachine.className = "idMachine";
+                            spanNomeUnidade.className = "addresOpacity";
+                            spanNomeUnidade.innerHTML = publicacao.nomeUnidade;
+                            spanNumeroSerie.innerHTML = publicacao.numeroSerie;
+    
+                            divBtnEditDelete.className = "btnEditDelete";
+                            divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idTotem}), buscarDadosMaquina(${publicacao.idTotem})'>`;
+                            divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarMaquina(${publicacao.idTotem})'>`;
+    
+                            feed.appendChild(divRegisteredMachine);
+                            divRegisteredMachine.appendChild(divIdMachine);
+                            divRegisteredMachine.appendChild(divBtnEditDelete);
+                            divIdMachine.appendChild(spanNumeroSerie);
+                            divIdMachine.appendChild(spanNomeUnidade);
+    
+                        }
+    
+                    });
+                } else {
+                    throw "Houve um erro na API!";
+                }
+            })
+            .catch(function (resposta) {
+                console.error(resposta);
+            });
+    } else {
+        atualizarMaquinasCadastradas();
+    }
+}
+
 function limparCamposMaquina() {
     document.getElementById('nameUnit').value = ("");
     document.getElementById('serialNumber').value = ("");

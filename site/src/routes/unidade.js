@@ -43,4 +43,9 @@ router.put("/editar/:idUnidade", function (req, res) {
     unidadeController.editar(req, res);
 });
 
+router.get("/filtrarUnidades/:nomeDigitado/:fkEmpresa", function (req, res) {
+    unidadeController.filtrarUnidades(req, res);
+});
+
+
 module.exports = router;

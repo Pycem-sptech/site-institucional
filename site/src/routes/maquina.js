@@ -11,6 +11,10 @@ router.get("/listar/:fkEmpresa", function (req, res) {
     maquinaController.listar(req, res);
 });
 
+router.get("/filtrarMaquinas/:nomeDigitado", function (req, res) {
+    maquinaController.filtrarMaquinas(req, res);
+});
+
 router.get("/listarDadosMaquina/:idMaquina", function (req, res) {
     maquinaController.listarDadosMaquina(req, res);
 });

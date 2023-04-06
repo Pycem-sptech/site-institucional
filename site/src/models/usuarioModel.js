@@ -25,6 +25,11 @@ function listarFuncionarios(fkEmpresa) {
   return database.executar(instrucao);
 }
 
+function filtrarFuncionarios(nomeDigitado, fkEmpresa) {
+  var instrucao = `select idUsuario, nome, cargo from usuario where nome like '${nomeDigitado}%' and (cargo in ('Supervisor', 'Tecnico')) and fkEmpresa = ${fkEmpresa};`;
+  return database.executar(instrucao);
+}
+
 function deletar(idFuncionario) {
   var instrucao = `DELETE FROM usuario where idUsuario = ${idFuncionario};`;
   return database.executar(instrucao);
@@ -84,5 +89,6 @@ module.exports = {
   cadastrar,
   cadastrarFuncionario,
   editarFuncionario,
-  deletar
+  deletar,
+  filtrarFuncionarios
 };

@@ -101,11 +101,12 @@
                             <span class="estilo tamanho1"><span class="subTitulo">Nome:</span>
                                 <input class="inputModal" id="nomeUnidadeModal"></span>
                             <span class="estilo tamanho1"><span class="subTitulo">CEP:</span>
-                                <input class="inputModal" id="cepUnidadeModal" onblur="pesquisacepModal(this.value);"></span>
+                                <input class="inputModal" id="cepUnidadeModal"
+                                    onblur="pesquisacepModal(this.value);"></span>
                         </div>
 
                         <div class="bloco">
-                            <span class="estilo tamanho7"><span class="subTitulo" >UF:</span>
+                            <span class="estilo tamanho7"><span class="subTitulo">UF:</span>
                                 <input class="inputModal" id="ufUnidadeModal" disabled></span>
 
                             <span class="estilo tamanho2"><span class="subTitulo">Cidade:</span>
@@ -189,10 +190,10 @@
 
     }
     var overlay = document.getElementById('overlay');
-    overlay.addEventListener('click', function(e) {
-    if (e.target == this){
-        fecharModal()
-    } ;
+    overlay.addEventListener('click', function (e) {
+        if (e.target == this) {
+            fecharModal()
+        };
     });
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);

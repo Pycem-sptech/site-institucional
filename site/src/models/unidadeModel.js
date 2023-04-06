@@ -8,8 +8,14 @@ function listarDadosUnidade(idUnidade) {
   var instrucao = `select nome as nomeUnidade, telefone as telefoneUnidade, sigla as ufUnidade, cidade as cidadeUnidade, logradouro as logradouroUnidade, bairro as bairroUnidade, numero as numeroUnidade, cep as cepUnidade from unidade where idUnidade = ${idUnidade};`;
   return database.executar(instrucao);
 }
+
+function filtrarUnidades(nomeDigitado, fkEmpresa) {
+  var instrucao = `select idUnidade, nome, logradouro from unidade where nome like '${nomeDigitado}%' and fkEmpresa = ${fkEmpresa};`;
+  return database.executar(instrucao);
+}
+
 function listarUnidades(fkEmpresa) {
-  var instrucao = `select nome, idUnidade from unidade where fkEmpresa = '${fkEmpresa}';`;
+  var instrucao = `select nome, idUnidade from unidade where fkEmpresa = ${fkEmpresa};`;
   return database.executar(instrucao);
 }
 function verificarTelefone(telefone) {
@@ -49,5 +55,6 @@ module.exports = {
   entrar,
   cadastrar,
   editar,
-  deletar
+  deletar,
+  filtrarUnidades
 };

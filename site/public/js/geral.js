@@ -10,7 +10,7 @@ function privaFunc() {
                 window.location = "../gerenciamentoMaquinas.html"
             }
         })
-    }else if (sessionStorage.USER_CARGO == "Supervisor") {
+    } else if (sessionStorage.USER_CARGO == "Supervisor") {
         body.innerHTML = `<h1>ERRO</h1>`;
         Swal.fire({
             icon: 'error',

@@ -9,6 +9,11 @@ function listarDadosMaquina(idMaquina) {
   return database.executar(instrucao);
 }
 
+function filtrarMaquinas(nomeDigitado) {
+  var instrucao = `select t.idTotem as idTotem, u.nome as nomeUnidade, t.numeroSerie as numeroSerie from totem t join unidade u on fkUnidade = idUnidade where t.numeroSerie like '${nomeDigitado}%';`;
+  return database.executar(instrucao);
+}
+
 function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect) {
   var instrucao = `INSERT INTO totem (numeroSerie, processador, ram, qtdArmazenamento, armazenamento, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}','${nome}');`;
   return database.executar(instrucao);
@@ -29,5 +34,6 @@ module.exports = {
   listarDadosMaquina,
   cadastrarMaquina,
   editar,
-  deletarRegistroMaquina
+  deletarRegistroMaquina,
+  filtrarMaquinas
 };
