@@ -14,6 +14,7 @@ var usuarioRouter = require("./src/routes/usuario");
 var empresaRouter = require("./src/routes/empresa");
 var unidadeRouter = require("./src/routes/unidade");
 var maquinaRouter = require("./src/routes/maquina");
+var relatorioRouter = require("./src/routes/relatorio");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,6 +27,7 @@ app.use("/usuario", usuarioRouter);
 app.use("/empresa", empresaRouter);
 app.use("/unidade", unidadeRouter)
 app.use("/maquina", maquinaRouter)
+app.use("/relatorio", relatorioRouter)
 
 app.listen(PORTA, function () {
     if (process.env.AMBIENTE_PROCESSO == 'desenvolvimento') {
