@@ -160,7 +160,7 @@ function filtrarFuncionarios(nomeDigitado) {
 }
 
 var resposta_old = "";
-var tempoDeAtualizacao = 0
+var tempoDeAtualizacao = 5000
 
 function mudarTempoDeExibicao(tempoDeAtualizacaoDesejado){
     tempoDeAtualizacao = tempoDeAtualizacaoDesejado * 1000
