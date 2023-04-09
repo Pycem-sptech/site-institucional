@@ -155,6 +155,100 @@ function filtrarFuncionarios(nomeDigitado) {
                 console.error(resposta);
             });
     } else {
-        atualizarFuncionariosCadastrados(); s
+        atualizarFuncionariosCadastrados(); 
     }
+}
+
+var resposta_old = "";
+var tempoDeAtualizacao = 5000
+
+function mudarTempoDeExibicao(tempoDeAtualizacaoDesejado){
+    tempoDeAtualizacao = tempoDeAtualizacaoDesejado * 1000
+}
+
+function atualizarMaqCadastradasComStatusEmTempoReal(){
+    setInterval(function(){
+        const fkEmpresa = sessionStorage.FK_EMPRESA;
+        var fkEmpresaVar = fkEmpresa;
+        fetch(`/maquina/listar/${fkEmpresaVar}`)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        var machineField = document.getElementById("machineField");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Infelizmente, nenhuma máquina foi encontrada.";
+                        machineField.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+    
+                    resposta.json().then(function (resposta) {
+                        console.log("Dados recebidos: ", JSON.stringify(resposta));
+    
+                        if(resposta_old == ""){
+                            resposta_old = resposta;
+                        }else if(resposta_old == resposta){
+                            console.log("Não atualizou nada");
+                        }else{
+
+                       
+                        var machineField = document.getElementById("machineField");
+                        machineField.innerHTML = "";
+                        for (let i = 0; i < resposta.length; i++) {
+                            var publicacao = resposta[i];
+    
+                            var divMachineField = document.createElement("div");
+                            var divMachine = document.createElement("div");
+    
+                            var divContainer = document.createElement("div");
+                            var divMachineDetails = document.createElement("div");
+                            var spanIcon = document.createElement("span");
+    
+                            var divInfoMachine = document.createElement("div");
+                            var spanNumeroSerie = document.createElement("span");
+                            var spanNomeUnidade = document.createElement("span");
+                            var divStatus = document.createElement("div");
+    
+                            divMachineField.className = "machineField";
+                            divMachine.className = "machine";
+                            divContainer.className = "container";
+                            divMachineDetails.className = "machineDetails";
+                            spanIcon.className = "iconMachine";
+    
+                            divInfoMachine.className = "infoMachine";
+                            spanNomeUnidade.className = "txtDetailMachine";
+                            spanNomeUnidade.innerHTML = publicacao.nomeUnidade;
+                            spanNumeroSerie.innerHTML = publicacao.numeroSerie;
+    
+                            if (publicacao.status == 'Disponivel') {
+                                divStatus.className = "status ok";
+                            } else if (publicacao.status == 'Manutencao') {
+                                divStatus.className = "status alert";
+                            } else {
+                                divStatus.className = "status danger";
+                            }
+    
+                            machineField.appendChild(divMachine);
+                            divMachine.appendChild(divContainer);
+    
+                            divContainer.appendChild(divMachineDetails);
+                            divContainer.appendChild(divStatus);
+                            
+                            divMachineDetails.appendChild(spanIcon);
+                            divMachineDetails.appendChild(divInfoMachine);
+    
+                            divInfoMachine.appendChild(spanNumeroSerie);
+                            divInfoMachine.appendChild(spanNomeUnidade);
+    
+                            spanIcon.innerHTML = '<img src="img/smartphoneOpacity.svg">';
+                        }
+                    }
+                    });
+                } else {
+                    throw "Houve um erro na API!";
+                }
+            })
+            .catch(function (resposta) {
+                console.error(resposta);
+            });
+    },tempoDeAtualizacao)
 }

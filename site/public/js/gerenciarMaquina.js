@@ -54,7 +54,6 @@ function cadastrarMaquina() {
     })
         .then(function (resposta) {
             console.log("resposta: ", resposta);
-
             if (resposta.ok) {
                 atualizarMaquinasCadastradas();
                 limparCamposMaquina();
@@ -69,12 +68,10 @@ function cadastrarMaquina() {
                         toast.addEventListener("mouseleave", Swal.resumeTimer);
                     },
                 });
-
                 Toast.fire({
                     icon: "success",
                     title: "Cadastro realizado com sucesso!",
                 });
-
             } else {
                 const Toast = Swal.mixin({
                     toast: true,
@@ -87,7 +84,6 @@ function cadastrarMaquina() {
                         toast.addEventListener("mouseleave", Swal.resumeTimer);
                     },
                 });
-
                 Toast.fire({
                     icon: "error",
                     title: "Houve um erro ao tentar realizar o cadastro!",
@@ -112,7 +108,6 @@ function buscarDadosMaquina(idMaquina){
                     memoriaRamModal.value = resposta[0].ram;
                     escolherArmazenamentoModal.value = resposta[0].armazenamento;
                     qtdArmazenamentoModal.value = resposta[0].qtdArmazenamento;
-                    
                 });
             } else {
                 throw "Houve um erro na API!";
@@ -121,9 +116,7 @@ function buscarDadosMaquina(idMaquina){
         .catch(function (resposta) {
             console.error(resposta);
         });
-
 }
-
 
 function atualizarMaquinasCadastradas() {
     const fkEmpresa = sessionStorage.FK_EMPRESA;
@@ -138,7 +131,6 @@ function atualizarMaquinasCadastradas() {
                     feed.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
                 }
-
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
 
@@ -146,7 +138,6 @@ function atualizarMaquinasCadastradas() {
                     feed.innerHTML = "";
                     for (let i = 0; i < resposta.length; i++) {
                         var publicacao = resposta[i];
-                        sessionStorage.idTotem = publicacao.idTotem
                         
                         var divFeed = document.createElement("div");
                         var divRegisteredMachine = document.createElement("div");
@@ -174,7 +165,6 @@ function atualizarMaquinasCadastradas() {
                         divIdMachine.appendChild(spanNomeUnidade);
 
                     }
-
                 });
             } else {
                 throw "Houve um erro na API!";
@@ -205,7 +195,6 @@ function filtrarMaquinas(nomeDigitado) {
                         feed.innerHTML = "";
                         for (let i = 0; i < resposta.length; i++) {
                             var publicacao = resposta[i];
-                            sessionStorage.idTotem = publicacao.idTotem
                             
                             var divFeed = document.createElement("div");
                             var divRegisteredMachine = document.createElement("div");
@@ -231,7 +220,6 @@ function filtrarMaquinas(nomeDigitado) {
                             divRegisteredMachine.appendChild(divBtnEditDelete);
                             divIdMachine.appendChild(spanNumeroSerie);
                             divIdMachine.appendChild(spanNomeUnidade);
-    
                         }
     
                     });

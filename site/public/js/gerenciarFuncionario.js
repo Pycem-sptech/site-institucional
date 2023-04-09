@@ -366,7 +366,6 @@ function atualizarFuncionariosCadastrados() {
           feed.innerHTML = "";
           for (let i = 0; i < resposta.length; i++) {
             var publicacao = resposta[i];
-            sessionStorage.idFuncionario = publicacao.idUsuario;
 
             var divFeed = document.createElement("div");
             var divRegisteredEmployee = document.createElement("div");
@@ -426,7 +425,6 @@ function filtrarFuncionarios(nomeDigitado) {
                     feed.innerHTML = "";
                     for (let i = 0; i < resposta.length; i++) {
                       var publicacao = resposta[i];
-                      sessionStorage.idFuncionario = publicacao.idUsuario;
           
                       var divFeed = document.createElement("div");
                       var divRegisteredEmployee = document.createElement("div");
