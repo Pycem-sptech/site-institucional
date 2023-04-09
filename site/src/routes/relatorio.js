@@ -11,6 +11,10 @@ router.get("/listar", function (req, res) {
     relatorioController.listar(req, res);
 });
 
+router.get("/buscarDadosRelatorio", function (req, res) {
+    relatorioController.buscarDadosRelatorio(req, res);
+});
+
 router.get("/verificarCnpj/:cnpj", function (req, res) {
     relatorioController.verificarCnpj(req, res);
 });

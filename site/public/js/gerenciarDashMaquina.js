@@ -3,7 +3,7 @@ function buscarDadosRelatorio(idRelatorio) {
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
-                    titulo_inp.value = resposta[0].nome;
+                    titulo_inp.value = resposta[0].titulo;
                     data_inp.value = resposta[0].dataPublicacao;
                     descricao_inp.value = resposta[0].descricao;
                     tipo_inp.value = resposta[0].tipo;
