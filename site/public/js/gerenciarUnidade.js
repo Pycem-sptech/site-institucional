@@ -233,7 +233,6 @@ function atualizarUnidadesCadastradas() {
                     feed.innerHTML = "";
                     for (let i = 0; i < resposta.length; i++) {
                         var publicacao = resposta[i];
-                        sessionStorage.idUnidade = publicacao.idUnidade;
                         var divFeed = document.createElement("div");
                         var divRegisteredUnit = document.createElement("div");
                         var divnameUnit = document.createElement("div");
@@ -290,7 +289,6 @@ function filtrarUnidades(nomeDigitado) {
                         feed.innerHTML = "";
                         for (let i = 0; i < resposta.length; i++) {
                             var publicacao = resposta[i];
-                            sessionStorage.idUnidade = publicacao.idUnidade;
                             var divFeed = document.createElement("div");
                             var divRegisteredUnit = document.createElement("div");
                             var divnameUnit = document.createElement("div");
