@@ -84,7 +84,12 @@
         </section>
         <section class="units">
             <div class="boxUnits" id="boxUnits">
-                <h3 class="titleBoxUnit">Unidades cadastradas</h3>
+                <div class="container">
+                    <h3 id="titleBoxUnit" class="titleBoxUnit">Unidades</h3>
+                    <input id="campoPesquisa" type="text">
+                    <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                    <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
+                </div>
                 <hr>
                 <div class="feed" id="feed">
 
@@ -198,4 +203,21 @@
     });
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
+
+    function pesquisar(){
+        titleBoxUnit.style.display = "none";
+        btnSearch.style.display = "none";
+        btnClose.style.display = "block";
+        campoPesquisa.classList.add("show")
+      
+}
+    function fechar(){
+        campoPesquisa.classList.remove("show")
+        setTimeout(function () {
+        
+            titleBoxUnit.style.display = "block";
+    }, 550);
+        btnSearch.style.display = "block";
+        btnClose.style.display = "none";
+    }
 </script>

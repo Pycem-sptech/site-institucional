@@ -7,6 +7,7 @@
     <title>Pycem</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/dashboardMaquina.css">
+    <script src="js/geral.js"></script>
 </head>
 <body>
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
@@ -169,8 +170,8 @@
                 <div class="titleListMachine">
                     <div class="container">
                         <h3 id="tituloMaquinas">Máquinas</h3>
-                        <input id="campoPesquisa" type="text" placeholder="" autofocus>
-                        <img onclick="pesquisar()" id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                        <input id="campoPesquisa" type="text">
+                        <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
                         <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                     </div>
                 </div>
@@ -185,78 +186,6 @@
                                 </div>
                             </div>
                             <div class="status ok"></div>
-                        </div>
-                    </div>
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status ok"></div>
-                        </div>
-                    </div>
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status alert"></div>
-                        </div>
-                    </div>
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status danger"></div>
-                        </div>
-                    </div>
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status ok"></div>
-                        </div>
-                    </div>
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status alert"></div>
-                        </div>
-                    </div>
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status danger"></div>
                         </div>
                     </div>
                 </div>
@@ -281,14 +210,20 @@
 
     function pesquisar(){
         tituloMaquinas.style.display = "none";
-        campoPesquisa.style.display = "block";  
         btnSearch.style.display = "none";
         btnClose.style.display = "block";
-    }
+        campoPesquisa.classList.add("show")
+      
+}
     function fechar(){
+        campoPesquisa.classList.remove("show")
+        setTimeout(function () {
+        
         tituloMaquinas.style.display = "block";
-        campoPesquisa.style.display = "none";  
+    }, 550);
         btnSearch.style.display = "block";
         btnClose.style.display = "none";
     }
+    
+
 </script>

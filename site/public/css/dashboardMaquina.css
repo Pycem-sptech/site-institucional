@@ -176,16 +176,20 @@
     justify-content: space-between;
 }
 #campoPesquisa{
-    display: none;
     outline: none;
     border: none;
     font-weight: 500;
     border-radius: 10px;
     padding: 7px;
-    background-color: #eeeeee;
-
+    background-color: #e6e9fa;
+    transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
+    opacity: 0;
+    width: 50%;
 }
-
+#campoPesquisa.show {
+    visibility: visible;
+    opacity: 1;
+  }
 #btnClose{
     display: none;
     height: 50%;
@@ -306,6 +310,9 @@
     .titleBoxHardInfo h3{
         font-size: 15px;
     }
+    .hardInfo{
+        height: 28%;
+    }
     .detailsReport{
         display: block;
     }
@@ -337,9 +344,7 @@
     .listMachine{
         width: 93%;
     }
-    .titleListMachine .container{
-        justify-content: center;
-    }
+
     .machineField::-webkit-scrollbar-thumb {
         background-color: #EFF6FD;      
     }
