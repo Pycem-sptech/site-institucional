@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pycem</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/config.css">
+    <script src="js/geral.js"></script>
+</head>
+<body>
+    <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
+    <nav class="sidebar">
+        <div class="container">
+            <div class="navigationButtons" id="navIcons">
+                <h2>Py</h2>
+                <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectUnit()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">   <!-- onclick="redirectMachine()" -->
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+            </div>
+            <div class="footerButtons">
+                <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
+                <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
+            </div>
+        </div>
+    </nav>
+    <header class="header">
+        <div class="container">
+            <h3 class="homeHeader">Home</h3>
+            <nav id="nav" class="navbarHamburguer">
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <ul class="menu" id="menu">
+                    <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                    <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                    <li onclick="redirectAllUnits()">Unidades</li>
+                    <li onclick="redirectConfig()">Configurações</li>
+                    <li onclick="limparSessao()">Sair</li>
+                </ul>
+            </nav>
+            <div class="user">
+                <h4 id="usuarioLogado">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg">
+            </div>
+        </div>
+    </header>
+    <div class="guideText">
+            <span class="welcomeSentence">Configurações do sistema</span>
+            <span class="firstStep">Pycem</span>
+    </div>
+    <main class="main">
+        <div class="container">
+            <div onclick="redirectUnit()" class="boxManage">
+                    <div class="iconBox">
+                        <img src="img/storeIcon.svg">
+                    </div>
+                    <div class="titleBox">
+                        <span>Unidades</span>
+                    </div>
+            </div>
+            <div onclick="redirectMachine()" class="boxManage">
+                <div class="iconBox">
+                    <img src="img/smartphoneIcon.svg">
+                </div>
+                <div class="titleBox">
+                    <span>Máquinas</span>
+                </div>
+            </div>
+            <div class="boxManage">
+                <div class="iconBox">
+                    <img src="img/warning(1) 1.svg">
+                </div>
+                <div class="titleBox">
+                    <span>Alertas</span>
+                </div>
+            </div>
+            <div onclick="redirectFunc()" class="boxManage">
+                <div class="iconBox">
+                    <img src="img/employee(1) 1.svg">
+                </div>
+                <div class="titleBox">
+                    <span>Usuários</span>
+                </div>
+            </div>
+            <div class="boxManage">
+                <div class="iconBox">
+                    <img src="img/user(1) 1.svg">
+                </div>
+                <div class="titleBox">
+                    <span>Meu Perfil</span>
+                </div>
+            </div>
+        </div>    
+    </main>
+            
+</body>
+</html>
+<script>
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+      if (event.type === 'touchstart') event.preventDefault();  
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('active');
+    
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+</script>
