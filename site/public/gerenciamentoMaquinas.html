@@ -30,7 +30,7 @@
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
-                <img class="iconSidebar" src="img/settingIcon.svg">
+                <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
                 <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
             </div>
         </div>
@@ -43,7 +43,8 @@
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
                     <li onclick="redirectMachine()">Gerenciar Maquinas</li>
-                    <li onclick="redirectUnit()">Gerenciar Unidades</li>
+                    <li onclick="redirectAllUnits()">Gerenciar Unidades</li>
+                    <li onclick="redirectConfig()">Configurações</li>
                     <li onclick="limparSessao()">Sair</li>
                 </ul>
             </nav>

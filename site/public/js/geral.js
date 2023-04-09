@@ -252,6 +252,16 @@ function redirectUnit() {
         window.location = "./cadastroUnidade.html";
     }, 250);
 }
+function redirectAllUnits() {
+    setTimeout(function () {
+        window.location = "./unidade.html";
+    }, 250);
+}
+function redirectDashUnits() {
+    setTimeout(function () {
+        window.location = "./dashboardMaquina.html";
+    }, 250);
+}
 function redirectDashboard() {
     setTimeout(function () {
         window.location = "#";
@@ -264,6 +274,6 @@ function redirectSuport() {
 }
 function redirectConfig() {
     setTimeout(function () {
-        window.location = "#";
+        window.location = "configuracoes.html";
     }, 250);
 }
