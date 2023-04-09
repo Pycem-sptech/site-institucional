@@ -30,7 +30,7 @@
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
-                <img class="iconSidebar" src="img/settingIcon.svg">
+                <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
                 <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
             </div>
         </div>
@@ -43,7 +43,8 @@
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
                     <li onclick="redirectMachine()">Gerenciar Maquinas</li>
-                    <li onclick="redirectUnit()">Gerenciar Unidades</li>
+                    <li onclick="redirectAllUnits()">Gerenciar Unidades</li>
+                    <li onclick="redirectConfig()">Configurações</li>
                     <li onclick="limparSessao()">Sair</li>
                 </ul>
             </nav>
@@ -81,7 +82,13 @@
         </section>
         <section class="machine">
             <div class="boxMachine">
-                <h3 class="titleBoxMachine">Máquinas cadastradas</h3>
+
+                <div class="container">
+                    <h3 id="titleBoxMachine" class="titleBoxMachine">Máquinas</h3>
+                    <input id="campoPesquisa" type="text">
+                    <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                    <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
+                </div>
                 <hr>
                 <div class="feed" id="feed">
                 
@@ -180,4 +187,20 @@
     });
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
+
+    function pesquisar(){
+        titleBoxMachine.style.display = "none";
+        btnSearch.style.display = "none";
+        btnClose.style.display = "block";
+        campoPesquisa.classList.add("show")
+      
+}
+    function fechar(){
+        campoPesquisa.classList.remove("show")
+        setTimeout(function () {
+            titleBoxMachine.style.display = "block";
+    }, 550);
+        btnSearch.style.display = "block";
+        btnClose.style.display = "none";
+    }
 </script>
