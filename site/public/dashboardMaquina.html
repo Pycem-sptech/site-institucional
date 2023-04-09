@@ -7,6 +7,10 @@
     <title>Pycem</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/dashboardMaquina.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="js/geral.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/gerenciarDashMaquina.js"></script>
 </head>
 <body>
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
@@ -100,7 +104,7 @@
                                 <span class="titleReport">Sobrecarga no sistema</span>
                                 <span class="dateReport">31/03</span>
                                 <span class="detailsReport">A máquina apresentou problemas...</span>
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport" onclick="mostrarModalRelatorio()">
                             </div>
                         </div>
                         <div class="problemReport">
@@ -110,7 +114,7 @@
                                 <span class="titleReport">Sobrecarga no sistema</span>
                                 <span class="dateReport">30/03</span>
                                 <span class="detailsReport">A máquina apresentou problemas...</span>
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport" onclick="mostrarModalRelatorio()">
                             </div>
                         </div>
                         <div class="problemReport">
@@ -120,7 +124,7 @@
                                 <span class="titleReport">Sobrecarga no sistema</span>
                                 <span class="dateReport">29/03</span>
                                 <span class="detailsReport">A máquina apresentou problemas...</span>
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport" onclick="mostrarModalRelatorio()">
                             </div>
                         </div>
                         <div class="problemReport">
@@ -130,7 +134,7 @@
                                 <span class="titleReport">Sobrecarga no sistema</span>
                                 <span class="dateReport">28/03</span>
                                 <span class="detailsReport">A máquina apresentou problemas...</span>
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport" onclick="mostrarModalRelatorio()">
                             </div>
                         </div>
                         <div class="problemReport">
@@ -140,7 +144,7 @@
                                 <span class="titleReport">Sobrecarga no sistema</span>
                                 <span class="dateReport">27/03</span>
                                 <span class="detailsReport">A máquina apresentou problemas...</span>
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport" onclick="mostrarModalRelatorio()">
                             </div>
                         </div>
                         <div class="problemReport">
@@ -150,7 +154,7 @@
                                 <span class="titleReport">Sobrecarga no sistema</span>
                                 <span class="dateReport">26/03</span>
                                 <span class="detailsReport">A máquina apresentou problemas...</span>
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport" onclick="mostrarModalRelatorio()">
                             </div>
                         </div>
 
@@ -258,6 +262,47 @@
                 </div>
             </section>
         </div>
+
+        <div class="overlay" id="overlay">
+            <div class="modalRelatorio" id="modalRelatorio">
+                <div class="headerModal">
+                    <span class="tituloModal">Relatório</span>
+                    <span class="fecharModal btnFechar" onclick="fecharModal()"></span>
+                </div>
+                <div class="bodyModal">
+                    <div class="bloco">
+
+                        <span class="estilo tamanho9"><span class="subTitulo">Titulo:</span>
+                            <input class="inputModal" id="tituloModal"></span>
+                    </div>
+
+                    <div class="bloco">
+                   
+                        <span class="estilo tamanho4"><span class="subTitulo">Data:</span>
+                            <input class="inputModal"type="date" id="dataModal"></span>
+
+                            <span class="estilo tamanho10"><span class="subTitulo">Tipo do problema:</span>
+                            <select class="selectModal" id="escolherTipoProblemaModal">
+                                <option></option>
+                                <option value="Desligamento">Desligamento</option>
+                                <option value="Sobrecarga">Sobrecarga</option>
+                                <option value="Outro">Outro</option>
+                            </select></span>
+
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
+                            <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
+                    </div>
+                </div>
+                <div class="modalFooter">
+                    <button class="btnSalvar"
+                        onclick="salvarRelatorio(sessionStorage.idFuncionario)">Salvar</button>
+                </div>
+            </div>
+        </div>
+        
+
     </main>
 </body>
 </html>
@@ -265,6 +310,12 @@
     
     const btnMobile = document.getElementById('btn-mobile');
 
+    var overlay = document.getElementById('overlay');
+    overlay.addEventListener('click', function(e) {
+    if (e.target == this){
+        fecharModalRelatorio()
+    } ;
+    });
     function toggleMenu(event) {
       if (event.type === 'touchstart') event.preventDefault();  
     const nav = document.getElementById('nav');

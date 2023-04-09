@@ -1,21 +1,26 @@
-// function mostrarModal() {
-//   let overlay = document.querySelector('.overlay')
-//   let modal = document.querySelector('.modal')
-//   overlay.style.display = 'block';
-//   modal.style.display = 'block';
-// }
 function mostrarModal() {
   let overlay = document.querySelector('.overlay')
-  let modal = document.querySelector('.modalRelatorio')
+  let modal = document.querySelector('.modal')
   overlay.style.display = 'block';
   modal.style.display = 'block';
 }
-
+function mostrarModalRelatorio() {
+  let overlay = document.querySelector('.overlay')
+  let modalRelatorio = document.querySelector('.modalRelatorio')
+  overlay.style.display = 'block';
+  modalRelatorio.style.display = 'block';
+}
 function fecharModal() {
   let overlay = document.querySelector('.overlay')
   let modal = document.querySelector('.modal')
   overlay.style.display = 'none';
   modal.style.display = 'none';
+}
+function fecharModalRelatorio() {
+  let overlay = document.querySelector('.overlay')
+  let modalRelatorio = document.querySelector('.modalRelatorio')
+  overlay.style.display = 'none';
+  modalRelatorio.style.display = 'none';
 }
 
 function salvarEdicaoMaquina(idMaquina) {
