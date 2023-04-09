@@ -127,5 +127,5 @@ module.exports = {
     cadastrar,
     listar,
     verificarEmail,
-    verificarCnpj
+    verificarCnpj,
 }

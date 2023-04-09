@@ -19,6 +19,9 @@ router.get("/listarFuncionarios/:fkEmpresa", function (req, res) {
     usuarioController.listarFuncionarios(req, res);
 });
 
+router.get("/validarAmbiente", function (req, res) {
+    usuarioController.validarAmbiente(req, res);
+});
 router.get("/verificarCpf/:cpf", function (req, res) {
     usuarioController.verificarCpf(req, res);
 });

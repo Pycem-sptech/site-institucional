@@ -81,7 +81,7 @@ function fazerLogin() {
           }, 2000);
         }else {
           setTimeout(function () {
-            window.location = "./cadastroUnidade.html";
+            window.location = "./gerenciamentoUnidades.html";
 
           }, 2000);
         }

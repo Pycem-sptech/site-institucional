@@ -1,9 +1,6 @@
 var emailExiste = false;
 var cpfExiste = false;
 
-import {AMBIENTE} from "../../app";
-console.log(AMBIENTE);
-
 function criarConta() {
   const nome = document.getElementById("name");
   const email = document.getElementById("email");

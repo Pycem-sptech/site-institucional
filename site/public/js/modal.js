@@ -1,6 +1,12 @@
+// function mostrarModal() {
+//   let overlay = document.querySelector('.overlay')
+//   let modal = document.querySelector('.modal')
+//   overlay.style.display = 'block';
+//   modal.style.display = 'block';
+// }
 function mostrarModal() {
   let overlay = document.querySelector('.overlay')
-  let modal = document.querySelector('.modal')
+  let modal = document.querySelector('.modalRelatorio')
   overlay.style.display = 'block';
   modal.style.display = 'block';
 }

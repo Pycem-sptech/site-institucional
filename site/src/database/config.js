@@ -27,7 +27,7 @@ var mySqlConfig = {
 
 function executar(instrucao) {
     // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js
-    if (process.env.AMBIENTE_PROCESSO == "producao") {
+    if (process.env.AMBIENTE_PROCESSO == "producao" || process.env.AMBIENTE_PROCESSO == "producaoLocal") {
         return new Promise(function (resolve, reject) {
             sql.connect(sqlServerConfig).then(function () {
                 return sql.query(instrucao);
