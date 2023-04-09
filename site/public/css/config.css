@@ -1,0 +1,53 @@
+.main{
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+}
+.main .container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.boxManage{
+    background-color: #fff;
+    width: 16%;
+    min-width: 165px;
+    height: 55%;
+    border-radius: 20px;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    margin-top: 2%;
+}
+.iconBox{
+    height: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.iconBox img{
+    height: 70%;
+}
+.titleBox{
+    display: flex;
+    justify-content: center;
+}
+.titleBox span{
+    font-weight: 600;
+    text-align: center;
+}
+@media (max-width:500px){
+    .main{
+        height: 170vh;
+    }
+    .main .container{
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    .boxManage{
+        margin-top: 5%;
+        width: 50%;
+    }
+}
