@@ -43,7 +43,7 @@ function editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario) {
 function entrar(email, senha) {
   console.log("Estou no Entrar model()")
   var instrucao = ''
-  instrucao = `SELECT * FROM usuario WHERE email = '${email}' AND senha = '${senha}';`;
+  instrucao = `SELECT * FROM usuario WHERE email = '${email}' AND senha = sha2('${senha}', 256);`;
   
   return database.executar(instrucao);
 }
