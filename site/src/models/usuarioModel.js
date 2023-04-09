@@ -36,15 +36,22 @@ function deletar(idFuncionario) {
 }
 
 function editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario) {
-  var instrucao = `UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = sha2('${senha}', 256) WHERE idUsuario = ${idFuncionario};`;
+  var instrucao = ''
+  if(process.env.AMBIENTE_PROCESSO == "producao"){
+    instrucao = `UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = (HASHBYTES('SHA2_256','${senha}') WHERE idUsuario = ${idFuncionario};`;
+  }else{
+    instrucao = `UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = sha2('${senha}', 256) WHERE idUsuario = ${idFuncionario};`;
+  }
   return database.executar(instrucao);
 }
 
 function entrar(email, senha) {
-  console.log("Estou no Entrar model()")
   var instrucao = ''
-  instrucao = `SELECT * FROM usuario WHERE email = '${email}' AND senha = sha2('${senha}', 256);`;
-  
+  if(process.env.AMBIENTE_PROCESSO == "producao"){
+    instrucao = `SELECT * FROM usuario WHERE email = '${email}' AND senha = (HASHBYTES('SHA2_256','${senha}'));`;
+  }else{
+    instrucao = `SELECT * FROM usuario WHERE email = '${email}' AND senha = sha2('${senha}', 256);`;
+  }
   return database.executar(instrucao);
 }
 
@@ -67,7 +74,6 @@ function cadastrarFuncionario(nome, email, cpf, senha, cargo, fkEmpresa) {
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     instrucao = `INSERT INTO usuario (nome, email, cpf, senha, cargo, fkEmpresa) VALUES ('${nome}', '${email}', '${cpf}',sha2('${senha}', 256),'${cargo}','${fkEmpresa}');`;
   } else {
-    console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
     return
   }
   return database.executar(instrucao);

@@ -237,38 +237,6 @@ function autenticar() {
     return false;
 }
 
-function validarAmbiente() {
-    fetch(`/usuario/validarAmbiente`)
-      .then(function (resposta) {
-        if (resposta.ok) {
-          if (resposta.status == 204) {
-            console.log("Nenhum resultado encontrado!!");
-            throw "Nenhum resultado encontrado!!";
-          }
-          resposta.json().then(function (resposta) {
-            console.log(resposta);
-            if(resposta == "producao"){
-              
-
-            }else if(resposta == "desenvolvimento" || resposta == "producaoLocal"){
-                var recaptcha = document.getElementById("recaptcha");
-                recaptcha.datacallback = 'flamingo';
-
-            }else{
-
-            }
-          });
-        } else {
-          throw "Houve um erro na API!";
-        }
-      })
-      .catch(function (resposta) {
-        console.error(resposta);
-      });
-    return false;
-  }
-
-
 function redirectFunc() {
     setTimeout(function () {
         window.location = "./gerenciamentoFuncionarios.html";
@@ -286,7 +254,7 @@ function redirectUnit() {
 }
 function redirectDashboard() {
     setTimeout(function () {
-        window.location = "#";
+        window.location = "./dashboardMaquina.html";
     }, 250);
 }
 function redirectSuport() {

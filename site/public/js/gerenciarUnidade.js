@@ -241,7 +241,6 @@ function atualizarUnidadesCadastradas() {
                         var spanEndereco = document.createElement("span");
                         var divBtnEditDelete = document.createElement("div");
 
-
                         divFeed.className = "feed"
                         divRegisteredUnit.className = "registeredUnit";
                         divnameUnit.className = "nameUnit";
@@ -251,14 +250,12 @@ function atualizarUnidadesCadastradas() {
                         divBtnEditDelete.className = "btnEditDelete";
                         divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUnidade}), buscarDadosUnidade(${publicacao.idUnidade})'>`;
                         divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarUnidade(${publicacao.idUnidade})'>`;
-                        ;
-
+                        
                         feed.appendChild(divRegisteredUnit);
                         divRegisteredUnit.appendChild(divnameUnit);
                         divRegisteredUnit.appendChild(divBtnEditDelete);
                         divnameUnit.appendChild(spanNome);
                         divnameUnit.appendChild(spanEndereco);
-
                     }
 
 

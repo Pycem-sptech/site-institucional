@@ -1,6 +1,5 @@
-//process.env.AMBIENTE_PROCESSO = "desenvolvimento";
-// process.env.AMBIENTE_PROCESSO = "producao";
-process.env.AMBIENTE_PROCESSO = "producaoLocal";
+// process.env.AMBIENTE_PROCESSO = "desenvolvimento";
+process.env.AMBIENTE_PROCESSO = "producao";
 
 var express = require("express");
 var cors = require("cors");
@@ -40,7 +39,7 @@ app.listen(PORTA, function () {
 \t\t\tVocê está utilizando o banco de dados local(MySQL Workbench).\n
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n`
         );
-    } else if(process.env.AMBIENTE_PROCESSO == 'producaoLocal'){
+    } else{
 console.log(`
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n
 \t\t\t\t\tO servidor PYCEM^2 está online!

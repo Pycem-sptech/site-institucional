@@ -171,7 +171,7 @@ function verificarTelefone(req, res) {
         }
     }).catch(function (erro) {
         console.log(erro);
-        console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
+        console.log("Houve um erro ao buscar o telefone: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
@@ -187,7 +187,7 @@ function verificarNumero(req, res) {
         }
     }).catch(function (erro) {
         console.log(erro);
-        console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
+        console.log("Houve um erro ao buscar o numero: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }

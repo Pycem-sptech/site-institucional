@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
 function listar(fkEmpresa) {
-  var instrucao = `select unidade.nome as nomeUnidade, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
+  var instrucao = `select unidade.nome as nomeUnidade, totem.numeroSerie as numeroSerie, totem.idTotem, totem.estado as status from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
   return database.executar(instrucao);
 }
 function listarDadosMaquina(idMaquina) {

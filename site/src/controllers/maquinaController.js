@@ -9,7 +9,6 @@ function listar(req, res) {
             res.status(204).send("Nenhum resultado encontrado!")
         }
     }).catch(function (erro) {
-        console.log(erro);
         console.log("Houve um erro ao buscar as maquinas: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
@@ -25,14 +24,11 @@ function filtrarMaquinas(req, res) {
         }
     }).catch(
         function (erro) {
-            console.log(erro);
             console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
             res.status(500).json(erro.sqlMessage);
         }
     );
 }
-
-
 
 function cadastrarMaquina(req, res) {
     var nome = req.body.nomeServer;
@@ -62,7 +58,6 @@ function cadastrarMaquina(req, res) {
             }
         ).catch(
             function (erro) {
-                console.log(erro);
                 console.log(
                     "\nHouve um erro ao realizar o cadastro! Erro: ",
                     erro.sqlMessage
