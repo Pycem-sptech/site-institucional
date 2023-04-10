@@ -60,3 +60,12 @@ uso_hd varchar(45),
 data_registro datetime not null default current_timestamp,
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 );
+
+create table relatorio(
+idRelatorio int primary key identity(1,1),
+titulo varchar(50),
+descricao varchar(255),
+tipo varchar(12) not null default 'Desligamento', constraint chkTipo check (tipo in('Desligamento','Sobrecarga','Outro')),
+data_relatorio date,
+fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
+)

@@ -10,7 +10,7 @@ function privaFunc() {
                 window.location = "../gerenciamentoMaquinas.html"
             }
         })
-    }else if (sessionStorage.USER_CARGO == "Supervisor") {
+    } else if (sessionStorage.USER_CARGO == "Supervisor") {
         body.innerHTML = `<h1>ERRO</h1>`;
         Swal.fire({
             icon: 'error',
@@ -249,12 +249,25 @@ function redirectMachine() {
 }
 function redirectUnit() {
     setTimeout(function () {
-        window.location = "./cadastroUnidade.html";
+        window.location = "./gerenciamentoUnidades.html";
+    }, 250);
+}
+function redirectAllUnits() {
+    setTimeout(function () {
+        window.location = "./unidade.html";
+    }, 250);
+}
+function redirectDashUnits(unidadeDesejada) {
+    console.log(unidadeDesejada)
+    var unidade = unidadeDesejada;
+    sessionStorage.VER_UNIDADE = unidade;
+    setTimeout(function () {
+        window.location = "./dashboardMaquina.html";
     }, 250);
 }
 function redirectDashboard() {
     setTimeout(function () {
-        window.location = "#";
+        window.location = "./dashboardMaquina.html";
     }, 250);
 }
 function redirectSuport() {
@@ -264,6 +277,6 @@ function redirectSuport() {
 }
 function redirectConfig() {
     setTimeout(function () {
-        window.location = "#";
+        window.location = "configuracoes.html";
     }, 250);
 }

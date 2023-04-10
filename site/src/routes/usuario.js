@@ -11,6 +11,10 @@ router.get("/listar", function (req, res) {
     usuarioController.listar(req, res);
 });
 
+router.get("/filtrarFuncionarios/:nomeDigitado/:fkEmpresa", function (req, res) {
+    usuarioController.filtrarFuncionarios(req, res);
+});
+
 router.get("/listarFuncionarios/:fkEmpresa", function (req, res) {
     usuarioController.listarFuncionarios(req, res);
 });

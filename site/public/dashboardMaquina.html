@@ -7,21 +7,27 @@
     <title>Pycem</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/dashboardMaquina.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="js/geral.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/gerenciarDashMaquina.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
-<body>
+<body onload="validarSessao(), atualizarMaqCadastradasComStatusEmTempoReal()">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons">
                 <h2>Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
-                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectUnit()">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">   <!-- onclick="redirectMachine()" -->
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg"onclick="redirectMachine()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
-                <img class="iconSidebar" src="img/settingIcon.svg">
+                <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
                 <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
             </div>
         </div>
@@ -34,7 +40,8 @@
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
                     <li onclick="redirectMachine()">Gerenciar Maquinas</li>
-                    <li onclick="redirectUnit()">Gerenciar Unidades</li>
+                    <li onclick="redirectAllUnits()">Gerenciar Unidades</li>
+                    <li onclick="redirectConfig()">Configurações</li>
                     <li onclick="limparSessao()">Sair</li>
                 </ul>
             </nav>
@@ -92,71 +99,11 @@
                             <h3>Histórico de problemas</h3>
                         </div>
                     </div>
-                    <div class="reportsField">
-                        <div class="problemReport">
-                            <div class="container">
-                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
-                                <span class="idReport">01</span>
-                                <span class="titleReport">Sobrecarga no sistema</span>
-                                <span class="dateReport">31/03</span>
-                                <span class="detailsReport">A máquina apresentou problemas...</span>
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
-                            </div>
-                        </div>
-                        <div class="problemReport">
-                            <div class="container">
-                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
-                                <span class="idReport">02</span>
-                                <span class="titleReport">Sobrecarga no sistema</span>
-                                <span class="dateReport">30/03</span>
-                                <span class="detailsReport">A máquina apresentou problemas...</span>
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
-                            </div>
-                        </div>
-                        <div class="problemReport">
-                            <div class="container">
-                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
-                                <span class="idReport">03</span>
-                                <span class="titleReport">Sobrecarga no sistema</span>
-                                <span class="dateReport">29/03</span>
-                                <span class="detailsReport">A máquina apresentou problemas...</span>
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
-                            </div>
-                        </div>
-                        <div class="problemReport">
-                            <div class="container">
-                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
-                                <span class="idReport">04</span>
-                                <span class="titleReport">Sobrecarga no sistema</span>
-                                <span class="dateReport">28/03</span>
-                                <span class="detailsReport">A máquina apresentou problemas...</span>
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
-                            </div>
-                        </div>
-                        <div class="problemReport">
-                            <div class="container">
-                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
-                                <span class="idReport">05</span>
-                                <span class="titleReport">Sobrecarga no sistema</span>
-                                <span class="dateReport">27/03</span>
-                                <span class="detailsReport">A máquina apresentou problemas...</span>
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
-                            </div>
-                        </div>
-                        <div class="problemReport">
-                            <div class="container">
-                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
-                                <span class="idReport">06</span>
-                                <span class="titleReport">Sobrecarga no sistema</span>
-                                <span class="dateReport">26/03</span>
-                                <span class="detailsReport">A máquina apresentou problemas...</span>
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
-                            </div>
-                        </div>
-
+                    <div class="reportsField" id="reportsField">
+                       
                     </div>
                     <div class="divBtnAddReport">
-                        <button class="btnAddReport">
+                        <button class="btnAddReport" onclick="mostrarModalRelatorio()">
                             Adicionar relatório
                         </button>
                     </div>
@@ -167,97 +114,58 @@
             <section class="listMachine">
                 <div class="titleListMachine">
                     <div class="container">
-                        <h3>Máquinas</h3>
+                        <h3 id="tituloMaquinas">Máquinas</h3>
+                        <input id="campoPesquisa" type="text">
+                        <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                        <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                     </div>
                 </div>
-                <div class="machineField">
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status ok"></div>
-                        </div>
-                    </div>
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status ok"></div>
-                        </div>
-                    </div>
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status alert"></div>
-                        </div>
-                    </div>
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status danger"></div>
-                        </div>
-                    </div>
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status ok"></div>
-                        </div>
-                    </div>
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status alert"></div>
-                        </div>
-                    </div>
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status danger"></div>
-                        </div>
-                    </div>
+                <div class="machineField" id="machineField">
+                  
                 </div>
             </section>
         </div>
+
+        <div class="overlay" id="overlay">
+            <div class="modalRelatorio" id="modalRelatorio">
+                <div class="headerModal">
+                    <span class="tituloModal">Relatório</span>
+                    <span class="fecharModal btnFechar" onclick="fecharModal()"></span>
+                </div>
+                <div class="bodyModal">
+                    <div class="bloco">
+
+                        <span class="estilo tamanho9"><span class="subTitulo">Titulo:</span>
+                            <input class="inputModal" id="tituloModal"></span>
+                    </div>
+
+                    <div class="bloco">
+                   
+                        <span class="estilo tamanho4"><span class="subTitulo">Data:</span>
+                            <input class="inputModal"type="date" id="dataModal"></span>
+
+                            <span class="estilo tamanho10"><span class="subTitulo">Tipo do problema:</span>
+                            <select class="selectModal" id="escolherTipoProblemaModal">
+                                <option></option>
+                                <option value="Desligamento">Desligamento</option>
+                                <option value="Sobrecarga">Sobrecarga</option>
+                                <option value="Outro">Outro</option>
+                            </select></span>
+
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
+                            <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
+                    </div>
+                </div>
+                <div class="modalFooter">
+                    <button class="btnSalvar"
+                        onclick="salvarRelatorio(sessionStorage.idFuncionario)">Salvar</button>
+                </div>
+            </div>
+        </div>
+        
+
     </main>
 </body>
 </html>
@@ -265,6 +173,12 @@
     
     const btnMobile = document.getElementById('btn-mobile');
 
+    var overlay = document.getElementById('overlay');
+    overlay.addEventListener('click', function(e) {
+    if (e.target == this){
+        fecharModalRelatorio()
+    } ;
+    });
     function toggleMenu(event) {
       if (event.type === 'touchstart') event.preventDefault();  
     const nav = document.getElementById('nav');
@@ -274,4 +188,23 @@
 
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
+
+    function pesquisar(){
+        tituloMaquinas.style.display = "none";
+        btnSearch.style.display = "none";
+        btnClose.style.display = "block";
+        campoPesquisa.classList.add("show")
+      
+}
+    function fechar(){
+        campoPesquisa.classList.remove("show")
+        setTimeout(function () {
+        
+        tituloMaquinas.style.display = "block";
+    }, 550);
+        btnSearch.style.display = "block";
+        btnClose.style.display = "none";
+    }
+    
+
 </script>
