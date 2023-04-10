@@ -1,39 +1,30 @@
 var database = require("../database/config");
 
-function listar(fkEmpresa) {
-  var instrucao = `select unidade.nome as nomeUnidade, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
-  return database.executar(instrucao);
-}
-function listarDadosMaquina(idMaquina) {
-  var instrucao = `select * from totem where idTotem = ${idMaquina};`;
+function listarRelatorio(fkMaquina) {
+  console.log(fkMaquina)
+  var instrucao = `select titulo, tipo, descricao, data_relatorio from relatorio join totem on idTotem = fkTotem where fkTotem = ${fkMaquina};`;
   return database.executar(instrucao);
 }
 
-function filtrarMaquinas(nomeDigitado) {
-  var instrucao = `select t.idTotem as idTotem, u.nome as nomeUnidade, t.numeroSerie as numeroSerie from totem t join unidade u on fkUnidade = idUnidade where t.numeroSerie like '${nomeDigitado}%';`;
+function buscarDadosRelatorio(idRelatorio) {
+  var instrucao = `select * from relatorio where idRelatorio = ${idRelatorio};`;
   return database.executar(instrucao);
 }
 
-function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect) {
-  var instrucao = `INSERT INTO totem (numeroSerie, processador, ram, qtdArmazenamento, armazenamento, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}','${nome}');`;
+function cadastrarRelatorio(titulo, tipo, descricao, data, fkMaquina) {
+  var instrucao = `INSERT INTO relatorio (titulo, tipo, descricao, data_relatorio, fkMaquina) VALUES ( '${titulo}', '${tipo}', '${descricao}', '${data}', ${fkMaquina});`;
   return database.executar(instrucao);
 }
 
-function editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina) {
-  var instrucao = `UPDATE totem SET numeroSerie = '${numeroSerial}', processador = '${processador}', ram = '${ram}', qtdArmazenamento = '${qtdArmazenamento}', armazenamento = '${storageSelect}' WHERE idTotem = ${idMaquina};`;
+function editarRelatorio(titulo, tipo, descricao, data, idRelatorio) {
+  var instrucao = `UPDATE relatorio SET titulo = '${titulo}', tipo = '${tipo}', descricao = '${descricao}', data_relatorio = '${data}' WHERE idRelatorio = ${idRelatorio};`;
   return database.executar(instrucao);
 }
 
-function deletarRegistroMaquina(idMaquina) {
-  var instrucao = `DELETE FROM totem WHERE idTotem = ${idMaquina};`;
-  return database.executar(instrucao);
-}
 
 module.exports = {
-  listar,
-  listarDadosMaquina,
-  cadastrarMaquina,
-  editar,
-  deletarRegistroMaquina,
-  filtrarMaquinas
+  buscarDadosRelatorio,
+  cadastrarRelatorio,
+  editarRelatorio,
+  listarRelatorio
 };

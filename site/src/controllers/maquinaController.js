@@ -60,7 +60,10 @@ function cadastrarMaquina(req, res) {
             }
         ).catch(
             function (erro) {
-                console.log("\nHouve um erro ao realizar o cadastro! Erro: ",erro.sqlMessage);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
                 res.status(500).json(erro.sqlMessage);
             }
         );
@@ -80,7 +83,11 @@ function listarPorUsuario(req, res) {
         }
     ).catch(
         function (erro) {
-            console.log("Houve um erro ao buscar os maquinas: ",erro.sqlMessage);
+            console.log(erro);
+            console.log(
+                "Houve um erro ao buscar os maquinas: ",
+                erro.sqlMessage
+            );
             res.status(500).json(erro.sqlMessage);
         }
     );
@@ -96,6 +103,7 @@ function listarDadosMaquina(req, res) {
         }
     }).catch(
         function (erro) {
+            console.log(erro);
             console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
             res.status(500).json(erro.sqlMessage);
         }
@@ -114,6 +122,7 @@ function pesquisarDescricao(req, res) {
         }
     ).catch(
         function (erro) {
+            console.log(erro);
             console.log("Houve um erro ao buscar os maquinas: ", erro.sqlMessage);
             res.status(500).json(erro.sqlMessage);
         }
@@ -138,6 +147,7 @@ function publicar(req, res) {
             }
         ).catch(
             function (erro) {
+                console.log(erro);
                 console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }

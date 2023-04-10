@@ -16,7 +16,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
 
-<body onload="validarSessao()">
+<body onload="validarSessao(),mostrarTodasUnidadesEmTempoReal()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -88,23 +88,23 @@
             <span id="feed">
                 <div class="listUnit" onclick="redirectDashUnits()">
                     <div class="box idUnit">
-                        <span>1</span>
+                        <span>---</span>
                     </div>
                     <div class="box nameUnit">
                         <img src="img/storeIcon.svg" alt="">
-                        <span>Unidade Paulista</span>
+                        <span>---</span>
                     </div>
                     <div class="box machineAvailable">
-                        <span>3</span>
+                        <span>---</span>
                     </div>
                     <div class="box machineMaintenance">
-                        <span>1</span>
+                        <span>---</span>
                     </div>
                     <div class="box machineOff">
-                        <span>0</span>
+                        <span>---</span>
                     </div>
                     <div class="box totalMachine">
-                        <span>0</span>
+                        <span>---</span>
                     </div>
                 </div>
             </span>

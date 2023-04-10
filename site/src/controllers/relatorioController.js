@@ -1,39 +1,92 @@
-var database = require("../database/config");
+var relatorioModel = require("../models/relatorioModel");
 
-function listar(fkEmpresa) {
-  var instrucao = `select unidade.nome as nomeUnidade, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
-  return database.executar(instrucao);
-}
-function listarDadosMaquina(idMaquina) {
-  var instrucao = `select * from totem where idTotem = ${idMaquina};`;
-  return database.executar(instrucao);
-}
-
-function filtrarMaquinas(nomeDigitado) {
-  var instrucao = `select t.idTotem as idTotem, u.nome as nomeUnidade, t.numeroSerie as numeroSerie from totem t join unidade u on fkUnidade = idUnidade where t.numeroSerie like '${nomeDigitado}%';`;
-  return database.executar(instrucao);
-}
-
-function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect) {
-  var instrucao = `INSERT INTO totem (numeroSerie, processador, ram, qtdArmazenamento, armazenamento, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}','${nome}');`;
-  return database.executar(instrucao);
+function buscarDadosRelatorio(req, res) {
+  idRelatorio = req.params.idRelatorio;
+  relatorioModel.buscarDadosRelatorio(idRelatorio).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum resultado encontrado!")
+    }
+  }).catch(
+    function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    }
+  );
 }
 
-function editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina) {
-  var instrucao = `UPDATE totem SET numeroSerie = '${numeroSerial}', processador = '${processador}', ram = '${ram}', qtdArmazenamento = '${qtdArmazenamento}', armazenamento = '${storageSelect}' WHERE idTotem = ${idMaquina};`;
-  return database.executar(instrucao);
+function cadastrarRelatorio(req, res) {
+  var titulo = req.body.titulo;
+  var tipo = req.body.tipo;
+  var descricao = req.body.descricao;
+  var data = req.body.data;
+  var fkMaquina = req.body.fkMaquina;
+
+
+  if (titulo == undefined) {
+      res.status(400).send("Seu nome es tá undefined!");
+  } else if (tipo == undefined) {
+      res.status(400).send("Seu numeroSerial está undefined!");
+  } else if (descricao == undefined) {
+      res.status(400).send("Sua processador está undefined!");
+  } else if (data == undefined) {
+      res.status(400).send("Sua ram está undefined!");
+  } else if (fkMaquina == undefined) {
+      res.status(400).send("Sua storageSelect está undefined!");
+  } else {
+
+      relatorioModel.cadastrarRelatorio(titulo, tipo, descricao, data, fkMaquina).then(
+          function (resultado) {
+              res.json(resultado);
+          }
+      ).catch(
+          function (erro) {
+              console.log("\nHouve um erro ao realizar o cadastro! Erro: ",erro.sqlMessage);
+              res.status(500).json(erro.sqlMessage);
+          }
+      );
+  }
+}
+function listarRelatorio(req, res) {
+  fkMaquina = req.params.fkMaquina;
+  relatorioModel.listarRelatorio(fkMaquina).then(function (resultado) {
+      if (resultado.length > 0) {
+          res.status(200).json(resultado);
+      } else {
+          res.status(204).send("Nenhum resultado encontrado!")
+      }
+  }).catch(function (erro) {
+      console.log("Houve um erro ao buscar as maquinas: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+  });
 }
 
-function deletarRegistroMaquina(idMaquina) {
-  var instrucao = `DELETE FROM totem WHERE idTotem = ${idMaquina};`;
-  return database.executar(instrucao);
+function editarRelatorio(req, res) {
+  var titulo = req.body.titulo;
+  var tipo = req.body.tipo;
+  var descricao = req.body.descricao;
+  var data = req.body.data;
+  var idRelatorio = req.params.idRelatorio;
+
+  relatorioModel.editar(titulo, tipo, descricao, data, idRelatorio).then(
+      function (resultado) {
+          res.json(resultado);
+      }
+  ).catch(
+      function (erro) {
+          console.log(erro);
+          console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+          res.status(500).json(erro.sqlMessage);
+      }
+  );
+
 }
 
 module.exports = {
-  listar,
-  listarDadosMaquina,
-  cadastrarMaquina,
-  editar,
-  deletarRegistroMaquina,
-  filtrarMaquinas
-};
+  buscarDadosRelatorio,
+  cadastrarRelatorio,
+  editarRelatorio,
+  listarRelatorio
+}
