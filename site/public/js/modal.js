@@ -1,15 +1,30 @@
-function mostrarModal() {
+function mostrarModal(id) {
+  sessionStorage.ID_SELECIONADO = id;
   let overlay = document.querySelector('.overlay')
   let modal = document.querySelector('.modal')
   overlay.style.display = 'block';
   modal.style.display = 'block';
 }
-
+function mostrarModalRelatorio(id) {
+  sessionStorage.RELATORIO_SELECIONADO = id;
+  let overlay = document.querySelector('.overlay')
+  let modalRelatorio = document.querySelector('.modalRelatorio')
+  overlay.style.display = 'block';
+  modalRelatorio.style.display = 'block';
+}
 function fecharModal() {
+  sessionStorage.ID_SELECIONADO = "";
   let overlay = document.querySelector('.overlay')
   let modal = document.querySelector('.modal')
   overlay.style.display = 'none';
   modal.style.display = 'none';
+}
+function fecharModalRelatorio() {
+  sessionStorage.RELATORIO_SELECIONADO = "";
+  let overlay = document.querySelector('.overlay')
+  let modalRelatorio = document.querySelector('.modalRelatorio')
+  overlay.style.display = 'none';
+  modalRelatorio.style.display = 'none';
 }
 
 function salvarEdicaoMaquina(idMaquina) {
@@ -160,7 +175,7 @@ function salvarEdicaoUnidade(idUnidade) {
               'success'
             ).then((result) => {
               if (result.isConfirmed) {
-                window.location = "../cadastroUnidade.html"
+                atualizarUnidadesCadastradas();
               }
             })
           } else if (resposta.status == 404) {
@@ -208,7 +223,7 @@ function deletarUnidade(idUnidade) {
             'success'
           ).then((result) => {
             if (result.isConfirmed) {
-              window.location = "../cadastroUnidade.html"
+              window.location = "../gerenciamentoMaquinas.html"
             }
           })
         } else if (resposta.status == 404) {

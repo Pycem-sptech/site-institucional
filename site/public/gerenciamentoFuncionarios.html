@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,121 +17,126 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 </head>
-<body id="body" onload="validarSessao(), atualizarFuncionariosCadastrados(), privaFunc()">
-        <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
-        <nav class="sidebar">
-            <div class="container">
-                <div class="navigationButtons">
-                    <h2>Py</h2>
-                    <img class="iconSidebar navigationIcon" src="img/userIcon.svg"><!-- onclick="redirectFunc()" -->
-                    <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectUnit()">
-                    <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
-                    <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
-                    <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
-                </div>
-                <div class="footerButtons">
-                    <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
-                    <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
-                </div>
-            </div>
-        </nav>
-        <header class="header">
-            <div class="container">
-                <h3 class="homeHeader">Home</h3>
-                <nav id="nav" class="navbarHamburguer">
-                    <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
-                    <ul class="menu" id="menu">
-                        <li  onclick="redirectFunc()">Gerenciar Funcionarios</li>
-                        <li onclick="redirectMachine()">Gerenciar Maquinas</li>
-                        <li onclick="redirectAllUnits()">Gerenciar Unidades</li>
-                        <li onclick="redirectConfig()">Configurações</li>
-                        <li onclick="limparSessao()">Sair</li>
-                    </ul>
-                </nav>
-                <div class="user">
-                    <h4 id="usuarioLogado">Usuário</h4>
-                    <img class="iconUser" src="img/personIcon.svg">
-                </div>
-            </div>
-        </header>
-        <div class="guideText">
-                <span class="welcomeSentence">Gerenciamento Funcionarios</span>
-                <span class="firstStep">Funcionarios</span>
+
+<body id="body" onload="validarSessao(), atualizarFuncionariosCadastrados(), privaFunc()"></body>
+<nav class="sidebar">
+    <div class="container">
+        <div class="navigationButtons">
+            <h2>Py</h2>
+            <img class="iconSidebar navigationIcon" src="img/userIcon.svg"><!-- onclick="redirectFunc()" -->
+            <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
+            <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+            <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+            <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
         </div>
-        <main class="main">
-            <section class="registerCompany">
-                <div class="formRegisterCompany">
-                    <h3 class="titleFormRegisterCompany">Cadastre seu Funcionário</h3>
-                    <div class="inputCampo">
+        <div class="footerButtons">
+            <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
+            <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
+        </div>
+    </div>
+</nav>
+<header class="header">
+    <div class="container">
+        <h3 class="homeHeader">Home</h3>
+        <nav id="nav" class="navbarHamburguer">
+            <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+            <ul class="menu" id="menu">
+                <li  onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                <li onclick="redirectAllUnits()">Gerenciar Unidades</li>
+                <li onclick="redirectConfig()">Configurações</li>
+                <li onclick="limparSessao()">Sair</li>
+            </ul>
+        </nav>
+        <div class="user">
+            <h4 id="usuarioLogado">Usuário</h4>
+            <img class="iconUser" src="img/personIcon.svg">
+        </div>
+    </header>
+    <div class="guideText">
+        <span class="welcomeSentence">Gerenciamento Funcionarios</span>
+        <span class="firstStep">Funcionarios</span>
+    </div>
+    <main class="main">
+        <section class="registerCompany">
+            <div class="formRegisterCompany">
+                <h3 class="titleFormRegisterCompany">Cadastre seu Funcionário</h3>
+                <div class="inputCampo">
                     <select class="inputRegisterFuncionarios cargoFuncionario" id="selectCargo">
                         <option value="" disabled selected>Cargo</option>
                         <option value="Tecnico">Tecnico</option>
                         <option value="Supervisor">Supervisor</option>
                     </select>
-                    <input class="inputRegisterFuncionarios nomeFuncionario" id="nomeFuncionario" type="text" placeholder="Nome Completo" >
-                    <input class="inputRegisterFuncionarios cpfFuncionario" id="cpfFuncionario" onblur="validarCpf(this.value)" type="text" placeholder="CPF" >
-                    <input class="inputRegisterFuncionarios emailFuncionario" id="emailFuncionario" onblur="validarEmail(this.value)" type="email" placeholder="Email">
+                    <input class="inputRegisterFuncionarios nomeFuncionario" id="nomeFuncionario" type="text"
+                        placeholder="Nome Completo">
+                    <input class="inputRegisterFuncionarios cpfFuncionario" id="cpfFuncionario"
+                        onblur="validarCpf(this.value)" type="text" placeholder="CPF">
+                    <input class="inputRegisterFuncionarios emailFuncionario" id="emailFuncionario"
+                        onblur="validarEmail(this.value)" type="email" placeholder="Email">
                     <input class="inputRegisterFuncionarios password" type="password" id="password" placeholder="Senha">
-                    <input class="inputRegisterFuncionarios password" id="confirmPassword" type="password" placeholder="Confirmação de Senha">
-                    </div>
-                    <button class="btnRegister" onclick="cadastrarFuncionario()">Cadastrar</button>
+                    <input class="inputRegisterFuncionarios password" id="confirmPassword" type="password"
+                        placeholder="Confirmação de Senha">
+                    <input class="inputRegisterUnit telefoneUnit" id="teste" onkeyup="filtrarFuncionarios(this.value)"
+                        placeholder="teste">
                 </div>
-            </section>
-            <section class="registerUnit">
-                <div class="formRegisterUnit">
-                    <div class="container">
-                        <h3 id="titleFormRegisterUnit" class="titleFormRegisterUnit">Funcionários </h3>
-                        <input id="campoPesquisa" type="text">
-                        <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
-                        <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
-                    </div>
-                    <hr>
-                    <div class="feed" id="feed">
-                
-                    </div>
-                    
-                </div>
-            </section>
-             <div class="overlay" id="overlay">
-        <div class="modal" id="modal">
-            <div class="headerModal">
-                <span class="tituloModal">Funcionário</span>
-                <span class="fecharModal btnFechar" onclick="fecharModal()"></span>
+                <button class="btnRegister" onclick="cadastrarFuncionario()">Cadastrar</button>
             </div>
-            <div class="bodyModal">
-                <div class="bloco">
-                   
-                    <span class="estilo tamanho1"><span class="subTitulo">Nome:</span>
-                        <input class="inputModal" id="nomeFuncionarioModal"></span>
+        </section>
+        <section class="registerUnit">
+            <div class="formRegisterUnit">
+                <h3 class="titleFormRegisterUnit">Funcionarios Cadastrados</h3>
+                <hr>
+                <div class="feed" id="feed">
+
                 </div>
 
-                <div class="bloco">
-                    <span class="estilo tamanho3"><span class="subTitulo">Cargo:</span>
-                        <select class="selectModal" id="escolherCargoModal">
-                            <option></option>
-                            <option value="Supervisor">Supervisor</option>
-                            <option value="Tecnico">Tecnico</option>
-                        </select></span>
+            </div>
+        </section>
 
-                    <span class="estilo tamanho1"><span class="subTitulo">Email:</span>
-                        <input class="inputModal" id="emailModal"></span>
-
-                    
+        <div class="overlay" id="overlay">
+            <div class="modal" id="modal">
+                <div class="headerModal">
+                    <span class="tituloModal">Funcionário</span>
+                    <span class="fecharModal btnFechar" onclick="fecharModal()"></span>
                 </div>
-                <div class="bloco">
-                    <span class="estilo tamanho1"><span class="subTitulo">CPF:</span>
-                        <input class="inputModal" id="cpfModal"></span>
+                <div class="bodyModal">
+                    <div class="bloco">
+
+                        <span class="estilo tamanho1"><span class="subTitulo">Nome:</span>
+                            <input class="inputModal" id="nomeFuncionarioModal"></span>
+                    </div>
+
+                    <div class="bloco">
+                        <span class="estilo tamanho3"><span class="subTitulo">Cargo:</span>
+                            <select class="selectModal" id="escolherCargoModal">
+                                <option></option>
+                                <option value="Supervisor">Supervisor</option>
+                                <option value="Tecnico">Tecnico</option>
+                            </select></span>
+
+                        <span class="estilo tamanho1"><span class="subTitulo">Email:</span>
+                            <input class="inputModal" id="emailModal"></span>
+
+
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho1"><span class="subTitulo">CPF:</span>
+                            <input class="inputModal" id="cpfModal"></span>
 
                         <span class="estilo tamanho1"><span class="subTitulo">Senha:</span>
-                        <input class="inputModal" id="senhaModal" type="password"></span>
+                            <input class="inputModal" id="senhaModal" type="password"></span>
+                    </div>
+                </div>
+                <div class="modalFooter">
+                    <button class="btnSalvar"
+                        onclick="salvarEdicaoFuncionario(sessionStorage.ID_SELECIONADO)">Salvar</button>
                 </div>
             </div>
-            <div class="modalFooter">
-                <button class="btnSalvar" onclick="salvarEdicaoFuncionario(sessionStorage.idFuncionario)">Salvar</button>
-            </div>
         </div>
-        </main>
+        
+    </main>
 </body>
+
 </html>
 <script>
     const menuHamb = document.getElementById("menu");
@@ -163,23 +169,23 @@
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">                
         `;
     }
-    $(document).ready(function(){
+    $(document).ready(function () {
         $("#cpfFuncionario").mask("999.999.999-99");
     });
 
     const btnMobile = document.getElementById('btn-mobile');
 
     function toggleMenu(event) {
-      if (event.type === 'touchstart') event.preventDefault();  
-    const nav = document.getElementById('nav');
-    nav.classList.toggle('active');
-    
+        if (event.type === 'touchstart') event.preventDefault();
+        const nav = document.getElementById('nav');
+        nav.classList.toggle('active');
+
     }
     var overlay = document.getElementById('overlay');
-    overlay.addEventListener('click', function(e) {
-    if (e.target == this){
-        fecharModal()
-    } ;
+    overlay.addEventListener('click', function (e) {
+        if (e.target == this) {
+            fecharModal()
+        };
     });
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);

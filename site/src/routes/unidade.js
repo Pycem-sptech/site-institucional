@@ -11,12 +11,16 @@ router.get("/listar/:fkEmpresa", function (req, res) {
     unidadeController.listar(req, res);
 });
 
+router.get("/listarUnidades/:fkEmpresa", function (req, res) {
+    unidadeController.listarUnidades(req, res);
+});
+
 router.get("/listarDadosUnidade/:idUnidade", function (req, res) {
     unidadeController.listarDadosUnidade(req, res);
 });
 
-router.get("/listarUnidades/:fkEmpresa", function (req, res) {
-    unidadeController.listarUnidades(req, res);
+router.get("/listarTodasUnidades/:fkEmpresa", function (req, res) {
+    unidadeController.listarTodasUnidades(req, res);
 });
 
 router.get("/verificarNumero/:numero", function (req, res) {
@@ -42,5 +46,10 @@ router.delete("/deletar/:idUnidade", function (req, res) {
 router.put("/editar/:idUnidade", function (req, res) {
     unidadeController.editar(req, res);
 });
+
+router.get("/filtrarUnidades/:nomeDigitado/:fkEmpresa", function (req, res) {
+    unidadeController.filtrarUnidades(req, res);
+});
+
 
 module.exports = router;

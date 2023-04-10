@@ -30,7 +30,6 @@ function cadastrar(nome, email, telefone, cnpj, emailUser) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucao = `update usuario set fkEmpresa = (select idEmpresa from empresa order by idEmpresa desc limit 1) where email = '${emailUser}';`;
     } else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
     }
     return database.executar(instrucao);

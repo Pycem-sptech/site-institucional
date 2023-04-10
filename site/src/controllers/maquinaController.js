@@ -2,19 +2,35 @@ var maquinaModel = require("../models/maquinaModel");
 
 function listar(req, res) {
     fkEmpresa = req.params.fkEmpresa;
-    maquinaModel.listar(fkEmpresa).then(function (resultado) {
+    unidade = req.params.unidade;
+    console.log(unidade)
+    maquinaModel.listar(fkEmpresa, unidade).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
             res.status(204).send("Nenhum resultado encontrado!")
         }
     }).catch(function (erro) {
-        console.log(erro);
         console.log("Houve um erro ao buscar as maquinas: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
 
+function filtrarMaquinas(req, res) {
+    nomeDigitado = req.params.nomeDigitado;
+    maquinaModel.filtrarMaquinas(nomeDigitado).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 
 function cadastrarMaquina(req, res) {
     var nome = req.body.nomeServer;
@@ -44,7 +60,6 @@ function cadastrarMaquina(req, res) {
             }
         ).catch(
             function (erro) {
-                console.log(erro);
                 console.log(
                     "\nHouve um erro ao realizar o cadastro! Erro: ",
                     erro.sqlMessage
@@ -186,5 +201,6 @@ module.exports = {
     editar,
     deletarRegistroMaquina,
     cadastrarMaquina,
-    listarDadosMaquina
+    listarDadosMaquina,
+    filtrarMaquinas
 }

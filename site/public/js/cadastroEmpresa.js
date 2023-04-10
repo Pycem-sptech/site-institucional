@@ -99,7 +99,7 @@ function cadastrarEmp() {
           });
 
           setTimeout(() => {
-            window.location = "./cadastroUnidade.html";
+            window.location = "./gerenciamentoUnidades.html";
           }, "3000");
         }
       })
