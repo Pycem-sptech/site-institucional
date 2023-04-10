@@ -65,7 +65,7 @@ create table relatorio(
 idRelatorio int primary key identity(1,1),
 titulo varchar(50),
 descricao varchar(255),
-tipo varchar(10) not null default 'Desligado', constraint chkTipo check (tipo in('Desligamento','Sobrecarga','Outro')),
-data date,
+tipo varchar(12) not null default 'Desligamento', constraint chkTipo check (tipo in('Desligamento','Sobrecarga','Outro')),
+data_relatorio date,
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
-);
+)

@@ -2,7 +2,9 @@ var maquinaModel = require("../models/maquinaModel");
 
 function listar(req, res) {
     fkEmpresa = req.params.fkEmpresa;
-    maquinaModel.listar(fkEmpresa).then(function (resultado) {
+    unidade = req.params.unidade;
+    console.log(unidade)
+    maquinaModel.listar(fkEmpresa, unidade).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

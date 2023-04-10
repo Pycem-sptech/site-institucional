@@ -257,7 +257,10 @@ function redirectAllUnits() {
         window.location = "./unidade.html";
     }, 250);
 }
-function redirectDashUnits() {
+function redirectDashUnits(unidadeDesejada) {
+    console.log(unidadeDesejada)
+    var unidade = unidadeDesejada;
+    sessionStorage.VER_UNIDADE = unidade;
     setTimeout(function () {
         window.location = "./dashboardMaquina.html";
     }, 250);

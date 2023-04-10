@@ -21,7 +21,8 @@ function buscarDadosRelatorio(idRelatorio) {
 function atualizarMaquinasCadastradasComStatus() {
     const fkEmpresa = sessionStorage.FK_EMPRESA;
     var fkEmpresaVar = fkEmpresa;
-    fetch(`/maquina/listar/${fkEmpresaVar}`)
+    const unidade = sessionStorage.VER_UNIDADE;
+    fetch(`/maquina/listar/${fkEmpresaVar},${unidade}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
