@@ -281,7 +281,6 @@ module.exports = {
   entrar,
   cadastrar,
   listar,
-  testar,
   verificarCpf,
   verificarEmail,
   autenticar,

@@ -54,7 +54,24 @@ function listarDadosUnidade(req, res) {
 }
 function listarTodasUnidades(req, res) {
     fkEmpresa = req.params.fkEmpresa;
-    unidadeModel.listarTodasUnidades(fkEmpresa).then(function (resultado) {
+    idUnidade = req.params.idUnidade;
+    unidadeModel.listarTodasUnidades(fkEmpresa,idUnidade).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function atualizarListaUnidades(req, res) {
+    fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.atualizarListaUnidades(fkEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -217,6 +234,7 @@ module.exports = {
     listarUnidades,
     listarTodasUnidades,
     listarDadosUnidade,
+    atualizarListaUnidades,
     cadastrar,
     deletar,
     editar,

@@ -3,10 +3,6 @@ var router = express.Router();
 
 var maquinaController = require("../controllers/maquinaController");
 
-router.get("/", function (req, res) {
-    maquinaController.testar(req, res);
-});
-
 router.get("/listar/:fkEmpresa/:fkUnidade", function (req, res) {
     maquinaController.listar(req, res);
 });
