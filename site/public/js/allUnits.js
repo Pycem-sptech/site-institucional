@@ -22,7 +22,7 @@ function mostrarTodasUnidadesEmTempoReal() {
 
                         var divListUnits = document.createElement("div");
                         divListUnits.className = "listUnit";
-                        divListUnits.setAttribute("onclick", `redirectDashUnits(${publicacao.idUnidade})`);
+                        divListUnits.setAttribute("onclick", `redirectDashUnits(${publicacao.idUnidade},'${publicacao.nomeUnidade}')`);
                         var divBoxId = document.createElement("div");
                         divBoxId.className = "box idUnit";
                         var spanId = document.createElement("span");

@@ -54,7 +54,6 @@ function listarDadosUnidade(req, res) {
 }
 function listarTodasUnidades(req, res) {
     fkEmpresa = req.params.fkEmpresa;
-    console.log(fkEmpresa)
     unidadeModel.listarTodasUnidades(fkEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);

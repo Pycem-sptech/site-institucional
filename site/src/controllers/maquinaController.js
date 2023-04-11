@@ -1,10 +1,9 @@
 var maquinaModel = require("../models/maquinaModel");
 
 function listar(req, res) {
-    fkEmpresa = req.params.fkEmpresa;
-    unidade = req.params.unidade;
-    console.log(unidade)
-    maquinaModel.listar(fkEmpresa, unidade).then(function (resultado) {
+    const fkEmpresa = req.params.fkEmpresa;
+    const fkUnidade = req.params.fkUnidade;
+    maquinaModel.listar(fkEmpresa, fkUnidade).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -60,9 +59,7 @@ function cadastrarMaquina(req, res) {
             }
         ).catch(
             function (erro) {
-                console.log(
-                    "\nHouve um erro ao realizar o cadastro! Erro: ",
-                    erro.sqlMessage
+                console.log("\nHouve um erro ao realizar o cadastro! Erro: ",erro.sqlMessage
                 );
                 res.status(500).json(erro.sqlMessage);
             }
@@ -84,9 +81,7 @@ function listarPorUsuario(req, res) {
     ).catch(
         function (erro) {
             console.log(erro);
-            console.log(
-                "Houve um erro ao buscar os maquinas: ",
-                erro.sqlMessage
+            console.log("Houve um erro ao buscar os maquinas: ",erro.sqlMessage
             );
             res.status(500).json(erro.sqlMessage);
         }

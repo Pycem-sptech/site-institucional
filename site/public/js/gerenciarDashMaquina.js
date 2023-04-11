@@ -172,8 +172,11 @@ function mudarTempoDeExibicao(intervaloDesejado) {
 
 function atualizarMaqCadastradasComStatus() {
     const fkEmpresa = sessionStorage.FK_EMPRESA;
+    const fkUnidade = sessionStorage.VER_UNIDADE;
+
     var fkEmpresaVar = fkEmpresa;
-    fetch(`/maquina/listar/${fkEmpresaVar}`)
+    fkUnidade
+    fetch(`/maquina/listar/${fkEmpresaVar}/${fkUnidade}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
