@@ -8,6 +8,14 @@ function listarDadosMaquina(idMaquina) {
   var instrucao = `select * from totem where idTotem = ${idMaquina};`;
   return database.executar(instrucao);
 }
+function listarStatusMaqEmTempoReal(fkUnidade) {
+  var instrucao = `select count(idTotem) as totalMaquinas,
+      (select count(estado) from totem where estado = 'Disponivel' and fkUnidade = '${fkUnidade}') as Disponivel,
+      (select count(estado) from totem where estado = 'Manutencao' and fkUnidade = '${fkUnidade}') as Manutencao,
+      (select count(estado) from totem where estado = 'Desligado' and fkUnidade = '${fkUnidade}') as Desligado
+      from totem where fkUnidade = '${fkUnidade}'`;
+  return database.executar(instrucao);
+}
 
 function filtrarMaquinas(nomeDigitado) {
   var instrucao = `select t.idTotem as idTotem, u.nome as nomeUnidade, t.numeroSerie as numeroSerie from totem t join unidade u on fkUnidade = idUnidade where t.numeroSerie like '${nomeDigitado}%';`;
@@ -32,6 +40,7 @@ function deletarRegistroMaquina(idMaquina) {
 module.exports = {
   listar,
   listarDadosMaquina,
+  listarStatusMaqEmTempoReal,
   cadastrarMaquina,
   editar,
   deletarRegistroMaquina,

@@ -109,6 +109,22 @@ function listarDadosMaquina(req, res) {
         }
     );
 }
+function listarStatusMaqEmTempoReal(req, res) {
+    fkUnidade = req.params.fkUnidade;
+    maquinaModel.listarStatusMaqEmTempoReal(fkUnidade).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 function pesquisarDescricao(req, res) {
     var descricao = req.params.descricao;
 
@@ -196,6 +212,7 @@ function deletarRegistroMaquina(req, res) {
 module.exports = {
     listar,
     listarPorUsuario,
+    listarStatusMaqEmTempoReal,
     pesquisarDescricao,
     publicar,
     editar,
