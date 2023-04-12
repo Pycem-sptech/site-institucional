@@ -11,7 +11,7 @@ router.get("/listarRelatorio/:fkMaquina", function (req, res) {
     relatorioController.listarRelatorio(req, res);
 });
 
-router.get("/buscarDadosRelatorio", function (req, res) {
+router.get("/buscarDadosRelatorio/:idRelatorio", function (req, res) {
     relatorioController.buscarDadosRelatorio(req, res);
 });
 

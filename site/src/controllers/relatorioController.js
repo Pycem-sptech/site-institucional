@@ -26,15 +26,15 @@ function cadastrarRelatorio(req, res) {
 
 
   if (titulo == undefined) {
-      res.status(400).send("Seu nome es tá undefined!");
+      res.status(400).send("Seu titulo es tá undefined!");
   } else if (tipo == undefined) {
-      res.status(400).send("Seu numeroSerial está undefined!");
+      res.status(400).send("Seu tipo está undefined!");
   } else if (descricao == undefined) {
-      res.status(400).send("Sua processador está undefined!");
+      res.status(400).send("Sua descricao está undefined!");
   } else if (data == undefined) {
-      res.status(400).send("Sua ram está undefined!");
+      res.status(400).send("Sua data está undefined!");
   } else if (fkMaquina == undefined) {
-      res.status(400).send("Sua storageSelect está undefined!");
+      res.status(400).send("Sua fkMaquina está undefined!");
   } else {
 
       relatorioModel.cadastrarRelatorio(titulo, tipo, descricao, data, fkMaquina).then(

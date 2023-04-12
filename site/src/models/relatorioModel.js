@@ -2,12 +2,12 @@ var database = require("../database/config");
 
 function listarRelatorio(fkMaquina) {
   console.log(fkMaquina)
-  var instrucao = `select titulo, tipo, descricao, data_relatorio from relatorio join totem on idTotem = fkTotem where fkTotem = ${fkMaquina};`;
+  var instrucao = `select * from relatorio join totem on idTotem = fkTotem where fkTotem = ${fkMaquina};`;
   return database.executar(instrucao);
 }
 
 function buscarDadosRelatorio(idRelatorio) {
-  var instrucao = `select * from relatorio where idRelatorio = ${idRelatorio};`;
+  var instrucao = `select convert(varchar, data_relatorio,  5) as dataRelatorio, titulo, descricao, tipo from relatorio where idRelatorio = ${idRelatorio};`;
   return database.executar(instrucao);
 }
 

@@ -3,10 +3,11 @@ function buscarDadosRelatorio(idRelatorio) {
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
-                    titulo_inp.value = resposta[0].titulo;
-                    data_inp.value = resposta[0].dataPublicacao;
-                    descricao_inp.value = resposta[0].descricao;
-                    tipo_inp.value = resposta[0].tipo;
+                    tituloModal.value = resposta[0].titulo;
+                    dataModal.value = resposta[0].dataPublicacao;
+                    escolherTipoProblemaModal.value = resposta[0].tipo;
+                    descricaoModal.value = resposta[0].descricao;
+                    dataModal.value =  resposta[0].dataRelatorio.replaceAll("-", "/")
                 });
             } else {
                 throw "Houve um erro na API!";
@@ -17,6 +18,11 @@ function buscarDadosRelatorio(idRelatorio) {
         });
 
 }
+
+function mudarIdSecionado(id){
+    sessionStorage.ID_SELECIONADO = id;
+}
+
 function atualizarRelatoriosCadastrados(fkMaquina) {
     console.log(fkMaquina)
     fetch(`/relatorio/listarRelatorio/${fkMaquina}`)
@@ -24,7 +30,7 @@ function atualizarRelatoriosCadastrados(fkMaquina) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     var reportsField = document.
-                    getElementById("reportsField");
+                        getElementById("reportsField");
                     reportsField.innerHTML = "";
                     var mensagem = document.createElement("span");
                     mensagem.innerHTML = "Infelizmente, nenhum relatório foi encontrado.";
@@ -50,7 +56,7 @@ function atualizarRelatoriosCadastrados(fkMaquina) {
                         var divDetailsReport = document.createElement("span");
                         var divBtnViewReport = document.createElement("img");
 
-    
+
 
                         divReportsField.className = "reportsField";
                         divProblemReport.className = "problemReport";
@@ -69,8 +75,8 @@ function atualizarRelatoriosCadastrados(fkMaquina) {
                         divDateReport.innerHTML = publicacao.data;
                         divDetailsReport.innerHTML = publicacao.descricao;
                         divBtnViewReport.src = "img/btnVisualizarRelatorio.svg";
-                        divBtnViewReport.setAttribute("onclick", `mostrarModalRelatorio()`);
-                        
+                        divBtnViewReport.setAttribute("onclick", `mostrarModalRelatorio(1), buscarDadosRelatorio(${publicacao.idRelatorio})`);
+
                         reportsField.appendChild(divProblemReport);
                         divProblemReport.appendChild(divContainer);
                         divContainer.appendChild(divIconReport);
@@ -92,69 +98,78 @@ function atualizarRelatoriosCadastrados(fkMaquina) {
         });
 }
 
+function cadastrarRelatorio() {
+    const tituloVar = tituloModal.value;
+    const dataVar = dataModal.value;
+    const tipoVar = escolherTipoProblemaModal.value;
+    const descricaoVar = descricaoModal.value;
+    const fkMaquinaVar = sessionStorage.ID_SELECIONADO;
 
-function filtrarFuncionarios(nomeDigitado) {
-    if (nomeDigitado.length > 0) {
-        const fkEmpresaVar = sessionStorage.FK_EMPRESA;
-        fetch(`/usuario/filtrarFuncionarios/${nomeDigitado}/${fkEmpresaVar}`)
+    if (tituloVar == "" || dataVar == "" || descricaoVar == "" || tipoVar == "") {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener("mouseenter", Swal.stopTimer);
+                toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+        });
+
+        Toast.fire({
+            icon: "error",
+            title: "Preencha os campos estão vazios",
+        });
+        return false;
+
+    } else {
+        fetch("/relatorio/cadastrarRelatorio", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                titulo: tituloVar,
+                data: dataVar,
+                tipo: tipoVar,
+                descricao: descricaoVar,
+                emailUserServer: fkMaquinaVar,
+            }),
+        })
             .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
                 if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        var machineField = document.getElementById("machineField");
-                        machineField.innerHTML = "";
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Infelizmente, nenhum funcionário foi encontrado.";
-                        machineField.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-                    resposta.json().then(function (resposta) {
-                        console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                        var machineField = document.getElementById("machineField");
-                        machineField.innerHTML = "";
-                        for (let i = 0; i < resposta.length; i++) {
-                            var publicacao = resposta[i];
-                            sessionStorage.idFuncionario = publicacao.idUsuario;
-
-                            var divMachineField = document.createElement("div");
-                            var divRegisteredEmployee = document.createElement("div");
-                            var divIdEmployee = document.createElement("div");
-                            var spanEmployeeName = document.createElement("span");
-                            var spanCargoEmployee = document.createElement("span");
-                            var divStatus = document.createElement("div");
-
-                            divMachineField.className = "machineField"
-
-                            divRegisteredEmployee.className = "RegisteredEmployee";
-                            divIdEmployee.className = "IdEmployee";
-                            spanCargoEmployee.className = "addresOpacity";
-                            spanCargoEmployee.innerHTML = publicacao.cargo;
-                            spanEmployeeName.innerHTML = publicacao.nome;
-
-                            divStatus.className = "Status";
-                            divStatus.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUsuario}), buscarDadosFuncionario(${publicacao.idUsuario})'>`;
-                            divStatus.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarFuncionario(${publicacao.idUsuario})'>`;
-
-                            machineField.appendChild(divRegisteredEmployee);
-                            divRegisteredEmployee.appendChild(divIdEmployee);
-                            divRegisteredEmployee.appendChild(divStatus);
-                            divIdEmployee.appendChild(spanEmployeeName);
-                            divIdEmployee.appendChild(spanCargoEmployee);
-
-                        }
-
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
                     });
-                } else {
-                    throw "Houve um erro na API!";
+
+                    Toast.fire({
+                        icon: "success",
+                        title: "Cadastro realizado com sucesso!",
+                    });
+
+                    atualizarRelatoriosCadastrados(sessionStorage.ID_SELECIONADO);
                 }
             })
             .catch(function (resposta) {
-                console.error(resposta);
+                console.log(`#ERRO: ${resposta}`);
             });
-    } else {
-        atualizarFuncionariosCadastrados();
+
+        return false;
     }
 }
+
 var intervalo = "";
 var resposta_old = "";
 var intervaloDeAtualizacao = 5000
@@ -209,7 +224,7 @@ function atualizarMaqCadastradasComStatusEmTempoReal() {
 
                                 divMachineField.className = "machineField";
                                 divMachine.className = "machine";
-                                divMachine.setAttribute("onclick", `atualizarRelatoriosCadastrados(${publicacao.idTotem})`);
+                                divMachine.setAttribute("onclick", `atualizarRelatoriosCadastrados(${publicacao.idTotem}), mudarIdSecionado(${publicacao.idTotem})`);
                                 divContainer.className = "container";
                                 divMachineDetails.className = "machineDetails";
                                 spanIcon.className = "iconMachine";
@@ -252,3 +267,5 @@ function atualizarMaqCadastradasComStatusEmTempoReal() {
             });
     }, intervaloDeAtualizacao)
 }
+
+

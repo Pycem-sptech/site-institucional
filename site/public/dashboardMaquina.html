@@ -142,7 +142,7 @@
                     <div class="bloco">
                    
                         <span class="estilo tamanho4"><span class="subTitulo">Data:</span>
-                            <input class="inputModal"type="date" id="dataModal"></span>
+                            <input class="inputModal"type="text" id="dataModal" disabled></span>
 
                             <span class="estilo tamanho10"><span class="subTitulo">Tipo do problema:</span>
                             <select class="selectModal" id="escolherTipoProblemaModal">
@@ -160,7 +160,8 @@
                 </div>
                 <div class="modalFooter">
                     <button class="btnSalvar"
-                        onclick="salvarRelatorio(sessionStorage.idFuncionario)">Salvar</button>
+                        id="btnSalvarModal"
+                        onclick="cadastrarRelatorio()">Salvar</button>
                 </div>
             </div>
         </div>
@@ -170,6 +171,9 @@
 </body>
 </html>
 <script>
+    let dataAtual = new Date()
+    dataAtual = dataAtual.toLocaleDateString('pt-BR')
+
     
     const btnMobile = document.getElementById('btn-mobile');
 

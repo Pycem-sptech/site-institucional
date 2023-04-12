@@ -5,12 +5,16 @@ function mostrarModal(id) {
   overlay.style.display = 'block';
   modal.style.display = 'block';
 }
-function mostrarModalRelatorio(id) {
-  sessionStorage.RELATORIO_SELECIONADO = id;
+function mostrarModalRelatorio(chamada=0) {
   let overlay = document.querySelector('.overlay')
   let modalRelatorio = document.querySelector('.modalRelatorio')
   overlay.style.display = 'block';
   modalRelatorio.style.display = 'block';
+  if (chamada == 0) {
+    btnSalvarModal.setAttribute("onclick", `cadastrarRelatorio()`);
+  } else {
+    btnSalvarModal.setAttribute("onclick", `editarRelatorio()`);
+  }
 }
 function fecharModal() {
   sessionStorage.ID_SELECIONADO = "";
