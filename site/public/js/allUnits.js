@@ -1,28 +1,48 @@
-function mostrarTodasUnidadesEmTempoReal() {
+const listaUnidades = [];
+
+function atualizarListaUnidades() {
     const fkEmpresa = sessionStorage.FK_EMPRESA;
-    var fkEmpresaVar = fkEmpresa;
-    fetch(`/unidade/listarTodasUnidades/${fkEmpresaVar}`)
+    fetch(`/unidade/atualizarListaUnidades/${fkEmpresa}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
-                    var feed = document.getElementById("feed");
-                    var mensagem = document.createElement("span");
-                    mensagem.innerHTML = "Infelizmente, nenhuma máquina foi encontrada.";
-                    feed.appendChild(mensagem);
+                    console.log("Nenhum resultado encontrado!!");
                     throw "Nenhum resultado encontrado!!";
                 }
+                resposta.json().then(function (resposta) {
+                    for (var i = 0; i < resposta.length; i++) {
+                        listaUnidades.push(resposta[i]);
+                    }
+                    console.log(listaUnidades);
+                });
+                setTimeout(function(){mostrarTodasUnidades()},1000)
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+
+    return false;
+}
+
+function imprimirUnidade(fkEmpresa, fkUnidade) {
+    fetch(`/unidade/listarTodasUnidades/${fkEmpresa}/${fkUnidade}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {}
 
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
 
                     var feed = document.getElementById("feed");
-                    feed.innerHTML = "";
-                    for (let i = 0; i < resposta.length; i++) {
-                        var publicacao = resposta[i];
+
+                        var publicacao = resposta[0];
 
                         var divListUnits = document.createElement("div");
                         divListUnits.className = "listUnit";
-                        divListUnits.setAttribute("onclick", `redirectDashUnits(${publicacao.idUnidade})`);
+                        divListUnits.setAttribute("onclick", `redirectDashUnits(${publicacao.idUnidade},'${publicacao.nomeUnidade}')`);
                         var divBoxId = document.createElement("div");
                         divBoxId.className = "box idUnit";
                         var spanId = document.createElement("span");
@@ -76,7 +96,7 @@ function mostrarTodasUnidadesEmTempoReal() {
                         divListUnits.appendChild(divBoxTotalMachine);
                         divBoxTotalMachine.appendChild(spanTotalMachine);
 
-                    }
+                    
 
                 });
             } else {
@@ -86,4 +106,25 @@ function mostrarTodasUnidadesEmTempoReal() {
         .catch(function (resposta) {
             console.error(resposta);
         });
+    
+}
+
+function limparFeed(){
+    var feed = document.getElementById("feed");
+    feed.innerHTML = "";
+}
+
+function mostrarTodasUnidades(){
+    limparFeed();
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
+    let i = 0;
+    impressao = setInterval(function (){
+        if(i < listaUnidades.length){
+            imprimirUnidade(fkEmpresa, listaUnidades[i].idUnidade);
+        }else{
+            clearInterval(impressao)
+        }
+        i++
+    },100);
+    
 }

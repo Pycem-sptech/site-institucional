@@ -31,6 +31,7 @@ function atualizarRelatoriosCadastrados(fkMaquina) {
                 if (resposta.status == 204) {
                     var reportsField = document.
                         getElementById("reportsField");
+                        getElementById("reportsField");
                     reportsField.innerHTML = "";
                     var mensagem = document.createElement("span");
                     mensagem.innerHTML = "Infelizmente, nenhum relatório foi encontrado.";
@@ -55,6 +56,7 @@ function atualizarRelatoriosCadastrados(fkMaquina) {
                         var divDateReport = document.createElement("span");
                         var divDetailsReport = document.createElement("span");
                         var divBtnViewReport = document.createElement("img");
+
 
 
 
@@ -173,88 +175,131 @@ function cadastrarRelatorio() {
 var intervalo = "";
 var resposta_old = "";
 var intervaloDeAtualizacao = 5000
+var maqDisponivel = 0;
+var maqManutencao = 0;
+var maqDesligado = 0;
 
 function mudarTempoDeExibicao(intervaloDesejado) {
     intervaloDeAtualizacao = intervaloDesejado * 1000
-    atualizarMaqCadastradasComStatusEmTempoReal()
+    maqDisponivel = 0;
+    maqManutencao = 0;
+    maqDesligado = 0;
+    atualizarMaqCadastradasComStatus()
 }
 
-function atualizarMaqCadastradasComStatusEmTempoReal() {
-    clearInterval(intervalo)
-    intervalo = setInterval(function () {
-        const fkEmpresa = sessionStorage.FK_EMPRESA;
-        var fkEmpresaVar = fkEmpresa;
-        fetch(`/maquina/listar/${fkEmpresaVar}`)
-            .then(function (resposta) {
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        var machineField = document.getElementById("machineField");
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Infelizmente, nenhuma máquina foi encontrada.";
-                        machineField.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
+function atualizarMaqCadastradasComStatus() {
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
+    const fkUnidade = sessionStorage.VER_UNIDADE;
 
-                    resposta.json().then(function (resposta) {
-                        console.log("Dados recebidos: ", JSON.stringify(resposta));
+    var fkEmpresaVar = fkEmpresa;
+    fkUnidade
+    fetch(`/maquina/listar/${fkEmpresaVar}/${fkUnidade}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var machineField = document.getElementById("machineField");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Infelizmente, nenhuma máquina foi encontrada.";
+                    machineField.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-                        if (resposta_old == "") {
-                            resposta_old = resposta;
-                        } else if (resposta_old == resposta) {
-                            console.log("Não atualizou nada");
+                    var machineField = document.getElementById("machineField");
+                    machineField.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        var divMachineField = document.createElement("div");
+                        var divMachine = document.createElement("div");
+
+                        var divContainer = document.createElement("div");
+                        var divMachineDetails = document.createElement("div");
+                        var spanIcon = document.createElement("span");
+
+                        var divInfoMachine = document.createElement("div");
+                        var spanNumeroSerie = document.createElement("span");
+                        var spanNomeUnidade = document.createElement("span");
+                        var divStatus = document.createElement("div");
+
+                        divMachineField.className = "machineField";
+                        divMachine.className = "machine";
+                        divMachine.setAttribute("onclick", `atualizarRelatoriosCadastrados(${publicacao.idTotem})`);
+                        divContainer.className = "container";
+                        divMachineDetails.className = "machineDetails";
+                        spanIcon.className = "iconMachine";
+
+                        divInfoMachine.className = "infoMachine";
+                        spanNomeUnidade.className = "txtDetailMachine";
+                        spanNomeUnidade.innerHTML = publicacao.nomeUnidade;
+                        spanNumeroSerie.innerHTML = publicacao.numeroSerie;
+                        divStatus.id = i
+                        if (publicacao.status == 'Disponivel') {
+                            divStatus.className = "status ok";
+                            maqDisponivel++;
+                        } else if (publicacao.status == 'Manutencao') {
+                            divStatus.className = "status alert";
+                            maqManutencao++;
                         } else {
+                            divStatus.className = "status danger";
+                            maqDesligado++;
+                        }
 
+                        machineField.appendChild(divMachine);
+                        divMachine.appendChild(divContainer);
 
-                            var machineField = document.getElementById("machineField");
-                            machineField.innerHTML = "";
+                        divContainer.appendChild(divMachineDetails);
+                        divContainer.appendChild(divStatus);
+
+                        divMachineDetails.appendChild(spanIcon);
+                        divMachineDetails.appendChild(divInfoMachine);
+
+                        divInfoMachine.appendChild(spanNumeroSerie);
+                        divInfoMachine.appendChild(spanNomeUnidade);
+
+                        spanIcon.innerHTML = '<img src="img/smartphoneOpacity.svg">';
+                    }
+                });
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+}
+
+var atualizando = false;
+function atualizarStatusMaqEmTempoReal() {
+    if (atualizando) {
+        clearInterval(atualizar);
+    } else {
+        var atualizar = setInterval(function () {
+            atualizando = true
+            const fkUnidade = sessionStorage.VER_UNIDADE;
+            fetch(`/maquina/listarStatusMaqEmTempoReal/${fkUnidade}`).then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) { }
+                        resposta.json().then(function (resposta) {
+                        console.log("Dados recebidos: ", JSON.stringify(resposta));
+                        var totalMaquinas = maqDisponivel + maqManutencao + maqDesligado;
+                        if (totalMaquinas != resposta[0].totalMaquinas) {
+                            atualizarMaqCadastradasComStatus()
+                            
+                        } else if (resposta[0].Disponivel == maqDisponivel && resposta[0].Manutencao ==     maqManutencao && resposta[0].Desligado == maqDesligado) {
+                            console.log("As máquinas ainda estão atualizadas")
+                        } else {
                             for (let i = 0; i < resposta.length; i++) {
                                 var publicacao = resposta[i];
-
-                                var divMachineField = document.createElement("div");
-                                var divMachine = document.createElement("div");
-
-                                var divContainer = document.createElement("div");
-                                var divMachineDetails = document.createElement("div");
-                                var spanIcon = document.createElement("span");
-
-                                var divInfoMachine = document.createElement("div");
-                                var spanNumeroSerie = document.createElement("span");
-                                var spanNomeUnidade = document.createElement("span");
-                                var divStatus = document.createElement("div");
-
-                                divMachineField.className = "machineField";
-                                divMachine.className = "machine";
-                                divMachine.setAttribute("onclick", `atualizarRelatoriosCadastrados(${publicacao.idTotem}), mudarIdSecionado(${publicacao.idTotem})`);
-                                divContainer.className = "container";
-                                divMachineDetails.className = "machineDetails";
-                                spanIcon.className = "iconMachine";
-
-                                divInfoMachine.className = "infoMachine";
-                                spanNomeUnidade.className = "txtDetailMachine";
-                                spanNomeUnidade.innerHTML = publicacao.nomeUnidade;
-                                spanNumeroSerie.innerHTML = publicacao.numeroSerie;
-
+                                var statusId = document.getElementById(`${i}`)
                                 if (publicacao.status == 'Disponivel') {
-                                    divStatus.className = "status ok";
+                                    statusId.className = "status ok";
                                 } else if (publicacao.status == 'Manutencao') {
-                                    divStatus.className = "status alert";
+                                    statusId.className = "status alert";
                                 } else {
-                                    divStatus.className = "status danger";
+                                    statusId.className = "status danger";
                                 }
-
-                                machineField.appendChild(divMachine);
-                                divMachine.appendChild(divContainer);
-
-                                divContainer.appendChild(divMachineDetails);
-                                divContainer.appendChild(divStatus);
-
-                                divMachineDetails.appendChild(spanIcon);
-                                divMachineDetails.appendChild(divInfoMachine);
-
-                                divInfoMachine.appendChild(spanNumeroSerie);
-                                divInfoMachine.appendChild(spanNomeUnidade);
-
-                                spanIcon.innerHTML = '<img src="img/smartphoneOpacity.svg">';
                             }
                         }
                     });
@@ -262,10 +307,11 @@ function atualizarMaqCadastradasComStatusEmTempoReal() {
                     throw "Houve um erro na API!";
                 }
             })
-            .catch(function (resposta) {
-                console.error(resposta);
-            });
-    }, intervaloDeAtualizacao)
+                .catch(function (resposta) {
+                    console.error(resposta);
+                });
+        }, intervaloDeAtualizacao);
+    }
 }
 
 

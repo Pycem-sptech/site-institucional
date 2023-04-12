@@ -257,10 +257,13 @@ function redirectAllUnits() {
         window.location = "./unidade.html";
     }, 250);
 }
-function redirectDashUnits(unidadeDesejada) {
+function redirectDashUnits(unidadeDesejada, nomeUnidadeDesejada) {
     console.log(unidadeDesejada)
+    console.log(nomeUnidadeDesejada)
     var unidade = unidadeDesejada;
     sessionStorage.VER_UNIDADE = unidade;
+    var nomeUnidade = nomeUnidadeDesejada;
+    sessionStorage.VER_NOME_UNIDADE = nomeUnidade;
     setTimeout(function () {
         window.location = "./dashboardMaquina.html";
     }, 250);
