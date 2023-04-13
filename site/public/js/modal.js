@@ -10,7 +10,7 @@ function mostrarModalRelatorio(chamada=0) {
   let modalRelatorio = document.querySelector('.modalRelatorio')
   overlay.style.display = 'block';
   modalRelatorio.style.display = 'block';
-  const dataAtual = new Date();
+  let dataAtual = new Date();
   dataAtual = dataAtual.toLocaleDateString("pt-br");
   dataModal.value = dataAtual;
   if (chamada == 0) {
@@ -25,16 +25,15 @@ function fecharModal() {
   let modal = document.querySelector('.modal')
   overlay.style.display = 'none';
   modal.style.display = 'none';
-  tituloModal.value = "";
-  dataModal.value = "";
-  descricaoModal = "";
-  escolherTipoProblemaModal.value = "";
 }
 function fecharModalRelatorio() {
   sessionStorage.RELATORIO_SELECIONADO = "";
   let overlay = document.querySelector('.overlay')
   let modalRelatorio = document.querySelector('.modalRelatorio')
-
+  tituloModal.value = "";
+  dataModal.value = "";
+  descricaoModal = "";
+  escolherTipoProblemaModal.value = "";
   overlay.style.display = 'none';
   modalRelatorio.style.display = 'none';
 }
