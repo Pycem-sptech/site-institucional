@@ -126,5 +126,4 @@ function mostrarTodasUnidades(){
         }
         i++
     },100);
-    
 }

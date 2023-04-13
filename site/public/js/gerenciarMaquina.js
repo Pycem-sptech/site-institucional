@@ -57,37 +57,9 @@ function cadastrarMaquina() {
             if (resposta.ok) {
                 atualizarMaquinasCadastradas();
                 limparCamposMaquina();
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener("mouseenter", Swal.stopTimer);
-                        toast.addEventListener("mouseleave", Swal.resumeTimer);
-                    },
-                });
-                Toast.fire({
-                    icon: "success",
-                    title: "Cadastro realizado com sucesso!",
-                });
-            } else {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener("mouseenter", Swal.stopTimer);
-                        toast.addEventListener("mouseleave", Swal.resumeTimer);
-                    },
-                });
-                Toast.fire({
-                    icon: "error",
-                    title: "Houve um erro ao tentar realizar o cadastro!",
-                });
+                toastPadrao('success', 'Cadastro realizado com sucesso!');
+                } else {
+                toastPadrao('error', 'Houve um erro ao tentar realizar o cadastro!');
                 throw "Houve um erro ao tentar realizar o cadastro!";
             }
         })

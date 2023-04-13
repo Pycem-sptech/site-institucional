@@ -110,7 +110,6 @@ function pesquisacep(valor) {
             document.getElementById('cidadeUnit').value = "...";
             document.getElementById('ufUnit').value = "...";
 
-
             //Cria um elemento javascript.
             var script = document.createElement('script');
 
@@ -120,73 +119,38 @@ function pesquisacep(valor) {
             //Insere script no documento e carrega o conteúdo.
             document.body.appendChild(script);
 
-        } //end if.
-        else {
+        } else {
             //cep é inválido.
             limpa_formulário_cep();
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener("mouseenter", Swal.stopTimer);
-                    toast.addEventListener("mouseleave", Swal.resumeTimer);
-                },
-            });
-
-            Toast.fire({
-                icon: "error",
-                title: "Formato de CEP inválido.",
-            });
+            toastPadrao('error', 'Formato de CEP inválido.');
         }
-    } //end if.
-    else {
+    } else {
         //cep sem valor, limpa formulário.
         limpa_formulário_cep();
     }
 };
 
 function pesquisacepModal(valor) {
-
-    //Nova variável "cep" somente com dígitos.
     var cep = valor.replace(/\D/g, '');
 
-    //Verifica se campo cep possui valor informado.
     if (cep != "") {
-
-        //Expressão regular para validar o CEP.
         var validacep = /^[0-9]{8}$/;
 
-        //Valida o formato do CEP.
         if (validacep.test(cep)) {
-
-            //Preenche os campos com "..." enquanto consulta webservice.
             document.getElementById('logradouroUnidadeModal').value = "...";
             document.getElementById('bairroUnidadeModal').value = "...";
             document.getElementById('cidadeUnidadeModal').value = "...";
             document.getElementById('ufUnidadeModal').value = "...";
 
-
-            //Cria um elemento javascript.
             var script1 = document.createElement('script');
-
-            //Sincroniza com o callback.
             script1.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
-
-            //Insere script no documento e carrega o conteúdo.
             document.body.appendChild(script1);
 
-        } //end if.
-        else {
-            //cep é inválido.
+        } else {
             limpa_formulário_cep();
             toastPadrao('error', 'Formato de CEP inválido.');
         }
-    } //end if.
-    else {
-        //cep sem valor, limpa formulário.
+    } else {
         limpa_formulário_cep();
     }
 };
@@ -278,8 +242,6 @@ function redirectAllUnits() {
     }, 250);
 }
 function redirectDashUnits(unidadeDesejada, nomeUnidadeDesejada) {
-    console.log(unidadeDesejada)
-    console.log(nomeUnidadeDesejada)
     var unidade = unidadeDesejada;
     sessionStorage.VER_UNIDADE = unidade;
     var nomeUnidade = nomeUnidadeDesejada;
