@@ -23,6 +23,10 @@ function mudarIdSecionado(id){
     sessionStorage.ID_SELECIONADO = id;
 }
 
+function criarIdRelatório(id){
+    sessionStorage.ID_RELATORIO = id
+}
+
 function atualizarRelatoriosCadastrados(fkMaquina) {
     console.log(fkMaquina)
     fetch(`/relatorio/listarRelatorio/${fkMaquina}`)
@@ -77,7 +81,7 @@ function atualizarRelatoriosCadastrados(fkMaquina) {
                         divDateReport.innerHTML = publicacao.data;
                         divDetailsReport.innerHTML = publicacao.descricao;
                         divBtnViewReport.src = "img/btnVisualizarRelatorio.svg";
-                        divBtnViewReport.setAttribute("onclick", `mostrarModalRelatorio(1), buscarDadosRelatorio(${publicacao.idRelatorio})`);
+                        divBtnViewReport.setAttribute("onclick", `mostrarModalRelatorio(1), buscarDadosRelatorio(${publicacao.idRelatorio}), criarIdRelatório(${publicacao.idRelatorio})`);
 
                         reportsField.appendChild(divProblemReport);
                         divProblemReport.appendChild(divContainer);
@@ -314,4 +318,61 @@ function atualizarStatusMaqEmTempoReal() {
     }
 }
 
+
+function salvarEdicaoFuncionario() {
+    let titulo = document.getElementById('tituloModal').value;
+    let tipo = document.getElementById('escolherTipoProblemaModal').value;
+    let descricao = document.getElementById('descricaoModal').value;
+    let data = document.getElementById('dataModal').value;
+    let idRelatorio = sessionStorage.ID_RELATORIO;
+  
+    if (titulo != undefined && titulo != ''  && descricao != undefined && descricao != '' && tipo != undefined && tipo != '' && data != undefined && data != '' && idRelatorio != undefined && idRelatorio != '') {
+      Swal.fire({
+        title: 'Deseja mesmo salvar as alterações?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, salvar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch(`relatorio/editarRelatorio/${idRelatorio}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              titulo: titulo,
+              tipo: tipo,
+              descricao: descricao,
+              data: data, 
+            })
+          }).then(function (resposta) {
+  
+            if (resposta.ok) {
+              Swal.fire(
+                'Pronto!',
+                'Suas alterações foram gravadas',
+                'success'
+              ).then((result) => {
+                if (result.isConfirmed) {
+                  atualizarRelatoriosCadastrados();
+                }
+              })
+            } else if (resposta.status == 404) {
+              return false
+            } else {
+              return false
+            }
+          }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+        }
+      })
+    } else {
+      alert("Verifique os campos");
+    }
+  
+  }
 
