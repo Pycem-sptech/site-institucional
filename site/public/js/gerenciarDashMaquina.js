@@ -109,7 +109,7 @@ function cadastrarRelatorio() {
     const dataVar = dataModal.value;
     const tipoVar = escolherTipoProblemaModal.value;
     const descricaoVar = descricaoModal.value;
-    const fkMaquinaVar = sessionStorage.ID_SELECIONADO;
+    const fkMaquinaVar = escolherNumeroSerie.value;
 
     if (tituloVar == "" || dataVar == "" || descricaoVar == "" || tipoVar == "") {
         const Toast = Swal.mixin({

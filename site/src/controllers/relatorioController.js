@@ -23,6 +23,11 @@ function cadastrarRelatorio(req, res) {
   var descricao = req.body.descricao;
   var data = req.body.data;
   var fkMaquina = req.body.fkMaquina;
+  console.log(titulo)
+  console.log(tipo)
+  console.log(descricao)
+  console.log(data)
+  console.log(fkMaquina)
 
 
   if (titulo == undefined) {

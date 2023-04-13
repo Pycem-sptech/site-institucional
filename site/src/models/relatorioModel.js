@@ -12,7 +12,7 @@ function buscarDadosRelatorio(idRelatorio) {
 }
 
 function cadastrarRelatorio(titulo, tipo, descricao, data, fkMaquina) {
-  var instrucao = `INSERT INTO relatorio (titulo, tipo, descricao, data_relatorio, fkMaquina) VALUES ( '${titulo}', '${tipo}', '${descricao}', '${data}', ${fkMaquina});`;
+  var instrucao = `INSERT INTO relatorio (titulo, tipo, descricao, data_relatorio, fkTotem) VALUES ( '${titulo}', '${tipo}', '${descricao}', '${data}', '${fkMaquina}');`;
   return database.executar(instrucao);
 }
 

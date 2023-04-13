@@ -32,8 +32,9 @@ function fecharModalRelatorio() {
   let modalRelatorio = document.querySelector('.modalRelatorio')
   tituloModal.value = "";
   dataModal.value = "";
-  descricaoModal = "";
+  descricaoModal.value = "";
   escolherTipoProblemaModal.value = "";
+  escolherNumeroSerie.value = "";
   overlay.style.display = 'none';
   modalRelatorio.style.display = 'none';
 }
