@@ -141,7 +141,7 @@ function cadastrarRelatorio() {
                 data: dataVar,
                 tipo: tipoVar,
                 descricao: descricaoVar,
-                emailUserServer: fkMaquinaVar,
+                fkMaquina: fkMaquinaVar,
             }),
         })
             .then(function (resposta) {
