@@ -112,22 +112,7 @@ function cadastrarRelatorio() {
     const fkMaquinaVar = escolherNumeroSerie.value;
 
     if (tituloVar == "" || dataVar == "" || descricaoVar == "" || tipoVar == "") {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-        });
-
-        Toast.fire({
-            icon: "error",
-            title: "Preencha os campos estão vazios",
-        });
+        toastPadrao('error', 'Preencha os campos estão vazios')
         return false;
 
     } else {
@@ -148,23 +133,7 @@ function cadastrarRelatorio() {
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener("mouseenter", Swal.stopTimer);
-                            toast.addEventListener("mouseleave", Swal.resumeTimer);
-                        },
-                    });
-
-                    Toast.fire({
-                        icon: "success",
-                        title: "Cadastro realizado com sucesso!",
-                    });
-
+                    toastPadrao('success', 'Cadastro realizado com sucesso!')
                     atualizarRelatoriosCadastrados(sessionStorage.ID_SELECIONADO);
                 }
             })
