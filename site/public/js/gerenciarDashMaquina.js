@@ -192,9 +192,9 @@ function mudarTempoDeExibicao(intervaloDesejado) {
 }
 
 function atualizarMaqCadastradasComStatus() {
+    const select = document.querySelector('#escolherNumeroSerie');
     const fkEmpresa = sessionStorage.FK_EMPRESA;
     const fkUnidade = sessionStorage.VER_UNIDADE;
-
     var fkEmpresaVar = fkEmpresa;
     fkUnidade
     fetch(`/maquina/listar/${fkEmpresaVar}/${fkUnidade}`)
@@ -212,8 +212,13 @@ function atualizarMaqCadastradasComStatus() {
 
                     var machineField = document.getElementById("machineField");
                     machineField.innerHTML = "";
+
+                    for (var i = 0; i < resposta.length; i++) {
+                        select.options[select.options.length] = new Option(resposta[i].numeroSerie, resposta[i].idTotem);
+                    }
                     for (let i = 0; i < resposta.length; i++) {
                         var publicacao = resposta[i];
+                        
 
                         var divMachineField = document.createElement("div");
                         var divMachine = document.createElement("div");
@@ -294,6 +299,7 @@ function atualizarStatusMaqEmTempoReal() {
                         } else if (resposta[0].Disponivel == maqDisponivel && resposta[0].Manutencao ==     maqManutencao && resposta[0].Desligado == maqDesligado) {
                             console.log("As máquinas ainda estão atualizadas")
                         } else {
+                            
                             for (let i = 0; i < resposta.length; i++) {
                                 var publicacao = resposta[i];
                                 var statusId = document.getElementById(`${i}`)
@@ -376,3 +382,6 @@ function salvarEdicaoFuncionario() {
   
   }
 
+function atualizarNomeUnidade(){
+
+}
