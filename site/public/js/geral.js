@@ -182,22 +182,7 @@ function pesquisacepModal(valor) {
         else {
             //cep é inválido.
             limpa_formulário_cep();
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener("mouseenter", Swal.stopTimer);
-                    toast.addEventListener("mouseleave", Swal.resumeTimer);
-                },
-            });
-
-            Toast.fire({
-                icon: "error",
-                title: "Formato de CEP inválido.",
-            });
+            toastPadrao('error', 'Formato de CEP inválido.');
         }
     } //end if.
     else {
@@ -235,6 +220,41 @@ function autenticar() {
     })
 
     return false;
+}
+
+function impersonateUser(usuarioDesejado){
+if(sessionStorage.USER_CARGO == 'Dono'){
+    sessionStorage.ERA_DONO = 'true';
+    sessionStorage.USER_CARGO = `${usuarioDesejado}`
+    toastPadrao('success', `Iniciando visão de ${usuarioDesejado}`);
+}
+}
+
+function deimpersonateUser(){
+    if(sessionStorage.ERA_DONO == 'true')
+    sessionStorage.USER_CARGO = "Dono"
+    toastPadrao('success', 'Iniciando visão de Dono')
+    window.location = "#";
+    sessionStorage.removeItem('ERA_DONO');
+}
+
+function toastPadrao(icon, title){
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+    });
+
+    Toast.fire({
+        icon: `${icon}`,
+        title: `${title}`,
+    });
 }
 
 function redirectFunc() {
