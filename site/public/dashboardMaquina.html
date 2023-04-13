@@ -14,7 +14,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
-<body onload="validarSessao(), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal()">
+<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal()">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">
@@ -52,7 +52,7 @@
         </div>
     </header>
     <div class="guideText">
-        <span class="welcomeSentence">Unidade Paulista</span>
+        <span class="welcomeSentence" id="welcomeSentence">-</span>
         <span class="firstStep">Unidade</span>
     </div>
     <main class="main">
@@ -140,10 +140,9 @@
                     </div>
                     <div class="bloco">
 
-                        <span class="estilo tamanho9"><span class="subTitulo">Nº de Série:</span>
+                        <span class="estilo tamanho11"><span class="subTitulo">Nº de Série:</span>
                             <select class="selectModal" id="escolherNumeroSerie">
-                                <option></option>
-                            
+                                <option value="" disabled selected>Nº de Série</option>
                             </select></span>
                     </div>
 

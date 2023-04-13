@@ -382,6 +382,7 @@ function salvarEdicaoFuncionario() {
   
   }
 
-function atualizarNomeUnidade(){
-
+function atualizarNomeUnidade(nomeUnidade){
+  divNomeUnidade = document.getElementById("welcomeSentence");
+  divNomeUnidade.innerHTML = nomeUnidade;
 }
