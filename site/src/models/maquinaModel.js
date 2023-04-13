@@ -4,6 +4,12 @@ function listar(fkEmpresa, fkUnidade) {
   var instrucao = `select unidade.nome as nomeUnidade, totem.idTotem, totem.numeroSerie as numeroSerie, totem.idTotem, totem.estado as status from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}' and unidade.idUnidade = '${fkUnidade}';`;
   return database.executar(instrucao);
 }
+
+function listarMaquinas(fkEmpresa) {
+  var instrucao = `select unidade.nome as nomeUnidade, totem.idTotem, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
+  return database.executar(instrucao);
+}
+
 function listarDadosMaquina(idMaquina) {
   var instrucao = `select * from totem where idTotem = ${idMaquina};`;
   return database.executar(instrucao);
@@ -39,6 +45,7 @@ function deletarRegistroMaquina(idMaquina) {
 
 module.exports = {
   listar,
+  listarMaquinas,
   listarDadosMaquina,
   listarStatusMaqEmTempoReal,
   cadastrarMaquina,

@@ -121,7 +121,7 @@ function buscarDadosMaquina(idMaquina){
 function atualizarMaquinasCadastradas() {
     const fkEmpresa = sessionStorage.FK_EMPRESA;
     var fkEmpresaVar = fkEmpresa;
-    fetch(`/maquina/listar/${fkEmpresaVar}`)
+    fetch(`/maquina/listarMaquinas/${fkEmpresaVar}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {

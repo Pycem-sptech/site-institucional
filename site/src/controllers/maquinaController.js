@@ -15,6 +15,20 @@ function listar(req, res) {
     });
 }
 
+function listarMaquinas(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    maquinaModel.listarMaquinas(fkEmpresa, ).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log("Houve um erro ao buscar as maquinas: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function filtrarMaquinas(req, res) {
     nomeDigitado = req.params.nomeDigitado;
     maquinaModel.filtrarMaquinas(nomeDigitado).then(function (resultado) {
@@ -206,6 +220,7 @@ function deletarRegistroMaquina(req, res) {
 
 module.exports = {
     listar,
+    listarMaquinas,
     listarPorUsuario,
     listarStatusMaqEmTempoReal,
     pesquisarDescricao,
