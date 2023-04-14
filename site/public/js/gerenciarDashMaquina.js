@@ -1,4 +1,4 @@
-const modal = require("./modal")
+
 
 function buscarDadosRelatorio(idRelatorio) {
     fetch(`/relatorio/buscarDadosRelatorio/${idRelatorio}`)

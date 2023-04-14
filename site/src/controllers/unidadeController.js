@@ -114,7 +114,7 @@ function cadastrar(req, res) {
     var logragouro = req.body.logradouroServer;
     var bairro = req.body.bairroServer;
     var numero = req.body.numeroServer;
-    var complemento = req.body.complementoServer;
+
 
     if (nome == undefined) {
         res.status(400).send("Seu nome es tá undefined!");
@@ -132,11 +132,9 @@ function cadastrar(req, res) {
         res.status(400).send("Sua bairro está undefined!");
     } else if (numero == undefined) {
         res.status(400).send("Sua numero está undefined!");
-    } else if (complemento == undefined) {
-        res.status(400).send("Sua complemento está undefined!");
     } else {
 
-        unidadeModel.cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero, complemento).then(
+        unidadeModel.cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero).then(
             function (resultado) {
                 res.json(resultado);
             }

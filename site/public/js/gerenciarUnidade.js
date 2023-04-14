@@ -11,7 +11,7 @@ function cadastrarUni() {
     const logradouroVar = logradouroUnit.value;
     const bairroVar = bairroUnit.value;
     const numeroVar = numeroUnit.value;
-    const complementoVar = "";
+
 
     console.log(numeroExiste);
     console.log(telefoneExiste);
@@ -41,7 +41,7 @@ function cadastrarUni() {
                 logradouroServer: logradouroVar,
                 bairroServer: bairroVar,
                 numeroServer: numeroVar,
-                complementoServer: complementoVar,
+
             }),
         })
             .then(function (resposta) {

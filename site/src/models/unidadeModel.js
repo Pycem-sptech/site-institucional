@@ -42,8 +42,8 @@ function entrar(email, senha) {
   return database.executar(instrucao);
 }
 
-function cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero, complemento) {
-  var instrucao = `INSERT INTO unidade (nome, telefone, cep, sigla, cidade, logradouro, bairro, numero, complemento, fkEmpresa) VALUES ('${nome}', '${telefone}', '${cep}', '${uf}', '${cidade}', '${logragouro}', '${bairro}', '${numero}', '${complemento}' , '${fkEmpresa}');`;
+function cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero) {
+  var instrucao = `INSERT INTO unidade (nome, telefone, cep, sigla, cidade, logradouro, bairro, numero, fkEmpresa) VALUES ('${nome}', '${telefone}', '${cep}', '${uf}', '${cidade}', '${logragouro}', '${bairro}', '${numero}', '${fkEmpresa}');`;
   return database.executar(instrucao);
 }
 
