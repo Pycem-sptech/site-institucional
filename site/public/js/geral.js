@@ -186,6 +186,11 @@ function autenticar() {
     return false;
 }
 
+function limparFeed(){
+    var feed = document.getElementById("feed");
+    feed.innerHTML = "";
+}
+
 function impersonateUser(usuarioDesejado){
 if(sessionStorage.USER_CARGO == 'Dono'){
     sessionStorage.ERA_DONO = 'true';
@@ -264,5 +269,10 @@ function redirectSuport() {
 function redirectConfig() {
     setTimeout(function () {
         window.location = "configuracoes.html";
+    }, 250);
+}
+function redirectAlerts() {
+    setTimeout(function () {
+        window.location = "#";
     }, 250);
 }

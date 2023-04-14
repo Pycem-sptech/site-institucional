@@ -96,8 +96,6 @@ function imprimirUnidade(fkEmpresa, fkUnidade) {
                         divListUnits.appendChild(divBoxTotalMachine);
                         divBoxTotalMachine.appendChild(spanTotalMachine);
 
-                    
-
                 });
             } else {
                 throw "Houve um erro na API!";
@@ -107,11 +105,6 @@ function imprimirUnidade(fkEmpresa, fkUnidade) {
             console.error(resposta);
         });
     
-}
-
-function limparFeed(){
-    var feed = document.getElementById("feed");
-    feed.innerHTML = "";
 }
 
 function mostrarTodasUnidades(){

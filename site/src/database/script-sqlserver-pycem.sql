@@ -6,7 +6,7 @@ create table empresa(
 idEmpresa int primary key identity(100,1),
 nome varchar(60) not null,
 cnpj varchar(18) not null,
-telefone varchar(15) not null,
+telefone varchar(15) not null unique,
 email varchar(100) not null unique,
 data_cadastro datetime not null default current_timestamp
 );
@@ -20,7 +20,7 @@ ram_alerta int not null default 50,
 ram_critico int not null default 80,
 hd_alerta int not null default 50,
 hd_critico int not null default 80,
-fkEmpresa int, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+fkEmpresa int unique, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
 create table usuario(

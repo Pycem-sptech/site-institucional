@@ -75,6 +75,7 @@
                         <option value="HD">HD</option>
                         <option value="SSD">SSD</option>
                     </select>
+                    <input class="inputRegisterUnit storage" id="freqCPU" type="text" placeholder="Freq de atualização do processador">
                     <input class="inputRegisterUnit storage" id="qtdArmazenamento" type="text" placeholder="Qtd. Armazenamento">
                 </div>
                 <button class="btnRegister" onclick="cadastrarMaquina()">Cadastrar</button>
@@ -102,15 +103,15 @@
                     </div>
                     <div class="bodyModal">
                         <div class="bloco">
-                            <span class="estilo tamanho1"><span class="subTitulo">Número de Série:</span>
+                            <span class="estilo tamanho9"><span class="subTitulo">Número de Série:</span>
                                 <input class="inputModal" id="numeroDeSerieModal"></span>
                         </div>
         
                         <div class="bloco">
-                            <span class="estilo tamanho2"><span class="subTitulo">Processador:</span>
+                            <span class="estilo tamanho3"><span class="subTitulo">Processador:</span>
                                 <input class="inputModal" id="processadorModal"></span>
         
-                            <span class="estilo tamanho2"><span class="subTitulo">Memória RAM:</span>
+                            <span class="estilo tamanho3"><span class="subTitulo">Memória RAM:</span>
                                 <input class="inputModal" id="memoriaRamModal"></span>
         
                             <span class="estilo tamanho3"><span class="subTitulo">Armazenamento:</span>
@@ -121,6 +122,8 @@
                                 </select></span>
                         </div>
                         <div class="bloco">
+                            <span class="estilo tamanho1"><span class="subTitulo">Freq do processador:</span>
+                                <input class="inputModal" id="freqCPUModal"></span>
                             <span class="estilo tamanho1"><span class="subTitulo">Qtd. Armazenamento:</span>
                                 <input class="inputModal" id="qtdArmazenamentoModal"></span>
         

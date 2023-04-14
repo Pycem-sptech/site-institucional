@@ -37,8 +37,9 @@ function cadastrarEmp() {
         if (resposta.ok) {
           toastPadrao('success', 'Cadastro realizado com sucesso!');
           setTimeout(() => {
-            window.location = "./gerenciamentoUnidades.html";
+            window.location = "./unidade.html";
           }, "3000");
+          
         }
       })
       .catch(function (resposta) {
