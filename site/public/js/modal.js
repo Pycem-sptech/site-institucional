@@ -45,6 +45,7 @@ function salvarEdicaoMaquina(idMaquina) {
   let memoriaRam = document.getElementById('memoriaRamModal').value;
   let escolherArmazenamento = document.getElementById('escolherArmazenamentoModal').value;
   let qtdArmazenamento = document.getElementById('qtdArmazenamentoModal').value;
+  let freqProcessador = document.getElementById('freqCPUModal').value;
 
   if (numeroDeSerie != undefined && numeroDeSerie != '' && processador != undefined && processador != '' && memoriaRam != undefined && memoriaRam != '' && escolherArmazenamento != undefined && escolherArmazenamento != '' && qtdArmazenamento != undefined && qtdArmazenamento != '') {
     Swal.fire({
@@ -68,6 +69,7 @@ function salvarEdicaoMaquina(idMaquina) {
             memoriaRam: memoriaRam,
             tipoArmazenamento: escolherArmazenamento,
             qtdArmazenamento: qtdArmazenamento,
+            freqCPU: freqProcessador
           })
         }).then(function (resposta) {
 

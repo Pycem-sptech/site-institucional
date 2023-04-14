@@ -46,12 +46,14 @@ function filtrarMaquinas(req, res) {
 }
 
 function cadastrarMaquina(req, res) {
-    var nome = req.body.nomeServer;
-    var numeroSerial = req.body.numeroSerialServer;
-    var processador = req.body.processadorServer;
-    var ram = req.body.ramServer;
-    var qtdArmazenamento = req.body.qtdArmazenamentoServer;
-    var storageSelect = req.body.storageSelectServer;
+    const nome = req.body.nomeServer;
+    const numeroSerial = req.body.numeroSerialServer;
+    const processador = req.body.processadorServer;
+    const ram = req.body.ramServer;
+    const qtdArmazenamento = req.body.qtdArmazenamentoServer;
+    const storageSelect = req.body.storageSelectServer;
+    const freq = req.body.freqCPU;
+    
 
     if (nome == undefined) {
         res.status(400).send("Seu nome es tá undefined!");
@@ -65,9 +67,11 @@ function cadastrarMaquina(req, res) {
         res.status(400).send("Sua storageSelect está undefined!");
     } else if (qtdArmazenamento == undefined) {
         res.status(400).send("Sua qtdArmazenamento está undefined!");
-    } else {
+    } else if (freq == undefined) {
+        res.status(400).send("Sua freq está undefined!");
+    }else {
 
-        maquinaModel.cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect).then(
+        maquinaModel.cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect, freq).then(
             function (resultado) {
                 res.json(resultado);
             }
@@ -181,14 +185,15 @@ function publicar(req, res) {
 }
 
 function editar(req, res) {
-    var numeroSerial = req.body.numeroDeSerie;
-    var processador = req.body.processador;
-    var ram = req.body.memoriaRam;
-    var qtdArmazenamento = req.body.qtdArmazenamento;
-    var storageSelect = req.body.tipoArmazenamento;
-    var idMaquina = req.params.idMaquina;
+    const numeroSerial = req.body.numeroDeSerie;
+    const processador = req.body.processador;
+    const ram = req.body.memoriaRam;
+    const qtdArmazenamento = req.body.qtdArmazenamento;
+    const storageSelect = req.body.tipoArmazenamento;
+    const freq = req.body.freqCPU;
+    const idMaquina = req.params.idMaquina;
 
-    maquinaModel.editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina).then(
+    maquinaModel.editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, freq, idMaquina).then(
         function (resultado) {
             res.json(resultado);
         }

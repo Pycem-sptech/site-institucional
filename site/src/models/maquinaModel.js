@@ -28,13 +28,13 @@ function filtrarMaquinas(nomeDigitado) {
   return database.executar(instrucao);
 }
 
-function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect) {
-  var instrucao = `INSERT INTO totem (numeroSerie, processador, ram, qtd_armazenamento, tipo_armazenamento, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}','${nome}');`;
+function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect, freq) {
+  var instrucao = `INSERT INTO totem (numeroSerie, processador, ram, qtd_armazenamento, tipo_armazenamento, freq_processador, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}', '${freq}', '${nome}');`;
   return database.executar(instrucao);
 }
 
-function editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina) {
-  var instrucao = `UPDATE totem SET numeroSerie = '${numeroSerial}', processador = '${processador}', ram = '${ram}', qtd_armazenamento = '${qtdArmazenamento}', tipo_armazenamento = '${storageSelect}' WHERE idTotem = ${idMaquina};`;
+function editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, freq, idMaquina) {
+  var instrucao = `UPDATE totem SET numeroSerie = '${numeroSerial}', processador = '${processador}', ram = '${ram}', qtd_armazenamento = '${qtdArmazenamento}', tipo_armazenamento = '${storageSelect}', freq_processador = '${freq}' WHERE idTotem = ${idMaquina};`;
   return database.executar(instrucao);
 }
 

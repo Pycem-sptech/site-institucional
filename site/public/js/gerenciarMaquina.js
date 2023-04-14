@@ -34,6 +34,7 @@ function cadastrarMaquina() {
     const ramVar = ram.value;
     const storageSelectVar = storageSelect.value;
     const qtdArmazenamentoVar = qtdArmazenamento.value;
+    const freq = freqCPU.value;
 
     if (nomeVar == "") {
         return false;
@@ -49,7 +50,9 @@ function cadastrarMaquina() {
             processadorServer: processadorVar,
             ramServer: ramVar,
             storageSelectServer: storageSelectVar,
-            qtdArmazenamentoServer: qtdArmazenamentoVar
+            qtdArmazenamentoServer: qtdArmazenamentoVar,
+            freqCPU:freq
+
         }),
     })
         .then(function (resposta) {
@@ -78,8 +81,9 @@ function buscarDadosMaquina(idMaquina){
                     numeroDeSerieModal.value = resposta[0].numeroSerie;
                     processadorModal.value = resposta[0].processador;
                     memoriaRamModal.value = resposta[0].ram;
-                    escolherArmazenamentoModal.value = resposta[0].armazenamento;
-                    qtdArmazenamentoModal.value = resposta[0].qtdArmazenamento;
+                    escolherArmazenamentoModal.value = resposta[0].tipo_armazenamento;
+                    qtdArmazenamentoModal.value = resposta[0].qtd_armazenamento;
+                    freqCPU.value = resposta[0].freq_processador;
                 });
             } else {
                 throw "Houve um erro na API!";
