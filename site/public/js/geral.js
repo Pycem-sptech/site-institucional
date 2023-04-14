@@ -237,6 +237,11 @@ function autenticar() {
     return false;
 }
 
+function redirectHome() {
+    setTimeout(function () {
+        window.location = "./home.html";
+    }, 250);
+}
 function redirectFunc() {
     setTimeout(function () {
         window.location = "./gerenciamentoFuncionarios.html";
