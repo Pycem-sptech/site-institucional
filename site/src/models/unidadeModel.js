@@ -26,9 +26,20 @@ function atualizarListaUnidades(fkEmpresa) {
   return database.executar(instrucao);
 }
 function filtrarUnidades(nomeDigitado, fkEmpresa) {
-  var instrucao = `select idUnidade, nome, logradouro from unidade where nome like '${nomeDigitado}%' and fkEmpresa = ${fkEmpresa};`;
+  var instrucao = `select * from unidade where nome like '${nomeDigitado}%' and fkEmpresa = ${fkEmpresa};`;
   return database.executar(instrucao);
 }
+
+function filtrarTodasUnidades(nomeDigitado, idUnidade, fkEmpresa) {
+  var instrucao = `select idUnidade, nome as nomeUnidade, 
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Disponivel' and idUnidade = '${idUnidade}') as Disponivel,
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Manutencao' and idUnidade = '${idUnidade}') as Manutencao,
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Desligado' and idUnidade = '${idUnidade}') as Desligado,
+        (select count(t.idTotem) from totem t join unidade u on u.idUnidade = t.fkUnidade where idUnidade = '${idUnidade}') as totalMaquinasUnidade
+        from unidade where fkEmpresa = '${fkEmpresa}' and nomeUnidade = ${nomeDigitado};`;;
+  return database.executar(instrucao);
+}
+
 function verificarTelefone(telefone) {
   var instrucao = `select telefone from unidade where telefone = '${telefone}';`;
   return database.executar(instrucao);
@@ -69,5 +80,6 @@ module.exports = {
   cadastrar,
   editar,
   deletar,
-  filtrarUnidades
+  filtrarUnidades,
+  filtrarTodasUnidades
 };

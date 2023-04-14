@@ -124,7 +124,8 @@ function mostrarTodasUnidades(){
 function filtrarTodasUnidades(nomeDigitado) {
     if (nomeDigitado.length > 0) {
         const fkEmpresaVar = sessionStorage.FK_EMPRESA
-        fetch(`/unidade/filtrarUnidades/${nomeDigitado}/${fkEmpresaVar}`)
+
+        fetch(`/unidade/filtrarTodasUnidades/${nomeDigitado}/${fkEmpresaVar}`)
             .then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {

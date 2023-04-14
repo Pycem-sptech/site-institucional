@@ -50,5 +50,9 @@ router.get("/filtrarUnidades/:nomeDigitado/:fkEmpresa", function (req, res) {
     unidadeController.filtrarUnidades(req, res);
 });
 
+router.get("/filtrarTodasUnidades/:nomeDigitado/:fkEmpresa", function (req, res) {
+    unidadeController.filtrarTodasUnidades(req, res);
+});
+
 
 module.exports = router;
