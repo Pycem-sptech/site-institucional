@@ -10,7 +10,6 @@ function cadastrarFuncionario() {
   const cargo = document.getElementById("selectCargo");
   const fkEmpresa = sessionStorage.FK_EMPRESA;
 
-
   var nomeVar = nome.value;
   var emailVar = email.value;
   var cpfVar = cpf.value;
@@ -19,96 +18,20 @@ function cadastrarFuncionario() {
   var cargoVar = cargo.value;
   var fkEmpresaVar = fkEmpresa;
   if (nomeVar == "" || emailVar == "" || cpfVar == "" || senhaVar == "" || confirmaSenhaVar == "" || cargoVar == "" || fkEmpresaVar == "") {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "Preencha os campos estão vazios",
-    });
+    toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
   } else if (senhaVar != confirmaSenhaVar) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "Suas senhas não são iguais!",
-    });
+    toastPadrao('error', 'Suas senhas não são iguais!');
     return false;
-  }else if(
-    !validarSenha(password).valida
-  ) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 5000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-    Toast.fire({
-        icon: "error",
-        title: "Senha não está cumprindo com os requisitos",
-      });
-
+  }else if(!validarSenha(password).valida){
+    toastPadrao('error', 'Senha não está cumprindo com os requisitos');
     return false;
-    }
-  else if (emailExiste) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "O email digitado já está cadastrado",
-    });
+  } else if (emailExiste) {
+    toastPadrao('error', 'O email digitado já está cadastrado');
+    return false;
   } else if (cpfExiste) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "O cpf digitado já está cadastrado",
-    });
+    toastPadrao('error', 'O cpf digitado já está cadastrado');
+    return false;
   } else {
     fetch("/usuario/cadastrarFuncionario", {
       method: "POST",
@@ -132,23 +55,7 @@ function cadastrarFuncionario() {
         if (resposta.ok) {
           atualizarFuncionariosCadastrados();
           limparCamposFuncionarios();
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", Swal.stopTimer);
-              toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-          });
-
-          Toast.fire({
-            icon: "success",
-            title: "Cadastro realizado com sucesso!",
-          });
-
+          toastPadrao('success', 'Cadastro realizado com sucesso!')
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
@@ -226,40 +133,6 @@ function ocultarRegra() {
 
   recaptcha.style.display = "";
   regraSenha.style.display = "none";
-}
-
-function reCaptcha() {
-  let form = document.querySelector("#formRegister");
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    sendForm();
-  });
-  if (captchaOn) {
-    criarConta();
-  } else {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "warning",
-      title: "Faça a verificação do ReCAPTCHA",
-    });
-  }
-}
-
-var captchaOn = false;
-
-function sendForm() {
-  captchaOn = true;
 }
 
 function validarSenha(senhaVar) {
@@ -366,7 +239,6 @@ function atualizarFuncionariosCadastrados() {
           feed.innerHTML = "";
           for (let i = 0; i < resposta.length; i++) {
             var publicacao = resposta[i];
-            sessionStorage.idFuncionario = publicacao.idUsuario;
 
             var divFeed = document.createElement("div");
             var divRegisteredEmployee = document.createElement("div");
@@ -403,6 +275,68 @@ function atualizarFuncionariosCadastrados() {
     .catch(function (resposta) {
       console.error(resposta);
     });
+}
+
+function filtrarFuncionarios(nomeDigitado) {
+  if (nomeDigitado.length > 0) {
+    const fkEmpresaVar = sessionStorage.FK_EMPRESA;
+      fetch(`/usuario/filtrarFuncionarios/${nomeDigitado}/${fkEmpresaVar}`)
+      .then(function (resposta) {
+              if (resposta.ok) {
+                  if (resposta.status == 204) {
+                      var feed = document.getElementById("feed");
+                      feed.innerHTML = "";
+                      var mensagem = document.createElement("span");
+                      mensagem.innerHTML = "Infelizmente, nenhum funcionário foi encontrado.";
+                      feed.appendChild(mensagem);
+                      throw "Nenhum resultado encontrado!!";
+                  }
+                  resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+          
+                    var feed = document.getElementById("feed");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                      var publicacao = resposta[i];
+          
+                      var divFeed = document.createElement("div");
+                      var divRegisteredEmployee = document.createElement("div");
+                      var divIdEmployee = document.createElement("div");
+                      var spanEmployeeName = document.createElement("span");
+                      var spanCargoEmployee = document.createElement("span");
+                      var divBtnEditDelete = document.createElement("div");
+          
+                      divFeed.className = "feed"
+          
+                      divRegisteredEmployee.className = "RegisteredEmployee";
+                      divIdEmployee.className = "IdEmployee";
+                      spanCargoEmployee.className = "addresOpacity";
+                      spanCargoEmployee.innerHTML = publicacao.cargo;
+                      spanEmployeeName.innerHTML = publicacao.nome;
+          
+                      divBtnEditDelete.className = "btnEditDelete";
+                      divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUsuario}), buscarDadosFuncionario(${publicacao.idUsuario})'>`;
+                      divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarFuncionario(${publicacao.idUsuario})'>`;
+          
+                      feed.appendChild(divRegisteredEmployee);
+                      divRegisteredEmployee.appendChild(divIdEmployee);
+                      divRegisteredEmployee.appendChild(divBtnEditDelete);
+                      divIdEmployee.appendChild(spanEmployeeName);
+                      divIdEmployee.appendChild(spanCargoEmployee);
+          
+                    }
+          
+                  });
+                } else {
+                  throw "Houve um erro na API!";
+                }
+              })
+              .catch(function (resposta) {
+                console.error(resposta);
+              });
+  } else {
+      atualizarFuncionariosCadastrados();s
+  }
 }
 
 function limparCamposFuncionarios() {

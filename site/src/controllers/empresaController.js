@@ -11,8 +11,6 @@ function listar(req, res) {
         }
     }).catch(
         function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
             res.status(500).json(erro.sqlMessage);
         }
     );
@@ -30,11 +28,7 @@ function entrar(req, res) {
 
         empresaModel.entrar(email, senha).then(
             function (resultado) {
-                console.log(`\nResultados encontrados: ${resultado.length}`);
-                console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
-
                 if (resultado.length == 1) {
-                    console.log(resultado);
                     res.json(resultado[0]);
                 } else if (resultado.length == 0) {
                     res.status(403).send("Email e/ou senha inválido(s)");
@@ -44,7 +38,6 @@ function entrar(req, res) {
             }
         ).catch(
             function (erro) {
-                console.log(erro);
                 console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }
@@ -54,13 +47,12 @@ function entrar(req, res) {
 }
 
 function cadastrar(req, res) {
-    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
     var cnpj = req.body.cnpjServer;
     var telefone = req.body.telefoneServer;
     var email = req.body.emailServer;
     var emailUser = req.body.emailUserServer;
-    // Faça as validações dos valores
+   
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
@@ -72,18 +64,13 @@ function cadastrar(req, res) {
     }
     else {
 
-        // Passe os valores como parâmetro e vá para o arquivo empresaModel.js
         empresaModel.cadastrar(nome, email, telefone, cnpj, emailUser).then(
             function (resultado) {
                 res.json(resultado);
             }
         ).catch(
             function (erro) {
-                console.log(erro);
-                console.log(
-                    "\nHouve um erro ao realizar o cadastro! Erro: ",
-                    erro.sqlMessage
-                );
+                console.log("Houve um erro ao realizar o cadastro! Erro: ",erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }
         );
@@ -100,8 +87,6 @@ function verificarEmail(req, res) {
             res.status(204).send("Nenhum resultado encontrado!")
         }
     }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
@@ -116,8 +101,6 @@ function verificarCnpj(req, res) {
             res.status(204).send("Nenhum resultado encontrado!")
         }
     }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
@@ -127,5 +110,5 @@ module.exports = {
     cadastrar,
     listar,
     verificarEmail,
-    verificarCnpj
+    verificarCnpj,
 }

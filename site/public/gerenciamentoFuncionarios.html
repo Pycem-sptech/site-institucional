@@ -31,7 +31,7 @@
                     <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
                 </div>
                 <div class="footerButtons">
-                    <img class="iconSidebar" src="img/settingIcon.svg">
+                    <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
                     <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
                 </div>
             </div>
@@ -44,7 +44,8 @@
                     <ul class="menu" id="menu">
                         <li  onclick="redirectFunc()">Gerenciar Funcionarios</li>
                         <li onclick="redirectMachine()">Gerenciar Maquinas</li>
-                        <li onclick="redirectUnit()">Gerenciar Unidades</li>
+                        <li onclick="redirectAllUnits()">Gerenciar Unidades</li>
+                        <li onclick="redirectConfig()">Configurações</li>
                         <li onclick="limparSessao()">Sair</li>
                     </ul>
                 </nav>
@@ -79,7 +80,12 @@
             </section>
             <section class="registerUnit">
                 <div class="formRegisterUnit">
-                    <h3 class="titleFormRegisterUnit">Funcionarios Cadastrados</h3>
+                    <div class="container">
+                        <h3 id="titleFormRegisterUnit" class="titleFormRegisterUnit">Funcionários </h3>
+                        <input id="campoPesquisa" type="text" onkeyup="filtrarFuncionarios(this.value)">
+                        <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                        <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
+                    </div>
                     <hr>
                     <div class="feed" id="feed">
                 
@@ -159,24 +165,41 @@
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">                
         `;
     }
-    $(document).ready(function(){
+    $(document).ready(function () {
         $("#cpfFuncionario").mask("999.999.999-99");
     });
 
     const btnMobile = document.getElementById('btn-mobile');
 
     function toggleMenu(event) {
-      if (event.type === 'touchstart') event.preventDefault();  
-    const nav = document.getElementById('nav');
-    nav.classList.toggle('active');
-    
+        if (event.type === 'touchstart') event.preventDefault();
+        const nav = document.getElementById('nav');
+        nav.classList.toggle('active');
+
     }
     var overlay = document.getElementById('overlay');
-    overlay.addEventListener('click', function(e) {
-    if (e.target == this){
-        fecharModal()
-    } ;
+    overlay.addEventListener('click', function (e) {
+        if (e.target == this) {
+            fecharModal()
+        };
     });
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
+
+    function pesquisar(){
+        titleFormRegisterUnit.style.display = "none";
+        btnSearch.style.display = "none";
+        btnClose.style.display = "block";
+        campoPesquisa.classList.add("show")
+      
+}
+    function fechar(){
+        campoPesquisa.classList.remove("show")
+        setTimeout(function () {
+        
+            titleFormRegisterUnit.style.display = "block";
+    }, 550);
+        btnSearch.style.display = "block";
+        btnClose.style.display = "none";
+    }
 </script>

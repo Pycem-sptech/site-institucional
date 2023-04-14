@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Pycem
+    </title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/unidade.css">
+    <script src="js/geral.js"></script>
+    <script src="js/allUnits.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+</head>
+
+<body onload="validarSessao(), atualizarListaUnidades(), mostrarTodasUnidades()">
+    <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
+    <nav class="sidebar">
+        <div class="container">
+            <div class="navigationButtons" id="navIcons">
+                <h2>Py</h2>
+                <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+            </div>
+            <div class="footerButtons">
+                <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
+                <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
+            </div>
+        </div>
+    </nav>
+    <header class="header">
+        <div class="container">
+            <h3 class="homeHeader">Home</h3>
+            <nav id="nav" class="navbarHamburguer">
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg"
+                        src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <ul class="menu" id="menu">
+                    <li onclick="redirectFunc()">Funcionarios</li>
+                    <li onclick="redirectMachine()">Maquinas</li>
+                    <li onclick="redirectAllUnits()">Unidades</li>
+                    <li onclick="redirectConfig()">Configurações</li>
+                    <li onclick="limparSessao()">Sair</li>
+                </ul>
+            </nav>
+            <div class="user">
+                <h4 id="usuarioLogado">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg">
+            </div>
+        </div>
+    </header>
+    <div class="guideText">
+        <span class="welcomeSentence">Todas as unidades</span>
+        <span class="firstStep">Unidades</span>
+    </div>
+    <main class="main">
+        <div class="container">
+            <input type="text" class="inputSearch" onkeyup="filtrarTodasUnidades(this.value)">
+            <div class="listUnit">
+                <div class="box idUnit">
+                    <span>ID</span>
+                </div>
+                <div class="box nameUnit">
+                    <img src="img/storeIcon.svg" alt="">
+                    <span>Nome da Unidade</span>
+                </div>
+                <div class="box machineAvailable">
+                    <span>Máq. disponíveis</span>
+                    <div class="status green"></div>
+                </div>
+                <div class="box machineMaintenance">
+                    <span>Máq. em manutenção</span>
+                    <div class="status orange"></div>
+                </div>
+                <div class="box machineOff">
+                    <span>Máq. desligadas</span>
+                    <div class="status red"></div>
+                </div>
+                <div class="box totalMachine">
+                    <span>Total de máquinas</span>
+                </div>
+            </div>
+            <span id="feed">
+                <div class="listUnit" onclick="redirectDashUnits()">
+                    <div class="box idUnit">
+                        <span>---</span>
+                    </div>
+                    <div class="box nameUnit">
+                        <img src="img/storeIcon.svg" alt="">
+                        <span>---</span>
+                    </div>
+                    <div class="box machineAvailable">
+                        <span>---</span>
+                    </div>
+                    <div class="box machineMaintenance">
+                        <span>---</span>
+                    </div>
+                    <div class="box machineOff">
+                        <span>---</span>
+                    </div>
+                    <div class="box totalMachine">
+                        <span>---</span>
+                    </div>
+                </div>
+            </span>
+        </div>
+    </main>
+
+</body>
+
+</html>
+<script>
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+        if (event.type === 'touchstart') event.preventDefault();
+        const nav = document.getElementById('nav');
+        nav.classList.toggle('active');
+
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+</script>

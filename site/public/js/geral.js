@@ -10,7 +10,7 @@ function privaFunc() {
                 window.location = "../gerenciamentoMaquinas.html"
             }
         })
-    }else if (sessionStorage.USER_CARGO == "Supervisor") {
+    } else if (sessionStorage.USER_CARGO == "Supervisor") {
         body.innerHTML = `<h1>ERRO</h1>`;
         Swal.fire({
             icon: 'error',
@@ -110,7 +110,6 @@ function pesquisacep(valor) {
             document.getElementById('cidadeUnit').value = "...";
             document.getElementById('ufUnit').value = "...";
 
-
             //Cria um elemento javascript.
             var script = document.createElement('script');
 
@@ -120,88 +119,38 @@ function pesquisacep(valor) {
             //Insere script no documento e carrega o conteúdo.
             document.body.appendChild(script);
 
-        } //end if.
-        else {
+        } else {
             //cep é inválido.
             limpa_formulário_cep();
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener("mouseenter", Swal.stopTimer);
-                    toast.addEventListener("mouseleave", Swal.resumeTimer);
-                },
-            });
-
-            Toast.fire({
-                icon: "error",
-                title: "Formato de CEP inválido.",
-            });
+            toastPadrao('error', 'Formato de CEP inválido.');
         }
-    } //end if.
-    else {
+    } else {
         //cep sem valor, limpa formulário.
         limpa_formulário_cep();
     }
 };
 
 function pesquisacepModal(valor) {
-
-    //Nova variável "cep" somente com dígitos.
     var cep = valor.replace(/\D/g, '');
 
-    //Verifica se campo cep possui valor informado.
     if (cep != "") {
-
-        //Expressão regular para validar o CEP.
         var validacep = /^[0-9]{8}$/;
 
-        //Valida o formato do CEP.
         if (validacep.test(cep)) {
-
-            //Preenche os campos com "..." enquanto consulta webservice.
             document.getElementById('logradouroUnidadeModal').value = "...";
             document.getElementById('bairroUnidadeModal').value = "...";
             document.getElementById('cidadeUnidadeModal').value = "...";
             document.getElementById('ufUnidadeModal').value = "...";
 
-
-            //Cria um elemento javascript.
             var script1 = document.createElement('script');
-
-            //Sincroniza com o callback.
             script1.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
-
-            //Insere script no documento e carrega o conteúdo.
             document.body.appendChild(script1);
 
-        } //end if.
-        else {
-            //cep é inválido.
+        } else {
             limpa_formulário_cep();
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener("mouseenter", Swal.stopTimer);
-                    toast.addEventListener("mouseleave", Swal.resumeTimer);
-                },
-            });
-
-            Toast.fire({
-                icon: "error",
-                title: "Formato de CEP inválido.",
-            });
+            toastPadrao('error', 'Formato de CEP inválido.');
         }
-    } //end if.
-    else {
-        //cep sem valor, limpa formulário.
+    } else {
         limpa_formulário_cep();
     }
 };
@@ -242,6 +191,51 @@ function redirectHome() {
         window.location = "./home.html";
     }, 250);
 }
+function limparFeed(){
+    var feed = document.getElementById("feed");
+    feed.innerHTML = "";
+}
+
+function impersonateUser(usuarioDesejado){
+if(sessionStorage.USER_CARGO == 'Dono'){
+    sessionStorage.ERA_DONO = 'true';
+    sessionStorage.USER_CARGO = `${usuarioDesejado}`
+    toastPadrao('success', `Iniciando visão de ${usuarioDesejado}`);
+}
+}
+
+function deimpersonateUser(){
+    if(sessionStorage.ERA_DONO == 'true')
+    sessionStorage.USER_CARGO = "Dono"
+    toastPadrao('success', 'Iniciando visão de Dono')
+    window.location = "#";
+    sessionStorage.removeItem('ERA_DONO');
+}
+
+function toastPadrao(icon, title){
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+    });
+
+    Toast.fire({
+        icon: `${icon}`,
+        title: `${title}`,
+    });
+}
+
+function redirectHome() {
+    setTimeout(function () {
+        window.location = "./home.html";
+    }, 250);
+}
 function redirectFunc() {
     setTimeout(function () {
         window.location = "./gerenciamentoFuncionarios.html";
@@ -254,12 +248,27 @@ function redirectMachine() {
 }
 function redirectUnit() {
     setTimeout(function () {
-        window.location = "./cadastroUnidade.html";
+        window.location = "./gerenciamentoUnidades.html";
+    }, 250);
+}
+function redirectAllUnits() {
+    setTimeout(function () {
+        window.location = "./unidade.html";
+    }, 250);
+}
+function redirectDashUnits(unidadeDesejada, nomeUnidadeDesejada) {
+    var unidade = unidadeDesejada;
+    sessionStorage.ID_UNIDADE = unidadeDesejada;
+    sessionStorage.VER_UNIDADE = unidade;
+    var nomeUnidade = nomeUnidadeDesejada;
+    sessionStorage.VER_NOME_UNIDADE = nomeUnidade;
+    setTimeout(function () {
+        window.location = "./dashboardMaquina.html";
     }, 250);
 }
 function redirectDashboard() {
     setTimeout(function () {
-        window.location = "#";
+        window.location = "./dashboardMaquina.html";
     }, 250);
 }
 function redirectSuport() {
@@ -268,6 +277,11 @@ function redirectSuport() {
     }, 250);
 }
 function redirectConfig() {
+    setTimeout(function () {
+        window.location = "configuracoes.html";
+    }, 250);
+}
+function redirectAlerts() {
     setTimeout(function () {
         window.location = "#";
     }, 250);

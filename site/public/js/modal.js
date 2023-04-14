@@ -1,15 +1,42 @@
-function mostrarModal() {
+function mostrarModal(id) {
+  sessionStorage.ID_SELECIONADO = id;
   let overlay = document.querySelector('.overlay')
   let modal = document.querySelector('.modal')
   overlay.style.display = 'block';
   modal.style.display = 'block';
 }
-
+function mostrarModalRelatorio(chamada=0) {
+  let overlay = document.querySelector('.overlay')
+  let modalRelatorio = document.querySelector('.modalRelatorio')
+  overlay.style.display = 'block';
+  modalRelatorio.style.display = 'block';
+  let dataAtual = new Date();
+  dataAtual = dataAtual.toLocaleDateString("pt-br");
+  dataModal.value = dataAtual;
+  if (chamada == 0) {
+    btnSalvarModal.setAttribute("onclick", `cadastrarRelatorio()`);
+  } else {
+    btnSalvarModal.setAttribute("onclick", `editarRelatorio()`);
+  }
+}
 function fecharModal() {
+  sessionStorage.ID_SELECIONADO = "";
   let overlay = document.querySelector('.overlay')
   let modal = document.querySelector('.modal')
   overlay.style.display = 'none';
   modal.style.display = 'none';
+}
+function fecharModalRelatorio() {
+  sessionStorage.RELATORIO_SELECIONADO = "";
+  let overlay = document.querySelector('.overlay')
+  let modalRelatorio = document.querySelector('.modalRelatorio')
+  tituloModal.value = "";
+  dataModal.value = "";
+  descricaoModal.value = "";
+  escolherTipoProblemaModal.value = "";
+  escolherNumeroSerie.value = "";
+  overlay.style.display = 'none';
+  modalRelatorio.style.display = 'none';
 }
 
 function salvarEdicaoMaquina(idMaquina) {
@@ -18,6 +45,7 @@ function salvarEdicaoMaquina(idMaquina) {
   let memoriaRam = document.getElementById('memoriaRamModal').value;
   let escolherArmazenamento = document.getElementById('escolherArmazenamentoModal').value;
   let qtdArmazenamento = document.getElementById('qtdArmazenamentoModal').value;
+  let freqProcessador = document.getElementById('freqCPUModal').value;
 
   if (numeroDeSerie != undefined && numeroDeSerie != '' && processador != undefined && processador != '' && memoriaRam != undefined && memoriaRam != '' && escolherArmazenamento != undefined && escolherArmazenamento != '' && qtdArmazenamento != undefined && qtdArmazenamento != '') {
     Swal.fire({
@@ -41,6 +69,7 @@ function salvarEdicaoMaquina(idMaquina) {
             memoriaRam: memoriaRam,
             tipoArmazenamento: escolherArmazenamento,
             qtdArmazenamento: qtdArmazenamento,
+            freqCPU: freqProcessador
           })
         }).then(function (resposta) {
 
@@ -160,7 +189,7 @@ function salvarEdicaoUnidade(idUnidade) {
               'success'
             ).then((result) => {
               if (result.isConfirmed) {
-                window.location = "../cadastroUnidade.html"
+                atualizarUnidadesCadastradas();
               }
             })
           } else if (resposta.status == 404) {
@@ -208,7 +237,7 @@ function deletarUnidade(idUnidade) {
             'success'
           ).then((result) => {
             if (result.isConfirmed) {
-              window.location = "../cadastroUnidade.html"
+              window.location = "../gerenciamentoMaquinas.html"
             }
           })
         } else if (resposta.status == 404) {

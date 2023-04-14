@@ -26,13 +26,13 @@
                     Py
                 </h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
-                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectUnit()">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">   <!-- onclick="redirectMachine()" -->
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg"><!-- onclick="redirectMachine()" -->
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
-                <img class="iconSidebar" src="img/settingIcon.svg">
+                <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
                 <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
             </div>
         </div>
@@ -45,7 +45,8 @@
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
                     <li onclick="redirectMachine()">Gerenciar Maquinas</li>
-                    <li onclick="redirectUnit()">Gerenciar Unidades</li>
+                    <li onclick="redirectAllUnits()">Gerenciar Unidades</li>
+                    <li onclick="redirectConfig()">Configurações</li>
                     <li onclick="limparSessao()">Sair</li>
                 </ul>
             </nav>
@@ -76,6 +77,7 @@
                         <option value="HD">HD</option>
                         <option value="SSD">SSD</option>
                     </select>
+                    <input class="inputRegisterUnit storage" id="freqCPU" type="text" placeholder="Freq de atualização do processador">
                     <input class="inputRegisterUnit storage" id="qtdArmazenamento" type="text" placeholder="Qtd. Armazenamento">
                 </div>
                 <button class="btnRegister" onclick="cadastrarMaquina()">Cadastrar</button>
@@ -83,7 +85,13 @@
         </section>
         <section class="machine">
             <div class="boxMachine">
-                <h3 class="titleBoxMachine">Máquinas cadastradas</h3>
+
+                <div class="container">
+                    <h3 id="titleBoxMachine" class="titleBoxMachine">Máquinas</h3>
+                    <input id="campoPesquisa" type="text" onkeyup="filtrarMaquinas(this.value)">
+                    <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                    <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
+                </div>
                 <hr>
                 <div class="feed" id="feed">
                 
@@ -97,15 +105,15 @@
                     </div>
                     <div class="bodyModal">
                         <div class="bloco">
-                            <span class="estilo tamanho1"><span class="subTitulo">Número de Série:</span>
+                            <span class="estilo tamanho9"><span class="subTitulo">Número de Série:</span>
                                 <input class="inputModal" id="numeroDeSerieModal"></span>
                         </div>
         
                         <div class="bloco">
-                            <span class="estilo tamanho2"><span class="subTitulo">Processador:</span>
+                            <span class="estilo tamanho3"><span class="subTitulo">Processador:</span>
                                 <input class="inputModal" id="processadorModal"></span>
         
-                            <span class="estilo tamanho2"><span class="subTitulo">Memória RAM:</span>
+                            <span class="estilo tamanho3"><span class="subTitulo">Memória RAM:</span>
                                 <input class="inputModal" id="memoriaRamModal"></span>
         
                             <span class="estilo tamanho3"><span class="subTitulo">Armazenamento:</span>
@@ -116,13 +124,15 @@
                                 </select></span>
                         </div>
                         <div class="bloco">
+                            <span class="estilo tamanho1"><span class="subTitulo">Freq do processador:</span>
+                                <input class="inputModal" id="freqCPUModal"></span>
                             <span class="estilo tamanho1"><span class="subTitulo">Qtd. Armazenamento:</span>
                                 <input class="inputModal" id="qtdArmazenamentoModal"></span>
         
                         </div>
                     </div>
                     <div class="modalFooter">
-                        <button class="btnSalvar" onclick="salvarEdicaoMaquina(sessionStorage.idTotem)">Salvar</button>
+                        <button class="btnSalvar" onclick="salvarEdicaoMaquina(sessionStorage.ID_SELECIONADO)">Salvar</button>
                     </div>
                 </div>
         </section>
@@ -182,4 +192,20 @@
     });
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
+
+    function pesquisar(){
+        titleBoxMachine.style.display = "none";
+        btnSearch.style.display = "none";
+        btnClose.style.display = "block";
+        campoPesquisa.classList.add("show")
+      
+}
+    function fechar(){
+        campoPesquisa.classList.remove("show")
+        setTimeout(function () {
+            titleBoxMachine.style.display = "block";
+    }, 550);
+        btnSearch.style.display = "block";
+        btnClose.style.display = "none";
+    }
 </script>

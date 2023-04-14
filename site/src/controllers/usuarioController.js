@@ -2,11 +2,6 @@ var usuarioModel = require("../models/usuarioModel");
 
 var sessoes = [];
 
-function testar(req, res) {
-  console.log("ENTRAMOS NA usuarioController");
-  res.json("ESTAMOS FUNCIONANDO!");
-}
-
 function listar(req, res) {
   usuarioModel.listar().then(function (resultado) {
     if (resultado.length > 0) {
@@ -42,6 +37,24 @@ function listarFuncionarios(req, res) {
   });
 }
 
+function filtrarFuncionarios(req, res) {
+  const nomeDigitado = req.params.nomeDigitado;
+  const fkEmpresa = req.params.fkEmpresa;
+  usuarioModel.filtrarFuncionarios(nomeDigitado, fkEmpresa).then(function (resultado) {
+      if (resultado.length > 0) {
+          res.status(200).json(resultado);
+      } else {
+          res.status(204).send("Nenhum resultado encontrado!")
+      }
+  }).catch(
+      function (erro) {
+          console.log(erro);
+          console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+          res.status(500).json(erro.sqlMessage);
+      }
+  );
+}
+
 function listarDadosFuncionario(req, res) {
   idFuncionario = req.params.idFuncionario;
   usuarioModel.listarDadosFuncionario(idFuncionario).then(function (resultado) {
@@ -70,7 +83,7 @@ function verificarEmail(req, res) {
     }
   }).catch(function (erro) {
     console.log(erro);
-    console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
+    console.log("Houve um erro ao buscar os emails: ", erro.sqlMessage);
     res.status(500).json(erro.sqlMessage);
   });
 }
@@ -86,9 +99,14 @@ function verificarCpf(req, res) {
     }
   }).catch(function (erro) {
     console.log(erro);
-    console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
+    console.log("Houve um erro ao buscar os cpfs: ", erro.sqlMessage);
     res.status(500).json(erro.sqlMessage);
   });
+}
+
+function validarAmbiente(req, res) {
+  var ambiente = process.env.AMBIENTE_PROCESSO
+  res.json(ambiente);
 }
 
 function entrar(req, res) {
@@ -263,7 +281,6 @@ module.exports = {
   entrar,
   cadastrar,
   listar,
-  testar,
   verificarCpf,
   verificarEmail,
   autenticar,
@@ -271,5 +288,7 @@ module.exports = {
   listarFuncionarios,
   editarFuncinario,
   deletar,
-  listarDadosFuncionario
+  listarDadosFuncionario,
+  filtrarFuncionarios,
+  validarAmbiente
 };

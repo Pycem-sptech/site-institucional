@@ -1,4 +1,4 @@
-//process.env.AMBIENTE_PROCESSO = "desenvolvimento";
+// process.env.AMBIENTE_PROCESSO = "desenvolvimento";
 process.env.AMBIENTE_PROCESSO = "producao";
 
 var express = require("express");
@@ -13,6 +13,9 @@ var usuarioRouter = require("./src/routes/usuario");
 var empresaRouter = require("./src/routes/empresa");
 var unidadeRouter = require("./src/routes/unidade");
 var maquinaRouter = require("./src/routes/maquina");
+var relatorioRouter = require("./src/routes/relatorio");
+var alertaRouter = require("./src/routes/alerta");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -25,6 +28,9 @@ app.use("/usuario", usuarioRouter);
 app.use("/empresa", empresaRouter);
 app.use("/unidade", unidadeRouter)
 app.use("/maquina", maquinaRouter)
+app.use("/relatorio", relatorioRouter)
+app.use("/alerta", alertaRouter)
+
 
 app.listen(PORTA, function () {
     if (process.env.AMBIENTE_PROCESSO == 'desenvolvimento') {
@@ -37,7 +43,7 @@ app.listen(PORTA, function () {
 \t\t\tVocê está utilizando o banco de dados local(MySQL Workbench).\n
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n`
         );
-    } else {
+    } else{
 console.log(`
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n
 \t\t\t\t\tO servidor PYCEM^2 está online!

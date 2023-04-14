@@ -99,11 +99,11 @@
   }
   
 .reportsField::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.15);    
+    background: #EFF6FD;    
     border-radius: 20px; 
   }
 .reportsField::-webkit-scrollbar-thumb {
-    background-color: rgba(97, 165, 227, 0.6);    
+    background-color: #ACACAC;    
     border-radius: 20px;       
 }
 .problemReport{
@@ -173,6 +173,32 @@
     width: 80%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+#campoPesquisa{
+    outline: none;
+    border: none;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 7px;
+    background-color: #e6e9fa;
+    transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
+    opacity: 0;
+    width: 50%;
+}
+#campoPesquisa.show {
+    visibility: visible;
+    opacity: 1;
+  }
+#btnClose{
+    display: none;
+    height: 50%;
+    cursor: pointer;
+
+}
+#btnSearch{
+    height: 50%;
+    cursor: pointer;
 }
 .machineField{
     overflow: hidden;
@@ -235,11 +261,11 @@
   }
   
 .machineField::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.15);   
+    background: #EFF6FD;   
     border-radius: 20px; 
   }
 .machineField::-webkit-scrollbar-thumb {
-    background-color: rgba(97, 165, 227, 0.6);    
+    background-color: #acacac;    
     border-radius: 20px;       
 }
 
@@ -284,6 +310,9 @@
     .titleBoxHardInfo h3{
         font-size: 15px;
     }
+    .hardInfo{
+        height: 28%;
+    }
     .detailsReport{
         display: block;
     }
@@ -315,8 +344,12 @@
     .listMachine{
         width: 93%;
     }
-    .titleListMachine .container{
-        justify-content: center;
+
+    .machineField::-webkit-scrollbar-thumb {
+        background-color: #EFF6FD;      
+    }
+    .reportsField::-webkit-scrollbar-thumb {
+        background-color: #EFF6FD;          
     }
 }
 @media(max-width:600px){
