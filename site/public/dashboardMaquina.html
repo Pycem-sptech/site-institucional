@@ -13,13 +13,16 @@
     <script src="js/gerenciarDashMaquina.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="js/alertas.js"></script>
 </head>
-<body onload="validarSessao(), atualizarMaqCadastradasComStatusEmTempoReal()">
+<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADE)">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons">
-                <h2>Py</h2>
+                <h2 onclick="redirectHome()">
+                    Py
+                </h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                 <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg"onclick="redirectMachine()">
@@ -52,7 +55,7 @@
         </div>
     </header>
     <div class="guideText">
-        <span class="welcomeSentence">Unidade Paulista</span>
+        <span class="welcomeSentence" id="welcomeSentence">-</span>
         <span class="firstStep">Unidade</span>
     </div>
     <main class="main">
@@ -130,7 +133,7 @@
             <div class="modalRelatorio" id="modalRelatorio">
                 <div class="headerModal">
                     <span class="tituloModal">Relatório</span>
-                    <span class="fecharModal btnFechar" onclick="fecharModal()"></span>
+                    <span class="fecharModal btnFechar" onclick="fecharModalRelatorio()"></span>
                 </div>
                 <div class="bodyModal">
                     <div class="bloco">
@@ -138,11 +141,18 @@
                         <span class="estilo tamanho9"><span class="subTitulo">Titulo:</span>
                             <input class="inputModal" id="tituloModal"></span>
                     </div>
+                    <div class="bloco">
+
+                        <span class="estilo tamanho11"><span class="subTitulo">Nº de Série:</span>
+                            <select class="selectModal" id="escolherNumeroSerie">
+                                <option value="" disabled selected>Nº de Série</option>
+                            </select></span>
+                    </div>
 
                     <div class="bloco">
                    
                         <span class="estilo tamanho4"><span class="subTitulo">Data:</span>
-                            <input class="inputModal"type="date" id="dataModal"></span>
+                            <input class="inputModal"type="text" id="dataModal" disabled></span>
 
                             <span class="estilo tamanho10"><span class="subTitulo">Tipo do problema:</span>
                             <select class="selectModal" id="escolherTipoProblemaModal">
@@ -151,7 +161,7 @@
                                 <option value="Sobrecarga">Sobrecarga</option>
                                 <option value="Outro">Outro</option>
                             </select></span>
-
+                    
                     </div>
                     <div class="bloco">
                         <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
@@ -160,7 +170,8 @@
                 </div>
                 <div class="modalFooter">
                     <button class="btnSalvar"
-                        onclick="salvarRelatorio(sessionStorage.idFuncionario)">Salvar</button>
+                        id="btnSalvarModal"
+                        onclick="cadastrarRelatorio()">Salvar</button>
                 </div>
             </div>
         </div>
@@ -170,6 +181,9 @@
 </body>
 </html>
 <script>
+    let dataAtual = new Date()
+    dataAtual = dataAtual.toLocaleDateString('pt-BR')
+
     
     const btnMobile = document.getElementById('btn-mobile');
 

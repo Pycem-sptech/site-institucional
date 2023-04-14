@@ -23,18 +23,23 @@ function cadastrarRelatorio(req, res) {
   var descricao = req.body.descricao;
   var data = req.body.data;
   var fkMaquina = req.body.fkMaquina;
+  console.log(titulo)
+  console.log(tipo)
+  console.log(descricao)
+  console.log(data)
+  console.log(fkMaquina)
 
 
   if (titulo == undefined) {
-      res.status(400).send("Seu nome es tá undefined!");
+      res.status(400).send("Seu titulo es tá undefined!");
   } else if (tipo == undefined) {
-      res.status(400).send("Seu numeroSerial está undefined!");
+      res.status(400).send("Seu tipo está undefined!");
   } else if (descricao == undefined) {
-      res.status(400).send("Sua processador está undefined!");
+      res.status(400).send("Sua descricao está undefined!");
   } else if (data == undefined) {
-      res.status(400).send("Sua ram está undefined!");
+      res.status(400).send("Sua data está undefined!");
   } else if (fkMaquina == undefined) {
-      res.status(400).send("Sua storageSelect está undefined!");
+      res.status(400).send("Sua fkMaquina está undefined!");
   } else {
 
       relatorioModel.cadastrarRelatorio(titulo, tipo, descricao, data, fkMaquina).then(
@@ -50,8 +55,8 @@ function cadastrarRelatorio(req, res) {
   }
 }
 function listarRelatorio(req, res) {
-  fkMaquina = req.params.fkMaquina;
-  relatorioModel.listarRelatorio(fkMaquina).then(function (resultado) {
+  idUnidade = req.params.idUnidade;
+  relatorioModel.listarRelatorio(idUnidade).then(function (resultado) {
       if (resultado.length > 0) {
           res.status(200).json(resultado);
       } else {
@@ -68,9 +73,10 @@ function editarRelatorio(req, res) {
   var tipo = req.body.tipo;
   var descricao = req.body.descricao;
   var data = req.body.data;
+  var fkMaquina = req.body.fkMaquina;
   var idRelatorio = req.params.idRelatorio;
 
-  relatorioModel.editar(titulo, tipo, descricao, data, idRelatorio).then(
+  relatorioModel.editarRelatorio(titulo, tipo, descricao, data, idRelatorio, fkMaquina).then(
       function (resultado) {
           res.json(resultado);
       }

@@ -15,95 +15,20 @@ function criarConta() {
   var confirmaSenhaVar = confirmaSenha.value;
 
   if (nomeVar == "" || emailVar == "" || cpfVar == "" || senhaVar == "" || confirmaSenhaVar == "") {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "Preencha os campos estão vazios",
-    });
+    toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
   } else if (senhaVar != confirmaSenhaVar) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "Suas senhas não são iguais!",
-    });
+    toastPadrao('error', 'Suas senhas não são iguais!');
     return false;
-  } else if (
-    !validarSenha(password).valida
-  ) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 5000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-    Toast.fire({
-      icon: "error",
-      title: "Senha não está cumprindo com os requisitos",
-    });
-
+  } else if (!validarSenha(password).valida) {
+    toastPadrao('error', 'Senha não está cumprindo com os requisitos');
     return false;
   } else if (emailExiste) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "O email digitado já está cadastrado",
-    });
+    toastPadrao('error', 'O email digitado já está cadastrado');
+    return false;
   } else if (cpfExiste) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "O cpf digitado já está cadastrado",
-    });
+    toastPadrao('error', 'O cpf digitado já está cadastrado');
+    return false;
   } else {
     fetch("/usuario/cadastrar", {
       method: "POST",
@@ -122,22 +47,7 @@ function criarConta() {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", Swal.stopTimer);
-              toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-          });
-
-          Toast.fire({
-            icon: "success",
-            title: "Cadastro realizado com sucesso!",
-          });
+          toastPadrao('success', 'Cadastro realizado com sucesso!');
           setTimeout(() => {
             window.location = "./login.html";
           }, "3000");
@@ -229,22 +139,7 @@ function reCaptcha() {
   if (captchaOn) {
     criarConta();
   } else {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "warning",
-      title: "Faça a verificação do ReCAPTCHA",
-    });
+    toastPadrao('warning', 'Faça a verificação do ReCAPTCHA');
   }
 }
 
