@@ -1,3 +1,5 @@
+const modal = require("./modal")
+
 function buscarDadosRelatorio(idRelatorio) {
     fetch(`/relatorio/buscarDadosRelatorio/${idRelatorio}`)
         .then(function (resposta) {
@@ -7,7 +9,9 @@ function buscarDadosRelatorio(idRelatorio) {
                     dataModal.value = resposta[0].dataPublicacao;
                     escolherTipoProblemaModal.value = resposta[0].tipo;
                     descricaoModal.value = resposta[0].descricao;
-                    dataModal.value =  resposta[0].dataRelatorio.replaceAll("-", "/")
+                    dataModal.value =  resposta[0].dataRelatorio;
+                    escolherNumeroSerie.value = resposta[0].fkTotem;
+
                 });
             } else {
                 throw "Houve um erro na API!";
@@ -27,9 +31,9 @@ function criarIdRelatório(id){
     sessionStorage.ID_RELATORIO = id
 }
 
-function atualizarRelatoriosCadastrados(fkMaquina) {
-    console.log(fkMaquina)
-    fetch(`/relatorio/listarRelatorio/${fkMaquina}`)
+function atualizarRelatoriosCadastrados(idUnidade) {
+    console.log(idUnidade)
+    fetch(`/relatorio/listarRelatorio/${idUnidade}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -78,7 +82,7 @@ function atualizarRelatoriosCadastrados(fkMaquina) {
                         divIconReport.alt = "icon de relatorio";
                         divIdReport.innerHTML = i;
                         divTitleReport.innerHTML = publicacao.titulo;
-                        divDateReport.innerHTML = publicacao.data;
+                        divDateReport.innerHTML = publicacao.data_relatorio;
                         divDetailsReport.innerHTML = publicacao.descricao;
                         divBtnViewReport.src = "img/btnVisualizarRelatorio.svg";
                         divBtnViewReport.setAttribute("onclick", `mostrarModalRelatorio(1), buscarDadosRelatorio(${publicacao.idRelatorio}), criarIdRelatório(${publicacao.idRelatorio})`);
@@ -134,7 +138,7 @@ function cadastrarRelatorio() {
 
                 if (resposta.ok) {
                     toastPadrao('success', 'Cadastro realizado com sucesso!')
-                    atualizarRelatoriosCadastrados(sessionStorage.ID_SELECIONADO);
+                    atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADE);
                 }
             })
             .catch(function (resposta) {
@@ -203,7 +207,6 @@ function atualizarMaqCadastradasComStatus() {
 
                         divMachineField.className = "machineField";
                         divMachine.className = "machine";
-                        divMachine.setAttribute("onclick", `atualizarRelatoriosCadastrados(${publicacao.idTotem})`);
                         divContainer.className = "container";
                         divMachineDetails.className = "machineDetails";
                         spanIcon.className = "iconMachine";
@@ -332,7 +335,7 @@ function salvarEdicaoFuncionario() {
                 'success'
               ).then((result) => {
                 if (result.isConfirmed) {
-                  atualizarRelatoriosCadastrados();
+                   atualizarRelatoriosCadastrados();
                 }
               })
             } else if (resposta.status == 404) {
@@ -355,3 +358,64 @@ function atualizarNomeUnidade(nomeUnidade){
   divNomeUnidade = document.getElementById("welcomeSentence");
   divNomeUnidade.innerHTML = nomeUnidade;
 }
+
+function editarRelatorio() {
+    const tituloVar = tituloModal.value;
+    const dataVar = dataModal.value;
+    const tipoVar = escolherTipoProblemaModal.value;
+    const descricaoVar = descricaoModal.value;
+    const fkMaquinaVar = escolherNumeroSerie.value;
+
+  
+    if (tituloVar != undefined && tituloVar != '' && dataVar != undefined && dataVar != '' && tipoVar != undefined && tipoVar != '' && descricaoVar != undefined && descricaoVar != '' && fkMaquinaVar != undefined && fkMaquinaVar != '') {
+      Swal.fire({
+        title: 'Deseja mesmo salvar as alterações?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, salvar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch(`relatorio/editarRelatorio/${sessionStorage.ID_RELATORIO}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              titulo: tituloVar,
+              data: dataVar,
+              tipo: tipoVar,
+              descricao: descricaoVar,
+              fkMaquina: fkMaquinaVar,
+            })
+          }).then(function (resposta) {
+  
+            if (resposta.ok) {
+              Swal.fire(
+                'Pronto!',
+                'Suas alterações foram gravadas',
+                'success'
+              ).then((result) => {
+                if (result.isConfirmed) {
+                    atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADES)
+                }
+              })
+            } else if (resposta.status == 404) {
+              return false
+            } else {
+              return false
+            }
+          }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+        }
+      })
+  
+  
+    } else {
+      alert("Verifique os campos");
+    }
+  
+  }

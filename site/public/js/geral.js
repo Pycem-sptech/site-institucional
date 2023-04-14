@@ -243,6 +243,7 @@ function redirectAllUnits() {
 }
 function redirectDashUnits(unidadeDesejada, nomeUnidadeDesejada) {
     var unidade = unidadeDesejada;
+    sessionStorage.ID_UNIDADE = unidadeDesejada;
     sessionStorage.VER_UNIDADE = unidade;
     var nomeUnidade = nomeUnidadeDesejada;
     sessionStorage.VER_NOME_UNIDADE = nomeUnidade;

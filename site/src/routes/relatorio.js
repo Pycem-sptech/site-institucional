@@ -3,7 +3,7 @@ var router = express.Router();
 
 var relatorioController = require("../controllers/relatorioController");
 
-router.get("/listarRelatorio/:fkMaquina", function (req, res) {
+router.get("/listarRelatorio/:idUnidade", function (req, res) {
     relatorioController.listarRelatorio(req, res);
 });
 

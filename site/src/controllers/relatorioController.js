@@ -55,8 +55,8 @@ function cadastrarRelatorio(req, res) {
   }
 }
 function listarRelatorio(req, res) {
-  fkMaquina = req.params.fkMaquina;
-  relatorioModel.listarRelatorio(fkMaquina).then(function (resultado) {
+  idUnidade = req.params.idUnidade;
+  relatorioModel.listarRelatorio(idUnidade).then(function (resultado) {
       if (resultado.length > 0) {
           res.status(200).json(resultado);
       } else {
@@ -73,9 +73,10 @@ function editarRelatorio(req, res) {
   var tipo = req.body.tipo;
   var descricao = req.body.descricao;
   var data = req.body.data;
+  var fkMaquina = req.body.fkMaquina;
   var idRelatorio = req.params.idRelatorio;
 
-  relatorioModel.editar(titulo, tipo, descricao, data, idRelatorio).then(
+  relatorioModel.editarRelatorio(titulo, tipo, descricao, data, idRelatorio, fkMaquina).then(
       function (resultado) {
           res.json(resultado);
       }
