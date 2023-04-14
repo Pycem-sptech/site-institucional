@@ -57,6 +57,7 @@ create table totem(
 idTotem int primary key identity(1,1),
 numeroSerie varchar(30) not null,
 processador varchar(30) not null,
+freq_processador varchar(10) not null,
 ram int not null,
 tipo_armazenamento varchar(3) not null,  constraint chkArmazenamento check (tipo_armazenamento in('HD','SSD')),
 qtd_armazenamento int not null,
