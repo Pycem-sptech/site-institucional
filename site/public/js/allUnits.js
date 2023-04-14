@@ -92,7 +92,7 @@ function imprimirUnidade(fkEmpresa, fkUnidade) {
 
                         divListUnits.appendChild(divBoxMachineOff);
                         divBoxMachineOff.appendChild(spanMachineOff);
-
+                        
                         divListUnits.appendChild(divBoxTotalMachine);
                         divBoxTotalMachine.appendChild(spanTotalMachine);
 
@@ -148,31 +148,63 @@ function filtrarTodasUnidades(nomeDigitado) {
                         var feed = document.getElementById("feed");
                         feed.innerHTML = "";
                         for (let i = 0; i < resposta.length; i++) {
-                            var publicacao = resposta[i];
-                            var divFeed = document.createElement("div");
-                            var divRegisteredUnit = document.createElement("div");
-                            var divnameUnit = document.createElement("div");
-                            var spanNome = document.createElement("span");
-                            var spanEndereco = document.createElement("span");
-                            var divBtnEditDelete = document.createElement("div");
+                            var publicacao = resposta[0];
 
+                        var divListUnits = document.createElement("div");
+                        divListUnits.className = "listUnit";
+                        divListUnits.setAttribute("onclick", `redirectDashUnits(${publicacao.idUnidade},'${publicacao.nomeUnidade}')`);
+                        var divBoxId = document.createElement("div");
+                        divBoxId.className = "box idUnit";
+                        var spanId = document.createElement("span");
+                        spanId.innerHTML = publicacao.idUnidade;
 
-                            divFeed.className = "feed"
-                            divRegisteredUnit.className = "registeredUnit";
-                            divnameUnit.className = "nameUnit";
-                            spanEndereco.className = "addresOpacity";
-                            spanNome.innerHTML = publicacao.nome;
-                            spanEndereco.innerHTML = publicacao.logradouro;
-                            divBtnEditDelete.className = "btnEditDelete";
-                            divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUnidade}), buscarDadosUnidade(${publicacao.idUnidade})'>`;
-                            divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarUnidade(${publicacao.idUnidade})'>`;
-                            ;
+                        var divBoxName = document.createElement("div");
+                        divBoxName.className = "box nameUnit";
+                        var spanImgUnit = document.createElement("span");
+                        spanImgUnit.innerHTML = '<img src="img/storeIcon.svg" alt="">'
+                        var spanName = document.createElement("span");
+                        spanName.innerHTML = publicacao.nomeUnidade;
 
-                            feed.appendChild(divRegisteredUnit);
-                            divRegisteredUnit.appendChild(divnameUnit);
-                            divRegisteredUnit.appendChild(divBtnEditDelete);
-                            divnameUnit.appendChild(spanNome);
-                            divnameUnit.appendChild(spanEndereco);
+                        var divBoxAvailable = document.createElement("div");
+                        divBoxAvailable.className = "box machineAvailable";
+                        var spanAvailable = document.createElement("span");
+                        spanAvailable.innerHTML = publicacao.Disponivel;
+
+                        var divBoxMaintenance = document.createElement("div");
+                        divBoxMaintenance.className = "box machineMaintenance";
+                        var spanMaintenance = document.createElement("span");
+                        spanMaintenance.innerHTML = publicacao.Manutencao;
+
+                        var divBoxMachineOff = document.createElement("div");
+                        divBoxMachineOff.className = "box machineOff";
+                        var spanMachineOff = document.createElement("span");
+                        spanMachineOff.innerHTML = publicacao.Desligado;
+
+                        var divBoxTotalMachine = document.createElement("div");
+                        divBoxTotalMachine.className = "box totalMachine";
+                        var spanTotalMachine = document.createElement("span");
+                        spanTotalMachine.innerHTML = publicacao.totalMaquinasUnidade;
+
+                        feed.appendChild(divListUnits);
+
+                        divListUnits.appendChild(divBoxId);
+                        divBoxId.appendChild(spanId);
+
+                        divListUnits.appendChild(divBoxName);
+                        divBoxName.appendChild(spanImgUnit);
+                        divBoxName.appendChild(spanName);
+
+                        divListUnits.appendChild(divBoxAvailable);
+                        divBoxAvailable.appendChild(spanAvailable);
+
+                        divListUnits.appendChild(divBoxMaintenance);
+                        divBoxMaintenance.appendChild(spanMaintenance);
+
+                        divListUnits.appendChild(divBoxMachineOff);
+                        divBoxMachineOff.appendChild(spanMachineOff);
+                        
+                        divListUnits.appendChild(divBoxTotalMachine);
+                        divBoxTotalMachine.appendChild(spanTotalMachine);
 
                         }
                     });
