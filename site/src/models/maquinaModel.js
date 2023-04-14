@@ -29,12 +29,12 @@ function filtrarMaquinas(nomeDigitado) {
 }
 
 function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect) {
-  var instrucao = `INSERT INTO totem (numeroSerie, processador, ram, qtdArmazenamento, armazenamento, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}','${nome}');`;
+  var instrucao = `INSERT INTO totem (numeroSerie, processador, ram, qtd_armazenamento, tipo_armazenamento, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}','${nome}');`;
   return database.executar(instrucao);
 }
 
 function editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina) {
-  var instrucao = `UPDATE totem SET numeroSerie = '${numeroSerial}', processador = '${processador}', ram = '${ram}', qtdArmazenamento = '${qtdArmazenamento}', armazenamento = '${storageSelect}' WHERE idTotem = ${idMaquina};`;
+  var instrucao = `UPDATE totem SET numeroSerie = '${numeroSerial}', processador = '${processador}', ram = '${ram}', qtd_armazenamento = '${qtdArmazenamento}', tipo_armazenamento = '${storageSelect}' WHERE idTotem = ${idMaquina};`;
   return database.executar(instrucao);
 }
 
