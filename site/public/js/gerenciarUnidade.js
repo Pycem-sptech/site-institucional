@@ -11,65 +11,20 @@ function cadastrarUni() {
     const logradouroVar = logradouroUnit.value;
     const bairroVar = bairroUnit.value;
     const numeroVar = numeroUnit.value;
-    const complementoVar = "";
+
 
     console.log(numeroExiste);
     console.log(telefoneExiste);
 
-    if (nomeVar == "" || telefoneVar == "" || cepVar == "" || cepVar == "" || ufVar == "" || cidadeVar == "" || logradouroVar == "" || bairroVar == "" || numeroVar == ""
-    ) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-        });
-
-        Toast.fire({
-            icon: "error",
-            title: "Preencha os campos que estão vazios",
-        });
+    if (nomeVar == "" || telefoneVar == "" || cepVar == "" || cepVar == "" || ufVar == "" || cidadeVar == "" || logradouroVar == "" || bairroVar == "" || numeroVar == "") {
+        toastPadrao('error', 'Preencha os campos que estão vazios');
         return false;
     } else if (numeroExiste) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-        });
-
-        Toast.fire({
-            icon: "error",
-            title: "Já existe uma unidade com esse número de endereço",
-        });
+        toastPadrao('error', 'Já existe uma unidade com esse número de endereço');
+        return false;
     } else if (telefoneExiste) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-        });
-
-        Toast.fire({
-            icon: "error",
-            title: "O telefone digitado já está cadastrado",
-        });
-
+        toastPadrao('error', 'O telefone digitado já está cadastrado');
+        return false;
     } else {
         fetch("/unidade/cadastrar", {
             method: "POST",
@@ -86,7 +41,7 @@ function cadastrarUni() {
                 logradouroServer: logradouroVar,
                 bairroServer: bairroVar,
                 numeroServer: numeroVar,
-                complementoServer: complementoVar,
+
             }),
         })
             .then(function (resposta) {
@@ -95,40 +50,9 @@ function cadastrarUni() {
                 if (resposta.ok) {
                     atualizarUnidadesCadastradas();
                     limparCamposUnidade();
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener("mouseenter", Swal.stopTimer);
-                            toast.addEventListener("mouseleave", Swal.resumeTimer);
-                        },
-                    });
-
-                    Toast.fire({
-                        icon: "success",
-                        title: "Cadastro realizado com sucesso!",
-                    });
-
+                    toastPadrao('success', 'Cadastro realizado com sucesso!');
                 } else {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener("mouseenter", Swal.stopTimer);
-                            toast.addEventListener("mouseleave", Swal.resumeTimer);
-                        },
-                    });
-
-                    Toast.fire({
-                        icon: "error",
-                        title: "Houve um erro ao tentar realizar o cadastro!",
-                    });
+                    toastPadrao('error', 'Houve um erro ao tentar realizar o cadastro!');
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
             })
@@ -249,7 +173,7 @@ function atualizarUnidadesCadastradas() {
                         divBtnEditDelete.className = "btnEditDelete";
                         divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUnidade}), buscarDadosUnidade(${publicacao.idUnidade})'>`;
                         divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarUnidade(${publicacao.idUnidade})'>`;
-                        
+
                         feed.appendChild(divRegisteredUnit);
                         divRegisteredUnit.appendChild(divnameUnit);
                         divRegisteredUnit.appendChild(divBtnEditDelete);
@@ -338,4 +262,3 @@ function limparCamposUnidade() {
     document.getElementById('numeroUnit').value = ("");
     document.getElementById('telefoneUnit').value = ("");
 }
-

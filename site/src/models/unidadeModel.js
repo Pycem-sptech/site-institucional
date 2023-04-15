@@ -12,20 +12,34 @@ function listarDadosUnidade(idUnidade) {
   var instrucao = `select nome as nomeUnidade, telefone as telefoneUnidade, sigla as ufUnidade, cidade as cidadeUnidade, logradouro as logradouroUnidade, bairro as bairroUnidade, numero as numeroUnidade, cep as cepUnidade from unidade where idUnidade = ${idUnidade};`;
   return database.executar(instrucao);
 }
-function listarTodasUnidades(fkEmpresa) {
+function listarTodasUnidades(fkEmpresa, idUnidade) {
   var instrucao = `select idUnidade, nome as nomeUnidade, 
-          (select count(estado) from totem where estado = 'Disponivel') as Disponivel,
-          (select count(estado) from totem where estado = 'Manutencao') as Manutencao,
-          (select count(estado) from totem where estado = 'Desligado') as Desligado,
-          (select count(idTotem) from totem) as totalMaquinasUnidade
-          from unidade where fkEmpresa = '${fkEmpresa}';`;
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Disponivel' and idUnidade = '${idUnidade}') as Disponivel,
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Manutencao' and idUnidade = '${idUnidade}') as Manutencao,
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Desligado' and idUnidade = '${idUnidade}') as Desligado,
+        (select count(t.idTotem) from totem t join unidade u on u.idUnidade = t.fkUnidade where idUnidade = '${idUnidade}') as totalMaquinasUnidade
+        from unidade where fkEmpresa = '${fkEmpresa}' and idUnidade = '${idUnidade}';`;
+  return database.executar(instrucao);
+}
+function atualizarListaUnidades(fkEmpresa) {
+  var instrucao = `select idUnidade from unidade where fkEmpresa = '${fkEmpresa}';`;
+  return database.executar(instrucao);
+}
+function filtrarUnidades(nomeDigitado, fkEmpresa) {
+  var instrucao = `select * from unidade where nome like '${nomeDigitado}%' and fkEmpresa = ${fkEmpresa};`;
   return database.executar(instrucao);
 }
 
-function filtrarUnidades(nomeDigitado, fkEmpresa) {
-  var instrucao = `select idUnidade, nome, logradouro from unidade where nome like '${nomeDigitado}%' and fkEmpresa = ${fkEmpresa};`;
+function filtrarTodasUnidades(nomeDigitado, idUnidade, fkEmpresa) {
+  var instrucao = `select idUnidade, nome as nomeUnidade, 
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Disponivel' and idUnidade = '${idUnidade}') as Disponivel,
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Manutencao' and idUnidade = '${idUnidade}') as Manutencao,
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Desligado' and idUnidade = '${idUnidade}') as Desligado,
+        (select count(t.idTotem) from totem t join unidade u on u.idUnidade = t.fkUnidade where idUnidade = '${idUnidade}') as totalMaquinasUnidade
+        from unidade where fkEmpresa = '${fkEmpresa}' and nome like '${nomeDigitado}%'`;;
   return database.executar(instrucao);
 }
+
 function verificarTelefone(telefone) {
   var instrucao = `select telefone from unidade where telefone = '${telefone}';`;
   return database.executar(instrucao);
@@ -39,8 +53,8 @@ function entrar(email, senha) {
   return database.executar(instrucao);
 }
 
-function cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero, complemento) {
-  var instrucao = `INSERT INTO unidade (nome, telefone, cep, sigla, cidade, logradouro, bairro, numero, complemento, fkEmpresa) VALUES ('${nome}', '${telefone}', '${cep}', '${uf}', '${cidade}', '${logragouro}', '${bairro}', '${numero}', '${complemento}' , '${fkEmpresa}');`;
+function cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero) {
+  var instrucao = `INSERT INTO unidade (nome, telefone, cep, sigla, cidade, logradouro, bairro, numero, fkEmpresa) VALUES ('${nome}', '${telefone}', '${cep}', '${uf}', '${cidade}', '${logragouro}', '${bairro}', '${numero}', '${fkEmpresa}');`;
   return database.executar(instrucao);
 }
 
@@ -55,6 +69,7 @@ function deletar(idUnidade) {
 }
 
 module.exports = {
+  atualizarListaUnidades,
   listar,
   listarUnidades,
   listarDadosUnidade,
@@ -65,5 +80,6 @@ module.exports = {
   cadastrar,
   editar,
   deletar,
-  filtrarUnidades
+  filtrarUnidades,
+  filtrarTodasUnidades
 };

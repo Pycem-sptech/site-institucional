@@ -16,14 +16,14 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
 
-<body onload="validarSessao(),mostrarTodasUnidadesEmTempoReal()">
+<body onload="validarSessao(), atualizarListaUnidades(), mostrarTodasUnidades()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons" id="navIcons">
                 <h2>Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
-                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg"><!-- onclick="redirectAllUnits()" -->
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg">
                 <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
@@ -60,7 +60,7 @@
     </div>
     <main class="main">
         <div class="container">
-            <input type="text" class="inputSearch">
+            <input type="text" class="inputSearch" onkeyup="mostrarTodasUnidades(this.value, true)">
             <div class="listUnit">
                 <div class="box idUnit">
                     <span>ID</span>

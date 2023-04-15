@@ -9,60 +9,14 @@ function cadastrarEmp() {
   const emailUserVar = sessionStorage.USER_EMAIL;
 
   if (nomeVar == "" || emailVar == "" || telefoneVar == "" || cnpjVar == "") {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "Preencha os campos estão vazios",
-    });
+    toastPadrao('error', 'Preencha os campos estão vazios');
     return false;
-
   } else if (emailExiste) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "O email digitado já está cadastrado",
-    });
-
+    toastPadrao('error', 'O email digitado já está cadastrado');
+    return false;
   } else if (cnpjExiste) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "O cnpj digitado já está cadastrado",
-    });
-
+    toastPadrao('error', 'O cnpj digitado já está cadastrado');
+    return false;
   } else {
     fetch("/empresa/cadastrar", {
       method: "POST",
@@ -81,26 +35,11 @@ function cadastrarEmp() {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", Swal.stopTimer);
-              toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-          });
-
-          Toast.fire({
-            icon: "success",
-            title: "Cadastro realizado com sucesso!",
-          });
-
+          toastPadrao('success', 'Cadastro realizado com sucesso!');
           setTimeout(() => {
-            window.location = "./gerenciamentoUnidades.html";
+            window.location = "./unidade.html";
           }, "3000");
+          
         }
       })
       .catch(function (resposta) {

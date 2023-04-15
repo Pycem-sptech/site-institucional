@@ -16,14 +16,17 @@ function verificarCnpj(cnpj) {
     var instrucao = `select cnpj from empresa where cnpj = '${cnpj}';`;
     return database.executar(instrucao);
 }
-
 function cadastrarEmpresa(nome, email, telefone, cnpj) {
     var instrucao = `INSERT INTO empresa (nome, email, telefone, cnpj) VALUES ('${nome}', '${email}', '${telefone}', '${cnpj}');`;
     return database.executar(instrucao);
 }
-
+function cadastrarAlertasEmpresa(cnpj,telefone){
+    var instrucao = `INSERT INTO alerta (fkEmpresa) VALUES ((select idEmpresa from Empresa where cnpj = '${cnpj}' and telefone = '${telefone}'));`;
+    return database.executar(instrucao);
+}
 function cadastrar(nome, email, telefone, cnpj, emailUser) {
     cadastrarEmpresa(nome, email, telefone, cnpj);
+    cadastrarAlertasEmpresa(cnpj,telefone);
     instrucao = ''
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucao = `update usuario set fkEmpresa = (select top 1 idEmpresa from empresa order by idEmpresa desc) where email = '${emailUser}'`;
@@ -41,5 +44,6 @@ module.exports = {
     listar,
     verificarEmail,
     verificarCnpj,
-    cadastrarEmpresa
+    cadastrarEmpresa,
+    cadastrarAlertasEmpresa
 };

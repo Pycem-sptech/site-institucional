@@ -3,10 +3,6 @@ var router = express.Router();
 
 var unidadeController = require("../controllers/unidadeController");
 
-router.get("/", function (req, res) {
-    unidadeController.testar(req, res);
-});
-
 router.get("/listar/:fkEmpresa", function (req, res) {
     unidadeController.listar(req, res);
 });
@@ -19,8 +15,11 @@ router.get("/listarDadosUnidade/:idUnidade", function (req, res) {
     unidadeController.listarDadosUnidade(req, res);
 });
 
-router.get("/listarTodasUnidades/:fkEmpresa", function (req, res) {
+router.get("/listarTodasUnidades/:fkEmpresa/:idUnidade", function (req, res) {
     unidadeController.listarTodasUnidades(req, res);
+});
+router.get("/atualizarListaUnidades/:fkEmpresa", function (req, res) {
+    unidadeController.atualizarListaUnidades(req, res);
 });
 
 router.get("/verificarNumero/:numero", function (req, res) {
@@ -49,6 +48,10 @@ router.put("/editar/:idUnidade", function (req, res) {
 
 router.get("/filtrarUnidades/:nomeDigitado/:fkEmpresa", function (req, res) {
     unidadeController.filtrarUnidades(req, res);
+});
+
+router.get("/filtrarTodasUnidades/:nomeDigitado/:fkEmpresa/:idUnidade", function (req, res) {
+    unidadeController.filtrarTodasUnidades(req, res);
 });
 
 
