@@ -27,8 +27,15 @@ function atualizarListaUnidades() {
     return false;
 }
 
-function imprimirUnidade(fkEmpresa, fkUnidade) {
-    fetch(`/unidade/listarTodasUnidades/${fkEmpresa}/${fkUnidade}`)
+function imprimirUnidade(fkEmpresa, fkUnidade, nomeDigitado="", filtro=false) {
+    let rota;
+    const fkEmpresaVar = sessionStorage.FK_EMPRESA
+    if (!filtro){
+        rota = `/unidade/listarTodasUnidades/${fkEmpresa}/${fkUnidade}`;
+    } else {
+        rota = `/unidade/filtrarTodasUnidades/${nomeDigitado}/${fkEmpresaVar}`
+    }
+    fetch(rota)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {}
@@ -107,13 +114,13 @@ function imprimirUnidade(fkEmpresa, fkUnidade) {
     
 }
 
-function mostrarTodasUnidades(){
+function mostrarTodasUnidades(nomeDigitado="", filtro=false){
     limparFeed();
     const fkEmpresa = sessionStorage.FK_EMPRESA;
     let i = 0;
     impressao = setInterval(function (){
         if(i < listaUnidades.length){
-            imprimirUnidade(fkEmpresa, listaUnidades[i].idUnidade);
+            imprimirUnidade(fkEmpresa, listaUnidades[i].idUnidade, nomeDigitado, filtro);
         }else{
             clearInterval(impressao)
         }

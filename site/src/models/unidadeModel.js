@@ -36,7 +36,7 @@ function filtrarTodasUnidades(nomeDigitado, idUnidade, fkEmpresa) {
         (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Manutencao' and idUnidade = '${idUnidade}') as Manutencao,
         (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Desligado' and idUnidade = '${idUnidade}') as Desligado,
         (select count(t.idTotem) from totem t join unidade u on u.idUnidade = t.fkUnidade where idUnidade = '${idUnidade}') as totalMaquinasUnidade
-        from unidade where fkEmpresa = '${fkEmpresa}' and nomeUnidade = ${nomeDigitado};`;;
+        from unidade where fkEmpresa = '${fkEmpresa}' and nome like '${nomeDigitado}%'`;;
   return database.executar(instrucao);
 }
 
