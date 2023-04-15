@@ -27,6 +27,36 @@ function atualizarListaUnidades() {
     return false;
 }
 
+
+function buscarUnidade(){
+    let rota;
+    const fkEmpresaVar = sessionStorage.FK_EMPRESA
+    if (!filtro){
+        rota = `/unidade/listarTodasUnidades/${fkEmpresaVar}/${fkUnidade}`;
+    } else {
+        rota = `/unidade/filtrarTodasUnidades/${nomeDigitado}/${fkEmpresaVar}`
+    }
+    fetch(rota)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {}
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                
+                    
+                    
+                });
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+    
+}
+
 function imprimirUnidade(fkEmpresa, fkUnidade, nomeDigitado="", filtro=false) {
     let rota;
     const fkEmpresaVar = sessionStorage.FK_EMPRESA
@@ -116,6 +146,7 @@ function imprimirUnidade(fkEmpresa, fkUnidade, nomeDigitado="", filtro=false) {
 
 function mostrarTodasUnidades(nomeDigitado="", filtro=false){
     limparFeed();
+
     const fkEmpresa = sessionStorage.FK_EMPRESA;
     let i = 0;
     impressao = setInterval(function (){
