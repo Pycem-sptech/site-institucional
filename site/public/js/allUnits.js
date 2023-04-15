@@ -57,6 +57,11 @@ function buscarUnidade(){
     
 }
 
+function atualizarImprecaoTodasUnidades(){
+
+    setInterval(atualizarListaUnidades(), 5000);
+}
+
 function imprimirUnidade(fkEmpresa, fkUnidade, nomeDigitado="", filtro=false) {
     let rota;
     const fkEmpresaVar = sessionStorage.FK_EMPRESA
