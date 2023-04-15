@@ -277,3 +277,8 @@ function redirectConfig() {
         window.location = "configuracoes.html";
     }, 250);
 }
+function redirectAlert() {
+    setTimeout(function () {
+        window.location = "alerta.html";
+    }, 250);
+}
