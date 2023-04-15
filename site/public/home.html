@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/home.css">
     <script src="./js/geral.js"></script>
-    <script src="./js/gerenciarMaquina.js"></script>
+    <script src="./js/home.js"></script>
     <title>Pycem² | Home</title>
 </head>
-<body>
+<body id="body" onload="atualizarUnidadesCadastradas()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -71,7 +71,7 @@
                     </h3>
                 </div>
             </div>
-            <div class="linha"></div>
+            <div class="linhaVertical"></div>
             <div class="box-status">
                 <div class="title-status">
                     <p>
@@ -87,7 +87,7 @@
                     </h3>
                 </div>
             </div>
-            <div class="linha"></div>
+            <div class="linhaVertical"></div>
             <div class="box-status">
                 <div class="title-status">
                     <p>
@@ -111,16 +111,32 @@
                     GRAFICO AQUI
                 </p>
             </div>
-            <div class="container-lista">
-                <h4>
-                    Principais Unidades
-                </h4>
-                <span id="nameUnit" onload="atualizarSelectUnidades()">
-                    
-                </span>
+            <div class="container-unidade">
+                <div class="boxUnits" id="boxUnits">
+                    <h4 id="titleBoxUnit" class="titleBoxUnit">
+                        Unidades
+                    </h4>
+                </div>
+                <hr>
+                <div class="feed" id="feed">
+
+                </div>   
             </div>
         </div>
     </main>
 
 </body>
 </html>
+<script>
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+        if (event.type === 'touchstart') event.preventDefault();
+        const nav = document.getElementById('nav');
+        nav.classList.toggle('active');
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+
+</script>
