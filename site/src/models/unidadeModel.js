@@ -30,13 +30,36 @@ function filtrarUnidades(nomeDigitado, fkEmpresa) {
   return database.executar(instrucao);
 }
 
-function filtrarTodasUnidades(nomeDigitado, idUnidade, fkEmpresa) {
+function filtrarTodasUnidades(nomeDigitado, fkEmpresa) {
   var instrucao = `select idUnidade, nome as nomeUnidade, 
-        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Disponivel' and idUnidade = '${idUnidade}') as Disponivel,
-        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Manutencao' and idUnidade = '${idUnidade}') as Manutencao,
-        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Desligado' and idUnidade = '${idUnidade}') as Desligado,
-        (select count(t.idTotem) from totem t join unidade u on u.idUnidade = t.fkUnidade where idUnidade = '${idUnidade}') as totalMaquinasUnidade
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Disponivel' and nome = '${nomeDigitado}') as Disponivel,
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Manutencao' and nome = '${nomeDigitado}') as Manutencao,
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Desligado' and nome = '${nomeDigitado}') as Desligado,
+        (select count(t.idTotem) from totem t join unidade u on u.idUnidade = t.fkUnidade where nome = '${nomeDigitado}') as totalMaquinasUnidade
         from unidade where fkEmpresa = '${fkEmpresa}' and nome like '${nomeDigitado}%'`;;
+  return database.executar(instrucao);
+}
+function ocorrenciasPorMes(fkEmpresa) {
+  var instrucao = `
+  WITH meses AS (
+    SELECT 1 AS mes UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION 
+    SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10 UNION SELECT 11 UNION SELECT 12
+  )
+  
+  SELECT u.nome AS unidade, m.mes, COALESCE(COUNT(r.idRelatorio), 0) AS quantidade
+  FROM unidade u
+  JOIN empresa e ON u.fkEmpresa = e.idEmpresa
+  CROSS JOIN (
+    SELECT DISTINCT YEAR(data_relatorio) AS ano, mes
+    FROM relatorio
+    CROSS JOIN meses
+  ) m
+  LEFT JOIN totem t ON u.idUnidade = t.fkUnidade
+  LEFT JOIN relatorio r ON t.idTotem = r.fkTotem AND YEAR(r.data_relatorio) = m.ano AND MONTH(r.data_relatorio) = m.mes
+  WHERE e.idEmpresa = ${fkEmpresa}
+  GROUP BY u.nome, m.mes
+  ORDER BY u.nome, m.mes
+        `;
   return database.executar(instrucao);
 }
 
@@ -81,5 +104,6 @@ module.exports = {
   editar,
   deletar,
   filtrarUnidades,
-  filtrarTodasUnidades
+  filtrarTodasUnidades,
+  ocorrenciasPorMes
 };

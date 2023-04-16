@@ -24,6 +24,7 @@ function editarFrequenciaAtualizacao(req, res) {
   const fkEmpresa = req.params.fkEmpresa;
   const novaFrequencia = req.body.novaFrequenciaServer;
   
+  console.log(novaFrequencia)
   if (novaFrequencia == undefined) {
     res.status(400).send("Seu novaFrequencia está undefined!");
   } else {
