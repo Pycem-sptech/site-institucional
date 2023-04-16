@@ -1,4 +1,4 @@
-function listarAlertas() {
+function listarAlertas(){
     const fkEmpresa = sessionStorage.FK_EMPRESA;
     fetch(`/alerta/listarAlertas/${fkEmpresa}`)
       .then(function (resposta) {
@@ -10,7 +10,7 @@ function listarAlertas() {
           }
           resposta.json().then(function (resposta) {
             console.log("Dados recebidos: ", JSON.stringify(resposta));
-            sessionStorage.ATT_FREQ = resposta[0].freq_alerta;
+            sessionStorage.ATT_FREQ = resposta[0].freq_alerta * 1000;
             sessionStorage.ALERT_CPU = resposta[0].cpu_alerta;
             sessionStorage.ALERT_RAM = resposta[0].ram_alerta;
             sessionStorage.ALERT_HD = resposta[0].hd_alerta;
