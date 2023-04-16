@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pycem</title>
+    <title>Pycem² | Ger. Funcionarios</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/gerenciamentoFuncionarios.css">
     <link rel="stylesheet" href="css/modal.css">
@@ -21,7 +21,9 @@
         <nav class="sidebar">
             <div class="container">
                 <div class="navigationButtons">
-                    <h2>Py</h2>
+                    <h2 onclick="redirectHome()">
+                        Py
+                    </h2>
                     <img class="iconSidebar navigationIcon" src="img/userIcon.svg"><!-- onclick="redirectFunc()" -->
                     <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectUnit()">
                     <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
@@ -80,7 +82,7 @@
                 <div class="formRegisterUnit">
                     <div class="container">
                         <h3 id="titleFormRegisterUnit" class="titleFormRegisterUnit">Funcionários </h3>
-                        <input id="campoPesquisa" type="text">
+                        <input id="campoPesquisa" type="text" onkeyup="filtrarFuncionarios(this.value)">
                         <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
                         <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                     </div>
@@ -163,23 +165,23 @@
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">                
         `;
     }
-    $(document).ready(function(){
+    $(document).ready(function () {
         $("#cpfFuncionario").mask("999.999.999-99");
     });
 
     const btnMobile = document.getElementById('btn-mobile');
 
     function toggleMenu(event) {
-      if (event.type === 'touchstart') event.preventDefault();  
-    const nav = document.getElementById('nav');
-    nav.classList.toggle('active');
-    
+        if (event.type === 'touchstart') event.preventDefault();
+        const nav = document.getElementById('nav');
+        nav.classList.toggle('active');
+
     }
     var overlay = document.getElementById('overlay');
-    overlay.addEventListener('click', function(e) {
-    if (e.target == this){
-        fecharModal()
-    } ;
+    overlay.addEventListener('click', function (e) {
+        if (e.target == this) {
+            fecharModal()
+        };
     });
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);

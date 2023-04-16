@@ -7,17 +7,25 @@
     <title>Pycem</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/dashboardMaquina.css">
+    <link rel="stylesheet" href="css/modal.css">
     <script src="js/geral.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/gerenciarDashMaquina.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="js/alertas.js"></script>
 </head>
-<body>
+<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADE)">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons">
-                <h2>Py</h2>
+                <h2 onclick="redirectHome()">
+                    Py
+                </h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
-                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectUnit()">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">   <!-- onclick="redirectMachine()" -->
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg"onclick="redirectMachine()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
@@ -47,7 +55,7 @@
         </div>
     </header>
     <div class="guideText">
-        <span class="welcomeSentence">Unidade Paulista</span>
+        <span class="welcomeSentence" id="welcomeSentence">-</span>
         <span class="firstStep">Unidade</span>
     </div>
     <main class="main">
@@ -95,6 +103,7 @@
                             <input class="inputReports" type="text" placeholder="Número da máquina">
                         </div>
                     </div>
+
                     <div class="reportsField">
                         <div class="problemReport">
                                 <div class="divIconReport">
@@ -137,6 +146,7 @@
                                 <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
                             </div>
                     </div>
+
                     </div>
                 </div>
             </section>
@@ -151,6 +161,7 @@
                         <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                     </div>
                 </div>
+
                 <div class="machineField">
                     <div class="machine">
                         <div class="container">
@@ -179,16 +190,75 @@
                         <span>0</span>
                         <div class="status danger"></div>
                     </div>
+
                 </div>
             </section>
         </div>
+
+        <div class="overlay" id="overlay">
+            <div class="modalRelatorio" id="modalRelatorio">
+                <div class="headerModal">
+                    <span class="tituloModal">Relatório</span>
+                    <span class="fecharModal btnFechar" onclick="fecharModalRelatorio()"></span>
+                </div>
+                <div class="bodyModal">
+                    <div class="bloco">
+
+                        <span class="estilo tamanho9"><span class="subTitulo">Titulo:</span>
+                            <input class="inputModal" id="tituloModal"></span>
+                    </div>
+                    <div class="bloco">
+
+                        <span class="estilo tamanho11"><span class="subTitulo">Nº de Série:</span>
+                            <select class="selectModal" id="escolherNumeroSerie">
+                                <option value="" disabled selected>Nº de Série</option>
+                            </select></span>
+                    </div>
+
+                    <div class="bloco">
+                   
+                        <span class="estilo tamanho4"><span class="subTitulo">Data:</span>
+                            <input class="inputModal"type="text" id="dataModal" disabled></span>
+
+                            <span class="estilo tamanho10"><span class="subTitulo">Tipo do problema:</span>
+                            <select class="selectModal" id="escolherTipoProblemaModal">
+                                <option></option>
+                                <option value="Desligamento">Desligamento</option>
+                                <option value="Sobrecarga">Sobrecarga</option>
+                                <option value="Outro">Outro</option>
+                            </select></span>
+                    
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
+                            <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
+                    </div>
+                </div>
+                <div class="modalFooter">
+                    <button class="btnSalvar"
+                        id="btnSalvarModal"
+                        onclick="cadastrarRelatorio()">Salvar</button>
+                </div>
+            </div>
+        </div>
+        
+
     </main>
 </body>
 </html>
 <script>
+    let dataAtual = new Date()
+    dataAtual = dataAtual.toLocaleDateString('pt-BR')
+
     
     const btnMobile = document.getElementById('btn-mobile');
 
+    var overlay = document.getElementById('overlay');
+    overlay.addEventListener('click', function(e) {
+    if (e.target == this){
+        fecharModalRelatorio()
+    } ;
+    });
     function toggleMenu(event) {
       if (event.type === 'touchstart') event.preventDefault();  
     const nav = document.getElementById('nav');
