@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/dashboardMaquina.css">
     <link rel="stylesheet" href="css/graficos.css">
     <script src="js/geral.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="js/chart.js"></script> -->
 </head>
 <body>
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
@@ -95,6 +97,9 @@
                                 <h3>Memória RAM</h3>
                             </div>
                         </div>
+                        <div class="shortGraph">
+                            <canvas id="ramChart"></canvas>
+                        </div>
                 </div>
                 <div class="Graph">
                     <div class="titleBoxGraph">
@@ -102,12 +107,18 @@
                             <h3>Memória de massa</h3>
                         </div>
                     </div>
+                    <div class="shortGraph">
+                        <canvas id="memoryChart"></canvas>
+                    </div>
                 </div>
                 <div class="Graph processador">
                     <div class="titleBoxGraph">
                         <div class="container">
                             <h3>Processador</h3>
                         </div>
+                    </div>
+                    <div class="shortGraph">
+                        <canvas id="cpuChart"></canvas>
                     </div>
                 </div>
             </section>
@@ -135,7 +146,6 @@
 </body>
 </html>
 <script>
-    
     const btnMobile = document.getElementById('btn-mobile');
 
     function toggleMenu(event) {
@@ -164,6 +174,83 @@
         btnSearch.style.display = "block";
         btnClose.style.display = "none";
     }
-    
+
+    const GraficoRam = {
+    type: "line",
+    data: {
+        labels: ["12:00",
+                "13:00",
+                "14:00",
+                "15:00",
+                "16:00",
+                "17:00"],
+        datasets: [
+            {
+                label: "Porcentagem de uso",
+                data: [25,24,30,27,27,25],
+                backgroundColor: "#0078E8",
+                borderColor: "#0078E8"
+            }
+        ]
+    },
+
+    options: {
+        maintainAspectRatio: false
+    }
+}
+
+var chartLineRam = new Chart(document.getElementById("ramChart"), GraficoRam);
+
+    const GraficoMemoriaMassa = {
+    type: "line",
+    data: {
+        labels: ["12:00",
+                "13:00",
+                "14:00",
+                "15:00",
+                "16:00",
+                "17:00"],
+        datasets: [
+            {
+                label: "Porcentagem de uso",
+                data: [25,24,30,27,27,25],
+                backgroundColor: "#0078E8",
+                borderColor: "#0078E8"
+            }
+        ]
+    },
+
+    options: {
+        maintainAspectRatio: false
+    }
+}
+
+var chartLineMemoria = new Chart(document.getElementById("memoryChart"), GraficoMemoriaMassa);
+
+    const GraficoProcessador = {
+    type: "line",
+    data: {
+        labels: ["12:00",
+                "13:00",
+                "14:00",
+                "15:00",
+                "16:00",
+                "17:00"],
+        datasets: [
+            {
+                label: "Porcentagem de uso",
+                data: [25,24,30,27,27,25],
+                backgroundColor: "#0078E8",
+                borderColor: "#0078E8"
+            }
+        ]
+    },
+
+    options: {
+        maintainAspectRatio: false
+    }
+}
+
+var chartLineProcessador = new Chart(document.getElementById("cpuChart"), GraficoProcessador);
 
 </script>
