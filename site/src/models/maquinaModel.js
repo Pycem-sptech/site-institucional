@@ -28,6 +28,15 @@ function filtrarMaquinas(nomeDigitado) {
   return database.executar(instrucao);
 }
 
+function listarUsoMaquina(fkTotem) {
+  var instrucao = `select top 7 idRegistro,uso_processador,uso_ram,uso_hd,FORMAT(data_registro,'%H:%m:%s') as data_registro from registro where fkTotem = '${fkTotem}' order by  idRegistro desc;`;
+  return database.executar(instrucao);
+}
+function listarUltimosDados(fkTotem) {
+  var instrucao = `select top 1 idRegistro,uso_processador,uso_ram,uso_hd,FORMAT(data_registro,'%H:%m:%s') as data_registro from registro where fkTotem = '${fkTotem}' order by idRegistro desc`;
+  return database.executar(instrucao);
+}
+
 function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect, freq) {
   var instrucao = `INSERT INTO totem (numeroSerie, processador, ram, qtd_armazenamento, tipo_armazenamento, freq_processador, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}', '${freq}', '${nome}');`;
   return database.executar(instrucao);
@@ -51,5 +60,7 @@ module.exports = {
   cadastrarMaquina,
   editar,
   deletarRegistroMaquina,
-  filtrarMaquinas
+  filtrarMaquinas,
+  listarUsoMaquina,
+  listarUltimosDados
 };
