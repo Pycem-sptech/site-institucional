@@ -1,0 +1,75 @@
+.main{
+    height: 72vh;
+}
+.leftMain{
+    overflow: hidden;
+    overflow-y: scroll;
+    padding: 7px;
+}
+.leftMain::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+.leftMain::-webkit-scrollbar-track {
+    background: #EFF6FD;    
+    border-radius: 20px; 
+  }
+.leftMain::-webkit-scrollbar-thumb {
+    background-color: #ACACAC;    
+    border-radius: 20px;       
+}
+.rightMain{
+    height:95%;
+}
+.hardInfo{
+    height: 32%;
+}
+.reports{
+    height: 66%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.Graph{
+    background-color: #fff;
+    width: 49%;
+    height: 60%;
+    border-radius: 10px;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);  
+}
+.processador{
+    height: 70%;
+    width: 98%;
+    margin-top: 2%;
+}
+.titleBoxGraph{
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.titleBoxGraph .container{
+    width: 80%;
+}
+.processador .titleBoxGraph .container{
+    width: 90%;
+}
+.divBtnAddReport{
+    height: 12%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnAddReport{
+    background-color: #0078E8;
+    outline: none;
+    border: none;
+    color:#fff;
+    font-weight: 500;
+    width: 60%;
+    height: 50%;
+    border-radius: 13px;
+    font-size: 1.1em;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);  
+    cursor: pointer;
+}
