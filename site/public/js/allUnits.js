@@ -27,15 +27,35 @@ function atualizarListaUnidades() {
     return false;
 }
 
-function imprimirUnidade(fkEmpresa, fkUnidade, nomeDigitado="", filtro=false) {
-    let rota;
-    const fkEmpresaVar = sessionStorage.FK_EMPRESA
-    if (!filtro){
-        rota = `/unidade/listarTodasUnidades/${fkEmpresa}/${fkUnidade}`;
-    } else {
-        rota = `/unidade/filtrarTodasUnidades/${nomeDigitado}/${fkEmpresaVar}`
-    }
-    fetch(rota)
+function atualizarFiltroUnidades() {
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
+    fetch(`/unidade/filtrarTodasUnidades/${nomeDigitado}/${fkEmpresa}`)
+    .then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("Nenhum resultado encontrado!!");
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+                    for (var i = 0; i < resposta.length; i++) {
+                        listaUnidades.push(resposta[i]);
+                    }
+                    console.log(listaUnidades);
+                });
+                setTimeout(function(){mostrarTodasUnidades()},1000)
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+
+    return false;
+}
+
+function imprimirUnidade(fkEmpresa, fkUnidade) {
+    fetch(`/unidade/listarTodasUnidades/${fkEmpresa}/${fkUnidade}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {}
@@ -114,13 +134,13 @@ function imprimirUnidade(fkEmpresa, fkUnidade, nomeDigitado="", filtro=false) {
     
 }
 
-function mostrarTodasUnidades(nomeDigitado="", filtro=false){
+function mostrarTodasUnidades(){
     limparFeed();
     const fkEmpresa = sessionStorage.FK_EMPRESA;
     let i = 0;
     impressao = setInterval(function (){
         if(i < listaUnidades.length){
-            imprimirUnidade(fkEmpresa, listaUnidades[i].idUnidade, nomeDigitado, filtro);
+            imprimirUnidade(fkEmpresa, listaUnidades[i].idUnidade);
         }else{
             clearInterval(impressao)
         }

@@ -30,13 +30,34 @@ function filtrarUnidades(nomeDigitado, fkEmpresa) {
   return database.executar(instrucao);
 }
 
-function filtrarTodasUnidades(nomeDigitado, idUnidade, fkEmpresa) {
+function filtrarTodasUnidades(nomeDigitado, fkEmpresa) {
   var instrucao = `select idUnidade, nome as nomeUnidade, 
-        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Disponivel' and idUnidade = '${idUnidade}') as Disponivel,
-        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Manutencao' and idUnidade = '${idUnidade}') as Manutencao,
-        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Desligado' and idUnidade = '${idUnidade}') as Desligado,
-        (select count(t.idTotem) from totem t join unidade u on u.idUnidade = t.fkUnidade where idUnidade = '${idUnidade}') as totalMaquinasUnidade
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Disponivel' and nome = '${nomeDigitado}') as Disponivel,
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Manutencao' and nome = '${nomeDigitado}') as Manutencao,
+        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Desligado' and nome = '${nomeDigitado}') as Desligado,
+        (select count(t.idTotem) from totem t join unidade u on u.idUnidade = t.fkUnidade where nome = '${nomeDigitado}') as totalMaquinasUnidade
         from unidade where fkEmpresa = '${fkEmpresa}' and nome like '${nomeDigitado}%'`;;
+  return database.executar(instrucao);
+}
+function ocorrenciasPorMes(fkEmpresa) {
+  var instrucao = `
+      select 
+      concat(YEAR(r.data_relatorio), '/', RIGHT('00' + CONVERT(VARCHAR(2), MONTH(r.data_relatorio)), 2)) AS ano_mes, 
+      count(r.idRelatorio) AS quantidade
+    from 
+      unidade u
+      join empresa e ON u.fkEmpresa = e.idEmpresa
+      join totem t ON u.idUnidade = t.fkUnidade
+      join relatorio r ON t.idTotem = r.fkTotem
+    where 
+      e.idEmpresa = ${fkEmpresa}
+      AND r.data_relatorio >= DATEADD(MONTH, -6, GETDATE())
+    group by 
+      concat(YEAR(r.data_relatorio), '/', RIGHT('00' + CONVERT(VARCHAR(2), MONTH(r.data_relatorio)), 2))
+    order by
+      concat(YEAR(r.data_relatorio), '/', RIGHT('00' + CONVERT(VARCHAR(2), MONTH(r.data_relatorio)), 2))
+    desc
+        `;
   return database.executar(instrucao);
 }
 
@@ -81,5 +102,6 @@ module.exports = {
   editar,
   deletar,
   filtrarUnidades,
-  filtrarTodasUnidades
+  filtrarTodasUnidades,
+  ocorrenciasPorMes
 };

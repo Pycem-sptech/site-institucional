@@ -107,10 +107,27 @@ function filtrarUnidades(req, res) {
 function filtrarTodasUnidades(req, res) {
     const nomeDigitado = req.params.nomeDigitado;
     const fkEmpresa = req.params.fkEmpresa;
-    const idUnidade = req.params.idUnidade;
-    unidadeModel.filtrarTodasUnidades(nomeDigitado, idUnidade, fkEmpresa).then(function (resultado) {
+    unidadeModel.filtrarTodasUnidades(nomeDigitado, fkEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
+            console.log("entrou no controller");
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function ocorrenciasPorMes(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.ocorrenciasPorMes(fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("entrou no controller");
         } else {
             res.status(204).send("Nenhum resultado encontrado!")
         }
@@ -258,5 +275,6 @@ module.exports = {
     verificarTelefone,
     verificarNumero,
     filtrarUnidades,
-    filtrarTodasUnidades
+    filtrarTodasUnidades,
+    ocorrenciasPorMes
 }

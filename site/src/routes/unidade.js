@@ -50,8 +50,12 @@ router.get("/filtrarUnidades/:nomeDigitado/:fkEmpresa", function (req, res) {
     unidadeController.filtrarUnidades(req, res);
 });
 
-router.get("/filtrarTodasUnidades/:nomeDigitado/:fkEmpresa/:idUnidade", function (req, res) {
+router.get("/filtrarTodasUnidades/:nomeDigitado/:fkEmpresa", function (req, res) {
     unidadeController.filtrarTodasUnidades(req, res);
+});
+
+router.get("/ocorrenciasPorMes/:fkEmpresa", function (req, res) {
+    unidadeController.ocorrenciasPorMes(req, res);
 });
 
 

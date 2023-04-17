@@ -1,4 +1,4 @@
-
+var intervaloDeAtualizacao = sessionStorage.ATT_FREQ;
 
 function buscarDadosRelatorio(idRelatorio) {
     fetch(`/relatorio/buscarDadosRelatorio/${idRelatorio}`)
@@ -151,18 +151,9 @@ function cadastrarRelatorio() {
 
 var intervalo = "";
 var resposta_old = "";
-var intervaloDeAtualizacao = 5000
 var maqDisponivel = 0;
 var maqManutencao = 0;
 var maqDesligado = 0;
-
-function mudarTempoDeExibicao(intervaloDesejado) {
-    intervaloDeAtualizacao = intervaloDesejado * 1000
-    maqDisponivel = 0;
-    maqManutencao = 0;
-    maqDesligado = 0;
-    atualizarMaqCadastradasComStatus()
-}
 
 function atualizarMaqCadastradasComStatus() {
     const select = document.querySelector('#escolherNumeroSerie');
