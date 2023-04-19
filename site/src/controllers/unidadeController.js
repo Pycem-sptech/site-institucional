@@ -87,7 +87,8 @@ function atualizarListaUnidades(req, res) {
 }
 function atualizarListaUnidadesFiltradas(req, res) {
     fkEmpresa = req.params.fkEmpresa;
-    unidadeModel.atualizarListaUnidadesFiltradas(fkEmpresa).then(function (resultado) {
+    nomeDigitado = req.params.nomeDigitado;
+    unidadeModel.atualizarListaUnidadesFiltradas(nomeDigitado, fkEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
