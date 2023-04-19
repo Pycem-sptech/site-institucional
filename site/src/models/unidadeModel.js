@@ -25,6 +25,10 @@ function atualizarListaUnidades(fkEmpresa) {
   var instrucao = `select idUnidade from unidade where fkEmpresa = '${fkEmpresa}';`;
   return database.executar(instrucao);
 }
+function atualizarListaUnidades(fkEmpresa) {
+  var instrucao = `select idUnidade from unidade where fkEmpresa = '${fkEmpresa}';`;
+  return database.executar(instrucao);
+}
 function filtrarUnidades(nomeDigitado, fkEmpresa) {
   var instrucao = `select * from unidade where nome like '${nomeDigitado}%' and fkEmpresa = ${fkEmpresa};`;
   return database.executar(instrucao);
