@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/home.css">
     <script src="./js/geral.js"></script>
+    <script src="./js/gerenciarUnidade.js"></script>
     <script src="./js/home.js"></script>
     <title>Pycem² | Home</title>
 </head>
@@ -106,22 +107,21 @@
         </div>
         <!-- container com grafico e lista princ unidades -->
         <div class="wrap-dados">
-            <div class="container-grafico">
-                <p>
-                    GRAFICO AQUI
-                </p>
+            <div class="containerGrafico">
             </div>
-            <div class="container-unidade">
+            <section class="units">
                 <div class="boxUnits" id="boxUnits">
-                    <h4 id="titleBoxUnit" class="titleBoxUnit">
-                        Unidades
-                    </h4>
+                    <div class="containerBoxUnits">
+                        <h3 id="titleBoxUnit" class="titleBoxUnit">Unidades</h3>
+                        <input id="campoPesquisa" type="text" onkeyup="filtrarUnidades(this.value)">
+                        <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                        <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
+                    </div>
+                    <hr>
+                    <div class="feed" id="feed">
+                    </div>
                 </div>
-                <hr>
-                <div class="feed" id="feed">
-
-                </div>   
-            </div>
+            </section>
         </div>
     </main>
 
@@ -129,6 +129,23 @@
 </html>
 <script>
     const btnMobile = document.getElementById('btn-mobile');
+
+    function pesquisar(){
+        titleBoxUnit.style.display = "none";
+        btnSearch.style.display = "none";
+        btnClose.style.display = "block";
+        campoPesquisa.classList.add("show") 
+    }
+
+    function fechar(){
+        campoPesquisa.classList.remove("show")
+        setTimeout(function () {
+        
+            titleBoxUnit.style.display = "block";
+    }, 550);
+        btnSearch.style.display = "block";
+        btnClose.style.display = "none";
+    }
 
     function toggleMenu(event) {
         if (event.type === 'touchstart') event.preventDefault();
