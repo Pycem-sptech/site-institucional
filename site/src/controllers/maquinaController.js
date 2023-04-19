@@ -1,28 +1,89 @@
 var maquinaModel = require("../models/maquinaModel");
 
 function listar(req, res) {
-    fkEmpresa = req.params.fkEmpresa;
-    maquinaModel.listar(fkEmpresa).then(function (resultado) {
+    const fkEmpresa = req.params.fkEmpresa;
+    const fkUnidade = req.params.fkUnidade;
+    maquinaModel.listar(fkEmpresa, fkUnidade).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
             res.status(204).send("Nenhum resultado encontrado!")
         }
     }).catch(function (erro) {
-        console.log(erro);
         console.log("Houve um erro ao buscar as maquinas: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
 
+function listarMaquinas(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    maquinaModel.listarMaquinas(fkEmpresa, ).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log("Houve um erro ao buscar as maquinas: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function filtrarMaquinas(req, res) {
+    nomeDigitado = req.params.nomeDigitado;
+    maquinaModel.filtrarMaquinas(nomeDigitado).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function listarUsoMaquina(req, res) {
+    fkTotem = req.params.fkTotem;
+    maquinaModel.listarUsoMaquina(fkTotem).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function listarUltimosDados(req, res) {
+    fkTotem = req.params.fkTotem;
+    maquinaModel.listarUltimosDados(fkTotem).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 
 function cadastrarMaquina(req, res) {
-    var nome = req.body.nomeServer;
-    var numeroSerial = req.body.numeroSerialServer;
-    var processador = req.body.processadorServer;
-    var ram = req.body.ramServer;
-    var qtdArmazenamento = req.body.qtdArmazenamentoServer;
-    var storageSelect = req.body.storageSelectServer;
+    const nome = req.body.nomeServer;
+    const numeroSerial = req.body.numeroSerialServer;
+    const processador = req.body.processadorServer;
+    const ram = req.body.ramServer;
+    const qtdArmazenamento = req.body.qtdArmazenamentoServer;
+    const storageSelect = req.body.storageSelectServer;
+    const freq = req.body.freqCPU;
+    
 
     if (nome == undefined) {
         res.status(400).send("Seu nome es tá undefined!");
@@ -36,18 +97,17 @@ function cadastrarMaquina(req, res) {
         res.status(400).send("Sua storageSelect está undefined!");
     } else if (qtdArmazenamento == undefined) {
         res.status(400).send("Sua qtdArmazenamento está undefined!");
-    } else {
+    } else if (freq == undefined) {
+        res.status(400).send("Sua freq está undefined!");
+    }else {
 
-        maquinaModel.cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect).then(
+        maquinaModel.cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect, freq).then(
             function (resultado) {
                 res.json(resultado);
             }
         ).catch(
             function (erro) {
-                console.log(erro);
-                console.log(
-                    "\nHouve um erro ao realizar o cadastro! Erro: ",
-                    erro.sqlMessage
+                console.log("\nHouve um erro ao realizar o cadastro! Erro: ",erro.sqlMessage
                 );
                 res.status(500).json(erro.sqlMessage);
             }
@@ -69,9 +129,7 @@ function listarPorUsuario(req, res) {
     ).catch(
         function (erro) {
             console.log(erro);
-            console.log(
-                "Houve um erro ao buscar os maquinas: ",
-                erro.sqlMessage
+            console.log("Houve um erro ao buscar os maquinas: ",erro.sqlMessage
             );
             res.status(500).json(erro.sqlMessage);
         }
@@ -81,6 +139,22 @@ function listarPorUsuario(req, res) {
 function listarDadosMaquina(req, res) {
     idMaquina = req.params.idMaquina;
     maquinaModel.listarDadosMaquina(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function listarStatusMaqEmTempoReal(req, res) {
+    fkUnidade = req.params.fkUnidade;
+    maquinaModel.listarStatusMaqEmTempoReal(fkUnidade).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -141,14 +215,15 @@ function publicar(req, res) {
 }
 
 function editar(req, res) {
-    var numeroSerial = req.body.numeroDeSerie;
-    var processador = req.body.processador;
-    var ram = req.body.memoriaRam;
-    var qtdArmazenamento = req.body.qtdArmazenamento;
-    var storageSelect = req.body.tipoArmazenamento;
-    var idMaquina = req.params.idMaquina;
+    const numeroSerial = req.body.numeroDeSerie;
+    const processador = req.body.processador;
+    const ram = req.body.memoriaRam;
+    const qtdArmazenamento = req.body.qtdArmazenamento;
+    const storageSelect = req.body.tipoArmazenamento;
+    const freq = req.body.freqCPU;
+    const idMaquina = req.params.idMaquina;
 
-    maquinaModel.editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina).then(
+    maquinaModel.editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, freq, idMaquina).then(
         function (resultado) {
             res.json(resultado);
         }
@@ -180,11 +255,16 @@ function deletarRegistroMaquina(req, res) {
 
 module.exports = {
     listar,
+    listarMaquinas,
     listarPorUsuario,
+    listarStatusMaqEmTempoReal,
     pesquisarDescricao,
     publicar,
     editar,
     deletarRegistroMaquina,
     cadastrarMaquina,
-    listarDadosMaquina
+    listarDadosMaquina,
+    filtrarMaquinas,
+    listarUsoMaquina,
+    listarUltimosDados
 }

@@ -11,65 +11,20 @@ function cadastrarUni() {
     const logradouroVar = logradouroUnit.value;
     const bairroVar = bairroUnit.value;
     const numeroVar = numeroUnit.value;
-    const complementoVar = "";
+
 
     console.log(numeroExiste);
     console.log(telefoneExiste);
 
-    if (nomeVar == "" || telefoneVar == "" || cepVar == "" || cepVar == "" || ufVar == "" || cidadeVar == "" || logradouroVar == "" || bairroVar == "" || numeroVar == ""
-    ) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-        });
-
-        Toast.fire({
-            icon: "error",
-            title: "Preencha os campos que estão vazios",
-        });
+    if (nomeVar == "" || telefoneVar == "" || cepVar == "" || cepVar == "" || ufVar == "" || cidadeVar == "" || logradouroVar == "" || bairroVar == "" || numeroVar == "") {
+        toastPadrao('error', 'Preencha os campos que estão vazios');
         return false;
     } else if (numeroExiste) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-        });
-
-        Toast.fire({
-            icon: "error",
-            title: "Já existe uma unidade com esse número de endereço",
-        });
+        toastPadrao('error', 'Já existe uma unidade com esse número de endereço');
+        return false;
     } else if (telefoneExiste) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-        });
-
-        Toast.fire({
-            icon: "error",
-            title: "O telefone digitado já está cadastrado",
-        });
-
+        toastPadrao('error', 'O telefone digitado já está cadastrado');
+        return false;
     } else {
         fetch("/unidade/cadastrar", {
             method: "POST",
@@ -86,7 +41,7 @@ function cadastrarUni() {
                 logradouroServer: logradouroVar,
                 bairroServer: bairroVar,
                 numeroServer: numeroVar,
-                complementoServer: complementoVar,
+
             }),
         })
             .then(function (resposta) {
@@ -95,40 +50,9 @@ function cadastrarUni() {
                 if (resposta.ok) {
                     atualizarUnidadesCadastradas();
                     limparCamposUnidade();
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener("mouseenter", Swal.stopTimer);
-                            toast.addEventListener("mouseleave", Swal.resumeTimer);
-                        },
-                    });
-
-                    Toast.fire({
-                        icon: "success",
-                        title: "Cadastro realizado com sucesso!",
-                    });
-
+                    toastPadrao('success', 'Cadastro realizado com sucesso!');
                 } else {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener("mouseenter", Swal.stopTimer);
-                            toast.addEventListener("mouseleave", Swal.resumeTimer);
-                        },
-                    });
-
-                    Toast.fire({
-                        icon: "error",
-                        title: "Houve um erro ao tentar realizar o cadastro!",
-                    });
+                    toastPadrao('error', 'Houve um erro ao tentar realizar o cadastro!');
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
             })
@@ -188,7 +112,7 @@ function validarNumero(numeroVar) {
     return false;
 }
 
-function buscarDadosUnidade(idUnidade){
+function buscarDadosUnidade(idUnidade) {
     fetch(`/unidade/listarDadosUnidade/${idUnidade}`)
         .then(function (resposta) {
             if (resposta.ok) {
@@ -233,14 +157,12 @@ function atualizarUnidadesCadastradas() {
                     feed.innerHTML = "";
                     for (let i = 0; i < resposta.length; i++) {
                         var publicacao = resposta[i];
-                        sessionStorage.idUnidade = publicacao.idUnidade;
                         var divFeed = document.createElement("div");
                         var divRegisteredUnit = document.createElement("div");
                         var divnameUnit = document.createElement("div");
                         var spanNome = document.createElement("span");
                         var spanEndereco = document.createElement("span");
                         var divBtnEditDelete = document.createElement("div");
-                        
 
                         divFeed.className = "feed"
                         divRegisteredUnit.className = "registeredUnit";
@@ -251,14 +173,12 @@ function atualizarUnidadesCadastradas() {
                         divBtnEditDelete.className = "btnEditDelete";
                         divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUnidade}), buscarDadosUnidade(${publicacao.idUnidade})'>`;
                         divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarUnidade(${publicacao.idUnidade})'>`;
-                        ;
 
                         feed.appendChild(divRegisteredUnit);
                         divRegisteredUnit.appendChild(divnameUnit);
                         divRegisteredUnit.appendChild(divBtnEditDelete);
                         divnameUnit.appendChild(spanNome);
                         divnameUnit.appendChild(spanEndereco);
-
                     }
 
 
@@ -272,6 +192,66 @@ function atualizarUnidadesCadastradas() {
         });
 }
 
+function filtrarUnidades(nomeDigitado) {
+    if (nomeDigitado.length > 0) {
+        const fkEmpresaVar = sessionStorage.FK_EMPRESA
+        fetch(`/unidade/filtrarUnidades/${nomeDigitado}/${fkEmpresaVar}`)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        var feed = document.getElementById("feed");
+                        feed.innerHTML = "";
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Infelizmente, nenhuma unidade foi encontrada.";
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+                    resposta.json().then(function (resposta) {
+                        console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                        var feed = document.getElementById("feed");
+                        feed.innerHTML = "";
+                        for (let i = 0; i < resposta.length; i++) {
+                            var publicacao = resposta[i];
+                            var divFeed = document.createElement("div");
+                            var divRegisteredUnit = document.createElement("div");
+                            var divnameUnit = document.createElement("div");
+                            var spanNome = document.createElement("span");
+                            var spanEndereco = document.createElement("span");
+                            var divBtnEditDelete = document.createElement("div");
+
+
+                            divFeed.className = "feed"
+                            divRegisteredUnit.className = "registeredUnit";
+                            divnameUnit.className = "nameUnit";
+                            spanEndereco.className = "addresOpacity";
+                            spanNome.innerHTML = publicacao.nome;
+                            spanEndereco.innerHTML = publicacao.logradouro;
+                            divBtnEditDelete.className = "btnEditDelete";
+                            divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idUnidade}), buscarDadosUnidade(${publicacao.idUnidade})'>`;
+                            divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarUnidade(${publicacao.idUnidade})'>`;
+                            ;
+
+                            feed.appendChild(divRegisteredUnit);
+                            divRegisteredUnit.appendChild(divnameUnit);
+                            divRegisteredUnit.appendChild(divBtnEditDelete);
+                            divnameUnit.appendChild(spanNome);
+                            divnameUnit.appendChild(spanEndereco);
+
+                        }
+                    });
+                } else {
+                    throw "Houve um erro na API!";
+                }
+            })
+            .catch(function (resposta) {
+                console.error(resposta);
+            });
+    } else {
+        atualizarUnidadesCadastradas()
+    }
+}
+
 function limparCamposUnidade() {
     document.getElementById('nomeUnit').value = ("");
     document.getElementById('cepUnit').value = ("");
@@ -282,4 +262,3 @@ function limparCamposUnidade() {
     document.getElementById('numeroUnit').value = ("");
     document.getElementById('telefoneUnit').value = ("");
 }
-

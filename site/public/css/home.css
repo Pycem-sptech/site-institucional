@@ -1,0 +1,103 @@
+.main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main .container {
+    background-color: #fff;
+    border-radius: 12px;
+    height: 15vh;
+    width: 90%;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 0 1%;
+    margin-bottom: 1%;
+}
+
+.status {
+    height: 15vh;
+}
+
+.grafico {
+    height: 30vh;
+}
+
+.box-status {
+    height: 100%;
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-status .title-status {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2%;
+}
+
+.box-status .title-status p {
+    font-size: small;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.title-status .bolinha {
+    border-radius: 15px; 
+    height: 15px; width: 15px;
+}
+
+.box-status .info-maq {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    font-size: 150%;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.info-maq .info {
+    font-size: 120%;
+}
+
+.info-maq .info-numerica {
+    font-size: 185%;
+    font-weight: 400;
+}
+
+.linha {
+    height: 90%;
+    background-color: rgba(0, 0, 0, 0.15);
+    width: 1px;
+}
+
+.wrap-dados {
+    display: flex;
+    width: 92%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-grafico {
+    width: 65%;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
+    padding: 1%;
+}
+
+.container-lista {
+    width: 30%;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
+    padding: 1%;
+}

@@ -129,6 +129,7 @@ input{
     border-radius: 10px;
     padding-left: 38px;
 }
+
 .machine{
     width: 32%;
     height: 100%;
@@ -230,6 +231,19 @@ input{
     height: 25px;
     cursor: pointer;
     width: 40px;
+}
+
+.feed::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+.feed::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.15);   
+    border-radius: 20px; 
+  }
+.feed::-webkit-scrollbar-thumb {
+    background-color: rgba(97, 165, 227, 0.6);    
+    border-radius: 20px;       
 }
 
 @media (max-width:800px){

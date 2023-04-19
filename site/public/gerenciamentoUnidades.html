@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pycem</title>
+    <title>Pycem² | Cad. Unidade</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/cadastroUnidade.css">
     <link rel="stylesheet" href="css/modal.css">
@@ -26,7 +26,7 @@
             <div class="navigationButtons" id="navIcons">
                 <h2>Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
-                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg"><!-- onclick="redirectUnit()" -->
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                 <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
@@ -86,7 +86,7 @@
             <div class="boxUnits" id="boxUnits">
                 <div class="container">
                     <h3 id="titleBoxUnit" class="titleBoxUnit">Unidades</h3>
-                    <input id="campoPesquisa" type="text">
+                    <input id="campoPesquisa" type="text" onkeyup="filtrarUnidades(this.value)">
                     <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
                     <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                 </div>
@@ -107,11 +107,11 @@
                             <span class="estilo tamanho1"><span class="subTitulo">Nome:</span>
                                 <input class="inputModal" id="nomeUnidadeModal"></span>
                             <span class="estilo tamanho1"><span class="subTitulo">CEP:</span>
-                                <input class="inputModal" id="cepUnidadeModal" onblur="pesquisacepModal(this.value);"></span>
+                                <input class="inputModal" id="cepUnidadeModal"
+                                    onblur="pesquisacepModal(this.value);"></span>
                         </div>
 
                         <div class="bloco">
-
                             <span class="estilo tamanho7"><span class="subTitulo">UF:</span>
                                 <input class="inputModal" id="ufUnidadeModal" disabled></span>
 
@@ -135,7 +135,7 @@
                     </div>
                     <div class="modalFooter">
                         <button class="btnSalvar" id="btn1"
-                            onclick="salvarEdicaoUnidade(sessionStorage.idUnidade)">Salvar</button>
+                            onclick="salvarEdicaoUnidade(sessionStorage.ID_SELECIONADO)">Salvar</button>
                     </div>
                 </div>
             </div>
@@ -196,10 +196,10 @@
 
     }
     var overlay = document.getElementById('overlay');
-    overlay.addEventListener('click', function(e) {
-    if (e.target == this){
-        fecharModal()
-    } ;
+    overlay.addEventListener('click', function (e) {
+        if (e.target == this) {
+            fecharModal()
+        };
     });
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);

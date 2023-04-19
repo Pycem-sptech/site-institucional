@@ -1,5 +1,4 @@
 function fazerLogin() {
-
   const email = document.getElementById("email");
   const senha = document.getElementById("password");
 
@@ -7,24 +6,7 @@ function fazerLogin() {
   var senhaVar = senha.value;
 
   if (emailVar == "" || senhaVar == "") {
-
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 2000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-
-    Toast.fire({
-      icon: 'error',
-      title: 'Todos os campos estão vazios!'
-    })
-
+    toastPadrao('error', 'Todos os campos estão vazios!');
     return false;
   }
 
@@ -41,22 +23,7 @@ function fazerLogin() {
     console.log("ESTOU NO THEN DO entrar()!")
 
     if (resposta.ok) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
-
-      Toast.fire({
-        icon: 'success',
-        title: 'Login realizado com sucesso!'
-      })
+      toastPadrao('success', 'Login realizado com sucesso!');
 
       resposta.json().then(json => {
         console.log(json);
@@ -66,6 +33,7 @@ function fazerLogin() {
         sessionStorage.USER_NAME = json.nome;
         sessionStorage.USER_CARGO = json.cargo;
         sessionStorage.FK_EMPRESA = json.fkEmpresa;
+        listarAlertas();
 
         if (json.fkEmpresa == null && json.cargo == 'Dono') {
           setTimeout(function () {
@@ -79,34 +47,16 @@ function fazerLogin() {
           setTimeout(function () {
             window.location = "./gerenciamentoMaquinas.html";
           }, 2000);
-        }else {
+        } else {
           setTimeout(function () {
-            window.location = "./cadastroUnidade.html";
+            window.location = "./gerenciamentoUnidades.html";
 
           }, 2000);
         }
       });
 
     } else {
-
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
-
-      Toast.fire({
-        icon: 'error',
-        title: 'Houve um erro ao tentar realizar o login!'
-      })
-
-      console.log("Houve um erro ao tentar realizar o login!");
+      toastPadrao('error', 'Houve um erro ao tentar realizar o login!');
       resposta.text().then(texto => {
         console.error(texto);
       });
@@ -118,4 +68,3 @@ function fazerLogin() {
 
   return false;
 }
-

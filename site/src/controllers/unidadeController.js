@@ -2,31 +2,9 @@ var unidadeModel = require("../models/unidadeModel");
 
 var sessoes = [];
 
-function testar(req, res) {
-    console.log("ENTRAMOS NA unidadeController");
-    res.json("ESTAMOS FUNCIONANDO!");
-}
-
 function listar(req, res) {
     fkEmpresa = req.params.fkEmpresa;
     unidadeModel.listar(fkEmpresa).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(
-        function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        }
-    );
-}
-
-function listarDadosUnidade(req, res) {
-    idUnidade = req.params.idUnidade;
-    unidadeModel.listarDadosUnidade(idUnidade).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -58,39 +36,108 @@ function listarUnidades(req, res) {
     );
 }
 
-function entrar(req, res) {
-    var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
+function listarDadosUnidade(req, res) {
+    idUnidade = req.params.idUnidade;
+    unidadeModel.listarDadosUnidade(idUnidade).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function listarTodasUnidades(req, res) {
+    fkEmpresa = req.params.fkEmpresa;
+    idUnidade = req.params.idUnidade;
+    unidadeModel.listarTodasUnidades(fkEmpresa,idUnidade).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function atualizarListaUnidades(req, res) {
+    fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.atualizarListaUnidades(fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 
-    if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está indefinida!");
-    } else {
+function filtrarUnidades(req, res) {
+    const nomeDigitado = req.params.nomeDigitado;
+    const fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.filtrarUnidades(nomeDigitado, fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 
-        unidadeModel.entrar(email, senha).then(
-            function (resultado) {
-                console.log(`\nResultados encontrados: ${resultado.length}`);
-                console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
-
-                if (resultado.length == 1) {
-                    console.log(resultado);
-                    res.json(resultado[0]);
-                } else if (resultado.length == 0) {
-                    res.status(403).send("Email e/ou senha inválido(s)");
-                } else {
-                    res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                }
-            }
-        ).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-    }
-
+function filtrarTodasUnidades(req, res) {
+    const nomeDigitado = req.params.nomeDigitado;
+    const fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.filtrarTodasUnidades(nomeDigitado, fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("entrou no controller");
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function ocorrenciasPorMes(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.ocorrenciasPorMes(fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("entrou no controller");
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
 }
 
 function cadastrar(req, res) {
@@ -103,7 +150,7 @@ function cadastrar(req, res) {
     var logragouro = req.body.logradouroServer;
     var bairro = req.body.bairroServer;
     var numero = req.body.numeroServer;
-    var complemento = req.body.complementoServer;
+
 
     if (nome == undefined) {
         res.status(400).send("Seu nome es tá undefined!");
@@ -121,11 +168,9 @@ function cadastrar(req, res) {
         res.status(400).send("Sua bairro está undefined!");
     } else if (numero == undefined) {
         res.status(400).send("Sua numero está undefined!");
-    } else if (complemento == undefined) {
-        res.status(400).send("Sua complemento está undefined!");
     } else {
 
-        unidadeModel.cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero, complemento).then(
+        unidadeModel.cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero).then(
             function (resultado) {
                 res.json(resultado);
             }
@@ -153,7 +198,7 @@ function verificarTelefone(req, res) {
         }
     }).catch(function (erro) {
         console.log(erro);
-        console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
+        console.log("Houve um erro ao buscar o telefone: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
@@ -169,7 +214,7 @@ function verificarNumero(req, res) {
         }
     }).catch(function (erro) {
         console.log(erro);
-        console.log("Houve um erro ao buscar os ranking: ", erro.sqlMessage);
+        console.log("Houve um erro ao buscar o numero: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
@@ -219,14 +264,17 @@ function editar(req, res) {
 
 }
 module.exports = {
-    entrar,
-    cadastrar,
     listar,
-    testar,
+    listarUnidades,
+    listarTodasUnidades,
+    listarDadosUnidade,
+    atualizarListaUnidades,
+    cadastrar,
     deletar,
+    editar,
     verificarTelefone,
     verificarNumero,
-    listarUnidades,
-    editar,
-    listarDadosUnidade
+    filtrarUnidades,
+    filtrarTodasUnidades,
+    ocorrenciasPorMes
 }
