@@ -78,6 +78,45 @@
     cursor: pointer;
 }
 .shortGraph{
-    width: 80%;
+    width: 85%;
     height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.longGraph{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+}
+.report{
+    display: flex;
+    align-items: center;
+    height: 15%;
+
+}
+.iconReport{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.titleReport{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+.dateReport{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnViewReport{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
 }
