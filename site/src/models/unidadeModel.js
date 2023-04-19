@@ -45,24 +45,22 @@ function filtrarTodasUnidades(nomeDigitado, fkEmpresa) {
 }
 function ocorrenciasPorMes(fkEmpresa) {
   var instrucao = `
-  WITH meses AS (
-    SELECT 1 AS mes UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION 
-    SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10 UNION SELECT 11 UNION SELECT 12
-  )
-  
-  SELECT u.nome AS unidade, m.mes, COALESCE(COUNT(r.idRelatorio), 0) AS quantidade
-  FROM unidade u
-  JOIN empresa e ON u.fkEmpresa = e.idEmpresa
-  CROSS JOIN (
-    SELECT DISTINCT YEAR(data_relatorio) AS ano, mes
-    FROM relatorio
-    CROSS JOIN meses
-  ) m
-  LEFT JOIN totem t ON u.idUnidade = t.fkUnidade
-  LEFT JOIN relatorio r ON t.idTotem = r.fkTotem AND YEAR(r.data_relatorio) = m.ano AND MONTH(r.data_relatorio) = m.mes
-  WHERE e.idEmpresa = ${fkEmpresa}
-  GROUP BY u.nome, m.mes
-  ORDER BY u.nome, m.mes
+      select 
+      concat(YEAR(r.data_relatorio), '/', RIGHT('00' + CONVERT(VARCHAR(2), MONTH(r.data_relatorio)), 2)) AS ano_mes, 
+      count(r.idRelatorio) AS quantidade
+    from 
+      unidade u
+      join empresa e ON u.fkEmpresa = e.idEmpresa
+      join totem t ON u.idUnidade = t.fkUnidade
+      join relatorio r ON t.idTotem = r.fkTotem
+    where 
+      e.idEmpresa = ${fkEmpresa}
+      AND r.data_relatorio >= DATEADD(MONTH, -6, GETDATE())
+    group by 
+      concat(YEAR(r.data_relatorio), '/', RIGHT('00' + CONVERT(VARCHAR(2), MONTH(r.data_relatorio)), 2))
+    order by
+      concat(YEAR(r.data_relatorio), '/', RIGHT('00' + CONVERT(VARCHAR(2), MONTH(r.data_relatorio)), 2))
+    desc
         `;
   return database.executar(instrucao);
 }

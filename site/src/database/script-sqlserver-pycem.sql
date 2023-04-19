@@ -86,3 +86,16 @@ data_relatorio date,
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 );
 
+insert into [dbo].[relatorio] (titulo, descricao, tipo, data_relatorio, fkTotem) values
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','10/01/2022',3),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','10/02/2022',3),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','10/02/2022',3),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','11/02/2022',3),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','11/03/2022',3),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','11/03/2022',3),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','12/03/2022',3),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','12/03/2022',3),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','12/03/2022',3),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','12/03/2022',3),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','12/01/2022',3),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','12/01/2022',3)

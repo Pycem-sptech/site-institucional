@@ -9,10 +9,19 @@
     <script src="js/geral.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body onload="obterDadosGrafico(100)">
+<body onload="obterDadosGraficoQtdRelatorios(100),listarUsoMaquina(3)">
     
     <div>
-        <canvas id="ocorrenciasPorUnidade"></canvas>
+        <canvas id="ocorrenciasPorUnidade" width="400" height="200"></canvas>
+      </div>
+      <div>
+        <canvas id="usoDoProcessador" width="400" height="200"></canvas>
+      </div>
+      <div>
+        <canvas id="usoDaRam" width="400" height="200"></canvas>
+      </div>
+      <div>
+        <canvas id="usoDoHd" width="400" height="200"></canvas>
       </div>
       
 </body>

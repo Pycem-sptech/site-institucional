@@ -21,6 +21,12 @@ router.get("/listarStatusMaqEmTempoReal/:fkUnidade", function (req, res) {
 router.get("/filtrarMaquinas/:nomeDigitado", function (req, res) {
     maquinaController.filtrarMaquinas(req, res);
 });
+router.get("/listarUsoMaquina/:fkTotem", function (req, res) {
+    maquinaController.listarUsoMaquina(req, res);
+});
+router.get("/listarUltimosDados/:fkTotem", function (req, res) {
+    maquinaController.listarUltimosDados(req, res);
+});
 
 router.post("/cadastrarMaquina", function (req, res) {
     maquinaController.cadastrarMaquina(req, res);
