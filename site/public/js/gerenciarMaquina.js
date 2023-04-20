@@ -28,74 +28,44 @@ function atualizarSelectUnidades() {
 }
 
 function cadastrarMaquina() {
-    const nomeVar = nameUnit.value;
-    const numeroSerialVar = serialNumber.value;
-    const processadorVar = processor.value;
-    const ramVar = ram.value;
-    const storageSelectVar = storageSelect.value;
-    const qtdArmazenamentoVar = qtdArmazenamento.value;
-
-    if (nomeVar == "") {
+    const fkUnidadeVar = nameUnit.value;
+    const nomeMachineVar = nomeMachine.value;
+    const passwordVar = password.value;
+    const confirmPasswordVar = confirmPassword.value;
+    if (fkUnidadeVar == "" || nomeMachineVar == "" || passwordVar == "" || confirmPasswordVar == "") {
+        toastPadrao('error', 'Preencha os campos que estão vazios')
+        return false;
+    }else if(passwordVar != confirmPasswordVar){
+        toastPadrao('error', 'Suas senhas não são iguais')
+    }else{
+        fetch("/maquina/cadastrarMaquina", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fkUnidadeServer: fkUnidadeVar,
+                nomeMachineServer: nomeMachineVar,
+                passwordServer: passwordVar,
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    atualizarMaquinasCadastradas();
+                    limparCamposMaquina();
+                    toastPadrao('success', 'Cadastro realizado com sucesso!');
+                    } else {
+                    toastPadrao('error', 'Houve um erro ao tentar realizar o cadastro!');
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    
         return false;
     }
-    fetch("/maquina/cadastrarMaquina", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            nomeServer: nomeVar,
-            numeroSerialServer: numeroSerialVar,
-            processadorServer: processadorVar,
-            ramServer: ramVar,
-            storageSelectServer: storageSelectVar,
-            qtdArmazenamentoServer: qtdArmazenamentoVar
-        }),
-    })
-        .then(function (resposta) {
-            console.log("resposta: ", resposta);
-            if (resposta.ok) {
-                atualizarMaquinasCadastradas();
-                limparCamposMaquina();
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener("mouseenter", Swal.stopTimer);
-                        toast.addEventListener("mouseleave", Swal.resumeTimer);
-                    },
-                });
-                Toast.fire({
-                    icon: "success",
-                    title: "Cadastro realizado com sucesso!",
-                });
-            } else {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener("mouseenter", Swal.stopTimer);
-                        toast.addEventListener("mouseleave", Swal.resumeTimer);
-                    },
-                });
-                Toast.fire({
-                    icon: "error",
-                    title: "Houve um erro ao tentar realizar o cadastro!",
-                });
-                throw "Houve um erro ao tentar realizar o cadastro!";
-            }
-        })
-        .catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-
-    return false;
 }
 
 function buscarDadosMaquina(idMaquina){
@@ -106,8 +76,9 @@ function buscarDadosMaquina(idMaquina){
                     numeroDeSerieModal.value = resposta[0].numeroSerie;
                     processadorModal.value = resposta[0].processador;
                     memoriaRamModal.value = resposta[0].ram;
-                    escolherArmazenamentoModal.value = resposta[0].armazenamento;
-                    qtdArmazenamentoModal.value = resposta[0].qtdArmazenamento;
+                    escolherArmazenamentoModal.value = resposta[0].tipo_armazenamento;
+                    qtdArmazenamentoModal.value = resposta[0].qtd_armazenamento;
+                    freqCPU.value = resposta[0].freq_processador;
                 });
             } else {
                 throw "Houve um erro na API!";
@@ -121,7 +92,7 @@ function buscarDadosMaquina(idMaquina){
 function atualizarMaquinasCadastradas() {
     const fkEmpresa = sessionStorage.FK_EMPRESA;
     var fkEmpresaVar = fkEmpresa;
-    fetch(`/maquina/listar/${fkEmpresaVar}`)
+    fetch(`/maquina/listarMaquinas/${fkEmpresaVar}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -152,7 +123,7 @@ function atualizarMaquinasCadastradas() {
                         divIdMachine.className = "idMachine";
                         spanNomeUnidade.className = "addresOpacity";
                         spanNomeUnidade.innerHTML = publicacao.nomeUnidade;
-                        spanNumeroSerie.innerHTML = publicacao.numeroSerie;
+                        spanNumeroSerie.innerHTML = publicacao.usuario;
 
                         divBtnEditDelete.className = "btnEditDelete";
                         divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idTotem}), buscarDadosMaquina(${publicacao.idTotem})'>`;
@@ -209,7 +180,7 @@ function filtrarMaquinas(nomeDigitado) {
                             divIdMachine.className = "idMachine";
                             spanNomeUnidade.className = "addresOpacity";
                             spanNomeUnidade.innerHTML = publicacao.nomeUnidade;
-                            spanNumeroSerie.innerHTML = publicacao.numeroSerie;
+                            spanNumeroSerie.innerHTML = publicacao.usuario;
     
                             divBtnEditDelete.className = "btnEditDelete";
                             divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idTotem}), buscarDadosMaquina(${publicacao.idTotem})'>`;
@@ -237,8 +208,8 @@ function filtrarMaquinas(nomeDigitado) {
 
 function limparCamposMaquina() {
     document.getElementById('nameUnit').value = ("");
-    document.getElementById('serialNumber').value = ("");
-    document.getElementById('processor').value = ("");
+    document.getElementById('nomeMachine').value = ("");
+    document.getElementById('password').value = ("");
     document.getElementById('ram').value = ("");
     document.getElementById('storageSelect').value = ("");
     document.getElementById('qtdArmazenamento').value = ("");

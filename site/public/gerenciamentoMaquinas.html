@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pycem</title>
+    <title>Pycem² | Ger. Máquinas</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/gerenciamentoMaquinas.css">
     <link rel="stylesheet" href="css/modal.css">
@@ -22,11 +22,13 @@
     <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons" id="navIcons">
-                <h2>Py</h2>
+                <h2 onclick="redirectHome()">
+                    Py
+                </h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">   <!-- onclick="redirectMachine()" -->
-                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectDashboard()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg"><!-- onclick="redirectMachine()" -->
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
@@ -37,19 +39,20 @@
     </nav>
     <header class="header">
         <div class="container">
-            <h3 class="homeHeader">Home</h3>
+            <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>
             <nav id="nav" class="navbarHamburguer">
                 <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
                     <li onclick="redirectMachine()">Gerenciar Maquinas</li>
-                    <li onclick="redirectAllUnits()">Gerenciar Unidades</li>
+                    <li onclick="redirectAllUnits()">Unidades</li>
+                    <li onclick="redirectVisaoGeral()">Visão Geral</li>
                     <li onclick="redirectConfig()">Configurações</li>
                     <li onclick="limparSessao()">Sair</li>
                 </ul>
             </nav>
             <div class="user">
-                <h4 id="usuarioLogado">Usuário</h4>
+                <h4 class="usuarioLogado">Usuário</h4>
                 <img class="iconUser" src="img/personIcon.svg">
             </div>
         </div>
@@ -65,17 +68,10 @@
                 <div class="boxInputUnit">
                     <select required class="inputRegisterUnit selectMachine" id="nameUnit" placeholder="Unidade">
                         <option value="" disabled selected>Unidade</option>
-                     
                     </select>
-                    <input class="inputRegisterUnit serialNumber" id="serialNumber" type="text" placeholder="Número de Série">
-                    <input class="inputRegisterUnit processor" id="processor" type="text" placeholder="Processador">
-                    <input class="inputRegisterUnit ram" id="ram" type="text" placeholder="Mem. RAM">
-                    <select class="inputRegisterUnit storageSelect" id="storageSelect" placeholder="Armazenamento">
-                        <option disabled selected>Armazenamento</option>
-                        <option value="HD">HD</option>
-                        <option value="SSD">SSD</option>
-                    </select>
-                    <input class="inputRegisterUnit storage" id="qtdArmazenamento" type="text" placeholder="Qtd. Armazenamento">
+                        <input class="inputRegisterMachine nomeMachine" id="nomeMachine" type="text" placeholder="Usuário da Máquina" >
+                        <input class="inputRegisterMachine password" type="password" id="password" placeholder="Senha">
+                        <input class="inputRegisterMachine password" id="confirmPassword" type="password" placeholder="Confirmação de Senha">
                 </div>
                 <button class="btnRegister" onclick="cadastrarMaquina()">Cadastrar</button>
             </div>
@@ -85,7 +81,7 @@
 
                 <div class="container">
                     <h3 id="titleBoxMachine" class="titleBoxMachine">Máquinas</h3>
-                    <input id="campoPesquisa" type="text">
+                    <input id="campoPesquisa" type="text" onkeyup="filtrarMaquinas(this.value)">
                     <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
                     <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                 </div>
@@ -102,15 +98,25 @@
                     </div>
                     <div class="bodyModal">
                         <div class="bloco">
-                            <span class="estilo tamanho1"><span class="subTitulo">Número de Série:</span>
+                            <span class="estilo tamanho3"><span class="subTitulo">Unidade:</span>
+                                <select required class=" selectModal" id="escolherUnidadeModal" placeholder="Unidade">
+                                    <option value="" disabled selected>Unidade</option>
+                                </select></span>
+                                <span class="estilo tamanho3"><span class="subTitulo">Usuário:</span>
+                                <input class="inputModal" id="usuarioModal"></span>
+                                <span class="estilo tamanho3"><span class="subTitulo">Senha:</span>
+                                <input class="inputModal" id="senhaModal"></span>
+                        </div>
+                            <div class="bloco">
+                            <span class="estilo tamanho9"><span class="subTitulo">Número de Série:</span>
                                 <input class="inputModal" id="numeroDeSerieModal"></span>
                         </div>
         
                         <div class="bloco">
-                            <span class="estilo tamanho2"><span class="subTitulo">Processador:</span>
+                            <span class="estilo tamanho3"><span class="subTitulo">Processador:</span>
                                 <input class="inputModal" id="processadorModal"></span>
         
-                            <span class="estilo tamanho2"><span class="subTitulo">Memória RAM:</span>
+                            <span class="estilo tamanho3"><span class="subTitulo">Memória RAM:</span>
                                 <input class="inputModal" id="memoriaRamModal"></span>
         
                             <span class="estilo tamanho3"><span class="subTitulo">Armazenamento:</span>
@@ -121,6 +127,8 @@
                                 </select></span>
                         </div>
                         <div class="bloco">
+                            <span class="estilo tamanho1"><span class="subTitulo">Freq do processador:</span>
+                                <input class="inputModal" id="freqCPUModal"></span>
                             <span class="estilo tamanho1"><span class="subTitulo">Qtd. Armazenamento:</span>
                                 <input class="inputModal" id="qtdArmazenamentoModal"></span>
         

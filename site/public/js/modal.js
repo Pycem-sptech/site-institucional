@@ -5,12 +5,19 @@ function mostrarModal(id) {
   overlay.style.display = 'block';
   modal.style.display = 'block';
 }
-function mostrarModalRelatorio(id) {
-  sessionStorage.RELATORIO_SELECIONADO = id;
+function mostrarModalRelatorio(chamada=0) {
   let overlay = document.querySelector('.overlay')
   let modalRelatorio = document.querySelector('.modalRelatorio')
   overlay.style.display = 'block';
   modalRelatorio.style.display = 'block';
+  let dataAtual = new Date();
+  dataAtual = dataAtual.toLocaleDateString("pt-br");
+  dataModal.value = dataAtual;
+  if (chamada == 0) {
+    btnSalvarModal.setAttribute("onclick", `cadastrarRelatorio()`);
+  } else {
+    btnSalvarModal.setAttribute("onclick", `editarRelatorio()`);
+  }
 }
 function fecharModal() {
   sessionStorage.ID_SELECIONADO = "";
@@ -23,6 +30,11 @@ function fecharModalRelatorio() {
   sessionStorage.RELATORIO_SELECIONADO = "";
   let overlay = document.querySelector('.overlay')
   let modalRelatorio = document.querySelector('.modalRelatorio')
+  tituloModal.value = "";
+  dataModal.value = "";
+  descricaoModal.value = "";
+  escolherTipoProblemaModal.value = "";
+  escolherNumeroSerie.value = "";
   overlay.style.display = 'none';
   modalRelatorio.style.display = 'none';
 }
@@ -33,6 +45,7 @@ function salvarEdicaoMaquina(idMaquina) {
   let memoriaRam = document.getElementById('memoriaRamModal').value;
   let escolherArmazenamento = document.getElementById('escolherArmazenamentoModal').value;
   let qtdArmazenamento = document.getElementById('qtdArmazenamentoModal').value;
+  let freqProcessador = document.getElementById('freqCPUModal').value;
 
   if (numeroDeSerie != undefined && numeroDeSerie != '' && processador != undefined && processador != '' && memoriaRam != undefined && memoriaRam != '' && escolherArmazenamento != undefined && escolherArmazenamento != '' && qtdArmazenamento != undefined && qtdArmazenamento != '') {
     Swal.fire({
@@ -56,6 +69,7 @@ function salvarEdicaoMaquina(idMaquina) {
             memoriaRam: memoriaRam,
             tipoArmazenamento: escolherArmazenamento,
             qtdArmazenamento: qtdArmazenamento,
+            freqCPU: freqProcessador
           })
         }).then(function (resposta) {
 

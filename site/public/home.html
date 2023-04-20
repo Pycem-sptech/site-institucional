@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/home.css">
+    <script src="./js/geral.js"></script>
+    <script src="./js/gerenciarUnidade.js"></script>
+    <script src="./js/home.js"></script>
+    <script src="./js/charts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <title>Pycem² | Home</title>
+</head>
+<body id="body" onload="validarSessao(),atualizarUnidadesCadastradas(),obterDadosGraficoQtdRelatorios(`${sessionStorage.FK_EMPRESA}`),listarStatusGeralTotem(`${sessionStorage.FK_EMPRESA}`)">
+    <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
+    <nav class="sidebar">
+        <div class="container">
+            <div class="navigationButtons" id="navIcons">
+                <h2 onclick="redirectHome()">
+                    Py
+                </h2>
+                <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+            </div>
+            <div class="footerButtons">
+                <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
+                <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
+            </div>
+        </div>
+    </nav>
+    <header class="header">
+        <div class="container">
+            <h3 class="homeHeader" onclick="redirectHome()">Home</h3>
+            <nav id="nav" class="navbarHamburguer">
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <ul class="menu" id="menu">
+                    <li onclick="redirectFunc()">Funcionarios</li>
+                    <li onclick="redirectMachine()">Maquinas</li>
+                    <li onclick="redirectAllUnits()">Unidades</li>
+                    <li onclick="redirectVisaoGeral()">Visão Geral</li>
+                    <li onclick="redirectConfig()">Configurações</li>
+                    <li onclick="limparSessao()">Sair</li>
+                </ul>
+            </nav>
+            <div class="user">
+                <h4 class="usuarioLogado">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg">
+            </div>
+        </div>
+    </header>
+    <div class="guideText">
+            <span class="welcomeSentence">Olá <span class="usuarioLogado">-</span>, Seja bem-vindo!</span>
+            <span class="firstStep">Tela de início</span>
+    </div>
+    <main class="main">
+        <!-- cards -->
+        <div class="container">
+            <div class="box-status">
+                <div class="title-status">
+                    <p>
+                        Geral Máquinas
+                    </p>
+                    <div style="background-color: greenyellow;" class="bolinha"></div>
+                </div>
+                <div class="info-maq">
+                    <p class="info">
+                        Disponível:
+                    </p>
+                    <h3 class="info-numerica">
+                        <span id="totalDisponivel">-</span>/<span id="totalMaquinas1">-</span>
+                    </h3>
+                </div>
+            </div>
+            <div class="linhaVertical"></div>
+            <div class="box-status">
+                <div class="title-status">
+                    <p>
+                    </p>
+                    <div style="background-color: orange;" class="bolinha"></div>
+                </div>
+                <div class="info-maq">
+                    <p class="info">
+                        Manutenção:
+                    </p>
+                    <h3 class="info-numerica">
+                        <span id="totalManutencao">-</span>/<span id="totalMaquinas2">-</span>
+                    </h3>
+                </div>
+            </div>
+            <div class="linhaVertical"></div>
+            <div class="box-status">
+                <div class="title-status">
+                    <p>
+                    </p>
+                    <div style="background-color: red;" class="bolinha"></div>
+                </div>
+                <div class="info-maq">
+                    <p class="info">
+                        Desligado:
+                    </p>
+                    <h3 class="info-numerica">
+                        <span id="totalDesligado">-</span>/<span id="totalMaquinas3">-</span>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <!-- container com grafico e lista princ unidades -->
+        <div class="wrap-dados">
+            <div class="containerGrafico">
+                <canvas id="ocorrenciasPorUnidade"></canvas>
+            </div>
+            <section class="units">
+                <div class="boxUnits" id="boxUnits">
+                    <div class="containerBoxUnits">
+                        <h3 id="titleBoxUnit" class="titleBoxUnit">Unidades</h3>
+                        <input id="campoPesquisa" type="text" onkeyup="filtrarUnidades(this.value)">
+                        <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                        <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
+                    </div>
+                    <hr>
+                    <div class="feed" id="feed">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+</body>
+</html>
+<script>
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function pesquisar(){
+        titleBoxUnit.style.display = "none";
+        btnSearch.style.display = "none";
+        btnClose.style.display = "block";
+        campoPesquisa.classList.add("show") 
+    }
+
+    function fechar(){
+        campoPesquisa.classList.remove("show")
+        setTimeout(function () {
+        
+            titleBoxUnit.style.display = "block";
+    }, 550);
+        btnSearch.style.display = "block";
+        btnClose.style.display = "none";
+    }
+
+    function toggleMenu(event) {
+        if (event.type === 'touchstart') event.preventDefault();
+        const nav = document.getElementById('nav');
+        nav.classList.toggle('active');
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+
+</script>

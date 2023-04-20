@@ -54,8 +54,41 @@ function listarDadosUnidade(req, res) {
 }
 function listarTodasUnidades(req, res) {
     fkEmpresa = req.params.fkEmpresa;
-    console.log(fkEmpresa)
-    unidadeModel.listarTodasUnidades(fkEmpresa).then(function (resultado) {
+    idUnidade = req.params.idUnidade;
+    unidadeModel.listarTodasUnidades(fkEmpresa,idUnidade).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function atualizarListaUnidades(req, res) {
+    fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.atualizarListaUnidades(fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function atualizarListaUnidadesFiltradas(req, res) {
+    fkEmpresa = req.params.fkEmpresa;
+    nomeDigitado = req.params.nomeDigitado;
+    unidadeModel.atualizarListaUnidadesFiltradas(nomeDigitado, fkEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -88,6 +121,42 @@ function filtrarUnidades(req, res) {
     );
 }
 
+function filtrarTodasUnidades(req, res) {
+    const nomeDigitado = req.params.nomeDigitado;
+    const fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.filtrarTodasUnidades(nomeDigitado, fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("entrou no controller");
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function ocorrenciasPorMes(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.ocorrenciasPorMes(fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("entrou no controller");
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
 function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var telefone = req.body.telefoneServer;
@@ -98,7 +167,7 @@ function cadastrar(req, res) {
     var logragouro = req.body.logradouroServer;
     var bairro = req.body.bairroServer;
     var numero = req.body.numeroServer;
-    var complemento = req.body.complementoServer;
+
 
     if (nome == undefined) {
         res.status(400).send("Seu nome es tá undefined!");
@@ -116,11 +185,9 @@ function cadastrar(req, res) {
         res.status(400).send("Sua bairro está undefined!");
     } else if (numero == undefined) {
         res.status(400).send("Sua numero está undefined!");
-    } else if (complemento == undefined) {
-        res.status(400).send("Sua complemento está undefined!");
     } else {
 
-        unidadeModel.cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero, complemento).then(
+        unidadeModel.cadastrar(nome, telefone, fkEmpresa, cep, uf, cidade, logragouro, bairro, numero).then(
             function (resultado) {
                 res.json(resultado);
             }
@@ -218,10 +285,14 @@ module.exports = {
     listarUnidades,
     listarTodasUnidades,
     listarDadosUnidade,
+    atualizarListaUnidades,
     cadastrar,
     deletar,
     editar,
     verificarTelefone,
     verificarNumero,
-    filtrarUnidades
+    filtrarUnidades,
+    filtrarTodasUnidades,
+    ocorrenciasPorMes,
+    atualizarListaUnidadesFiltradas
 }

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pycem</title>
+    <title>Pycem² | Cad. Unidade</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/cadastroUnidade.css">
     <link rel="stylesheet" href="css/modal.css">
@@ -24,11 +24,13 @@
     <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons" id="navIcons">
-                <h2>Py</h2>
+                <h2 onclick="redirectHome()">
+                    Py
+                </h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                 <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
-                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectDashboard()">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
@@ -39,20 +41,21 @@
     </nav>
     <header class="header">
         <div class="container">
-            <h3 class="homeHeader">Home</h3>
+            <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>
             <nav id="nav" class="navbarHamburguer">
                 <button id="btn-mobile" class="btn-mobile"><img class="menuImg"
                         src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
                     <li onclick="redirectMachine()">Gerenciar Maquinas</li>
-                    <li onclick="redirectAllUnits()">Gerenciar Unidades</li>
+                    <li onclick="redirectAllUnits()">Unidades</li>
+                    <li onclick="redirectVisaoGeral()">Unidades</li>
                     <li onclick="redirectConfig()">Configurações</li>
                     <li onclick="limparSessao()">Sair</li>
                 </ul>
             </nav>
             <div class="user">
-                <h4 id="usuarioLogado"></h4>
+                <h4 class="usuarioLogado"></h4>
                 <img class="iconUser" src="img/personIcon.svg">
             </div>
         </div>
@@ -86,7 +89,7 @@
             <div class="boxUnits" id="boxUnits">
                 <div class="container">
                     <h3 id="titleBoxUnit" class="titleBoxUnit">Unidades</h3>
-                    <input id="campoPesquisa" type="text">
+                    <input id="campoPesquisa" type="text" onkeyup="filtrarUnidades(this.value)">
                     <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
                     <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                 </div>
@@ -210,7 +213,7 @@
         btnClose.style.display = "block";
         campoPesquisa.classList.add("show")
       
-}
+    }
     function fechar(){
         campoPesquisa.classList.remove("show")
         setTimeout(function () {

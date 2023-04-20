@@ -14,11 +14,13 @@
     <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons" id="navIcons">
-                <h2>Py</h2>
+                <h2 onclick="redirectHome()">
+                    Py
+                </h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                 <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">   <!-- onclick="redirectMachine()" -->
-                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
@@ -29,19 +31,20 @@
     </nav>
     <header class="header">
         <div class="container">
-            <h3 class="homeHeader">Home</h3>
+            <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>
             <nav id="nav" class="navbarHamburguer">
                 <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
                     <li onclick="redirectMachine()">Gerenciar Maquinas</li>
                     <li onclick="redirectAllUnits()">Unidades</li>
+                    <li onclick="redirectVisaoGeral()">Visão Geral</li>
                     <li onclick="redirectConfig()">Configurações</li>
                     <li onclick="limparSessao()">Sair</li>
                 </ul>
             </nav>
             <div class="user">
-                <h4 id="usuarioLogado">Usuário</h4>
+                <h4 class="usuarioLogado">Usuário</h4>
                 <img class="iconUser" src="img/personIcon.svg">
             </div>
         </div>
@@ -68,7 +71,7 @@
                     <span>Máquinas</span>
                 </div>
             </div>
-            <div class="boxManage">
+            <div onclick="redirectAlert()" class="boxManage">
                 <div class="iconBox">
                     <img src="img/warning(1) 1.svg">
                 </div>

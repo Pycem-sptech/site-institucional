@@ -23,8 +23,8 @@
 .modal{
     display: flex;
     align-items: flex-start;
-    width: 45%;
-    height: 60%;
+    width: 50%;
+    height: 70%;
     padding-top: 1%;
     background-color: white;
     border-radius: 0.8vw;
@@ -45,7 +45,7 @@
     display: flex;
     align-items: flex-start;
     width: 45%;
-    height: 74%;
+    height: 87%;
     padding-top: 1%;
     background-color: white;
     border-radius: 0.8vw;
@@ -139,7 +139,9 @@
 .tamanho10{
     width: 59%;
 }
-
+.tamanho11{
+    width: 100%;
+}
 .bloco{
     padding-top: 2%;
     display: flex; 

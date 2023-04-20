@@ -14,16 +14,18 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
-<body onload="validarSessao(), atualizarMaqCadastradasComStatusEmTempoReal()">
+<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADE)">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons">
-                <h2>Py</h2>
+                <h2 onclick="redirectHome()">
+                    Py
+                </h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                 <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg"onclick="redirectMachine()">
-                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
@@ -34,25 +36,26 @@
     </nav>
     <header class="header">
         <div class="container">
-            <h3 class="homeHeader">Home</h3>
+            <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>
             <nav id="nav" class="navbarHamburguer">
                 <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
                     <li onclick="redirectMachine()">Gerenciar Maquinas</li>
-                    <li onclick="redirectAllUnits()">Gerenciar Unidades</li>
+                    <li onclick="redirectAllUnits()">Unidades</li>
+                    <li onclick="redirectVisaoGeral()">Visão Geral</li>
                     <li onclick="redirectConfig()">Configurações</li>
                     <li onclick="limparSessao()">Sair</li>
                 </ul>
             </nav>
             <div class="user">
-                <h4 id="usuarioLogado">Usuário</h4>
+                <h4 class="usuarioLogado">Usuário</h4>
                 <img class="iconUser" src="img/personIcon.svg">
             </div>
         </div>
     </header>
     <div class="guideText">
-        <span class="welcomeSentence">Unidade Paulista</span>
+        <span class="welcomeSentence" id="welcomeSentence">-</span>
         <span class="firstStep">Unidade</span>
     </div>
     <main class="main">
@@ -61,8 +64,8 @@
                 <div class="boxHardInfo left">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3>Processador</h3>
-                            <h5 class="subtitleHardInfo">Inter I5</h5>
+                            <h3>Variação de relátorios</h3>
+                            <h5 class="subtitleHardInfo">Semanal</h5>
                         </div>
                     </div>
                     <div class="percentageUse">
@@ -72,8 +75,8 @@
                 <div class="boxHardInfo center">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3>Memória RAM</h3>
-                            <h5 class="subtitleHardInfo">8GB</h5>
+                            <h3>Var. Tempo Inoperante</h3>
+                            <h5 class="subtitleHardInfo">Semanal</h5>
                         </div>
                     </div>
                     <div class="percentageUse">
@@ -97,15 +100,31 @@
                     <div class="titleBoxReports">
                         <div class="container">
                             <h3>Histórico de problemas</h3>
+                            <input class="inputReports" type="text" placeholder="Número da máquina">
                         </div>
                     </div>
+
                     <div class="reportsField" id="reportsField">
-                       
-                    </div>
-                    <div class="divBtnAddReport">
-                        <button class="btnAddReport" onclick="mostrarModalRelatorio()">
-                            Adicionar relatório
-                        </button>
+                        <div class="problemReport">
+                                <div class="divIconReport">
+                                    <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
+                                </div>
+                                <div class="divIdReport">
+                                    <span class="idReport">06</span>
+                                </div>
+                                <div class="divTitleReport">
+                                    <span class="titleReport">Sobrecarga no sistema</span>
+                                </div>
+                                <div class="divDateReport">
+                                    <span class="dateReport">26/03</span>
+                                </div>
+                                <div class="divDetailsReport">
+                                    <span class="detailsReport">A máquina apresentou problemas...</span>
+                                </div>
+                                <div class="divBtnViewReport">
+                                    <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                                </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -121,7 +140,22 @@
                     </div>
                 </div>
                 <div class="machineField" id="machineField">
-                  
+                    <!-- As máquinas aparecem aqui -->
+                </div>
+                <div class="statusAllMachine">
+                    <div class="divStatusMachine">
+                        <span id="statusOk">-</span>
+                        <div class="status ok"></div>
+                    </div>
+                    <div class="divStatusMachine">
+                        <span id="statusAlert">-</span>
+                        <div class="status alert"></div>
+                    </div>
+                    <div class="divStatusMachine">
+                        <span id="statusDanger">-</span>
+                        <div class="status danger"></div>
+                    </div>
+
                 </div>
             </section>
         </div>
@@ -130,7 +164,7 @@
             <div class="modalRelatorio" id="modalRelatorio">
                 <div class="headerModal">
                     <span class="tituloModal">Relatório</span>
-                    <span class="fecharModal btnFechar" onclick="fecharModal()"></span>
+                    <span class="fecharModal btnFechar" onclick="fecharModalRelatorio()"></span>
                 </div>
                 <div class="bodyModal">
                     <div class="bloco">
@@ -138,11 +172,18 @@
                         <span class="estilo tamanho9"><span class="subTitulo">Titulo:</span>
                             <input class="inputModal" id="tituloModal"></span>
                     </div>
+                    <div class="bloco">
+
+                        <span class="estilo tamanho11"><span class="subTitulo">Nº de Série:</span>
+                            <select class="selectModal" id="escolherNumeroSerie">
+                                <option value="" disabled selected>Nº de Série</option>
+                            </select></span>
+                    </div>
 
                     <div class="bloco">
                    
                         <span class="estilo tamanho4"><span class="subTitulo">Data:</span>
-                            <input class="inputModal"type="date" id="dataModal"></span>
+                            <input class="inputModal"type="text" id="dataModal" disabled></span>
 
                             <span class="estilo tamanho10"><span class="subTitulo">Tipo do problema:</span>
                             <select class="selectModal" id="escolherTipoProblemaModal">
@@ -151,7 +192,7 @@
                                 <option value="Sobrecarga">Sobrecarga</option>
                                 <option value="Outro">Outro</option>
                             </select></span>
-
+                    
                     </div>
                     <div class="bloco">
                         <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
@@ -160,7 +201,8 @@
                 </div>
                 <div class="modalFooter">
                     <button class="btnSalvar"
-                        onclick="salvarRelatorio(sessionStorage.idFuncionario)">Salvar</button>
+                        id="btnSalvarModal"
+                        onclick="cadastrarRelatorio()">Salvar</button>
                 </div>
             </div>
         </div>
@@ -170,6 +212,9 @@
 </body>
 </html>
 <script>
+    let dataAtual = new Date()
+    dataAtual = dataAtual.toLocaleDateString('pt-BR')
+
     
     const btnMobile = document.getElementById('btn-mobile');
 

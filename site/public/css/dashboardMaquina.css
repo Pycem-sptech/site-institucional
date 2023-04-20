@@ -88,9 +88,22 @@
     width: 90%;
     display: flex;
     align-self: center;
+    align-items: center;
+    justify-content: space-between;
+}
+.inputReports{
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 13px;
+    padding: 7px;
+    padding-left: 35px;
+    background: url(../img/search\ 1.svg) no-repeat left / 1.5em;
+    background-position: 8px;
+    font-size: 15px;
+    width: 25%;
 }
 .reportsField{
-    height: 65%;
+    height: 80%;
     overflow: hidden;
     overflow-y: scroll;
 }
@@ -107,17 +120,52 @@
     border-radius: 20px;       
 }
 .problemReport{
-    height: 20%;
+    height: 15%;
+    display: flex;
+    margin-top: 2%;
+}
+
+.divIconReport{
+    width: 15%;
+    height: 100%;
     display: flex;
     justify-content: center;
-}
-.problemReport .container{
-    display: flex;
     align-items: center;
-    width: 95%;
+}
+.divIdReport{
+    width: 5%;
     height: 100%;
-    justify-content: space-evenly;
-    padding: 2px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+.divTitleReport{
+    width: 25%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}
+.divDateReport{
+    width: 10%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+}
+.divDetailsReport{
+    width: 35%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+}
+.divBtnViewReport{
+    width: 10%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
 }
 .iconReport{
     height: 80%;
@@ -128,24 +176,11 @@
     cursor: pointer;
 
 }
-.divBtnAddReport{
-    height: 17%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.detailsReport{
+    text-align: center;
 }
-.btnAddReport{
-    background-color: #0078E8;
-    border: none;
-    outline-color: none;
-    border-radius: 10px;
-    height: 80%;
-    width: 30%;
-    font-size: 1em;
-    font-weight: 500;
-    color: #fff;
-    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);  
-    cursor: pointer;
+.titleReport{
+    text-align: center;
 }
 
 /* BOX DE MAQUINAS */
@@ -156,14 +191,14 @@
 }
 .listMachine{
     height: 100%;
-    width: 85%;
+    width: 83%;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);  
 }
 
 .titleListMachine{
-    height: 15%;
+    height: 12%;
     display: flex;
     justify-content: center;
     align-content: center;
@@ -175,13 +210,14 @@
     align-items: center;
     justify-content: space-between;
 }
+
 #campoPesquisa{
     outline: none;
     border: none;
     font-weight: 500;
-    border-radius: 10px;
     padding: 7px;
-    background-color: #e6e9fa;
+    background-color: none;
+    border-bottom: black solid 1px;
     transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
     opacity: 0;
     width: 50%;
@@ -203,7 +239,7 @@
 .machineField{
     overflow: hidden;
     overflow-y: scroll;
-    height: 84%;
+    height: 75%;
     
 }
 .machine{
@@ -268,15 +304,22 @@
     background-color: #acacac;    
     border-radius: 20px;       
 }
+.statusAllMachine{
+    height: 13%;
+    border-top: solid 1px rgba(0, 0, 0, 0.18);
+    display: flex;
+    justify-content: space-evenly;
+}
+.divStatusMachine{
+    display: flex;
+    align-items: center;
+    width: 15%;
+    justify-content: space-evenly;
+}
 
 @media (max-width:1400px){
     .problemReport .container span{
         font-size: 13px;
-    }
-    .btnAddReport{
-        height: 68%;
-        width: 25%;
-        font-size: 0.9em;
     }
     .titleBoxHardInfo h3{
         font-size: 15px;
@@ -290,6 +333,14 @@
     .percent{
         font-size: 3.2em;
     }
+    .inputReports{
+        padding: 5px;
+        padding-left: 32px;
+        background: url(../img/search\ 1.svg) no-repeat left / 1.2em;
+        background-position: 8px;
+        font-size: 13px;
+        width: 25%;
+    }
 }
 @media (max-width:1050px){
     .titleBoxHardInfo h3{
@@ -297,13 +348,25 @@
     }
 }
 @media (max-width:1020px){
-    .detailsReport{
+    .divDetailsReport{
         display: none;
     }
-    .btnAddReport{
-        width: 40%;
-        height: 70%;
+    .divIconReport{
+        width: 25%;
     }
+    .divIdReport{
+        width: 5%;
+    }
+    .divTitleReport{
+        width: 45%;
+    }
+    .divDateReport{
+        width: 15%; 
+    }
+    .divBtnViewReport{
+        width: 10%;   
+    }
+
 }
 
 @media (max-width:800px){
@@ -324,16 +387,9 @@
         width: 100%;
         align-items: center;
     }
-    .titleBoxReports .container{
-        justify-content: center;
-    }
+
     .problemReport{
         padding: 5px 0;
-    }
-    .btnAddReport{
-        height: 85%;
-        width: 30%;
-        font-size: 1em;
     }
     .rightMain{
         padding: 3% 0;
@@ -351,15 +407,24 @@
     .reportsField::-webkit-scrollbar-thumb {
         background-color: #EFF6FD;          
     }
+    .divIconReport{
+        width: 20%;
+    }
+    .divTitleReport{
+        width: 50%;
+    }
+    .divDateReport{
+        width: 10%;
+    }
+    .divBtnViewReport{
+        width: 15%;
+    }
 }
 @media(max-width:600px){
     .detailsReport{
         display: none;
     }
-    .btnAddReport{
-        height: 75%;
-        font-size: 0.9em;
-    }
+
     .machine{
         padding: 5px 0;
     }
@@ -400,11 +465,14 @@
     }
 }
 @media (max-width:450px){
-    .btnAddReport{
-        width: 50%;
+    .divIconReport{
+        width: 20%;
     }
-    .dateReport{
+    .divDateReport{
         display: none;
+    }
+    .divTitleReport{
+        width: 57%;
     }
     .problemReport .container{
         padding: 10px 0;
@@ -412,9 +480,19 @@
     .machine{
         padding: 8px 0;
     }
+    .divIdReport{
+        display: none;
+    }
+    .divTitleReport{
+        width: 60%;
+    }
+    .divBtnViewReport{
+        width: 20%;
+    }
 }
 @media (max-width:320px){
     .percent{
         font-size: 2em;
     }   
+
 }

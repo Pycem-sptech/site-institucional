@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pycem</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/alerta.css">
+    <script src="./js/geral.js"></script>
+    <script src="./js/alertas.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+</head>
+<body onload="listarAlertas(), mostrarAlertasNaTela()">
+        <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
+        <nav class="sidebar">
+            <div class="container">
+                <div class="navigationButtons">
+                    <h2>Py</h2>
+                    <img class="iconSidebar navigationIcon" src="img/userIcon.svg"><!-- onclick="redirectFunc()" -->
+                    <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
+                    <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                    <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
+                    <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+                </div>
+                <div class="footerButtons">
+                    <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
+                    <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
+                </div>
+            </div>
+        </nav>
+        <header class="header">
+            <div class="container">
+                <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>                <nav id="nav" class="navbarHamburguer">
+                    <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                    <ul class="menu" id="menu">
+                        <li  onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                        <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                        <li onclick="redirectAllUnits()">Unidades</li>
+                        <li onclick="redirectVisaoGeral()">Visão Geral</li>
+                        <li onclick="redirectConfig()">Configurações</li>
+                        <li onclick="limparSessao()">Sair</li>
+                    </ul>
+                </nav>
+                <div class="user">
+                    <h4 class="usuarioLogado">Usuário</h4>
+                    <img class="iconUser" src="img/personIcon.svg">
+                </div>
+            </div>
+        </header>
+        <div class="guideText">
+                <span class="welcomeSentence">Gerenciar Alertas</span>
+                <span class="firstStep">Alertas</span>
+        </div>
+        <main class="main">
+            <section class="params">
+                <div class="container">
+                    <div class="orgBoxParam">
+                        <div class="boxParamStatus">
+                            <h3>Processador</h3>
+                            <div class="fields">
+                                <div class="fieldAlert">
+                                    <h4 class="titleAlert">Alerta</h4>
+                                    <input id="cpu_alerta" placeholder="Porcentagem" type="text"  onblur="editarProcessadorAlerta(this.value, sessionStorage.CRIT_CPU)">
+                                </div>
+                                <div class="fieldAlert">
+                                    <h4 class="titleCritical">Crítico</h4>
+                                    <input id="cpu_critico" placeholder="Porcentagem" type="text" onblur="editarProcessadorAlertaCritico(sessionStorage.ALERT_CPU, this.value)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="boxParamStatus">
+                            <h3>Memória RAM</h3>
+                            <div class="fields">
+                                <div class="fieldAlert">
+                                    <h4 class="titleAlert">Alerta</h4>
+                                    <input id="ram_alerta" placeholder="Porcentagem" type="text" onblur="editarRamAlerta(this.value, sessionStorage.CRIT_RAM)">
+                                </div>
+                                <div class="fieldAlert">
+                                    <h4 class="titleCritical">Crítico</h4>
+                                    <input id="ram_critico" placeholder="Porcentagem" type="text" onblur="editarRamAlertaCritico(sessionStorage.ALERT_RAM ,this.value)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="boxParamStatus">
+                            <h3>Memória de massa</h3>
+                            <div class="fields">
+                                <div class="fieldAlert">
+                                    <h4 class="titleAlert">Alerta</h4>
+                                    <input id="hd_alerta" placeholder="Porcentagem" type="text" onblur="editarHdAlerta(this.value, sessionStorage.CRIT_HD)">
+                                </div>
+                                <div class="fieldAlert">
+                                    <h4 class="titleCritical">Crítico</h4>
+                                    <input id="hd_critico" placeholder="Porcentagem" type="text" onblur="editarHdAlertaCritico(sessionStorage.ALERT_HD ,this.value)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxParamTime">
+                        <h3>Captação de dados</h3>
+                        <div class="fieldTime">
+                            <div class="container">
+                                <h4>Intervalo de captação</h4>
+                                <input id="freq_alerta" placeholder="Segundos" type="text" onblur="editarFrequenciaAtualizacao(this.value)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="info">
+                <div class="boxInfo">
+                    <h3>Informações</h3>
+                    <span>FAQ</span>
+                    <h4>Qual a funcionalidade desta página ?</h4>
+                    <p>&emsp; Aqui nessa tela você pode configurar
+                        a porcentagem de cada mudança de 
+                        alerta categorizados por cores, além
+                        disso pode também alterar o intervalo
+                        de captação de dados que o nosso 
+                        produto <u>PycemExtractor</u> manda para o
+                        nosso banco de dados.</p>
+                    <h4>Como funciona cada alerta ?</h4>
+                    <p>&emsp; Cada alerta tem as sua cor e conforme
+                        aumenta a porcentagem a cor troca 
+                        dependendo do que foi previamente 
+                        configurado.</p>
+                    <p>Obs: Como proteção quando algum alerta
+                        atinge o nível crítico irá alertá-lo através
+                        de um pop-up.</p>
+                </div>
+            </section>
+        </main>
+
+</body>
+</html>
+
+<script>
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+    if (event.type === 'touchstart') event.preventDefault();  
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('active');
+
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+</script>

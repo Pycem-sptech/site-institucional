@@ -3,15 +3,14 @@ var router = express.Router();
 
 var relatorioController = require("../controllers/relatorioController");
 
-router.get("/", function (req, res) {
-    relatorioController.testar(req, res);
-});
-
-router.get("/listarRelatorio/:fkMaquina", function (req, res) {
+router.get("/listarRelatorio/:idUnidade", function (req, res) {
     relatorioController.listarRelatorio(req, res);
 });
+router.get("/listarRelatoriosTotem/:idTotem", function (req, res) {
+    relatorioController.listarRelatoriosTotem(req, res);
+});
 
-router.get("/buscarDadosRelatorio", function (req, res) {
+router.get("/buscarDadosRelatorio/:idRelatorio", function (req, res) {
     relatorioController.buscarDadosRelatorio(req, res);
 });
 

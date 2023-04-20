@@ -1,82 +1,141 @@
-function mostrarTodasUnidadesEmTempoReal() {
+
+
+
+
+function atualizarListaUnidades() {
+    const listaUnidades = [];
     const fkEmpresa = sessionStorage.FK_EMPRESA;
-    var fkEmpresaVar = fkEmpresa;
-    fetch(`/unidade/listarTodasUnidades/${fkEmpresaVar}`)
+    fetch(`/unidade/atualizarListaUnidades/${fkEmpresa}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
-                    var feed = document.getElementById("feed");
-                    var mensagem = document.createElement("span");
-                    mensagem.innerHTML = "Infelizmente, nenhuma máquina foi encontrada.";
-                    feed.appendChild(mensagem);
+                    console.log("Nenhum resultado encontrado!!");
                     throw "Nenhum resultado encontrado!!";
                 }
+                resposta.json().then(function (resposta) {
+
+                    for (var i = 0; i < resposta.length; i++) {
+
+                        listaUnidades.push(resposta[i]);
+                    }
+                    console.log(listaUnidades);
+                });
+                setTimeout(function () { mostrarTodasUnidades(listaUnidades) }, 300)
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+
+    return false;
+}
+
+function atualizarListaUnidadesFiltradas(nomeDigitado) {
+    if (nomeDigitado.length > 0) {
+        const listaUnidades = []
+        const fkEmpresa = sessionStorage.FK_EMPRESA;
+        fetch(`/unidade/atualizarListaUnidadesFiltradas/${fkEmpresa}/${nomeDigitado}`)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        console.log("Nenhum resultado encontrado!!");
+                        limparFeed();
+                        throw "Nenhum resultado encontrado!!";
+                        
+                    }
+                    resposta.json().then(function (resposta) {
+                        for (var i = 0; i < resposta.length; i++) {
+
+                            listaUnidades.push(resposta[i]);
+                        }
+                        console.log(listaUnidades);
+
+                    });
+                    setTimeout(function () { mostrarTodasUnidades(listaUnidades) }, 300)
+                } else {
+                    throw "Houve um erro na API!";
+                }
+            })
+            .catch(function (resposta) {
+                console.error(resposta);
+            });
+
+        return false;
+    }else {limparFeed();}
+}
+
+function imprimirUnidade(fkEmpresa, fkUnidade , id) {
+    const rota = `/unidade/listarTodasUnidades/${fkEmpresa}/${fkUnidade}`
+
+    fetch(rota)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) { }
 
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
 
                     var feed = document.getElementById("feed");
-                    feed.innerHTML = "";
-                    for (let i = 0; i < resposta.length; i++) {
-                        var publicacao = resposta[i];
 
-                        var divListUnits = document.createElement("div");
-                        divListUnits.className = "listUnit";
-                        divListUnits.setAttribute("onclick", `redirectDashUnits(${publicacao.idUnidade})`);
-                        var divBoxId = document.createElement("div");
-                        divBoxId.className = "box idUnit";
-                        var spanId = document.createElement("span");
-                        spanId.innerHTML = publicacao.idUnidade;
+                    var publicacao = resposta[0];
 
-                        var divBoxName = document.createElement("div");
-                        divBoxName.className = "box nameUnit";
-                        var spanImgUnit = document.createElement("span");
-                        spanImgUnit.innerHTML = '<img src="img/storeIcon.svg" alt="">'
-                        var spanName = document.createElement("span");
-                        spanName.innerHTML = publicacao.nomeUnidade;
+                    var divListUnits = document.createElement("div");
+                    divListUnits.className = "listUnit";
+                    divListUnits.setAttribute("onclick", `redirectDashUnits(${publicacao.idUnidade},'${publicacao.nomeUnidade}')`);
+                    var divBoxId = document.createElement("div");
+                    divBoxId.className = "box idUnit";
+                    var spanId = document.createElement("span");
+                    spanId.innerHTML = id+1;
 
-                        var divBoxAvailable = document.createElement("div");
-                        divBoxAvailable.className = "box machineAvailable";
-                        var spanAvailable = document.createElement("span");
-                        spanAvailable.innerHTML = publicacao.Disponivel;
+                    var divBoxName = document.createElement("div");
+                    divBoxName.className = "box nameUnit";
+                    var spanImgUnit = document.createElement("span");
+                    spanImgUnit.innerHTML = '<img src="img/storeIcon.svg" alt="">'
+                    var spanName = document.createElement("span");
+                    spanName.innerHTML = publicacao.nomeUnidade;
 
-                        var divBoxMaintenance = document.createElement("div");
-                        divBoxMaintenance.className = "box machineMaintenance";
-                        var spanMaintenance = document.createElement("span");
-                        spanMaintenance.innerHTML = publicacao.Manutencao;
+                    var divBoxAvailable = document.createElement("div");
+                    divBoxAvailable.className = "box machineAvailable";
+                    var spanAvailable = document.createElement("span");
+                    spanAvailable.innerHTML = publicacao.Disponivel;
 
-                        var divBoxMachineOff = document.createElement("div");
-                        divBoxMachineOff.className = "box machineOff";
-                        var spanMachineOff = document.createElement("span");
-                        spanMachineOff.innerHTML = publicacao.Desligado;
+                    var divBoxMaintenance = document.createElement("div");
+                    divBoxMaintenance.className = "box machineMaintenance";
+                    var spanMaintenance = document.createElement("span");
+                    spanMaintenance.innerHTML = publicacao.Manutencao;
 
-                        var divBoxTotalMachine = document.createElement("div");
-                        divBoxTotalMachine.className = "box totalMachine";
-                        var spanTotalMachine = document.createElement("span");
-                        spanTotalMachine.innerHTML = publicacao.totalMaquinasUnidade;
+                    var divBoxMachineOff = document.createElement("div");
+                    divBoxMachineOff.className = "box machineOff";
+                    var spanMachineOff = document.createElement("span");
+                    spanMachineOff.innerHTML = publicacao.Desligado;
 
-                        feed.appendChild(divListUnits);
+                    var divBoxTotalMachine = document.createElement("div");
+                    divBoxTotalMachine.className = "box totalMachine";
+                    var spanTotalMachine = document.createElement("span");
+                    spanTotalMachine.innerHTML = publicacao.totalMaquinasUnidade;
 
-                        divListUnits.appendChild(divBoxId);
-                        divBoxId.appendChild(spanId);
+                    feed.appendChild(divListUnits);
 
-                        divListUnits.appendChild(divBoxName);
-                        divBoxName.appendChild(spanImgUnit);
-                        divBoxName.appendChild(spanName);
+                    divListUnits.appendChild(divBoxId);
+                    divBoxId.appendChild(spanId);
 
-                        divListUnits.appendChild(divBoxAvailable);
-                        divBoxAvailable.appendChild(spanAvailable);
+                    divListUnits.appendChild(divBoxName);
+                    divBoxName.appendChild(spanImgUnit);
+                    divBoxName.appendChild(spanName);
 
-                        divListUnits.appendChild(divBoxMaintenance);
-                        divBoxMaintenance.appendChild(spanMaintenance);
+                    divListUnits.appendChild(divBoxAvailable);
+                    divBoxAvailable.appendChild(spanAvailable);
 
-                        divListUnits.appendChild(divBoxMachineOff);
-                        divBoxMachineOff.appendChild(spanMachineOff);
+                    divListUnits.appendChild(divBoxMaintenance);
+                    divBoxMaintenance.appendChild(spanMaintenance);
 
-                        divListUnits.appendChild(divBoxTotalMachine);
-                        divBoxTotalMachine.appendChild(spanTotalMachine);
+                    divListUnits.appendChild(divBoxMachineOff);
+                    divBoxMachineOff.appendChild(spanMachineOff);
 
-                    }
+                    divListUnits.appendChild(divBoxTotalMachine);
+                    divBoxTotalMachine.appendChild(spanTotalMachine);
 
                 });
             } else {
@@ -86,4 +145,26 @@ function mostrarTodasUnidadesEmTempoReal() {
         .catch(function (resposta) {
             console.error(resposta);
         });
+
 }
+
+function mostrarTodasUnidades(listaUnidades) {
+    limparFeed();
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
+    //let i = 0;
+    //impressao = setInterval(function () {
+    //     if (i < listaUnidades.length) {
+    //         imprimirUnidade(fkEmpresa, listaUnidades[i].idUnidade);
+    //     } else {
+    //         clearInterval(impressao)
+    //     }
+    //     i++
+    // }, 1000);
+    for (i = 0; i < listaUnidades.length; i++){
+        imprimirUnidade(fkEmpresa, listaUnidades[i].idUnidade, i);
+    }
+}
+
+
+
+

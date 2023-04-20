@@ -1,11 +1,29 @@
 var database = require("../database/config");
 
-function listar(fkEmpresa) {
-  var instrucao = `select unidade.nome as nomeUnidade, totem.idTotem, totem.numeroSerie as numeroSerie, totem.idTotem, totem.estado as status from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
+function listar(fkEmpresa, fkUnidade) {
+  var instrucao = `select unidade.nome as nomeUnidade, totem.usuario, totem.idTotem, totem.numeroSerie as numeroSerie, totem.estado as status from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}' and unidade.idUnidade = '${fkUnidade}';`;
   return database.executar(instrucao);
 }
+function listarStatusTotem(fkEmpresa) {
+  var instrucao = `select t.estado from totem t join unidade u on u.idUnidade = t.fkUnidade join empresa e on e.idEmpresa = u.fkEmpresa where idEmpresa = '${fkEmpresa}';`;
+  return database.executar(instrucao);
+}
+
+function listarMaquinas(fkEmpresa) {
+  var instrucao = `select unidade.nome as nomeUnidade, totem.usuario ,totem.idTotem, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
+  return database.executar(instrucao);
+}
+
 function listarDadosMaquina(idMaquina) {
   var instrucao = `select * from totem where idTotem = ${idMaquina};`;
+  return database.executar(instrucao);
+}
+function listarStatusMaqEmTempoReal(fkUnidade) {
+  var instrucao = `select count(idTotem) as totalMaquinas,
+      (select count(estado) from totem where estado = 'Disponivel' and fkUnidade = '${fkUnidade}') as Disponivel,
+      (select count(estado) from totem where estado = 'Manutencao' and fkUnidade = '${fkUnidade}') as Manutencao,
+      (select count(estado) from totem where estado = 'Desligado' and fkUnidade = '${fkUnidade}') as Desligado
+      from totem where fkUnidade = '${fkUnidade}'`;
   return database.executar(instrucao);
 }
 
@@ -14,13 +32,22 @@ function filtrarMaquinas(nomeDigitado) {
   return database.executar(instrucao);
 }
 
-function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect) {
-  var instrucao = `INSERT INTO totem (numeroSerie, processador, ram, qtdArmazenamento, armazenamento, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}','${nome}');`;
+function listarUsoMaquina(fkTotem) {
+  var instrucao = `select top 7 idRegistro,uso_processador,uso_ram,uso_hd,FORMAT(data_registro,'%H:%m:%s') as data_registro from registro where fkTotem = '${fkTotem}' order by  idRegistro desc;`;
+  return database.executar(instrucao);
+}
+function listarUltimosDados(fkTotem) {
+  var instrucao = `select top 1 idRegistro,uso_processador,uso_ram,uso_hd,FORMAT(data_registro,'%H:%m:%s') as data_registro from registro where fkTotem = '${fkTotem}' order by idRegistro desc`;
   return database.executar(instrucao);
 }
 
-function editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina) {
-  var instrucao = `UPDATE totem SET numeroSerie = '${numeroSerial}', processador = '${processador}', ram = '${ram}', qtdArmazenamento = '${qtdArmazenamento}', armazenamento = '${storageSelect}' WHERE idTotem = ${idMaquina};`;
+function cadastrarMaquina(fkUnidade, nomeMachine, password) {
+  var instrucao = `INSERT INTO totem (usuario, senha,fkUnidade) VALUES ( '${nomeMachine}', '${password}', '${fkUnidade}');`;
+  return database.executar(instrucao);
+}
+
+function editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, freq, idMaquina) {
+  var instrucao = `UPDATE totem SET numeroSerie = '${numeroSerial}', processador = '${processador}', ram = '${ram}', qtd_armazenamento = '${qtdArmazenamento}', tipo_armazenamento = '${storageSelect}', freq_processador = '${freq}' WHERE idTotem = ${idMaquina};`;
   return database.executar(instrucao);
 }
 
@@ -31,9 +58,14 @@ function deletarRegistroMaquina(idMaquina) {
 
 module.exports = {
   listar,
+  listarMaquinas,
   listarDadosMaquina,
+  listarStatusMaqEmTempoReal,
   cadastrarMaquina,
   editar,
   deletarRegistroMaquina,
-  filtrarMaquinas
+  filtrarMaquinas,
+  listarUsoMaquina,
+  listarUltimosDados,
+  listarStatusTotem
 };

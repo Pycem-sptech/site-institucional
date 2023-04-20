@@ -16,16 +16,16 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
 
-<body onload="validarSessao(),mostrarTodasUnidadesEmTempoReal()">
+<body onload="validarSessao(), atualizarListaUnidades()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons" id="navIcons">
                 <h2>Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
-                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg"><!-- onclick="redirectAllUnits()" -->
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                 <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
-                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
@@ -36,7 +36,7 @@
     </nav>
     <header class="header">
         <div class="container">
-            <h3 class="homeHeader">Home</h3>
+            <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>
             <nav id="nav" class="navbarHamburguer">
                 <button id="btn-mobile" class="btn-mobile"><img class="menuImg"
                         src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
@@ -44,12 +44,13 @@
                     <li onclick="redirectFunc()">Funcionarios</li>
                     <li onclick="redirectMachine()">Maquinas</li>
                     <li onclick="redirectAllUnits()">Unidades</li>
+                    <li onclick="redirectVisaoGeral()">Visão Geral</li>
                     <li onclick="redirectConfig()">Configurações</li>
                     <li onclick="limparSessao()">Sair</li>
                 </ul>
             </nav>
             <div class="user">
-                <h4 id="usuarioLogado">Usuário</h4>
+                <h4 class="usuarioLogado">Usuário</h4>
                 <img class="iconUser" src="img/personIcon.svg">
             </div>
         </div>
@@ -60,7 +61,7 @@
     </div>
     <main class="main">
         <div class="container">
-            <input type="text" class="inputSearch">
+            <input type="text" class="inputSearch" onkeyup="atualizarListaUnidadesFiltradas(this.value)">
             <div class="listUnit">
                 <div class="box idUnit">
                     <span>ID</span>
