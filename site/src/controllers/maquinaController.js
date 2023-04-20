@@ -76,32 +76,19 @@ function listarUltimosDados(req, res) {
 }
 
 function cadastrarMaquina(req, res) {
-    const nome = req.body.nomeServer;
-    const numeroSerial = req.body.numeroSerialServer;
-    const processador = req.body.processadorServer;
-    const ram = req.body.ramServer;
-    const qtdArmazenamento = req.body.qtdArmazenamentoServer;
-    const storageSelect = req.body.storageSelectServer;
-    const freq = req.body.freqCPU;
-    
+    const fkUnidade = req.body.fkUnidadeServer;
+    const nomeMachine = req.body.nomeMachineServer;
+    const password = req.body.passwordServer;
 
-    if (nome == undefined) {
-        res.status(400).send("Seu nome es tá undefined!");
-    } else if (numeroSerial == undefined) {
+    if (fkUnidade == undefined) {
+        res.status(400).send("Seu fkUnidade es tá undefined!");
+    } else if (nomeMachine == undefined) {
         res.status(400).send("Seu numeroSerial está undefined!");
-    } else if (processador == undefined) {
+    } else if (password == undefined) {
         res.status(400).send("Sua processador está undefined!");
-    } else if (ram == undefined) {
-        res.status(400).send("Sua ram está undefined!");
-    } else if (storageSelect == undefined) {
-        res.status(400).send("Sua storageSelect está undefined!");
-    } else if (qtdArmazenamento == undefined) {
-        res.status(400).send("Sua qtdArmazenamento está undefined!");
-    } else if (freq == undefined) {
-        res.status(400).send("Sua freq está undefined!");
     }else {
 
-        maquinaModel.cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect, freq).then(
+        maquinaModel.cadastrarMaquina(fkUnidade, nomeMachine, password).then(
             function (resultado) {
                 res.json(resultado);
             }

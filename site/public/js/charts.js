@@ -1,6 +1,7 @@
 const fkEmpresa = sessionStorage.FK_EMPRESA;
 const listaUnidades = [];
 
+
 function obterDadosGraficoQtdRelatorios(fkEmpresa) {
     fetch(`/unidade/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
@@ -90,56 +91,23 @@ function plotarGrafico(resposta) {
     // setTimeout(() => atualizarGrafico(fkEmpresa, dados, ocorrenciasPorUnidade), tempoDeAtualizacao);
 }
 
-// function atualizarGrafico(fkEmpresa, dados, ocorrenciasPorUnidade) {
+function obterFrequenciaDeOcorrencias(fkEmpresa) {
+    fetch(`/unidade/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.reverse();
 
-//     fetch(`/grafico/tempo-real/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
-//         if (response.ok) {
-//             response.json().then(function (novoRegistro) {
-
-//                 console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-//                 console.log(`Dados atuais do gráfico:`);
-//                 console.log(dados);
-
-//                 let avisoCaptura = document.getElementById(`avisoCaptura`)
-//                 avisoCaptura.innerHTML = ""
-//                 umiArm1.innerHTML = novoRegistro[0].umidade
-//                 tempArm1.innerHTML = novoRegistro[0].temperatura
-//                 if (novoRegistro[0].mes_ano == dados.labels[dados.labels.length - 1]) {
-//                     console.log("---------------------------------------------------------------")
-//                     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-//                     avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-//                     console.log("Horário do novo dado capturado:")
-//                     console.log(novoRegistro[0].mes_ano)
-//                     console.log("Horário do último dado capturado:")
-//                     console.log(dados.labels[dados.labels.length - 1])
-//                     console.log("---------------------------------------------------------------")
-//                 } else {
-//                     // tirando e colocando valores no gráfico
-//                     dados.labels.shift(); // apagar o primeiro
-//                     dados.labels.push(novoRegistro[0].data_registro); // incluir um novo momento
-
-//                     dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-//                     dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
-
-//                     dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-//                     dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-
-
-//                     ocorrenciasPorUnidade.update();
-//                 }
-
-//                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-//             });
-//         } else {
-//             console.error('Nenhum dado encontrado ou erro na API');
-//             // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-//         }
-//     })
-//         .catch(function (error) {
-//             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-//         });
-
-// }
+                plotarGrafico(resposta);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
 
 const tempoDeAtualizacao = sessionStorage.ATT_FREQ
 function listarUsoMaquina(fkTotem) {
