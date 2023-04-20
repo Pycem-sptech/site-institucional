@@ -25,10 +25,38 @@ function atualizarListaUnidades(fkEmpresa) {
   var instrucao = `select idUnidade from unidade where fkEmpresa = '${fkEmpresa}';`;
   return database.executar(instrucao);
 }
-function filtrarUnidades(nomeDigitado, fkEmpresa) {
-  var instrucao = `select idUnidade, nome, logradouro from unidade where nome like '${nomeDigitado}%' and fkEmpresa = ${fkEmpresa};`;
+function atualizarListaUnidadesFiltradas(nomeDigitado, fkEmpresa) {
+  var instrucao = `select idUnidade from unidade where fkEmpresa = '${fkEmpresa}' and nome like '${nomeDigitado}%';`;
   return database.executar(instrucao);
 }
+function filtrarUnidades(nomeDigitado, fkEmpresa) {
+  var instrucao = `select * from unidade where nome like '${nomeDigitado}%' and fkEmpresa = ${fkEmpresa};`;
+  return database.executar(instrucao);
+}
+
+
+function ocorrenciasPorMes(fkEmpresa) {
+  var instrucao = `
+      select 
+      concat(YEAR(r.data_relatorio), '/', RIGHT('00' + CONVERT(VARCHAR(2), MONTH(r.data_relatorio)), 2)) AS ano_mes, 
+      count(r.idRelatorio) AS quantidade
+    from 
+      unidade u
+      join empresa e ON u.fkEmpresa = e.idEmpresa
+      join totem t ON u.idUnidade = t.fkUnidade
+      join relatorio r ON t.idTotem = r.fkTotem
+    where 
+      e.idEmpresa = ${fkEmpresa}
+      AND r.data_relatorio >= DATEADD(MONTH, -6, GETDATE())
+    group by 
+      concat(YEAR(r.data_relatorio), '/', RIGHT('00' + CONVERT(VARCHAR(2), MONTH(r.data_relatorio)), 2))
+    order by
+      concat(YEAR(r.data_relatorio), '/', RIGHT('00' + CONVERT(VARCHAR(2), MONTH(r.data_relatorio)), 2))
+    desc
+        `;
+  return database.executar(instrucao);
+}
+
 function verificarTelefone(telefone) {
   var instrucao = `select telefone from unidade where telefone = '${telefone}';`;
   return database.executar(instrucao);
@@ -69,5 +97,7 @@ module.exports = {
   cadastrar,
   editar,
   deletar,
-  filtrarUnidades
+  filtrarUnidades,
+  ocorrenciasPorMes,
+  atualizarListaUnidadesFiltradas
 };

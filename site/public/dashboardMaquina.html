@@ -13,7 +13,6 @@
     <script src="js/gerenciarDashMaquina.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-    <script src="js/alertas.js"></script>
 </head>
 <body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADE)">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
@@ -64,8 +63,8 @@
                 <div class="boxHardInfo left">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3>Processador</h3>
-                            <h5 class="subtitleHardInfo">Inter I5</h5>
+                            <h3>Variação de relátorios</h3>
+                            <h5 class="subtitleHardInfo">Semanal</h5>
                         </div>
                     </div>
                     <div class="percentageUse">
@@ -75,8 +74,8 @@
                 <div class="boxHardInfo center">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3>Memória RAM</h3>
-                            <h5 class="subtitleHardInfo">8GB</h5>
+                            <h3>Var. Tempo Inoperante</h3>
+                            <h5 class="subtitleHardInfo">Semanal</h5>
                         </div>
                     </div>
                     <div class="percentageUse">
@@ -100,15 +99,53 @@
                     <div class="titleBoxReports">
                         <div class="container">
                             <h3>Histórico de problemas</h3>
+                            <input class="inputReports" type="text" placeholder="Número da máquina">
                         </div>
                     </div>
-                    <div class="reportsField" id="reportsField">
-                       
+
+                    <div class="reportsField">
+                        <div class="problemReport">
+                                <div class="divIconReport">
+                                    <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
+                                </div>
+                                <div class="divIdReport">
+                                    <span class="idReport">06</span>
+                                </div>
+                                <div class="divTitleReport">
+                                    <span class="titleReport">Sobrecarga no sistema</span>
+                                </div>
+                                <div class="divDateReport">
+                                    <span class="dateReport">26/03</span>
+                                </div>
+                                <div class="divDetailsReport">
+                                    <span class="detailsReport">A máquina apresentou problemas...</span>
+                                </div>
+                                <div class="divBtnViewReport">
+                                    <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                                </div>
+                        </div>
+
+                        <div class="problemReport">
+                            <div class="divIconReport">
+                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
+                            </div>
+                            <div class="divIdReport">
+                                <span class="idReport">05</span>
+                            </div>
+                            <div class="divTitleReport">
+                                <span class="titleReport">Máquina travou</span>
+                            </div>
+                            <div class="divDateReport">
+                                <span class="dateReport">15/04</span>
+                            </div>
+                            <div class="divDetailsReport">
+                                <span class="detailsReport">Memória cheia...</span>
+                            </div>
+                            <div class="divBtnViewReport">
+                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
+                            </div>
                     </div>
-                    <div class="divBtnAddReport">
-                        <button class="btnAddReport" onclick="mostrarModalRelatorio()">
-                            Adicionar relatório
-                        </button>
+
                     </div>
                 </div>
             </section>
@@ -123,8 +160,36 @@
                         <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                     </div>
                 </div>
-                <div class="machineField" id="machineField">
-                  
+
+                <div class="machineField">
+                    <div class="machine">
+                        <div class="container">
+                            <div class="machineDetails">
+                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
+                                <div class="infoMachine">
+                                    <span>012032020</span>
+                                    <span class="txtDetailMachine">Lorem ipsum</span>
+                                </div>
+                            </div>
+                            <div class="status ok"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="statusAllMachine">
+                    <div class="divStatusMachine">
+                        <span>3</span>
+                        <div class="status ok"></div>
+                    </div>
+                    <div class="divStatusMachine">
+                        <span>2</span>
+                        <div class="status alert"></div>
+                    </div>
+                    <div class="divStatusMachine">
+                        <span>0</span>
+                        <div class="status danger"></div>
+                    </div>
+
                 </div>
             </section>
         </div>

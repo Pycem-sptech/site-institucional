@@ -85,6 +85,23 @@ function atualizarListaUnidades(req, res) {
         }
     );
 }
+function atualizarListaUnidadesFiltradas(req, res) {
+    fkEmpresa = req.params.fkEmpresa;
+    nomeDigitado = req.params.nomeDigitado;
+    unidadeModel.atualizarListaUnidadesFiltradas(nomeDigitado, fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 
 function filtrarUnidades(req, res) {
     const nomeDigitado = req.params.nomeDigitado;
@@ -92,6 +109,42 @@ function filtrarUnidades(req, res) {
     unidadeModel.filtrarUnidades(nomeDigitado, fkEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
+function filtrarTodasUnidades(req, res) {
+    const nomeDigitado = req.params.nomeDigitado;
+    const fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.filtrarTodasUnidades(nomeDigitado, fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("entrou no controller");
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function ocorrenciasPorMes(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    unidadeModel.ocorrenciasPorMes(fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("entrou no controller");
         } else {
             res.status(204).send("Nenhum resultado encontrado!")
         }
@@ -238,5 +291,8 @@ module.exports = {
     editar,
     verificarTelefone,
     verificarNumero,
-    filtrarUnidades
+    filtrarUnidades,
+    filtrarTodasUnidades,
+    ocorrenciasPorMes,
+    atualizarListaUnidadesFiltradas
 }

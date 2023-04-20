@@ -181,6 +181,21 @@ input{
     height: 50%;
     cursor: pointer;
 }
+
+.inputRegisterMachine{
+    width: 40%;
+}
+.nomeMachine{
+    background: url(../img/user_icon.svg) no-repeat left / 2.0em;
+    background-position: 4px;
+    padding-left: 40px;
+}
+.password{
+    background: url(../img/key_icon.svg) no-repeat left / 2.0em;
+    padding-left: 40px;
+    background-position: 4px;
+    margin-right: 5px;
+}
 .feed{
     background-color: #fff;
     height: 100%;
@@ -245,6 +260,7 @@ input{
     background-color: rgba(97, 165, 227, 0.6);    
     border-radius: 20px;       
 }
+
 
 @media (max-width:800px){
     .main{

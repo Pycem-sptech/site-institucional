@@ -1,0 +1,225 @@
+.main{
+    height: 73vh;    
+    display: flex;
+}
+.params{
+    height: 100%;
+    width: 70%;
+    display: flex;
+    justify-content: flex-end;
+}
+.params .container{
+    height: 100%;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+}
+.info{
+    width: 30%;
+    height: 100%;
+}
+.boxParamStatus{
+    background-color: #fff;
+    height: 90%;
+    width: 30%;
+    border-radius: 10px;
+    box-shadow: 0 1px 10px 3px rgba(0, 0, 0, 0.15);
+}
+.boxParamTime{
+    height: 27%;
+    width: 30%;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 1px 10px 3px rgba(0, 0, 0, 0.15);
+    margin-left: 2.5%;
+}
+.boxInfo{
+    height: 80%;
+    width: 75%;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 1px 10px 3px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    cursor: default;
+}
+.orgBoxParam{
+    width: 100%;
+    height: 55%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.boxParamStatus h3{
+    margin-top: 5%;
+    margin-left: 8%;
+}
+.fields{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.fieldAlert{
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; 
+    width: 80%;
+}
+.fieldAlert input{
+    outline: none;
+    border: solid 1px rgba(0, 0, 0, 0.18);
+    height: 55%;
+    border-radius: 10px;
+    font-size: 1em;
+    padding-left: 40px;
+    background: url(../img/percent\ 1.svg) no-repeat left / 1.4em;
+    background-position: 10px;
+}
+.titleAlert{
+    color: #E97E00;
+}
+.titleCritical{
+    color: #EB2020;
+}
+.info h3{
+    margin-top: 5%;
+    margin-left: 8%;
+}
+.info h4{
+    margin-top: 5%;
+    margin-left: 8%;
+}
+.info p{
+    margin-top: 5%;
+    margin-left: 8%;
+    width: 86%;
+}
+.info span{
+    margin-left: 8%;
+    color: #4A4A4A;
+}
+.boxParamTime h3{
+    margin-top: 5%;
+    margin-left: 8%;
+}
+.fieldTime{
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fieldTime .container{
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.fieldTime input{
+    outline: none;
+    border: solid 1px rgba(0, 0, 0, 0.18);
+    height: 65%;
+    border-radius: 10px;
+    font-size: 1em;
+    padding-left: 40px;
+    background: url(../img/timer\ 1.svg) no-repeat left / 2em;
+    background-position: 5px;
+}
+@media (max-width:1400px){
+    .orgBoxParam{
+        height: 65%;
+    }
+    .boxParamTime{
+        height: 32%;
+    }
+    .boxInfo{
+        height: 90%;
+    }
+    .boxParamStatus h3{
+        font-size: 17px;
+    }
+    .boxParamTime h3{
+        font-size: 17px;
+    }
+    .boxInfo h3{
+        font-size: 17px;
+    }
+    .boxInfo span{
+        font-size: 13px;
+    }
+    .boxInfo h4{
+        font-size: 14px;
+    }
+    .boxInfo p{
+        font-size: 13px;
+    }
+    .fieldTime h4{
+        font-size: 13px;
+    }
+}
+@media (max-width:800px){
+    .main{
+        flex-direction: column-reverse;
+        height: 130vh;
+    }
+    .info{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        height: 70%;
+    }
+    .boxInfo{
+        width: 90%;
+    }
+    .info h3{
+        margin-top: 3%;
+        margin-left: 5%;
+    }
+    .info span{
+        margin-left: 5%;
+    }
+    .info h4{
+        margin-left: 5%;
+        margin-top: 3%;
+    }
+    .info p{
+        margin-left: 5%;
+        margin-top: 3%;
+    }
+    .params{
+        width: 100%;
+        justify-content: center;
+    }
+}
+@media (max-width:550px) {
+    .orgBoxParam{
+        flex-direction: column;
+    }
+    .boxParamStatus{
+        width: 100%;
+        margin-top:3%;
+    }
+    .boxParamStatus h3{
+        margin-top: 3%;
+    }
+    .boxParamTime h3{
+        margin-top: 3%;
+    }
+    .fields{
+        flex-direction: row;
+    }
+    .fieldAlert{
+        width: 40%;
+        height: 75%;
+    }
+    .boxParamTime{
+        width: 100%;
+        height: 22%;
+        margin: 0;
+        margin-top: 3%;
+    }
+
+}
