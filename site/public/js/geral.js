@@ -288,3 +288,8 @@ function redirectAlert() {
     }, 250);
 }
 
+function redirectVisaoGeral(){
+    setTimeout(function () {
+        window.location = "home.html";
+    }, 250);
+}
