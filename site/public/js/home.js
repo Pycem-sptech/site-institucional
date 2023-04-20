@@ -23,6 +23,7 @@ function atualizarUnidadesCadastradas() {
                         var divnameUnit = document.createElement("div");
                         var spanNome = document.createElement("span");
                         var spanEndereco = document.createElement("span");
+                        divRegisteredUnit.setAttribute("onclick", `redirectDashUnits(${publicacao.idUnidade},'${publicacao.nome}')`);
 
                         divFeed.className = "feed";
                         divRegisteredUnit.className = "registeredUnit";
@@ -36,8 +37,6 @@ function atualizarUnidadesCadastradas() {
                         divnameUnit.appendChild(spanNome);
                         divnameUnit.appendChild(spanEndereco);
                     }
-
-
                 });
             } else {
                 throw "Houve um erro na API!";
@@ -97,5 +96,6 @@ function atualizarGeralMaquinas(resposta){
     totalDesligado.innerHTML = desligado;
     totalManutencao.innerHTML = manutencao;
 
+   
 
 }

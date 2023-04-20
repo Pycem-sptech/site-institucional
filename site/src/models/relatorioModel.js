@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
 function listarRelatorio(idUnidade) {
-  var instrucao = `select idRelatorio, titulo, descricao, FORMAT(data_relatorio,'%d/%M') as data_relatorio from relatorio join totem on idTotem = fkTotem join unidade on idUnidade = fkUnidade where idUnidade = ${idUnidade};`;
+  var instrucao = `select idRelatorio, titulo, descricao, FORMAT(data_relatorio,'%d/%M/20%y') as data_relatorio from relatorio join totem on idTotem = fkTotem join unidade on idUnidade = fkUnidade where idUnidade = ${idUnidade};`;
   return database.executar(instrucao);
 }
 function listarRelatoriosTotem(idTotem) {

@@ -24,20 +24,20 @@
                     Py
                 </h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
-                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectUnit()">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">   <!-- onclick="redirectMachine()" -->
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
-                <img class="iconSidebar" src="img/settingIcon.svg">
+                <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
                 <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
             </div>
         </div>
     </nav>
     <header class="header">
         <div class="container">
-            <h3 class="homeHeader">Home</h3>
+            <h3 class="homeHeader" onclick="redirectHome()">Home</h3>
             <nav id="nav" class="navbarHamburguer">
                 <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
@@ -48,13 +48,13 @@
                 </ul>
             </nav>
             <div class="user">
-                <h4 id="usuarioLogado">Usuário</h4>
+                <h4 class="usuarioLogado">Usuário</h4>
                 <img class="iconUser" src="img/personIcon.svg">
             </div>
         </div>
     </header>
     <div class="guideText">
-            <span class="welcomeSentence">Olá <span id="usuarioLogado2">-</span>, Seja bem-vindo!</span>
+            <span class="welcomeSentence">Olá <span class="usuarioLogado">-</span>, Seja bem-vindo!</span>
             <span class="firstStep">Tela de início</span>
     </div>
     <main class="main">
