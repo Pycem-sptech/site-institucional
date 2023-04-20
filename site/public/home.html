@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/home.css">
     <script src="./js/geral.js"></script>
-    <script src="./js/gerenciarMaquina.js"></script>
+    <script src="./js/gerenciarUnidade.js"></script>
+    <script src="./js/home.js"></script>
     <title>Pycem² | Home</title>
 </head>
-<body>
+<body id="body" onload="atualizarUnidadesCadastradas()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -73,7 +74,7 @@
                     </h3>
                 </div>
             </div>
-            <div class="linha"></div>
+            <div class="linhaVertical"></div>
             <div class="box-status">
                 <div class="title-status">
                     <p>
@@ -89,7 +90,7 @@
                     </h3>
                 </div>
             </div>
-            <div class="linha"></div>
+            <div class="linhaVertical"></div>
             <div class="box-status">
                 <div class="title-status">
                     <p>
@@ -108,21 +109,53 @@
         </div>
         <!-- container com grafico e lista princ unidades -->
         <div class="wrap-dados">
-            <div class="container-grafico">
-                <p>
-                    GRAFICO AQUI
-                </p>
+            <div class="containerGrafico">
             </div>
-            <div class="container-lista">
-                <h4>
-                    Principais Unidades
-                </h4>
-                <span id="nameUnit" onload="atualizarSelectUnidades()">
-                    
-                </span>
-            </div>
+            <section class="units">
+                <div class="boxUnits" id="boxUnits">
+                    <div class="containerBoxUnits">
+                        <h3 id="titleBoxUnit" class="titleBoxUnit">Unidades</h3>
+                        <input id="campoPesquisa" type="text" onkeyup="filtrarUnidades(this.value)">
+                        <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                        <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
+                    </div>
+                    <hr>
+                    <div class="feed" id="feed">
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
 </body>
 </html>
+<script>
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function pesquisar(){
+        titleBoxUnit.style.display = "none";
+        btnSearch.style.display = "none";
+        btnClose.style.display = "block";
+        campoPesquisa.classList.add("show") 
+    }
+
+    function fechar(){
+        campoPesquisa.classList.remove("show")
+        setTimeout(function () {
+        
+            titleBoxUnit.style.display = "block";
+    }, 550);
+        btnSearch.style.display = "block";
+        btnClose.style.display = "none";
+    }
+
+    function toggleMenu(event) {
+        if (event.type === 'touchstart') event.preventDefault();
+        const nav = document.getElementById('nav');
+        nav.classList.toggle('active');
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+
+</script>
