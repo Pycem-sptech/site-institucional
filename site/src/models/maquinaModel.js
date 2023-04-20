@@ -1,7 +1,11 @@
 var database = require("../database/config");
 
 function listar(fkEmpresa, fkUnidade) {
-  var instrucao = `select unidade.nome as nomeUnidade, totem.idTotem, totem.numeroSerie as numeroSerie, totem.estado as status from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}' and unidade.idUnidade = '${fkUnidade}';`;
+  var instrucao = `select unidade.nome as nomeUnidade, totem.usuario, totem.idTotem, totem.numeroSerie as numeroSerie, totem.estado as status from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}' and unidade.idUnidade = '${fkUnidade}';`;
+  return database.executar(instrucao);
+}
+function listarStatusTotem(fkEmpresa) {
+  var instrucao = `select t.estado from totem t join unidade u on u.idUnidade = t.fkUnidade join empresa e on e.idEmpresa = u.fkEmpresa where idEmpresa = '${fkEmpresa}';`;
   return database.executar(instrucao);
 }
 
@@ -62,5 +66,6 @@ module.exports = {
   deletarRegistroMaquina,
   filtrarMaquinas,
   listarUsoMaquina,
-  listarUltimosDados
+  listarUltimosDados,
+  listarStatusTotem
 };

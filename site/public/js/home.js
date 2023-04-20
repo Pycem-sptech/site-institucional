@@ -47,3 +47,55 @@ function atualizarUnidadesCadastradas() {
             console.error(resposta);
         });
 }
+
+function listarStatusGeralTotem(fkEmpresa) {
+    fetch(`/maquina/listarStatusTotem/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                atualizarGeralMaquinas(resposta)
+             
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+var desligado = 0;
+var disponivel = 0;
+var manutencao = 0;
+
+function atualizarGeralMaquinas(resposta){
+    let total1 = document.getElementById("totalMaquinas1");
+    let total2 = document.getElementById("totalMaquinas2");
+    let total3 = document.getElementById("totalMaquinas3");
+    let totalDisponivel = document.getElementById("totalDisponivel");
+    let totalManutencao = document.getElementById("totalManutencao");
+    let totalDesligado = document.getElementById("totalDesligado");
+
+    total1.innerHTML = "";
+    total2.innerHTML = "";
+    total3.innerHTML = "";
+
+    total1.innerHTML = resposta.length;
+    total2.innerHTML = resposta.length;
+    total3.innerHTML = resposta.length;
+
+    for(let i = 0; i < resposta.length; i++){
+        if(resposta.estado == 'Desligado'){
+            desligado++
+        }else if(resposta.estado == 'Disponivel'){
+            disponivel++
+        }else if(resposta.estado == 'Manutencao'){
+            manutencao++
+        }
+    }
+    totalDisponivel.innerHTML = disponivel;
+    totalDesligado.innerHTML = desligado;
+    totalManutencao.innerHTML = manutencao;
+
+
+}

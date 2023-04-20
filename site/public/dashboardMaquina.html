@@ -103,7 +103,7 @@
                         </div>
                     </div>
 
-                    <div class="reportsField">
+                    <div class="reportsField" id="reportsField">
                         <div class="problemReport">
                                 <div class="divIconReport">
                                     <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
@@ -124,28 +124,6 @@
                                     <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
                                 </div>
                         </div>
-
-                        <div class="problemReport">
-                            <div class="divIconReport">
-                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
-                            </div>
-                            <div class="divIdReport">
-                                <span class="idReport">05</span>
-                            </div>
-                            <div class="divTitleReport">
-                                <span class="titleReport">Máquina travou</span>
-                            </div>
-                            <div class="divDateReport">
-                                <span class="dateReport">15/04</span>
-                            </div>
-                            <div class="divDetailsReport">
-                                <span class="detailsReport">Memória cheia...</span>
-                            </div>
-                            <div class="divBtnViewReport">
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
-                            </div>
-                    </div>
-
                     </div>
                 </div>
             </section>
@@ -160,33 +138,20 @@
                         <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                     </div>
                 </div>
-
-                <div class="machineField">
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status ok"></div>
-                        </div>
-                    </div>
-                    
+                <div class="machineField" id="machineField">
+                    <!-- As máquinas aparecem aqui -->
                 </div>
                 <div class="statusAllMachine">
                     <div class="divStatusMachine">
-                        <span>3</span>
+                        <span id="statusOk">-</span>
                         <div class="status ok"></div>
                     </div>
                     <div class="divStatusMachine">
-                        <span>2</span>
+                        <span id="statusAlert">-</span>
                         <div class="status alert"></div>
                     </div>
                     <div class="divStatusMachine">
-                        <span>0</span>
+                        <span id="statusDanger">-</span>
                         <div class="status danger"></div>
                     </div>
 

@@ -45,11 +45,11 @@ function fazerLogin() {
           }, 2000);
         } else if (json.cargo == "Supervisor") {
           setTimeout(function () {
-            window.location = "./gerenciamentoMaquinas.html";
+            window.location = "./home.html";
           }, 2000);
         } else {
           setTimeout(function () {
-            window.location = "./gerenciamentoUnidades.html";
+            window.location = "./home.html";
 
           }, 2000);
         }

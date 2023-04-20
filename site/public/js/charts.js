@@ -114,7 +114,7 @@ function listarUsoMaquina(fkTotem) {
 
     fetch(`/maquina/listarUsoMaquina/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
-            response.json().then(function(resposta) {
+            response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                 resposta.reverse();
                 plotarGraficos(resposta, fkTotem)
@@ -129,7 +129,7 @@ function listarUsoMaquina(fkTotem) {
         });
 }
 
-function plotarGraficos(resposta, fkTotem){
+function plotarGraficos(resposta, fkTotem) {
     plotarGraficoProcessador(resposta, fkTotem)
     plotarGraficoRam(resposta, fkTotem)
     plotarGraficoHd(resposta, fkTotem)
@@ -155,8 +155,8 @@ function plotarGraficoProcessador(resposta, fkTotem) {
     for (i = 0; i < resposta.length; i++) {
         labels.push(resposta[i].data_registro);
         dados.datasets[0].data.push(resposta[i].uso_processador);
-    } 
-  
+    }
+
     // Criando estrutura para plotar gráfico - config
     const configUsoDoProcessador = {
         type: 'line',
@@ -209,8 +209,8 @@ function plotarGraficoRam(resposta, fkTotem) {
     for (i = 0; i < resposta.length; i++) {
         labels.push(resposta[i].data_registro);
         dados.datasets[0].data.push(resposta[i].uso_ram);
-    } 
-  
+    }
+
     // Criando estrutura para plotar gráfico - config
     const configusoDaRam = {
         type: 'line',
@@ -263,8 +263,8 @@ function plotarGraficoHd(resposta, fkTotem) {
     for (i = 0; i < resposta.length; i++) {
         labels.push(resposta[i].data_registro);
         dados.datasets[0].data.push(resposta[i].uso_hd);
-    } 
-  
+    }
+
     // Criando estrutura para plotar gráfico - config
     const configUsoDoHd = {
         type: 'line',
@@ -303,9 +303,9 @@ function atualizarGraficoProcessador(fkTotem, dados, usoDoProcessador) {
         if (response.ok) {
             response.json().then(function (novoRegistro) {
                 console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-         
+
                 if (novoRegistro[0].data_registro == dados.labels[dados.labels.length - 1]) {
-                  
+
                 } else {
                     // tirando e colocando valores no gráfico
                     dados.labels.shift(); // apagar o primeiro
@@ -337,9 +337,9 @@ function atualizarGraficoRam(fkTotem, dados, usoDaRam) {
         if (response.ok) {
             response.json().then(function (novoRegistro) {
                 console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-         
+
                 if (novoRegistro[0].data_registro == dados.labels[dados.labels.length - 1]) {
-                  
+
                 } else {
                     // tirando e colocando valores no gráfico
                     dados.labels.shift(); // apagar o primeiro
@@ -371,9 +371,9 @@ function atualizarGraficoHd(fkTotem, dados, usoDoHd) {
         if (response.ok) {
             response.json().then(function (novoRegistro) {
                 console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-         
+
                 if (novoRegistro[0].data_registro == dados.labels[dados.labels.length - 1]) {
-                  
+
                 } else {
                     // tirando e colocando valores no gráfico
                     dados.labels.shift(); // apagar o primeiro
@@ -396,5 +396,68 @@ function atualizarGraficoHd(fkTotem, dados, usoDoHd) {
     })
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function atualizarNomeMaquina() {
+    let userMachine = document.getElementById("welcomeSentence");
+    userMachine.innerHTML = `${sessionStorage.VER_TOTEM}`;
+}
+
+function atualizarRelatorios(idTotem) {
+    fetch(`/relatorio/listarRelatoriosTotem/${idTotem}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                var machineField = document.getElementById("machineField");
+                machineField.innerHTML = "";
+                var mensagem = document.createElement("span");
+                mensagem.innerHTML = "Infelizmente, nenhum relatório foi encontrado.";
+                machineField.appendChild(mensagem);
+                throw "Nenhum resultado encontrado!!";
+            }
+
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                var machineField = document.getElementById("machineField");
+                machineField.innerHTML = "";
+                for (let i = 0; i < resposta.length; i++) {
+                    var publicacao = resposta[i];
+
+                    var report = document.createElement("div");
+                    var iconReport = document.createElement("img");
+                    var titleReport = document.createElement("div");
+                    var dateReport = document.createElement("div");
+                    var btnViewReport = document.createElement("img");
+                  
+                    machineField.className = "machineField";
+                    report.className = "report";
+
+                    iconReport.className = "iconReport";
+                    titleReport.className = "titleReport";
+                    dateReport.className = "dateReport";
+                    btnViewReport.className = "btnViewReport";
+
+                    iconReport.src = "img/iconRelatorio.svg";
+                    iconReport.alt = "icon de relatorio";
+                    titleReport.innerHTML = publicacao.titulo;
+                    dateReport.innerHTML = publicacao.data_relatorio;
+                    btnViewReport.src = "img/btnVisualizarRelatorio.svg";
+                    btnViewReport.setAttribute("onclick", `mostrarModalRelatorio(1), buscarDadosRelatorio(${publicacao.idRelatorio}), criarIdRelatório(${publicacao.idRelatorio})`);
+
+                    machineField.appendChild(report);
+                    report.appendChild(iconReport);
+                    report.appendChild(titleReport);
+                    report.appendChild(dateReport);
+                    report.appendChild(btnViewReport);
+                   
+                }
+            });
+        } else {
+            throw "Houve um erro na API!";
+        }
+    })
+        .catch(function (resposta) {
+            console.error(resposta);
         });
 }

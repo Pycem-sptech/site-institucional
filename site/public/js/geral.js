@@ -266,9 +266,12 @@ function redirectDashUnits(unidadeDesejada, nomeUnidadeDesejada) {
         window.location = "./dashboardMaquina.html";
     }, 250);
 }
-function redirectDashboard() {
+
+function redirectGraficos(totemDesejado, totem) {
+    sessionStorage.ID_TOTEM = totemDesejado;
+    sessionStorage.VER_TOTEM = `${totem}`;
     setTimeout(function () {
-        window.location = "./dashboardMaquina.html";
+        window.location = "./graficos.html";
     }, 250);
 }
 function redirectSuport() {
