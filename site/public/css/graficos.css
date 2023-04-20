@@ -5,6 +5,7 @@
     overflow: hidden;
     overflow-y: scroll;
     padding: 7px;
+    height: 98%;
 }
 .leftMain::-webkit-scrollbar {
     width: 5px;
@@ -94,7 +95,10 @@
     display: flex;
     align-items: center;
     height: 15%;
-
+}
+.report:hover{
+    background-color: #F2F2F2;
+    transition: 0.9s ease;
 }
 .iconReport{
     width: 25%;
@@ -119,4 +123,108 @@
     display: flex;
     justify-content: center;
     align-items: center; 
+}
+
+@media (max-width:1400px){
+    .btnAddReport{
+        width: 50%;
+        height: 65%;
+        font-size: 1em;
+    }
+    .boxHardInfo{
+        height:25vh;
+    }
+    .reports{
+        height: 60vh;
+        margin-top: 3%;
+    }
+    .shortGraph{
+        width: 100%;
+        height: 100%;
+        padding: 2px;
+    }
+    .longGraph{
+        width: 100%;
+        height: 90%;
+        padding: 2px;
+    }
+    .titleBoxGraph h3{
+        font-size: 1em;
+    }
+}
+@media (max-width:1075px){
+    .btnAddReport{
+        font-size: 0.7em;
+    }
+    .dateReport{
+        display: none;
+    }
+    .iconReport{
+        width: 30%;
+    }
+    .titleReport{
+        width: 40%;
+    }
+    .btnViewReport{
+        width: 30%;
+    }
+}
+@media (max-width:800px){
+    .main{
+        height: 300vh;
+    }
+    .leftMain{
+        overflow: unset;
+        overflow-y: unset;
+        padding: 0;
+    }
+    .rightMain{
+        height: 42%;
+    }
+    .hardInfo{
+        height: 17%;
+    }
+    .reports{
+        flex-wrap: nowrap;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        margin-top: 0;
+    }
+    .Graph{
+        width: 93%;
+        height: 30%;
+    }
+    .processador{
+        margin-top: 0;
+    }
+    .processador .titleBoxGraph .container{
+        width: 80%;
+    }
+    .longGraph{
+        width: 95%;
+    }
+    .shortGraph{
+        width: 95%;
+    }
+    .btnAddReport{
+        font-size: 1em;
+    }
+
+}
+@media (max-width:730px){
+    .titleBoxHardInfo h3{
+        font-size: 13px;
+    }
+}
+@media (max-width:500px){
+    .boxHardInfo{
+        height: 30vh;
+    }
+}
+@media (max-width:350px){
+    .btnAddReport{
+        font-size: 0.7em;
+    }
 }

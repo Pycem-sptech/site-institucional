@@ -289,3 +289,8 @@ function redirectGraficos(totemDesejado, totem) {
 }
 
 
+function redirectVisaoGeral(){
+    setTimeout(function () {
+        window.location = "home.html";
+    }, 250);
+}
