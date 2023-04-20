@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pycem</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/dashboardMaquina.css">
+    <link rel="stylesheet" href="css/graficos.css">
+    <script src="js/charts.js"></script>
+    <script src="js/geral.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="js/chart.js"></script> -->
+</head>
+<body onload="obterDadosGraficoQtdRelatorios(100),listarUsoMaquina(3)">
+     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
+     <nav class="sidebar">
+        <div class="container">
+            <div class="navigationButtons">
+                <h2>Py</h2>
+                <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectUnit()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">   <!-- onclick="redirectMachine()" -->
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+            </div>
+            <div class="footerButtons">
+                <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
+                <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
+            </div>
+        </div>
+    </nav>
+    <header class="header">
+        <div class="container">
+            <h3 class="homeHeader">Home</h3>
+            <nav id="nav" class="navbarHamburguer">
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <ul class="menu" id="menu">
+                    <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                    <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                    <li onclick="redirectAllUnits()">Gerenciar Unidades</li>
+                    <li onclick="redirectConfig()">Configurações</li>
+                    <li onclick="limparSessao()">Sair</li>
+                </ul>
+            </nav>
+            <div class="user">
+                <h4 id="usuarioLogado">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg">
+            </div>
+        </div>
+    </header>
+    <div class="guideText">
+        <span class="welcomeSentence">Máquina 0123901</span>
+        <span class="firstStep">Máquina</span>
+    </div>
+    <main class="main">
+        <div class="leftMain">
+            <section class="hardInfo">
+                <div class="boxHardInfo left">
+                    <div class="titleBoxHardInfo">
+                        <div class="container">
+                            <h3>Variação de relátorios</h3>
+                            <h5 class="subtitleHardInfo">Semanal</h5>
+                        </div>
+                    </div>
+                    <div class="percentageUse">
+                        <h1 class="percent cpu">20%</h1>
+                    </div>
+                </div>
+                <div class="boxHardInfo center">
+                    <div class="titleBoxHardInfo">
+                        <div class="container">
+                            <h3>Var. Tempo Inoperante</h3>
+                            <h5 class="subtitleHardInfo">Semanal</h5>
+                        </div>
+                    </div>
+                    <div class="percentageUse">
+                        <h1 class="percent ram">70%</h1>
+                    </div>
+                </div>
+                <div class="boxHardInfo right">
+                    <div class="titleBoxHardInfo">
+                        <div class="container">
+                            <h3 class="memoryTitle">Memória de Massa</h3>
+                            <h5 class="subtitleHardInfo">500GB HD</h5>
+                        </div>
+                    </div>
+                    <div class="percentageUse">
+                        <h1 class="percent memory">90%</h1>
+                    </div>
+                </div>
+            </section>
+            <section class="reports">
+                <div class="Graph">
+                        <div class="titleBoxGraph">
+                            <div class="container">
+                                <h3>Memória RAM</h3>
+                            </div>
+                        </div>
+                        <div class="shortGraph">
+                            <canvas id="usoDaRam"></canvas>
+                        </div>
+                </div>
+                <div class="Graph">
+                    <div class="titleBoxGraph">
+                        <div class="container">
+                            <h3>Memória de massa</h3>
+                        </div>
+                    </div>
+                    <div class="shortGraph">
+                        <canvas id="usoDoHd"></canvas>
+                    </div>
+                </div>
+                <div class="Graph processador">
+                    <div class="titleBoxGraph">
+                        <div class="container">
+                            <h3>Processador</h3>
+                        </div>
+                    </div>
+                    <div class="longGraph">
+                        <canvas style="width:100%;" id="usoDoProcessador"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="rightMain">
+            <section class="listMachine">
+                <div class="titleListMachine">
+                    <div class="container">
+                        <h3 id="tituloMaquinas">Relatórios</h3>
+                        <input id="campoPesquisa" type="text">
+                        <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                        <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
+                    </div>
+                </div>
+                <div class="machineField">
+                    <div class="report">
+                        <div class="iconReport">
+                            <img src="img/iconRelatorio.svg">
+                        </div>
+                        <div class="titleReport">
+                            <span>Sobrecarga</span>
+                        </div>
+                        <div class="dateReport">
+                            <span>19/04</span>
+                        </div>
+                        <div class="btnViewReport">
+                            <img src="img/btnVisualizarRelatorio.svg">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="divBtnAddReport">
+                    <button class="btnAddReport">Adicionar Relatório</button>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
+<script>
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+      if (event.type === 'touchstart') event.preventDefault();  
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('active');
+    
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+
+    function pesquisar(){
+        tituloMaquinas.style.display = "none";
+        btnSearch.style.display = "none";
+        btnClose.style.display = "block";
+        campoPesquisa.classList.add("show")
+      
+}
+    function fechar(){
+        campoPesquisa.classList.remove("show")
+        setTimeout(function () {
+        
+        tituloMaquinas.style.display = "block";
+    }, 550);
+        btnSearch.style.display = "block";
+        btnClose.style.display = "none";
+    }
+
+</script>
