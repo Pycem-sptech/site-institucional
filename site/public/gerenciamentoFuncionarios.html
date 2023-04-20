@@ -38,11 +38,11 @@
         </nav>
         <header class="header">
             <div class="container">
-                <h3 class="homeHeader">Home</h3>
+                <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>
                 <nav id="nav" class="navbarHamburguer">
                     <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                     <ul class="menu" id="menu">
-                        <li  onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                        <li  onclick="redirectFunc()">Gerenciar Funcionários</li>
                         <li onclick="redirectMachine()">Gerenciar Maquinas</li>
                         <li onclick="redirectAllUnits()">Unidades</li>
                         <li onclick="redirectVisaoGeral()">Visão Geral</li>
@@ -51,14 +51,14 @@
                     </ul>
                 </nav>
                 <div class="user">
-                    <h4 id="usuarioLogado">Usuário</h4>
+                    <h4 class="usuarioLogado">Usuário</h4>
                     <img class="iconUser" src="img/personIcon.svg">
                 </div>
             </div>
         </header>
         <div class="guideText">
-                <span class="welcomeSentence">Gerenciamento Funcionarios</span>
-                <span class="firstStep">Funcionarios</span>
+                <span class="welcomeSentence">Gerenciamento Funcionários</span>
+                <span class="firstStep">Funcioná                                                 rios</span>
         </div>
         <main class="main">
             <section class="registerCompany">

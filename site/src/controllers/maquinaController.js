@@ -14,6 +14,19 @@ function listar(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
+function listarStatusTotem(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    maquinaModel.listarStatusTotem(fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log("Houve um erro ao buscar as maquinas: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 
 function listarMaquinas(req, res) {
     const fkEmpresa = req.params.fkEmpresa;
@@ -253,5 +266,6 @@ module.exports = {
     listarDadosMaquina,
     filtrarMaquinas,
     listarUsoMaquina,
-    listarUltimosDados
+    listarUltimosDados,
+    listarStatusTotem
 }

@@ -8,12 +8,15 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/dashboardMaquina.css">
     <link rel="stylesheet" href="css/graficos.css">
+    <script src="js/gerenciarDashMaquina.js"></script>
+    <script src="js/modal.js"></script>
     <script src="js/charts.js"></script>
     <script src="js/geral.js"></script>
+    <script src="js/"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- <script src="js/chart.js"></script> -->
 </head>
-<body onload="obterDadosGraficoQtdRelatorios(100),listarUsoMaquina(1)">
+<body onload="listarUsoMaquina(`${sessionStorage.ID_TOTEM}`),atualizarNomeMaquina(),atualizarRelatorios(`${sessionStorage.ID_TOTEM}`)">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">
@@ -33,7 +36,7 @@
     </nav>
     <header class="header">
         <div class="container">
-            <h3 class="homeHeader">Home</h3>
+            <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>
             <nav id="nav" class="navbarHamburguer">
                 <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
@@ -46,13 +49,13 @@
                 </ul>
             </nav>
             <div class="user">
-                <h4 id="usuarioLogado">Usuário</h4>
+                <h4 class="usuarioLogado">Usuário</h4>
                 <img class="iconUser" src="img/personIcon.svg">
             </div>
         </div>
     </header>
     <div class="guideText">
-        <span class="welcomeSentence">Máquina 0123901</span>
+        <span class="welcomeSentence" id="welcomeSentence">-</span>
         <span class="firstStep">Máquina</span>
     </div>
     <main class="main">
@@ -135,7 +138,7 @@
                         <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                     </div>
                 </div>
-                <div class="machineField">
+                <div class="machineField" id="machineField">
                     <div class="report">
                         <div class="iconReport">
                             <img src="img/iconRelatorio.svg">
@@ -153,7 +156,7 @@
                     
                 </div>
                 <div class="divBtnAddReport">
-                    <button class="btnAddReport">Adicionar Relatório</button>
+                    <button class="btnAddReport" onclick="mostrarModalRelatorio()">Adicionar Relatório</button>
                 </div>
             </section>
         </div>

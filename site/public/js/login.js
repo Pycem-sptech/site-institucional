@@ -34,25 +34,7 @@ function fazerLogin() {
         sessionStorage.USER_CARGO = json.cargo;
         sessionStorage.FK_EMPRESA = json.fkEmpresa;
         listarAlertas();
-
-        if (json.fkEmpresa == null && json.cargo == 'Dono') {
-          setTimeout(function () {
-            window.location = "./cadastroEmpresa.html";
-          }, 2000);
-        } else if (json.cargo == "Tecnico") {
-          setTimeout(function () {
-            window.location = "./gerenciamentoMaquinas.html";
-          }, 2000);
-        } else if (json.cargo == "Supervisor") {
-          setTimeout(function () {
-            window.location = "./gerenciamentoMaquinas.html";
-          }, 2000);
-        } else {
-          setTimeout(function () {
-            window.location = "./gerenciamentoUnidades.html";
-
-          }, 2000);
-        }
+        validarCargo(json.cargo, json.fkEmpresa);
       });
 
     } else {
@@ -67,4 +49,18 @@ function fazerLogin() {
   })
 
   return false;
+}
+
+function validarCargo(cargo, fkEmpresa) {
+  if (cargo == 'Dono' && fkEmpresa == 'null') {
+    redirectCadEmpresa();
+  } else if (cargo == 'Dono') {
+    redirectHome();
+  } else if (cargo == 'Tecnico') {
+    redirectAllUnits()
+  } else if (cargo == 'Supervisor') {
+    redirectHome();
+  } else {
+    redirectHome();
+  }
 }
