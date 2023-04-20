@@ -23,8 +23,8 @@
 .modal{
     display: flex;
     align-items: flex-start;
-    width: 45%;
-    height: 60%;
+    width: 50%;
+    height: 70%;
     padding-top: 1%;
     background-color: white;
     border-radius: 0.8vw;

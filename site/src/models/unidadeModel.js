@@ -25,20 +25,16 @@ function atualizarListaUnidades(fkEmpresa) {
   var instrucao = `select idUnidade from unidade where fkEmpresa = '${fkEmpresa}';`;
   return database.executar(instrucao);
 }
+function atualizarListaUnidadesFiltradas(nomeDigitado, fkEmpresa) {
+  var instrucao = `select idUnidade from unidade where fkEmpresa = '${fkEmpresa}' and nome like '${nomeDigitado}%';`;
+  return database.executar(instrucao);
+}
 function filtrarUnidades(nomeDigitado, fkEmpresa) {
   var instrucao = `select * from unidade where nome like '${nomeDigitado}%' and fkEmpresa = ${fkEmpresa};`;
   return database.executar(instrucao);
 }
 
-function filtrarTodasUnidades(nomeDigitado, fkEmpresa) {
-  var instrucao = `select idUnidade, nome as nomeUnidade, 
-        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Disponivel' and nome = '${nomeDigitado}') as Disponivel,
-        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Manutencao' and nome = '${nomeDigitado}') as Manutencao,
-        (select count(t.estado) from totem t join unidade u on u.idUnidade = t.fkUnidade where estado = 'Desligado' and nome = '${nomeDigitado}') as Desligado,
-        (select count(t.idTotem) from totem t join unidade u on u.idUnidade = t.fkUnidade where nome = '${nomeDigitado}') as totalMaquinasUnidade
-        from unidade where fkEmpresa = '${fkEmpresa}' and nome like '${nomeDigitado}%'`;;
-  return database.executar(instrucao);
-}
+
 function ocorrenciasPorMes(fkEmpresa) {
   var instrucao = `
       select 
@@ -102,6 +98,6 @@ module.exports = {
   editar,
   deletar,
   filtrarUnidades,
-  filtrarTodasUnidades,
-  ocorrenciasPorMes
+  ocorrenciasPorMes,
+  atualizarListaUnidadesFiltradas
 };

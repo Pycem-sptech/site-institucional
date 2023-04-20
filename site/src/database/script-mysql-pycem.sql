@@ -85,3 +85,17 @@ tipo varchar(12) not null default 'Desligado', constraint chkTipo check (tipo in
 data_relatorio date,
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 );
+
+insert into [dbo].[relatorio] (titulo, descricao, tipo, data_relatorio, fkTotem) values
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento',GETDATE(),1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento',GETDATE(),1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento',GETDATE(),1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento',GETDATE(),1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento',GETDATE(),1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento',GETDATE(),1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento',GETDATE(),1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento',GETDATE(),1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento',GETDATE(),1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento',GETDATE(),1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento',GETDATE(),1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento',GETDATE(),1)
