@@ -1,5 +1,5 @@
-function atualizarListaUnidades() {
-    const listaUnidades = [];
+function atualizarListaMaquinas() {
+    const listaMaquinas = [];
     const fkEmpresa = sessionStorage.FK_EMPRESA;
     fetch(`/unidade/atualizarListaUnidades/${fkEmpresa}`)
         .then(function (resposta) {
@@ -12,11 +12,11 @@ function atualizarListaUnidades() {
 
                     for (var i = 0; i < resposta.length; i++) {
 
-                        listaUnidades.push(resposta[i]);
+                        listaMaquinas.push(resposta[i]);
                     }
-                    console.log(listaUnidades);
+                    console.log(listaMaquinas);
                 });
-                setTimeout(function () { mostrarTodasUnidades(listaUnidades) }, 300)
+                setTimeout(function () { mostrarTodasUnidades(listaMaquinas) }, 300)
             } else {
                 throw "Houve um erro na API!";
             }
@@ -28,11 +28,11 @@ function atualizarListaUnidades() {
     return false;
 }
 
-function atualizarListaUnidadesFiltradas(nomeDigitado) {
+function atualizarListaMaquinasFiltradas(nomeDigitado) {
     if (nomeDigitado.length > 0) {
-        const listaUnidades = []
+        const listaMaquinas = []
         const fkEmpresa = sessionStorage.FK_EMPRESA;
-        fetch(`/unidade/atualizarListaUnidadesFiltradas/${fkEmpresa}/${nomeDigitado}`)
+        fetch(`/maquina/atualizarListaMaquinasFiltradas/${fkEmpresa}/${nomeDigitado}`)
             .then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {
@@ -44,13 +44,12 @@ function atualizarListaUnidadesFiltradas(nomeDigitado) {
                     resposta.json().then(function (resposta) {
                         for (var i = 0; i < resposta.length; i++) {
 
-                            listaUnidades.push(resposta[i]);
+                            listaMaquinas.push(resposta[i]);
                         }
-                        console.log(listaUnidades);
+                        console.log(listaMaquinas);
 
                     });
-                    limparFeed();
-                    setTimeout(function () { mostrarTodasUnidades(listaUnidades) }, 300)
+                    mostrarTodasUnidades(listaMaquinas);
                 } else {
                     throw "Houve um erro na API!";
                 }
@@ -63,8 +62,8 @@ function atualizarListaUnidadesFiltradas(nomeDigitado) {
     }else {limparFeed();}
 }
 
-function imprimirUnidade(fkEmpresa, fkUnidade, id) {
-    const rota = `/unidade/listarTodasUnidades/${fkEmpresa}/${fkUnidade}`
+function imprimirMaquina(fkEmpresa, id) {
+    const rota = `/maquina/listarTodasMaquinas/${fkEmpresa}/${fkUnidade}`
 
     fetch(rota)
         .then(function (resposta) {
@@ -145,15 +144,11 @@ function imprimirUnidade(fkEmpresa, fkUnidade, id) {
 
 }
 
-function mostrarTodasUnidades(listaUnidades) {
+function mostrarTodasMaquinas(listaMaquina) {
     limparFeed();
     const fkEmpresa = sessionStorage.FK_EMPRESA;
 
-    for (i = 0; i < listaUnidades.length; i++){
-        imprimirUnidade(fkEmpresa, listaUnidades[i].idUnidade, i);
+    for (i = 0; i < listaMaquina.length; i++){
+        imprimirUnidade(fkEmpresa, listaMaquina[i].idMaquina, i);
     }
 }
-
-
-
-

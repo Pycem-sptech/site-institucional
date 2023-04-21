@@ -16,14 +16,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 </head>
-<body id="body" onload="validarSessao(), atualizarFuncionariosCadastrados(), privaFunc()">
+<body id="body" onload="validarSessao(), atualizarFuncionariosCadastrados(), privaFuncTecnico()">
         <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
         <nav class="sidebar">
             <div class="container">
                 <div class="navigationButtons">
-                    <h2 onclick="redirectHome()">
-                        Py
-                    </h2>
+                    <h2 onclick="redirectHome()">Py</h2>
                     <img class="iconSidebar navigationIcon telaAtual" src="img/userIcon.svg"><!-- onclick="redirectFunc()" -->
                     <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                     <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
@@ -136,36 +134,6 @@
 </body>
 </html>
 <script>
-    const menuHamb = document.getElementById("menu");
-    const menuIcons = document.getElementById("navIcons");
-    if (sessionStorage.USER_CARGO == "Tecnico") {
-        menuHamb.innerHTML = `
-            <li onclick="redirectMachine()">Cadastro de Máquinas</li>
-            <li onclick="redirectMachine()">Gerenciar Máquinas</li>
-            <li onclick="">Suporte</li>            
-            <li onclick="">Configurações</li>
-            <li onclick="limparSessao()">Sair</li>
-            `
-        menuIcons.innerHTML = `
-        <h2>Py</h2>
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
-                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
-                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">         
-        `;
-    } else if (sessionStorage.USER_CARGO == "Supervisor") {
-        menuHamb.innerHTML = `
-            <li onclick="redirectMachine()">Gerenciar Máquinas</li>
-            <li onclick="">Suporte</li>            
-            <li onclick="">Configurações</li>
-            <li onclick="limparSessao()">Sair</li>
-            `
-        menuIcons.innerHTML = `
-        <h2>Py</h2>
-        <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
-                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
-                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">                
-        `;
-    }
     $(document).ready(function () {
         $("#cpfFuncionario").mask("999.999.999-99");
     });
