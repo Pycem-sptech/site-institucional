@@ -1,4 +1,4 @@
-function privaFunc() {
+function privarFuncTecnico() {
     if (sessionStorage.USER_CARGO == "Tecnico") {
         body.innerHTML = `<h1>ERRO</h1>`;
         Swal.fire({
@@ -7,10 +7,14 @@ function privaFunc() {
             text: 'Esta página não existe!',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location = "../gerenciamentoMaquinas.html"
+                window.location = "../home.html"
             }
         })
-    } else if (sessionStorage.USER_CARGO == "Supervisor") {
+    } 
+}
+
+function privarFuncSupervisor(){
+    if (sessionStorage.USER_CARGO == "Supervisor") {
         body.innerHTML = `<h1>ERRO</h1>`;
         Swal.fire({
             icon: 'error',
@@ -18,11 +22,49 @@ function privaFunc() {
             text: 'Esta página não existe!',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location = "../gerenciamentoMaquinas.html"
+                window.location = "../home.html"
             }
         })
     }
 }
+
+
+function mudarStatus(){
+    const statusVar = status_inp.value;
+    if (statusVar != undefined && statusVar != '' ) {
+          fetch(`maquina/mudarStatus/${sessionStorage.ID_MAQUINA}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              status: statusVar,            
+            })
+          }).then(function (resposta) {
+            if (resposta.ok) {
+              Swal.fire(
+                'Pronto!',
+                'Suas alterações foram gravadas',
+                'success'
+              ).then((result) => {
+                if (result.isConfirmed) {
+                   location.reload();
+                }
+              })
+            } else if (resposta.status == 404) {
+              return false
+            } else {
+              return false
+            }
+          }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+        }
+       else {
+      alert("Verifique os campos");
+    }
+}
+
 // sessão
 function validarSessao() {
 
@@ -234,27 +276,27 @@ function toastPadrao(icon, title){
 function redirectHome() {
     setTimeout(function () {
         window.location = "./home.html";
-    }, 250);
+    }, 200);
 }
 function redirectFunc() {
     setTimeout(function () {
         window.location = "./gerenciamentoFuncionarios.html";
-    }, 250);
+    }, 200);
 }
 function redirectMachine() {
     setTimeout(function () {
         window.location = "./gerenciamentoMaquinas.html";
-    }, 250);
+    }, 200);
 }
 function redirectUnit() {
     setTimeout(function () {
         window.location = "./gerenciamentoUnidades.html";
-    }, 250);
+    }, 200);
 }
 function redirectAllUnits() {
     setTimeout(function () {
         window.location = "./unidade.html";
-    }, 250);
+    }, 200);
 }
 function redirectDashUnits(unidadeDesejada, nomeUnidadeDesejada) {
     var unidade = unidadeDesejada;
@@ -281,7 +323,6 @@ function redirectConfig() {
         window.location = "configuracoes.html";
     }, 250);
 }
-
 function redirectAlert() {
     setTimeout(function () {
         window.location = "alerta.html";

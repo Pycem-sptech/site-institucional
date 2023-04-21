@@ -5,6 +5,7 @@ function mostrarModal(id) {
   overlay.style.display = 'block';
   modal.style.display = 'block';
 }
+
 function mostrarModalRelatorio(chamada=0) {
   let overlay = document.querySelector('.overlay')
   let modalRelatorio = document.querySelector('.modalRelatorio')
@@ -19,6 +20,7 @@ function mostrarModalRelatorio(chamada=0) {
     btnSalvarModal.setAttribute("onclick", `editarRelatorio()`);
   }
 }
+
 function fecharModal() {
   sessionStorage.ID_SELECIONADO = "";
   let overlay = document.querySelector('.overlay')
@@ -26,6 +28,7 @@ function fecharModal() {
   overlay.style.display = 'none';
   modal.style.display = 'none';
 }
+
 function fecharModalRelatorio() {
   sessionStorage.RELATORIO_SELECIONADO = "";
   let overlay = document.querySelector('.overlay')
@@ -142,8 +145,6 @@ function deletarMaquina(idMaquina) {
   })
 }
 
-
-
 function salvarEdicaoUnidade(idUnidade) {
   let nomeUnidade = document.getElementById('nomeUnidadeModal').value;
   let cepUnidade = document.getElementById('cepUnidadeModal').value;
@@ -251,7 +252,6 @@ function deletarUnidade(idUnidade) {
     }
   })
 }
-
 
 function salvarEdicaoFuncionario(idFuncionario) {
   let nomeFuncionario = document.getElementById('nomeFuncionarioModal').value;
