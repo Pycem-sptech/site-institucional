@@ -72,12 +72,10 @@ function validarSessao() {
     var nome = sessionStorage.USER_NAME;
     var fkEmpresa = sessionStorage.FK_EMPRESA;
 
-    if (email != null && nome != null && fkEmpresa == "null") {
-        usuarioLogado.innerHTML = nome;
-        usuarioLogado2.innerHTML = nome;
+    var campos = document.getElementsByClassName("usuarioLogado");
 
-    } else if (email != null && nome != null) {
-        usuarioLogado.innerHTML = nome;
+    for (var i = 0; i < campos.length; i++) {
+        campos[i].innerHTML = nome;
     }
     // else {
     //     window.location = "./login.html";
@@ -228,33 +226,28 @@ function autenticar() {
     return false;
 }
 
-function redirectHome() {
-    setTimeout(function () {
-        window.location = "./home.html";
-    }, 250);
-}
-function limparFeed(){
+function limparFeed() {
     var feed = document.getElementById("feed");
     feed.innerHTML = "";
 }
 
-function impersonateUser(usuarioDesejado){
-if(sessionStorage.USER_CARGO == 'Dono'){
-    sessionStorage.ERA_DONO = 'true';
-    sessionStorage.USER_CARGO = `${usuarioDesejado}`
-    toastPadrao('success', `Iniciando visão de ${usuarioDesejado}`);
-}
+function impersonateUser(usuarioDesejado) {
+    if (sessionStorage.USER_CARGO == 'Dono') {
+        sessionStorage.ERA_DONO = 'true';
+        sessionStorage.USER_CARGO = `${usuarioDesejado}`
+        toastPadrao('success', `Iniciando visão de ${usuarioDesejado}`);
+    }
 }
 
-function deimpersonateUser(){
-    if(sessionStorage.ERA_DONO == 'true')
-    sessionStorage.USER_CARGO = "Dono"
+function deimpersonateUser() {
+    if (sessionStorage.ERA_DONO == 'true')
+        sessionStorage.USER_CARGO = "Dono"
     toastPadrao('success', 'Iniciando visão de Dono')
     window.location = "#";
     sessionStorage.removeItem('ERA_DONO');
 }
 
-function toastPadrao(icon, title){
+function toastPadrao(icon, title) {
     const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -273,10 +266,17 @@ function toastPadrao(icon, title){
     });
 }
 
+// Redirecionamentos
+
 function redirectHome() {
     setTimeout(function () {
         window.location = "./home.html";
     }, 200);
+}
+function redirectCadEmpresa(){
+    setTimeout(function () {
+        window.location = "./cadastroEmpresa.html";
+    }, 250);
 }
 function redirectFunc() {
     setTimeout(function () {
@@ -298,21 +298,6 @@ function redirectAllUnits() {
         window.location = "./unidade.html";
     }, 200);
 }
-function redirectDashUnits(unidadeDesejada, nomeUnidadeDesejada) {
-    var unidade = unidadeDesejada;
-    sessionStorage.ID_UNIDADE = unidadeDesejada;
-    sessionStorage.VER_UNIDADE = unidade;
-    var nomeUnidade = nomeUnidadeDesejada;
-    sessionStorage.VER_NOME_UNIDADE = nomeUnidade;
-    setTimeout(function () {
-        window.location = "./dashboardMaquina.html";
-    }, 250);
-}
-function redirectDashboard() {
-    setTimeout(function () {
-        window.location = "./dashboardMaquina.html";
-    }, 250);
-}
 function redirectSuport() {
     setTimeout(function () {
         window.location = "#";
@@ -328,4 +313,26 @@ function redirectAlert() {
         window.location = "alerta.html";
     }, 250);
 }
+function redirectDashUnits(unidadeDesejada, nomeUnidadeDesejada) {
+    sessionStorage.ID_UNIDADE = unidadeDesejada;
+    sessionStorage.VER_UNIDADE = unidadeDesejada;
+    sessionStorage.VER_NOME_UNIDADE = nomeUnidadeDesejada;
+    setTimeout(function () {
+        window.location = "./dashboardMaquina.html";
+    }, 250);
+}
 
+function redirectGraficos(totemDesejado, totem) {
+    sessionStorage.ID_TOTEM = totemDesejado;
+    sessionStorage.VER_TOTEM = `${totem}`;
+    setTimeout(function () {
+        window.location = "./graficos.html";
+    }, 250);
+}
+
+
+function redirectVisaoGeral(){
+    setTimeout(function () {
+        window.location = "home.html";
+    }, 250);
+}

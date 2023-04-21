@@ -25,7 +25,7 @@
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                 <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg"onclick="redirectMachine()">
-                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
@@ -36,19 +36,20 @@
     </nav>
     <header class="header">
         <div class="container">
-            <h3 class="homeHeader">Home</h3>
+            <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>
             <nav id="nav" class="navbarHamburguer">
                 <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
                     <li onclick="redirectMachine()">Gerenciar Maquinas</li>
-                    <li onclick="redirectAllUnits()">Gerenciar Unidades</li>
+                    <li onclick="redirectAllUnits()">Unidades</li>
+                    <li onclick="redirectVisaoGeral()">Visão Geral</li>
                     <li onclick="redirectConfig()">Configurações</li>
                     <li onclick="limparSessao()">Sair</li>
                 </ul>
             </nav>
             <div class="user">
-                <h4 id="usuarioLogado">Usuário</h4>
+                <h4 class="usuarioLogado">Usuário</h4>
                 <img class="iconUser" src="img/personIcon.svg">
             </div>
         </div>
@@ -103,7 +104,7 @@
                         </div>
                     </div>
 
-                    <div class="reportsField">
+                    <div class="reportsField" id="reportsField">
                         <div class="problemReport">
                                 <div class="divIconReport">
                                     <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
@@ -124,28 +125,6 @@
                                     <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
                                 </div>
                         </div>
-
-                        <div class="problemReport">
-                            <div class="divIconReport">
-                                <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
-                            </div>
-                            <div class="divIdReport">
-                                <span class="idReport">05</span>
-                            </div>
-                            <div class="divTitleReport">
-                                <span class="titleReport">Máquina travou</span>
-                            </div>
-                            <div class="divDateReport">
-                                <span class="dateReport">15/04</span>
-                            </div>
-                            <div class="divDetailsReport">
-                                <span class="detailsReport">Memória cheia...</span>
-                            </div>
-                            <div class="divBtnViewReport">
-                                <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
-                            </div>
-                    </div>
-
                     </div>
                 </div>
             </section>
@@ -160,33 +139,20 @@
                         <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                     </div>
                 </div>
-
-                <div class="machineField">
-                    <div class="machine">
-                        <div class="container">
-                            <div class="machineDetails">
-                                <img src="img/smartphoneOpacity.svg" class="iconMachine">
-                                <div class="infoMachine">
-                                    <span>012032020</span>
-                                    <span class="txtDetailMachine">Lorem ipsum</span>
-                                </div>
-                            </div>
-                            <div class="status ok"></div>
-                        </div>
-                    </div>
-                    
+                <div class="machineField" id="machineField">
+                    <!-- As máquinas aparecem aqui -->
                 </div>
                 <div class="statusAllMachine">
                     <div class="divStatusMachine">
-                        <span>3</span>
+                        <span id="statusOk">-</span>
                         <div class="status ok"></div>
                     </div>
                     <div class="divStatusMachine">
-                        <span>2</span>
+                        <span id="statusAlert">-</span>
                         <div class="status alert"></div>
                     </div>
                     <div class="divStatusMachine">
-                        <span>0</span>
+                        <span id="statusDanger">-</span>
                         <div class="status danger"></div>
                     </div>
 

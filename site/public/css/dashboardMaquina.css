@@ -215,9 +215,9 @@
     outline: none;
     border: none;
     font-weight: 500;
-    border-radius: 10px;
     padding: 7px;
-    background-color: #e6e9fa;
+    background-color: none;
+    border-bottom: black solid 1px;
     transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
     opacity: 0;
     width: 50%;
