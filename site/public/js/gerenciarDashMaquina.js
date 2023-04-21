@@ -31,6 +31,19 @@ function criarIdRelatório(id) {
   sessionStorage.ID_RELATORIO = id
 }
 
+var repDesligamento = 0;
+var repSobrecarga = 0;
+var repOutro = 0;
+
+data = new Date
+var primeiroDiaSemanaAtual = data.getDate() - data.getDay() + "/" + (data.getMonth() + 1);
+var ultimoDiaSemanaAtual = data.getDate() - data.getDay() + 6 + "/" + (data.getMonth() + 1);
+var primeiroDiaSemanaPassada = data.getDate() - data.getDay() - 7 + "/" + (data.getMonth() + 1);
+var ultimoDiaSemanaPassada = data.getDate() - data.getDay() + -1 + "/" + (data.getMonth() + 1);
+// primeiroDiaSemanaAtual <= '15/4' && '15/4' <= ultimoDiaSemanaAtual;
+// primeiroDiaSemanaPassada >= '15/4' && ultimoDiaSemanaPassada >= '15/4';
+var qtdRelatoriosSemanais = 0;
+var qtdRelatoriosSemanaPassada = 0;
 function atualizarRelatoriosCadastrados(idUnidade) {
   console.log(idUnidade)
   fetch(`/relatorio/listarRelatorio/${idUnidade}`).then(function (resposta) {
@@ -76,6 +89,23 @@ function atualizarRelatoriosCadastrados(idUnidade) {
           divTitleReport.innerHTML = publicacao.titulo;
           divDateReport.innerHTML = publicacao.data_relatorio;
           divDetailsReport.innerHTML = publicacao.descricao;
+
+          if (publicacao.tipo == 'Desligamento' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+            repDesligamento++;
+            qtdRelatoriosSemanais++
+          } else if (publicacao.tipo == 'Sobrecarga' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+            repSobrecarga++;
+            qtdRelatoriosSemanais++
+          } else if (publicacao.tipo == 'Outro' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+            repOutro++;
+            qtdRelatoriosSemanais++
+          }
+          if (primeiroDiaSemanaPassada >= publicacao.data_relatorio && ultimoDiaSemanaPassada >= publicacao.data_relatorio) {
+            qtdRelatoriosSemanaPassada++
+          }
+
+
+
           divBtnViewReport.src = "img/btnVisualizarRelatorio.svg";
           divBtnViewReport.setAttribute("onclick", `mostrarModalRelatorio(1), buscarDadosRelatorio(${publicacao.idRelatorio}), criarIdRelatório(${publicacao.idRelatorio})`);
 
@@ -88,7 +118,7 @@ function atualizarRelatoriosCadastrados(idUnidade) {
           divProblemReport.appendChild(divBtnViewReport);
 
         }
-
+        atualizarKpi();
       });
     } else {
       throw "Houve um erro na API!";
@@ -97,6 +127,46 @@ function atualizarRelatoriosCadastrados(idUnidade) {
     .catch(function (resposta) {
       console.error(resposta);
     });
+}
+
+
+function atualizarKpi() {
+  atualizarVariacaoRelatorios()
+  //Variação de tempo inoperante
+  atualizarMaiorOcorrencia();
+}
+
+function atualizarVariacaoRelatorios() {
+  let variacaoRelatorios = document.getElementById("variacaoRelatorios")
+  let variacao;
+  if (qtdRelatoriosSemanaPassada == 0) {
+    variacao = (qtdRelatoriosSemanais / 1) * 100;
+    variacaoRelatorios.className = 'percent memory'
+  } else if (qtdRelatoriosSemanais > qtdRelatoriosSemanaPassada) {
+    variacao = ((qtdRelatoriosSemanais - qtdRelatoriosSemanaPassada) / qtdRelatoriosSemanaPassada) * 100;
+    variacaoRelatorios.className = 'percent memory'
+  } else if (qtdRelatoriosSemanais < qtdRelatoriosSemanaPassada) {
+    variacaoRelatorios.className = 'percent cpu'
+  } else if (qtdRelatoriosSemanais == qtdRelatoriosSemanaPassada) {
+    variacao = 0;
+    variacaoRelatorios.className = 'percent ram'
+  }
+  variacaoRelatorios.innerHTML = "^" + variacao.toFixed(1) + "%"
+}
+
+function atualizarMaiorOcorrencia() {
+  let maiorOcorrencia = document.getElementById("subtitleHardInfo");
+  let qntOcorrencias = document.getElementById("qntOcorrencias");
+  if (repDesligamento >= repSobrecarga && repDesligamento >= repOutro) {
+    qntOcorrencias.innerHTML = repDesligamento;
+    maiorOcorrencia.innerHTML = 'Desligamento';
+  } else if (repSobrecarga > repDesligamento && repSobrecarga >= repOutro) {
+    qntOcorrencias.innerHTML = repSobrecarga;
+    maiorOcorrencia.innerHTML = 'Sobrecarga';
+  } else {
+    qntOcorrencias.innerHTML = repOutro;
+    maiorOcorrencia.innerHTML = 'Outro';
+  }
 }
 
 function cadastrarRelatorio() {
@@ -234,6 +304,8 @@ function atualizarMaqCadastradasComStatus() {
       console.error(resposta);
     });
 }
+
+
 function atualizarStatusBoxMachine() {
   let disponivel = document.getElementById("statusOk");
   let manutencao = document.getElementById("statusAlert");

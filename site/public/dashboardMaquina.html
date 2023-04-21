@@ -19,9 +19,7 @@
      <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons">
-                <h2 onclick="redirectHome()">
-                    Py
-                </h2>
+                <h2 onclick="redirectHome()">Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                 <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg"onclick="redirectMachine()">
@@ -69,7 +67,7 @@
                         </div>
                     </div>
                     <div class="percentageUse">
-                        <h1 class="percent cpu">20%</h1>
+                        <h1 class="percent cpu" id="variacaoRelatorios">-</h1>
                     </div>
                 </div>
                 <div class="boxHardInfo center">
@@ -86,12 +84,12 @@
                 <div class="boxHardInfo right">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3 class="memoryTitle">Memória de Massa</h3>
-                            <h5 class="subtitleHardInfo">500GB HD</h5>
+                            <h3 class="memoryTitle">Maior Ocorrência Semanal</h3>
+                            <h5 class="subtitleHardInfo" id="subtitleHardInfo">-</h5>
                         </div>
                     </div>
                     <div class="percentageUse">
-                        <h1 class="percent memory">90%</h1>
+                        <h1 class="percent memory" id="qntOcorrencias">-</h1>
                     </div>
                 </div>
             </section>
