@@ -321,7 +321,7 @@ hr{
     .registerCompany{
         width: 100%;
         justify-content: center ;
-        height: 83%;
+        height: 55%;
         
     }
     .welcomeSentence{
@@ -373,8 +373,9 @@ hr{
         margin-top: 8px;
         width: 80%;
     }
+
     .cargoFuncionario{
-        width: 90%;
+        width: 91%;
     }
 }
 @media (max-width:500px){

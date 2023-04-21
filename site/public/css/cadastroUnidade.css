@@ -301,6 +301,7 @@ input{
         flex-wrap: nowrap;
         flex-direction: column;
         justify-content: space-evenly;
+        margin-right: 7%;
 
     }
     .inputRegisterUnit{
@@ -319,6 +320,7 @@ input{
 @media (max-width:500px){
     .boxInputUnit{
         width: 70%;
+        margin-right: 10%;
     }
     .welcomeSentence{
         font-size: 1.6em;
