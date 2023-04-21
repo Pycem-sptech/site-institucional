@@ -17,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     
 </head>
-<body onload="validarSessao(), atualizarSelectUnidades(), atualizarMaquinasCadastradas()">
+<body onload="validarSessao(), atualizarSelectUnidades(), atualizarMaquinasCadastradas(), privarFuncSupervisor()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -142,36 +142,7 @@
 
 </html>
 <script>
-    const menuHamb = document.getElementById("menu");
-    const menuIcons = document.getElementById("navIcons");
-    if (sessionStorage.USER_CARGO == "Tecnico") {
-        menuHamb.innerHTML = `
-            <li onclick="redirectMachine()">Cadastro de Máquinas</li>
-            <li onclick="redirectMachine()">Gerenciar Máquinas</li>
-            <li onclick="">Suporte</li>            
-            <li onclick="">Configurações</li>
-            <li onclick="limparSessao()">Sair</li>
-            `
-        menuIcons.innerHTML = `
-        <h2>Py</h2>
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
-                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
-                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">         
-        `;
-    } else if (sessionStorage.USER_CARGO == "Supervisor") {
-        menuHamb.innerHTML = `
-            <li onclick="redirectMachine()">Gerenciar Máquinas</li>
-            <li onclick="">Suporte</li>            
-            <li onclick="">Configurações</li>
-            <li onclick="limparSessao()">Sair</li>
-            `
-        menuIcons.innerHTML = `
-        <h2>Py</h2>
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
-                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg">
-                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">         
-        `;
-    }
+
     $(document).ready(function(){
 		$("#idCep").mask("99999-999");
 		$("#idTelefoneUnidade").mask("(99) 99999-9999");
