@@ -140,15 +140,14 @@ input{
     outline: none;
     border: none;
     font-weight: 500;
-    border-radius: 10px;
     padding: 7px;
-    background-color: #e6e9fa;
+    border-radius: 0;
+    border-bottom: black solid 1px;
     transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
     opacity: 0;
     height: auto;
     font-size: auto;
     width: 50%;
-
 }
 #campoPesquisa.show {
     visibility: visible;
