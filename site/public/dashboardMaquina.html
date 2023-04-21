@@ -13,8 +13,10 @@
     <script src="js/gerenciarDashMaquina.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADE)">
+<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADE), obterDadosGraficoQtdRelatorios(100),listarUsoMaquina(1)">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">
@@ -96,36 +98,10 @@
                 </div>
             </section>
             <section class="reports">
-                <div class="boxReports">
-                    <div class="titleBoxReports">
-                        <div class="container">
-                            <h3>Histórico de problemas</h3>
-                            <input class="inputReports" type="text" placeholder="Número da máquina">
-                        </div>
-                    </div>
-
-                    <div class="reportsField" id="reportsField">
-                        <div class="problemReport">
-                                <div class="divIconReport">
-                                    <img src="img/iconRelatorio.svg" class="iconReport" alt="icon de relatorio">                            
-                                </div>
-                                <div class="divIdReport">
-                                    <span class="idReport">06</span>
-                                </div>
-                                <div class="divTitleReport">
-                                    <span class="titleReport">Sobrecarga no sistema</span>
-                                </div>
-                                <div class="divDateReport">
-                                    <span class="dateReport">26/03</span>
-                                </div>
-                                <div class="divDetailsReport">
-                                    <span class="detailsReport">A máquina apresentou problemas...</span>
-                                </div>
-                                <div class="divBtnViewReport">
-                                    <img src="img/btnVisualizarRelatorio.svg" class="btnViewReport">
-                                </div>
-                        </div>
-                    </div>
+                <div class="boxReports"> 
+                  <div class="graph">
+                    <canvas id="ocorrenciasPorUnidade" class="ocorrenciasPorUnidade"></canvas>
+                  </div>
                 </div>
             </section>
         </div>

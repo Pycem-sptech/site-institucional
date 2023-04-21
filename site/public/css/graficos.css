@@ -20,7 +20,7 @@
     border-radius: 20px;       
 }
 .rightMain{
-    height:95%;
+    height:98%;
 }
 .hardInfo{
     height: 32%;
@@ -124,6 +124,44 @@
     justify-content: center;
     align-items: center; 
 }
+.listMachine{
+    height: 80%;
+}
+
+/* BOX TROCAR STATUS DA MAQUINA */
+.boxChangeStatusMachine{
+    height: 18%;
+    width: 83%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15); 
+    margin-bottom: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.boxChangeStatusMachine .container{
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.selectStatus{
+    appearance: none;
+    background-image: url(../img/Vector\ 2.svg);
+    background-position: 90%;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    outline: none;
+    margin-top: 1%;
+    padding: 13px;
+    border-radius: 10px;
+    width: 75%;
+    font-size: 1em;
+    padding-right: 20px;
+    font-weight: 500;
+}
 
 @media (max-width:1400px){
     .btnAddReport{
@@ -180,6 +218,11 @@
     }
     .rightMain{
         height: 42%;
+        flex-direction: column;
+        align-items: center;
+    }
+    .boxChangeStatusMachine{
+        width: 93%;
     }
     .hardInfo{
         height: 17%;
