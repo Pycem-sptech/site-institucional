@@ -49,7 +49,7 @@ function atualizarListaMaquinasFiltradas(nomeDigitado) {
                         console.log(listaMaquinas);
 
                     });
-                    setTimeout(function () { mostrarTodasUnidades(listaMaquinas) }, 300)
+                    mostrarTodasUnidades(listaMaquinas);
                 } else {
                     throw "Houve um erro na API!";
                 }
@@ -148,7 +148,7 @@ function mostrarTodasMaquinas(listaMaquina) {
     limparFeed();
     const fkEmpresa = sessionStorage.FK_EMPRESA;
 
-    for (i = 0; i < listaUnidades.length; i++){
+    for (i = 0; i < listaMaquina.length; i++){
         imprimirUnidade(fkEmpresa, listaMaquina[i].idMaquina, i);
     }
 }

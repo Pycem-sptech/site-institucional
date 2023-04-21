@@ -49,6 +49,7 @@ function atualizarListaUnidadesFiltradas(nomeDigitado) {
                         console.log(listaUnidades);
 
                     });
+                    limparFeed();
                     setTimeout(function () { mostrarTodasUnidades(listaUnidades) }, 300)
                 } else {
                     throw "Houve um erro na API!";
@@ -144,12 +145,12 @@ function imprimirUnidade(fkEmpresa, fkUnidade, id) {
 
 }
 
-function mostrarTodasUnidades(listaMaquinas) {
+function mostrarTodasUnidades(listaUnidades) {
     limparFeed();
     const fkEmpresa = sessionStorage.FK_EMPRESA;
 
-    for (i = 0; i < listaMaquinas.length; i++){
-        imprimirUnidade(fkEmpresa, listaMaquinas[i].idMaquina, i);
+    for (i = 0; i < listaUnidades.length; i++){
+        imprimirUnidade(fkEmpresa, listaUnidades[i].idUnidade, i);
     }
 }
 
