@@ -90,6 +90,7 @@
     height: 80%;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 .report{
     display: flex;
@@ -105,6 +106,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 50%;
 }
 .titleReport{
     width: 25%;
@@ -123,6 +125,7 @@
     display: flex;
     justify-content: center;
     align-items: center; 
+    height: 50%;
 }
 .listMachine{
     height: 80%;
@@ -162,6 +165,7 @@
     padding-right: 20px;
     font-weight: 500;
 }
+
 
 @media (max-width:1400px){
     .btnAddReport{
@@ -225,7 +229,7 @@
         width: 93%;
     }
     .hardInfo{
-        height: 17%;
+        height: 18%;
     }
     .reports{
         flex-wrap: nowrap;
@@ -262,8 +266,17 @@
     }
 }
 @media (max-width:500px){
+    .main{
+        height: 235vh;
+    }
     .boxHardInfo{
-        height: 30vh;
+        height: 100%;
+    }
+    .Graph{
+        height: 25%;
+    }
+    .rightMain{
+        height:35%;
     }
 }
 @media (max-width:350px){

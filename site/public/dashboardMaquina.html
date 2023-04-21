@@ -11,19 +11,18 @@
     <script src="js/geral.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/gerenciarDashMaquina.js"></script>
+    <script src="./js/relatorios.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="js/charts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADE), obterDadosGraficoQtdRelatorios(100),listarUsoMaquina(1)">
+<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADE), privarFuncSupervisor(),obterDadosGraficoQtdRelatorios(`${sessionStorage.FK_EMPRESA}`)">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons">
-                <h2 onclick="redirectHome()">
-                    Py
-                </h2>
+                <h2 onclick="redirectHome()">Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                 <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg"onclick="redirectMachine()">
@@ -71,7 +70,7 @@
                         </div>
                     </div>
                     <div class="percentageUse">
-                        <h1 class="percent cpu">20%</h1>
+                        <h1 class="percent cpu" id="variacaoRelatorios">-</h1>
                     </div>
                 </div>
                 <div class="boxHardInfo center">
@@ -88,12 +87,12 @@
                 <div class="boxHardInfo right">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3 class="memoryTitle">Memória de Massa</h3>
-                            <h5 class="subtitleHardInfo">500GB HD</h5>
+                            <h3 class="memoryTitle">Maior Ocorrência Semanal</h3>
+                            <h5 class="subtitleHardInfo" id="subtitleHardInfo">-</h5>
                         </div>
                     </div>
                     <div class="percentageUse">
-                        <h1 class="percent memory">90%</h1>
+                        <h1 class="percent memory" id="qntOcorrencias">-</h1>
                     </div>
                 </div>
             </section>

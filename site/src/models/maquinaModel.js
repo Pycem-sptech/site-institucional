@@ -51,6 +51,12 @@ function editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect,
   return database.executar(instrucao);
 }
 
+function mudarStatus(status, idMaquina) {
+  var instrucao = `UPDATE totem SET estado=${status} WHERE idTotem = ${idMaquina};`;
+  return database.executar(instrucao);
+}
+
+
 function deletarRegistroMaquina(idMaquina) {
   var instrucao = `DELETE FROM totem WHERE idTotem = ${idMaquina};`;
   return database.executar(instrucao);
@@ -67,5 +73,5 @@ module.exports = {
   filtrarMaquinas,
   listarUsoMaquina,
   listarUltimosDados,
-  listarStatusTotem
+  mudarStatus
 };

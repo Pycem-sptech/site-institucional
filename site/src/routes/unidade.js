@@ -18,9 +18,11 @@ router.get("/listarDadosUnidade/:idUnidade", function (req, res) {
 router.get("/listarTodasUnidades/:fkEmpresa/:idUnidade", function (req, res) {
     unidadeController.listarTodasUnidades(req, res);
 });
+
 router.get("/atualizarListaUnidades/:fkEmpresa", function (req, res) {
     unidadeController.atualizarListaUnidades(req, res);
 });
+
 router.get("/atualizarListaUnidadesFiltradas/:fkEmpresa/:nomeDigitado", function (req, res) {
     unidadeController.atualizarListaUnidadesFiltradas(req, res);
 });

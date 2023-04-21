@@ -38,7 +38,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .box-status .title-status {
@@ -96,6 +96,8 @@
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
 }
 
 .container-unidade {
@@ -112,11 +114,12 @@
 .feed{
     background-color: #fff;
     width: 100%;
+    height: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
-    overflow: hidden;
+    border-radius: 15px;
 }
 
 .feed span {
@@ -218,6 +221,10 @@
         font-size: 120%;
     }
 
+    canvas {
+        height: 60vh;
+    }
+
 }
 
 @media (max-width: 800px) {
@@ -236,6 +243,7 @@
 
     .wrap-dados {
         flex-direction: column;
+        align-items: center;
     }
 
     .units {
@@ -246,6 +254,17 @@
         width: 100%;
     }
 
+    .boxUnits {
+        margin-top: 1%;
+    }
+
+    .containerGrafico {
+        width: 100%;
+        margin: 3%;
+        height: 60vh;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 @media (max-width:750px){
@@ -275,6 +294,9 @@
     }
     .box-status .info-maq {
         font-size: 120%;
+    }
+    .containerGrafico {
+        height: 70vh;
     }
 }
 
