@@ -371,9 +371,9 @@ hr{
         flex-wrap: nowrap;
         flex-direction: column;
         align-items: center;
+        justify-content: space-between;
     }
     .inputRegisterFuncionarios{
-        margin-top: 8px;
         width: 80%;
     }
 
