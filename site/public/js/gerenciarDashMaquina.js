@@ -146,12 +146,13 @@ function atualizarVariacaoRelatorios() {
     variacao = ((qtdRelatoriosSemanais - qtdRelatoriosSemanaPassada) / qtdRelatoriosSemanaPassada) * 100;
     variacaoRelatorios.className = 'percent memory'
   } else if (qtdRelatoriosSemanais < qtdRelatoriosSemanaPassada) {
+    variacao = ((qtdRelatoriosSemanais - qtdRelatoriosSemanaPassada) / qtdRelatoriosSemanaPassada) * 100;
     variacaoRelatorios.className = 'percent cpu'
   } else if (qtdRelatoriosSemanais == qtdRelatoriosSemanaPassada) {
     variacao = 0;
     variacaoRelatorios.className = 'percent ram'
   }
-  variacaoRelatorios.innerHTML = "^" + variacao.toFixed(1) + "%"
+  variacaoRelatorios.innerHTML =  variacao.toFixed(1) + "%"
 }
 
 function atualizarMaiorOcorrencia() {
