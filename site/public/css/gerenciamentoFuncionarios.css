@@ -1,4 +1,7 @@
-
+/* ICON SIDEBAR COR ATIVA */
+.telaAtual{
+    opacity: 1;
+}
 /* TITULO DE PRIMEIROS PASSOS E SEJA BEM VINDO */
 
 .guideText{
@@ -86,9 +89,9 @@ input{
     outline: none;
     border: none;
     font-weight: 500;
-    border-radius: 10px;
     padding: 7px;
-    background-color: #e6e9fa;
+    border-radius: 0;
+    border-bottom: black solid 1px;
     transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
     opacity: 0;
     height: auto;
@@ -321,7 +324,7 @@ hr{
     .registerCompany{
         width: 100%;
         justify-content: center ;
-        height: 83%;
+        height: 55%;
         
     }
     .welcomeSentence{
@@ -373,8 +376,9 @@ hr{
         margin-top: 8px;
         width: 80%;
     }
+
     .cargoFuncionario{
-        width: 90%;
+        width: 91%;
     }
 }
 @media (max-width:500px){

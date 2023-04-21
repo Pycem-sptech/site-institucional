@@ -1,3 +1,8 @@
+/* ICON SIDEBAR COR ATIVA */
+.telaAtual{
+    opacity: 1;
+}
+
 .guideText{
     height: 12vh;
     display: flex;
@@ -27,7 +32,7 @@
 }
 .formRegisterUnit{
     background-color: #fff;
-    height: 75%;
+    height: 45%;
     width: 91%;
     margin-left: 8px;
     margin-top: 10px;
@@ -64,7 +69,7 @@
     display: flex;
     flex-wrap: wrap;
     align-content: space-between;
-    height: 50%;
+    height: 40%;
 }
 input{
     height: 40px;
@@ -76,7 +81,7 @@ input{
 
 }
 .selectMachine{
-    width: 50%;
+    width: 48%;
     margin-right: 10px;
     background: url(../img/storeIconOpacity.svg) no-repeat left / 2.0em;
     background-position: 3px;
@@ -158,9 +163,9 @@ input{
     outline: none;
     border: none;
     font-weight: 500;
-    border-radius: 10px;
     padding: 7px;
-    background-color: #e6e9fa;
+    border-radius: 0;
+    border-bottom: black solid 1px;
     transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
     opacity: 0;
     height: auto;
@@ -183,7 +188,7 @@ input{
 }
 
 .inputRegisterMachine{
-    width: 40%;
+    width: 43%;
 }
 .nomeMachine{
     background: url(../img/user_icon.svg) no-repeat left / 2.0em;
@@ -194,7 +199,7 @@ input{
     background: url(../img/key_icon.svg) no-repeat left / 2.0em;
     padding-left: 40px;
     background-position: 4px;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 .feed{
     background-color: #fff;
@@ -260,7 +265,22 @@ input{
     background-color: rgba(97, 165, 227, 0.6);    
     border-radius: 20px;       
 }
-
+@media (max-width:1530px){
+    .inputRegisterMachine{
+        width: 40%;
+    }
+}
+@media (max-width:1075px){
+    .boxInputUnit{
+        justify-content: center;
+    }
+    .selectMachine{
+        width: 44%;
+    }
+    .inputRegisterMachine{
+        width: 35%;
+    }
+}
 
 @media (max-width:800px){
     .main{
@@ -270,8 +290,7 @@ input{
     .registerUnit{
         width: 100%;
         justify-content: center ;
-        height: 120%;
-        
+        height: 100%;
     }
     .formRegisterUnit{
         margin-left:0;
@@ -296,6 +315,19 @@ input{
     .firstStep{
         margin-left: 0;
     }
+    .selectMachine{
+        width: 100%;
+        margin: 0;
+    }
+    .inputRegisterMachine{
+        width: 100%;
+    }
+    .password{
+        margin: 0;
+    }
+    .boxInputUnit{
+        height: 55%;
+    }
 }
 
 @media (max-width:750px){
@@ -304,8 +336,8 @@ input{
         margin: 0;
     }
     .boxInputUnit{
-        height: 100%;
-        width: 50%;
+        height: 60%;
+        width: 75%;
         flex-wrap: nowrap;
         flex-direction: column;
         justify-content: space-evenly;
@@ -313,17 +345,13 @@ input{
     }
     .inputRegisterUnit{
         width: 100%;
-        margin-top: 5px;
         margin-right: 0;
     }
     .selectMachine{
         height: 42px;
-        width: 110%;
+        width: 112%;
     }
-    .storageSelect{
-        height: 42px;
-        width: 110%;
-    }
+
     .btnRegister{
         margin-top:10px ;
     }
@@ -333,8 +361,12 @@ input{
     }
 }
 @media (max-width:500px){
+    .formRegisterUnit{
+        justify-content: space-evenly;
+    }
     .boxInputUnit{
         width: 70%;
+        height: 72%;
     }
     .welcomeSentence{
         font-size: 1.6em;
@@ -342,8 +374,5 @@ input{
     .selectMachine{
         width: 115%;
     }
-    .storageSelect{
-     
-        width: 115%;
-    }
+
 }
