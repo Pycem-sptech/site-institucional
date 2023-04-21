@@ -6,6 +6,9 @@ var maquinaController = require("../controllers/maquinaController");
 router.get("/listar/:fkEmpresa/:fkUnidade", function (req, res) {
     maquinaController.listar(req, res);
 });
+router.get("/listarStatusTotem/:fkEmpresa", function (req, res) {
+    maquinaController.listarStatusTotem(req, res);
+});
 router.get("/listarMaquinas/:fkEmpresa", function (req, res) {
     maquinaController.listarMaquinas(req, res);
 });

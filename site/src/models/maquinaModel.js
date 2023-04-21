@@ -1,12 +1,16 @@
 var database = require("../database/config");
 
 function listar(fkEmpresa, fkUnidade) {
-  var instrucao = `select unidade.nome as nomeUnidade, totem.idTotem, totem.numeroSerie as numeroSerie, totem.estado as status from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}' and unidade.idUnidade = '${fkUnidade}';`;
+  var instrucao = `select unidade.nome as nomeUnidade, totem.usuario, totem.idTotem, totem.numeroSerie as numeroSerie, totem.estado as status from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}' and unidade.idUnidade = '${fkUnidade}';`;
+  return database.executar(instrucao);
+}
+function listarStatusTotem(fkEmpresa) {
+  var instrucao = `select t.estado from totem t join unidade u on u.idUnidade = t.fkUnidade join empresa e on e.idEmpresa = u.fkEmpresa where idEmpresa = '${fkEmpresa}';`;
   return database.executar(instrucao);
 }
 
 function listarMaquinas(fkEmpresa) {
-  var instrucao = `select unidade.nome as nomeUnidade, totem.idTotem, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
+  var instrucao = `select unidade.nome as nomeUnidade, totem.usuario ,totem.idTotem, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
   return database.executar(instrucao);
 }
 
@@ -37,8 +41,8 @@ function listarUltimosDados(fkTotem) {
   return database.executar(instrucao);
 }
 
-function cadastrarMaquina(nome, numeroSerial, processador, ram, qtdArmazenamento, storageSelect, freq) {
-  var instrucao = `INSERT INTO totem (numeroSerie, processador, ram, qtd_armazenamento, tipo_armazenamento, freq_processador, fkUnidade) VALUES ( '${numeroSerial}', '${processador}', '${ram}', '${qtdArmazenamento}', '${storageSelect}', '${freq}', '${nome}');`;
+function cadastrarMaquina(fkUnidade, nomeMachine, password) {
+  var instrucao = `INSERT INTO totem (usuario, senha,fkUnidade) VALUES ( '${nomeMachine}', '${password}', '${fkUnidade}');`;
   return database.executar(instrucao);
 }
 
@@ -62,5 +66,6 @@ module.exports = {
   deletarRegistroMaquina,
   filtrarMaquinas,
   listarUsoMaquina,
-  listarUltimosDados
+  listarUltimosDados,
+  listarStatusTotem
 };

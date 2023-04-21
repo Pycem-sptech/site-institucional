@@ -122,13 +122,13 @@ input{
     background: url(../img/telefoneIcon.svg) no-repeat left / 2.0em;
 }
 
-
 .units{
     width: 32%;
     height: 100%;
     display: flex;
     justify-content: flex-end;
 }
+
 .boxUnits .container{
     width: 80%;
     height: 10vh;

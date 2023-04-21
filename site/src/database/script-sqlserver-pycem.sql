@@ -55,12 +55,16 @@ PRIMARY KEY(fkUsuario,fkEmpresa,fkUnidade)
 
 create table totem(
 idTotem int primary key identity(1,1),
-numeroSerie varchar(30) not null,
-processador varchar(30) not null,
-freq_processador varchar(10) not null,
-ram int not null,
-tipo_armazenamento varchar(3) not null,  constraint chkArmazenamento check (tipo_armazenamento in('HD','SSD')),
-qtd_armazenamento int not null,
+usuario varchar(20) not null,
+senha varchar(10) not null,
+numeroSerie varchar(30),
+processador varchar(30),
+freq_processador varchar(10),
+ram int,
+tipo_armazenamento varchar(3), constraint chkArmazenamento check (tipo_armazenamento in('HD','SSD')),
+qtd_armazenamento int,
+ipv4 varchar(16),
+mac_address varchar(18),
 estado varchar(10) not null default 'Desligado', constraint chkEstado check (estado in('Disponivel','Manutencao','Desligado')),
 fkUnidade int, FOREIGN KEY (fkUnidade) REFERENCES unidade(idUnidade) ON DELETE CASCADE
 );
@@ -86,16 +90,17 @@ data_relatorio date,
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 );
 
+
 insert into [dbo].[relatorio] (titulo, descricao, tipo, data_relatorio, fkTotem) values
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','10/01/2022',3),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','10/02/2022',3),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','10/02/2022',3),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','11/02/2022',3),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','11/03/2022',3),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','11/03/2022',3),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','12/03/2022',3),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','12/03/2022',3),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','12/03/2022',3),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','12/03/2022',3),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','12/01/2022',3),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','12/01/2022',3)
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1)
