@@ -73,7 +73,8 @@ function plotarGrafico(resposta) {
                             size: 17
                         }
                     }
-                }
+                },
+                responsive: true
             },
             scales: {
                 y: {
