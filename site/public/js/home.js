@@ -47,6 +47,10 @@ function atualizarUnidadesCadastradas() {
         });
 }
 
+var desligado = 0;
+var disponivel = 0;
+var manutencao = 0;
+
 function listarStatusGeralTotem(fkEmpresa) {
     fetch(`/maquina/listarStatusTotem/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
@@ -63,9 +67,7 @@ function listarStatusGeralTotem(fkEmpresa) {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
 }
-var desligado = 0;
-var disponivel = 0;
-var manutencao = 0;
+
 
 function atualizarGeralMaquinas(resposta){
     let total1 = document.getElementById("totalMaquinas1");
@@ -84,11 +86,12 @@ function atualizarGeralMaquinas(resposta){
     total3.innerHTML = resposta.length;
 
     for(let i = 0; i < resposta.length; i++){
-        if(resposta.estado == 'Desligado'){
+        console.log(resposta.estado)
+        if(resposta[i].estado == 'Desligado'){
             desligado++
-        }else if(resposta.estado == 'Disponivel'){
+        }else if(resposta[i].estado == 'Disponivel'){
             disponivel++
-        }else if(resposta.estado == 'Manutencao'){
+        }else if(resposta[i].estado == 'Manutencao'){
             manutencao++
         }
     }
