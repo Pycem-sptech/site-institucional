@@ -78,7 +78,6 @@ function buscarDadosMaquina(idMaquina){
                     memoriaRamModal.value = resposta[0].ram;
                     escolherArmazenamentoModal.value = resposta[0].tipo_armazenamento;
                     qtdArmazenamentoModal.value = resposta[0].qtd_armazenamento;
-                    freqCPU.value = resposta[0].freq_processador;
                 });
             } else {
                 throw "Houve um erro na API!";

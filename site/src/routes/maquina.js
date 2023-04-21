@@ -56,6 +56,9 @@ router.put("/mudarStatus/:idMaquina", function (req, res) {
 router.put("/editar/:idMaquina", function (req, res) {
     maquinaController.editar(req, res);
 });
+router.put("/atualizarStatusMaquina/:idMaquina", function (req, res) {
+    maquinaController.atualizarStatusMaquina(req, res);
+});
 
 router.delete("/deletar/:idMaquina", function (req, res) {
     maquinaController.deletarRegistroMaquina(req, res);

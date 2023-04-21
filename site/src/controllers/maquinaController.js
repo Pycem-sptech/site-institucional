@@ -220,10 +220,9 @@ function editar(req, res) {
     const ram = req.body.memoriaRam;
     const qtdArmazenamento = req.body.qtdArmazenamento;
     const storageSelect = req.body.tipoArmazenamento;
-    const freq = req.body.freqCPU;
     const idMaquina = req.params.idMaquina;
 
-    maquinaModel.editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, freq, idMaquina).then(
+    maquinaModel.editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina).then(
         function (resultado) {
             res.json(resultado);
         }
@@ -231,6 +230,22 @@ function editar(req, res) {
         function (erro) {
             console.log(erro);
             console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+
+}
+function atualizarStatusMaquina(req, res) {
+    const statusNovo = req.body.statusNovoServer;
+    const idMaquina = req.params.idMaquina;
+
+    maquinaModel.atualizarStatusMaquina(idMaquina,statusNovo).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
             res.status(500).json(erro.sqlMessage);
         }
     );
@@ -285,5 +300,7 @@ module.exports = {
     filtrarMaquinas,
     listarUsoMaquina,
     listarUltimosDados,
-    mudarStatus
+    listarStatusTotem,
+    mudarStatus,
+    atualizarStatusMaquina
 }

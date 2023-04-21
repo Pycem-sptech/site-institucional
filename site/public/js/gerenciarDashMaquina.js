@@ -157,6 +157,40 @@ function atualizarNomeUnidade(nomeUnidade) {
   divNomeUnidade = document.getElementById("welcomeSentence");
   divNomeUnidade.innerHTML = nomeUnidade;
 }
+var statusAntigo = "";
+function atualizarStatusMaquina(idTotem) {
+  const statusNovo = trocarStatus.value;
+  if (statusAntigo == "") {
+    statusAntigo = statusNovo;
+  } else if (statusAntigo == statusNovo) {
+    toastPadrao('error', `O estado já é ${statusNovo}`)
+  } else {
+    statusAntigo = statusNovo;
+    fetch(`/maquina/atualizarStatusMaquina/${idTotem}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        statusNovoServer: statusNovo,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
 
+        if (resposta.ok) {
+          toastPadrao('success', `Status atualizada para ${statusNovo} com sucesso!`);
+          listarAlertas()
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
 
+    return false;
+  }
+
+}
 
