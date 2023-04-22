@@ -74,7 +74,7 @@
                     <div class="titleBoxHardInfo">
                         <div class="container">
                             <h3>Processador</h3>
-                            <h5 class="subtitleHardInfo" id="qtd_cpu"></h5>
+                            <h5 class="subtitleHardInfo" id="qtd_cpu" ></h5>
                         </div>
                     </div>
                     <div class="percentageUse">
@@ -85,7 +85,7 @@
                     <div class="titleBoxHardInfo">
                         <div class="container">
                             <h3>Memoria Ram</h3>
-                            <h5 class="subtitleHardInfo" id="qtd_ram" ></h5>
+                            <h5 class="subtitleHardInfo" id="qtd_ram"  ></h5>
                         </div>
                     </div>
                     <div class="percentageUse">
@@ -96,7 +96,7 @@
                     <div class="titleBoxHardInfo">
                         <div class="container">
                             <h3 class="memoryTitle">Memória de Massa</h3>
-                            <h5 class="subtitleHardInfo" id="qtd_armazenamento" onclick="this.innerHTML=dadosMaquina.qtdArmazenamento">
+                            <h5 class="subtitleHardInfo" id="qtd_armazenamento" >
 
                             </h5>
                         </div>
@@ -218,18 +218,18 @@
 
 </html>
 <script>
+    buscarDadosMaquina(sessionStorage.ID_TOTEM, 'subTitulo');
+    
     const btnMobile = document.getElementById('btn-mobile');
-
     function toggleMenu(event) {
         if (event.type === 'touchstart') event.preventDefault();
         const nav = document.getElementById('nav');
         nav.classList.toggle('active');
 
     }
-
+    
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
-
     function pesquisar() {
         tituloMaquinas.style.display = "none";
         btnSearch.style.display = "none";

@@ -28,7 +28,7 @@ function listarStatusMaqEmTempoReal(fkUnidade) {
 }
 
 function filtrarMaquinas(nomeDigitado) {
-  var instrucao = `select t.idTotem as idTotem, u.nome as nomeUnidade, t.numeroSerie as numeroSerie from totem t join unidade u on fkUnidade = idUnidade where t.numeroSerie like '${nomeDigitado}%';`;
+  var instrucao = `select t.idTotem as idTotem, u.nome as nomeUnidade, t.usuario as usuario from totem t join unidade u on fkUnidade = idUnidade where t.usuario like '${nomeDigitado}%';`;
   return database.executar(instrucao);
 }
 
