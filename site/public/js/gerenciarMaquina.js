@@ -262,12 +262,9 @@ function limparCamposMaquina() {
 }
 
 var statusAntigo = "";
-
 function atualizarStatusMaquina(idTotem) {
   const statusNovo = trocarStatus.value;
-  if (statusAntigo == "") {
-    statusAntigo = statusNovo;
-  } else if (statusAntigo == statusNovo) {
+ if (statusAntigo == statusNovo) {
     toastPadrao('error', `O estado já é ${statusNovo}`)
   } else {
     statusAntigo = statusNovo;

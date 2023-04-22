@@ -31,9 +31,8 @@
             <div class="navigationButtons">
                 <h2 onclick="redirectHome()">Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
-                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectUnit()">
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                 <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg">
-                <!-- onclick="redirectMachine()" -->
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
@@ -145,7 +144,7 @@
                 <div class="container">
                     <h3>Status da Máquina</h3>
                     <select name="" id="trocarStatus" class="selectStatus"
-                        onchange="atualizarStatusMaquina(`${sessionStorage.ID_TOTEM}`)">
+                    onchange="atualizarStatusMaquina(`${sessionStorage.ID_TOTEM}`)">
                         <option value="" disabled></option>
                         <option value="Disponivel">Disponível</option>
                         <option value="Manutencao">Manutenção</option>
