@@ -108,6 +108,7 @@ function atualizarStatusBoxMachine() {
   desligado.innerHTML = maqDesligado;
 }
 var atualizando = false;
+
 function atualizarStatusMaqEmTempoReal() {
   if (atualizando) {
     clearInterval(atualizar);
