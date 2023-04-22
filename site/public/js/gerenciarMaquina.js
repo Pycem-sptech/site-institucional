@@ -1,6 +1,5 @@
 let dadosMaquina = {}
 
-setInterval(buscarDadosMaquina(sessionStorage.ID_TOTEM), 5000);
 
 function atualizarSelectUnidades(idSelect) {
     const select = document.querySelector(idSelect);
@@ -72,7 +71,7 @@ function cadastrarMaquina() {
     }
 }
 
-function buscarDadosMaquina(idMaquina){
+function buscarDadosMaquina(idMaquina, tipo="modal"){
     fetch(`/maquina/listarDadosMaquina/${idMaquina}`)
         .then(function (resposta) {
             if (resposta.ok) {
@@ -85,7 +84,14 @@ function buscarDadosMaquina(idMaquina){
                     dadosMaquina.qtdArmazenamento = resposta[0].qtd_armazenamento;
                     dadosMaquina.usuario = resposta[0].usuario;
                     dadosMaquina.senha = resposta[0].senha;
+                    if(tipo == "subTitulo"){
+                        postarSubTitulo()
+                    }if(tipo == "modal"){
+                        postarModalDados()
+                    }
+                    
                 });
+                
             } else {
                 throw "Houve um erro na API!";
             }
@@ -104,6 +110,12 @@ function postarModalDados(){
     qtdArmazenamentoModal.value = dadosMaquina.qtdArmazenamento;
     usuarioModal.value = dadosMaquina.usuario;
     senhaModal.value = dadosMaquina.senha;
+}
+
+function postarSubTitulo(){
+    qtd_cpu.innerHTML = dadosMaquina.processador;
+    qtd_ram.innerHTML = dadosMaquina.ram;
+    qtd_armazenamento.innerHTML = dadosMaquina.qtdArmazenamento;
 }
 
 function buscarDadosEstado(idMaquina){
@@ -160,7 +172,7 @@ function atualizarMaquinasCadastradas() {
                         spanNumeroSerie.innerHTML = publicacao.usuario;
 
                         divBtnEditDelete.className = "btnEditDelete";
-                        divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idTotem}), postarModalDados()'>`;
+                        divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idTotem}), buscarDadosMaquina(${publicacao.idTotem})'>`;
                         divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarMaquina(${publicacao.idTotem})'>`;
 
                         feed.appendChild(divRegisteredMachine);
