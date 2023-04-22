@@ -171,7 +171,7 @@ var repOutro = 0;
 
 data = new Date
 const primeiroDiaSemanaAtual = data.getDate() - data.getDay() + "/" + (data.getMonth() + 1);
-const ultimoDiaSemanaAtual = data.getDate() - data.getDay() + 6 + "/" + (data.getMonth() + 1);
+const ultimoDiaSemanaAtual = data.getDate() - data.getDay() + 7 + "/" + (data.getMonth() + 1);
 const primeiroDiaSemanaPassada = data.getDate() - data.getDay() - 7 + "/" + (data.getMonth() + 1);
 const ultimoDiaSemanaPassada = data.getDate() - data.getDay() + -1 + "/" + (data.getMonth() + 1);
 var qtdRelatoriosSemanais = 0;
