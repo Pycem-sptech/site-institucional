@@ -86,10 +86,9 @@ function editarRelatorio(req, res) {
   var tipo = req.body.tipo;
   var descricao = req.body.descricao;
   var data = req.body.data;
-  var fkMaquina = req.body.fkMaquina;
   var idRelatorio = req.params.idRelatorio;
 
-  relatorioModel.editarRelatorio(titulo, tipo, descricao, data, idRelatorio, fkMaquina).then(
+  relatorioModel.editarRelatorio(titulo, tipo, descricao, data, idRelatorio).then(
       function (resultado) {
           res.json(resultado);
       }

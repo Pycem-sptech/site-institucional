@@ -59,12 +59,15 @@ function atualizarRelatorios(idTotem) {
 function editarRelatorio() {
     const tituloVar = tituloModal.value;
     const dataVar = dataModal.value;
+    const ano = dataVar.substring(8, dataVar.length);    
+    const mes = dataVar.substring(4, 7);
+    const dia = dataVar.substring(0, 3);
     const tipoVar = escolherTipoProblemaModal.value;
     const descricaoVar = descricaoModal.value;
-    const fkMaquinaVar = escolherNumeroSerie.value;
+    
 
 
-    if (tituloVar != undefined && tituloVar != '' && dataVar != undefined && dataVar != '' && tipoVar != undefined && tipoVar != '' && descricaoVar != undefined && descricaoVar != '' && fkMaquinaVar != undefined && fkMaquinaVar != '') {
+    if (tituloVar != undefined && tituloVar != '' && dataVar != undefined && dataVar != '' && tipoVar != undefined && tipoVar != '' && descricaoVar != undefined && descricaoVar != '' ) {
         Swal.fire({
             title: 'Deseja mesmo salvar as alterações?',
             icon: 'warning',
@@ -85,7 +88,7 @@ function editarRelatorio() {
                         data: dataVar,
                         tipo: tipoVar,
                         descricao: descricaoVar,
-                        fkMaquina: fkMaquinaVar,
+                        
                     })
                 }).then(function (resposta) {
 
@@ -122,7 +125,7 @@ function cadastrarRelatorio() {
     const dataVar = dataModal.value;
     const tipoVar = escolherTipoProblemaModal.value;
     const descricaoVar = descricaoModal.value;
-    const fkMaquinaVar = escolherNumeroSerie.value;
+    const fkMaquinaVar = sessionStorage.ID_TOTEM;
 
     if (tituloVar == "" || dataVar == "" || descricaoVar == "" || tipoVar == "") {
         toastPadrao('error', 'Preencha os campos estão vazios')
