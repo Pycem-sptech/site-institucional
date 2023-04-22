@@ -137,6 +137,13 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
             borderColor: 'rgba(0, 12, 232, 1)',
             tension: 0.1
         },{
+            label: 'Mau funcionamento',
+            data: [],
+            fill: true,
+            backgroundColor: 'rgba(0, 255, 232, 0.7)',
+            borderColor: 'rgba(0, 255, 232, 1)',
+            tension: 0.1
+        },{
             label: 'Outro',
             data: [],
             fill: true,
@@ -156,6 +163,7 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
         labels.push(registro.semana);
         dados.datasets[0].data.push(registro.Desligamento);
         dados.datasets[1].data.push(registro.Sobrecarga);
+        dados.datasets[1].data.push(registro.Mau_funcionamento);
         dados.datasets[2].data.push(registro.Outro);
     }
 

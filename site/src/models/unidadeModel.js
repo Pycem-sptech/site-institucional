@@ -57,12 +57,13 @@ function ocorrenciasPorMes(fkEmpresa) {
   return database.executar(instrucao);
 }
 
-function frequenciaProblemasMensal(fkEmpresa) {
+function frequenciaProblemasMensal(fkEmpresa, idUnidade) {
   var instrucao = `
         SELECT 
         DATEPART(week, r.data_relatorio) AS semana, 
         (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Desligamento' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Desligamento,
         (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Sobrecarga' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Sobrecarga,
+        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Mau funcionamento' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Mau_funcionamento,
         (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Outro' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Outro
       FROM 
         unidade u
@@ -70,8 +71,8 @@ function frequenciaProblemasMensal(fkEmpresa) {
         JOIN totem t ON u.idUnidade = t.fkUnidade
         JOIN relatorio r ON t.idTotem = r.fkTotem
       WHERE 
-        e.idEmpresa = 100 AND
-        u.idUnidade = 1 AND
+        e.idEmpresa = '${fkEmpresa}' AND
+        u.idUnidade = '${idUnidade}' AND
         YEAR(r.data_relatorio) = 2023 AND
         MONTH(r.data_relatorio) = 4
       GROUP BY 
