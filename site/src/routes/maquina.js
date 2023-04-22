@@ -25,6 +25,11 @@ router.get("/filtrarMaquinas/:nomeDigitado", function (req, res) {
     maquinaController.filtrarMaquinas(req, res);
 });
 
+router.get("/filtrarMaquinasDash/:nomeDigitado/:idUnidade", function (req, res) {
+    maquinaController.filtrarMaquinasDash(req, res);
+});
+
+
 router.get("/listarUsoMaquina/:fkTotem", function (req, res) {
     maquinaController.listarUsoMaquina(req, res);
 });
@@ -49,12 +54,11 @@ router.post("/cadastrarMaquina", function (req, res) {
     maquinaController.cadastrarMaquina(req, res);
 })
 
-router.put("/mudarStatus/:idMaquina", function (req, res) {
-    maquinaController.mudarStatus(req, res);
-})
-
 router.put("/editar/:idMaquina", function (req, res) {
     maquinaController.editar(req, res);
+});
+router.put("/atualizarStatusMaquina/:idMaquina", function (req, res) {
+    maquinaController.atualizarStatusMaquina(req, res);
 });
 
 router.delete("/deletar/:idMaquina", function (req, res) {

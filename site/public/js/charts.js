@@ -1,6 +1,6 @@
 const fkEmpresa = sessionStorage.FK_EMPRESA;
 const listaUnidades = [];
-
+var alertaParou = false
 
 function obterDadosGraficoQtdRelatorios(fkEmpresa) {
     fetch(`/unidade/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
@@ -33,8 +33,8 @@ function plotarGrafico(resposta) {
         datasets: [{
             label: 'Quantidade de relátorios',
             data: [],
-            fill: false,
-            backgroundColor: 'rgba(0, 120, 232, 1)',
+            fill: true,
+            backgroundColor: 'rgba(0, 120, 232, 0.7)',
             borderColor: 'rgba(0, 120, 232, 1)',
             tension: 0.1
         }]
@@ -73,11 +73,12 @@ function plotarGrafico(resposta) {
                             size: 17
                         }
                     }
-                },
-                responsive: true
+                }
             },
             scales: {
                 y: {
+                    min: 0,
+                    max: 100,
                     beginAtZero: true
                 }
             }
@@ -91,6 +92,121 @@ function plotarGrafico(resposta) {
     );
     // setTimeout(() => atualizarGrafico(fkEmpresa, dados, ocorrenciasPorUnidade), tempoDeAtualizacao);
 }
+
+
+function obterDadosGraficoFrequenciaProblemasMensal(fkEmpresa,idUnidade) {
+    fetch(`/unidade/frequenciaProblemasMensal/${fkEmpresa}/${idUnidade}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.reverse();
+
+                plotarGraficoFrequenciaProblemasMensal(resposta);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarGraficoFrequenciaProblemasMensal(resposta) {
+
+    console.log('iniciando plotagem do gráfico...');
+
+    // Criando estrutura para plotar gráfico - labels
+    let labels = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dados = {
+        labels: labels,
+        datasets: [{
+            label: 'Desligamento',
+            dataDesligamento: [],
+            fill: true,
+            backgroundColor: 'rgba(0, 200, 232, 0.7)',
+            borderColor: 'rgba(0, 200, 232, 1)',
+            tension: 0.1
+        },{
+            label: 'Sobrecarga',
+            dataSobrecarga: [],
+            fill: true,
+            backgroundColor: 'rgba(0, 12, 232, 0.7)',
+            borderColor: 'rgba(0, 12, 232, 1)',
+            tension: 0.1
+        },{
+            label: 'Outro',
+            dataOutro: [],
+            fill: true,
+            backgroundColor: 'rgba(0, 100, 232, 0.7)',
+            borderColor: 'rgba(0, 100, 232, 1)',
+            tension: 0.1
+        }]
+    };
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (i = 0; i < resposta.length; i++) {
+        var registro = resposta[i];
+        labels.push(registro.semana);
+        dados.datasets[0].data.push(registro.count_desligamento);
+        dados.datasets[1].data.push(registro.count_sobrecarga);
+        dados.datasets[2].data.push(registro.count_outro);
+    }
+
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log(labels)
+    console.log('Dados:')
+    console.log(dados.datasets)
+    console.log('----------------------------------------------')
+
+    // Criando estrutura para plotar gráfico - config
+    const configFrequenciaProblemasMensal = {
+        type: 'bar',
+        data: dados,
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        // This more specific font property overrides the global property
+                        font: {
+                            family: 'Inter',
+                            size: 17
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                    beginAtZero: true
+                }
+            }
+        },
+    };
+
+    // Adicionando gráfico criado em div na tela
+    let frequenciaProblemasMensal = new Chart(
+        document.getElementById(`frequenciaProblemasMensal`),
+        configFrequenciaProblemasMensal
+    );
+    // setTimeout(() => atualizarGrafico(fkEmpresa, dados, frequenciaProblemasMensal), tempoDeAtualizacao);
+}
+
+
+
+
+
+
+
 
 function obterFrequenciaDeOcorrencias(fkEmpresa) {
     fetch(`/unidade/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
@@ -145,8 +261,8 @@ function plotarGraficoProcessador(resposta, fkTotem) {
         datasets: [{
             label: 'Uso do Processador',
             data: [],
-            fill: false,
-            backgroundColor: 'rgba(0, 120, 232, 1)',
+            fill: true,
+            backgroundColor: 'rgba(0, 120, 232, 0.7)',
             borderColor: 'rgba(0, 120, 232, 1)',
             tension: 0.1
         }]
@@ -157,7 +273,8 @@ function plotarGraficoProcessador(resposta, fkTotem) {
         labels.push(resposta[i].data_registro);
         dados.datasets[0].data.push(resposta[i].uso_processador);
     }
-
+    let usoCpu = document.getElementById("percentualUsoCpu")
+    usoCpu.innerHTML = resposta[0].uso_processador + "%";
     // Criando estrutura para plotar gráfico - config
     const configUsoDoProcessador = {
         type: 'line',
@@ -176,6 +293,8 @@ function plotarGraficoProcessador(resposta, fkTotem) {
             },
             scales: {
                 y: {
+                    min: 0,
+                    max: 100,
                     beginAtZero: true
                 }
             }
@@ -199,8 +318,8 @@ function plotarGraficoRam(resposta, fkTotem) {
         datasets: [{
             label: 'Uso da Ram',
             data: [],
-            fill: false,
-            backgroundColor: 'rgba(0, 120, 232, 1)',
+            fill: true,
+            backgroundColor: 'rgba(0, 120, 232, 0.7)',
             borderColor: 'rgba(0, 120, 232, 1)',
             tension: 0.1
         }]
@@ -211,7 +330,8 @@ function plotarGraficoRam(resposta, fkTotem) {
         labels.push(resposta[i].data_registro);
         dados.datasets[0].data.push(resposta[i].uso_ram);
     }
-
+    let usoRam = document.getElementById("percentualUsoRam")
+    usoRam.innerHTML = resposta[0].uso_ram + "%";
     // Criando estrutura para plotar gráfico - config
     const configusoDaRam = {
         type: 'line',
@@ -230,6 +350,8 @@ function plotarGraficoRam(resposta, fkTotem) {
             },
             scales: {
                 y: {
+                    min: 0,
+                    max: 100,
                     beginAtZero: true
                 }
             }
@@ -253,8 +375,8 @@ function plotarGraficoHd(resposta, fkTotem) {
         datasets: [{
             label: 'Uso da Memória de Massa',
             data: [],
-            fill: false,
-            backgroundColor: 'rgba(0, 120, 232, 1)',
+            fill: true,
+            backgroundColor: 'rgba(0, 120, 232, 0.7)',
             borderColor: 'rgba(0, 120, 232, 1)',
             tension: 0.1
         }]
@@ -265,7 +387,8 @@ function plotarGraficoHd(resposta, fkTotem) {
         labels.push(resposta[i].data_registro);
         dados.datasets[0].data.push(resposta[i].uso_hd);
     }
-
+    let usoHd = document.getElementById("percentualUsoHd")
+    usoHd.innerHTML = resposta[0].uso_hd + "%";
     // Criando estrutura para plotar gráfico - config
     const configUsoDoHd = {
         type: 'line',
@@ -284,6 +407,8 @@ function plotarGraficoHd(resposta, fkTotem) {
             },
             scales: {
                 y: {
+                    min: 0,
+                    max: 100,
                     beginAtZero: true
                 }
             }
@@ -317,7 +442,8 @@ function atualizarGraficoProcessador(fkTotem, dados, usoDoProcessador) {
 
                     usoDoProcessador.update();
                 }
-
+                let usoCpu = document.getElementById("percentualUsoCpu")
+                usoCpu.innerHTML = novoRegistro[0].uso_processador + "%";
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                 proximaAtualizacao = setTimeout(() => atualizarGraficoProcessador(fkTotem, dados, usoDoProcessador), tempoDeAtualizacao);
             });
@@ -351,7 +477,8 @@ function atualizarGraficoRam(fkTotem, dados, usoDaRam) {
 
                     usoDaRam.update();
                 }
-
+                let usoRam = document.getElementById("percentualUsoRam")
+                usoRam.innerHTML = novoRegistro[0].uso_ram + "%";
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                 proximaAtualizacao = setTimeout(() => atualizarGraficoRam(fkTotem, dados, usoDaRam), tempoDeAtualizacao);
             });
@@ -385,7 +512,8 @@ function atualizarGraficoHd(fkTotem, dados, usoDoHd) {
 
                     usoDoHd.update();
                 }
-
+                let usoHd = document.getElementById("percentualUsoHd")
+                usoHd.innerHTML = novoRegistro[0].uso_hd + "%";
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                 proximaAtualizacao = setTimeout(() => atualizarGraficoHd(fkTotem, dados, usoDoHd), tempoDeAtualizacao);
             });
@@ -405,3 +533,60 @@ function atualizarNomeMaquina() {
     userMachine.innerHTML = `${sessionStorage.VER_TOTEM}`;
 }
 
+function atualizarRelatorios(idTotem) {
+    fetch(`/relatorio/listarRelatoriosTotem/${idTotem}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                var machineField = document.getElementById("machineField");
+                machineField.innerHTML = "";
+                var mensagem = document.createElement("span");
+                mensagem.innerHTML = "Infelizmente, nenhum relatório foi encontrado.";
+                machineField.appendChild(mensagem);
+                throw "Nenhum resultado encontrado!!";
+            }
+
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                var machineField = document.getElementById("machineField");
+                machineField.innerHTML = "";
+                for (let i = 0; i < resposta.length; i++) {
+                    var publicacao = resposta[i];
+
+                    var report = document.createElement("div");
+                    var iconReport = document.createElement("img");
+                    var titleReport = document.createElement("div");
+                    var dateReport = document.createElement("div");
+                    var btnViewReport = document.createElement("img");
+
+                    machineField.className = "machineField";
+                    report.className = "report";
+
+                    iconReport.className = "iconReport";
+                    titleReport.className = "titleReport";
+                    dateReport.className = "dateReport";
+                    btnViewReport.className = "btnViewReport";
+
+                    iconReport.src = "img/iconRelatorio.svg";
+                    iconReport.alt = "icon de relatorio";
+                    titleReport.innerHTML = publicacao.titulo;
+                    dateReport.innerHTML = publicacao.data_relatorio;
+                    btnViewReport.src = "img/btnVisualizarRelatorio.svg";
+                    btnViewReport.setAttribute("onclick", `mostrarModalRelatorio(1), buscarDadosRelatorio(${publicacao.idRelatorio}), criarIdRelatório(${publicacao.idRelatorio})`);
+
+                    machineField.appendChild(report);
+                    report.appendChild(iconReport);
+                    report.appendChild(titleReport);
+                    report.appendChild(dateReport);
+                    report.appendChild(btnViewReport);
+
+                }
+            });
+        } else {
+            throw "Houve um erro na API!";
+        }
+    })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+}

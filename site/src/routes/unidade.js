@@ -62,6 +62,9 @@ router.get("/filtrarTodasUnidades/:nomeDigitado/:fkEmpresa", function (req, res)
 router.get("/ocorrenciasPorMes/:fkEmpresa", function (req, res) {
     unidadeController.ocorrenciasPorMes(req, res);
 });
+router.get("/frequenciaProblemasMensal/:fkEmpresa/:idUnidade", function (req, res) {
+    unidadeController.frequenciaProblemasMensal(req, res);
+});
 
 
 module.exports = router;
