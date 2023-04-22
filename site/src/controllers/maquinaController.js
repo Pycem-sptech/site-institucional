@@ -57,6 +57,23 @@ function filtrarMaquinas(req, res) {
         }
     );
 }
+
+function filtrarMaquinasDash(req, res) {
+    nomeDigitado = req.params.nomeDigitado;
+    idUnidade = req.params.idUnidade;
+    maquinaModel.filtrarMaquinasDash(nomeDigitado, idUnidade).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 function listarUsoMaquina(req, res) {
     fkTotem = req.params.fkTotem;
     maquinaModel.listarUsoMaquina(fkTotem).then(function (resultado) {
@@ -285,5 +302,6 @@ module.exports = {
     listarUsoMaquina,
     listarUltimosDados,
     listarStatusTotem,
-    atualizarStatusMaquina
+    atualizarStatusMaquina,
+    filtrarMaquinasDash
 }
