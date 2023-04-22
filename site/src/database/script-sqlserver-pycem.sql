@@ -91,15 +91,15 @@ fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 
 
 insert into [dbo].[relatorio] (titulo, descricao, tipo, data_relatorio, fkTotem) values
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1),
-('deu ruim','a maquina parou de funcionar apos um pico de energia','Desligamento','02/04/2023',1)
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
+('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1)
