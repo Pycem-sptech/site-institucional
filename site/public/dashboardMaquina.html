@@ -11,6 +11,7 @@
     <script src="js/geral.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/gerenciarDashMaquina.js"></script>
+    <script src="js/gerenciarMaquina.js"></script>
     <script src="./js/relatorios.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
@@ -109,7 +110,7 @@
                 <div class="titleListMachine">
                     <div class="container">
                         <h3 id="tituloMaquinas">Máquinas</h3>
-                        <input id="campoPesquisa" type="text">
+                        <input id="campoPesquisa" type="text" onkeyup="filtrarMaquinasDash(this.value)">
                         <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
                         <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                     </div>
