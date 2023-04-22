@@ -15,7 +15,7 @@ function listarMaquinas(fkEmpresa) {
 }
 
 function listarDadosMaquina(idMaquina) {
-  var instrucao = `select * from totem where idTotem = ${idMaquina};`;
+  var instrucao = `select totem.* from totem where idTotem = ${idMaquina};`;
   return database.executar(instrucao);
 }
 function listarStatusMaqEmTempoReal(fkUnidade) {
@@ -55,11 +55,6 @@ function atualizarStatusMaquina(idMaquina,statusNovo) {
   return database.executar(instrucao);
 }
 
-function mudarStatus(status, idMaquina) {
-  var instrucao = `UPDATE totem SET estado=${status} WHERE idTotem = ${idMaquina};`;
-  return database.executar(instrucao);
-}
-
 
 function deletarRegistroMaquina(idMaquina) {
   var instrucao = `DELETE FROM totem WHERE idTotem = ${idMaquina};`;
@@ -79,5 +74,5 @@ module.exports = {
   listarUltimosDados,
   listarStatusTotem,
   atualizarStatusMaquina,
-  mudarStatus
+
 };

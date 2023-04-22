@@ -29,42 +29,6 @@ function privarFuncSupervisor(){
 }
 
 
-function mudarStatus(){
-    const statusVar = status_inp.value;
-    if (statusVar != undefined && statusVar != '' ) {
-          fetch(`maquina/mudarStatus/${sessionStorage.ID_MAQUINA}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              status: statusVar,            
-            })
-          }).then(function (resposta) {
-            if (resposta.ok) {
-              Swal.fire(
-                'Pronto!',
-                'Suas alterações foram gravadas',
-                'success'
-              ).then((result) => {
-                if (result.isConfirmed) {
-                   location.reload();
-                }
-              })
-            } else if (resposta.status == 404) {
-              return false
-            } else {
-              return false
-            }
-          }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-          });
-        }
-       else {
-      alert("Verifique os campos");
-    }
-}
-
 // sessão
 function validarSessao() {
 
@@ -336,3 +300,6 @@ function redirectVisaoGeral(){
         window.location = "home.html";
     }, 250);
 }
+
+
+

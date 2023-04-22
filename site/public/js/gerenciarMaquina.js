@@ -1,5 +1,5 @@
-function atualizarSelectUnidades() {
-    const select = document.querySelector('#nameUnit');
+function atualizarSelectUnidades(idSelect) {
+    const select = document.querySelector(idSelect);
     const fkEmpresa = sessionStorage.FK_EMPRESA;
     var fkEmpresaVar = fkEmpresa;
 
@@ -13,7 +13,7 @@ function atualizarSelectUnidades() {
                 resposta.json().then(function (resposta) {
                     for (var i = 0; i < resposta.length; i++) {
                         select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
-                    }
+                    } 
                 }
                 );
             } else {
@@ -73,11 +73,15 @@ function buscarDadosMaquina(idMaquina){
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
+                    escolherUnidadeModal.value = resposta[0].fkUnidade;
                     numeroDeSerieModal.value = resposta[0].numeroSerie;
                     processadorModal.value = resposta[0].processador;
                     memoriaRamModal.value = resposta[0].ram;
                     escolherArmazenamentoModal.value = resposta[0].tipo_armazenamento;
                     qtdArmazenamentoModal.value = resposta[0].qtd_armazenamento;
+                    usuarioModal.value = resposta[0].usuario;
+                    senhaModal.value = resposta[0].senha;
+
                 });
             } else {
                 throw "Houve um erro na API!";
@@ -87,6 +91,23 @@ function buscarDadosMaquina(idMaquina){
             console.error(resposta);
         });
 }
+
+function buscarDadosEstado(idMaquina){
+    fetch(`/maquina/listarDadosMaquina/${idMaquina}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    trocarStatus.value = resposta[0].estado;                 
+                });
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+}
+
 
 function atualizarMaquinasCadastradas() {
     const fkEmpresa = sessionStorage.FK_EMPRESA;
@@ -212,4 +233,41 @@ function limparCamposMaquina() {
     document.getElementById('ram').value = ("");
     document.getElementById('storageSelect').value = ("");
     document.getElementById('qtdArmazenamento').value = ("");
+}
+
+var statusAntigo = "";
+
+function atualizarStatusMaquina(idTotem) {
+  const statusNovo = trocarStatus.value;
+  if (statusAntigo == "") {
+    statusAntigo = statusNovo;
+  } else if (statusAntigo == statusNovo) {
+    toastPadrao('error', `O estado já é ${statusNovo}`)
+  } else {
+    statusAntigo = statusNovo;
+    fetch(`/maquina/atualizarStatusMaquina/${idTotem}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        statusNovoServer: statusNovo,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          toastPadrao('success', `Status atualizada para ${statusNovo} com sucesso!`);
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+  }
+
 }

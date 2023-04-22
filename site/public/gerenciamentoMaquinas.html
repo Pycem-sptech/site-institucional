@@ -17,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     
 </head>
-<body onload="validarSessao(), atualizarSelectUnidades(), atualizarMaquinasCadastradas(), privarFuncSupervisor()">
+<body onload="validarSessao(), atualizarSelectUnidades('#nameUnit'), atualizarSelectUnidades('#escolherUnidadeModal'), atualizarMaquinasCadastradas(), privarFuncSupervisor()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -103,7 +103,7 @@
                                 <span class="estilo tamanho3"><span class="subTitulo">Usuário:</span>
                                 <input class="inputModal" id="usuarioModal"></span>
                                 <span class="estilo tamanho3"><span class="subTitulo">Senha:</span>
-                                <input class="inputModal" id="senhaModal"></span>
+                                <input class="inputModal" id="senhaModal" type="password"></span>
                         </div>
                             <div class="bloco">
                             <span class="estilo tamanho9"><span class="subTitulo">Número de Série:</span>

@@ -55,13 +55,13 @@ PRIMARY KEY(fkUsuario,fkEmpresa,fkUnidade)
 
 create table totem(
 idTotem int primary key identity(1,1),
-usuario varchar(20) not null,
+usuario varchar(20) not null unique,
 senha varchar(10) not null,
 numeroSerie varchar(30),
-processador varchar(30),
-ram int,
+processador varchar(80),
+ram varchar(30),
 tipo_armazenamento varchar(3), constraint chkArmazenamento check (tipo_armazenamento in('HD','SSD')),
-qtd_armazenamento int,
+qtd_armazenamento varchar(30),
 ipv4 varchar(16),
 mac_address varchar(18),
 estado varchar(10) not null default 'Desligado', constraint chkEstado check (estado in('Disponivel','Manutencao','Desligado')),
