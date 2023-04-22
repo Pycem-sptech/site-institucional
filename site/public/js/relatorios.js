@@ -157,6 +157,65 @@ function cadastrarRelatorio() {
         return false;
     }
 }
+
+function criarIdRelatório(id) {
+    sessionStorage.ID_RELATORIO = id
+}
+
+var repDesligamento = 0;
+var repSobrecarga = 0;
+var repOutro = 0;
+
+data = new Date
+const primeiroDiaSemanaAtual = data.getDate() - data.getDay() + "/" + (data.getMonth() + 1);
+const ultimoDiaSemanaAtual = data.getDate() - data.getDay() + 6 + "/" + (data.getMonth() + 1);
+const primeiroDiaSemanaPassada = data.getDate() - data.getDay() - 7 + "/" + (data.getMonth() + 1);
+const ultimoDiaSemanaPassada = data.getDate() - data.getDay() + -1 + "/" + (data.getMonth() + 1);
+var qtdRelatoriosSemanais = 0;
+var qtdRelatoriosSemanaPassada = 0;
+// primeiroDiaSemanaAtual <= '15/4' && '15/4' <= ultimoDiaSemanaAtual;
+// primeiroDiaSemanaPassada >= '15/4' && ultimoDiaSemanaPassada >= '15/4';
+
+function buscarRelatoriosCadastrados(idUnidade) {
+    fetch(`/relatorio/listarRelatorio/${idUnidade}`).then(function (resposta) {
+        if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                for (let i = 0; i < resposta.length; i++) {
+                    var publicacao = resposta[i];
+
+                    if (publicacao.tipo == 'Desligamento' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+                        repDesligamento++;
+                        qtdRelatoriosSemanais++
+                    } else if (publicacao.tipo == 'Sobrecarga' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+                        repSobrecarga++;
+                        qtdRelatoriosSemanais++
+                    } else if (publicacao.tipo == 'Outro' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+                        repOutro++;
+                        qtdRelatoriosSemanais++
+                    }
+                    if (primeiroDiaSemanaPassada >= publicacao.data_relatorio && ultimoDiaSemanaPassada >= publicacao.data_relatorio) {
+                        qtdRelatoriosSemanaPassada++
+                    }
+                }
+                atualizarKpi();
+            });
+        } else {
+            throw "Houve um erro na API!";
+        }
+    })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+}
+
+function atualizarKpi() {
+    atualizarVariacaoRelatorios()
+    //Variação de tempo inoperante
+    atualizarMaiorOcorrencia();
+}
+
 function atualizarVariacaoRelatorios() {
     let variacaoRelatorios = document.getElementById("variacaoRelatorios")
     let variacao;
@@ -191,114 +250,7 @@ function atualizarMaiorOcorrencia() {
     }
 }
 
-function criarIdRelatório(id) {
-    sessionStorage.ID_RELATORIO = id
-}
 
-var repDesligamento = 0;
-var repSobrecarga = 0;
-var repOutro = 0;
-
-data = new Date
-var primeiroDiaSemanaAtual = data.getDate() - data.getDay() + "/" + (data.getMonth() + 1);
-var ultimoDiaSemanaAtual = data.getDate() - data.getDay() + 6 + "/" + (data.getMonth() + 1);
-var primeiroDiaSemanaPassada = data.getDate() - data.getDay() - 7 + "/" + (data.getMonth() + 1);
-var ultimoDiaSemanaPassada = data.getDate() - data.getDay() + -1 + "/" + (data.getMonth() + 1);
-// primeiroDiaSemanaAtual <= '15/4' && '15/4' <= ultimoDiaSemanaAtual;
-// primeiroDiaSemanaPassada >= '15/4' && ultimoDiaSemanaPassada >= '15/4';
-var qtdRelatoriosSemanais = 0;
-var qtdRelatoriosSemanaPassada = 0;
-function atualizarRelatoriosCadastrados(idUnidade) {
-    console.log(idUnidade)
-    fetch(`/relatorio/listarRelatorio/${idUnidade}`).then(function (resposta) {
-        if (resposta.ok) {
-            if (resposta.status == 204) {
-                var reportsField = document.getElementById("reportsField");
-                reportsField.innerHTML = "";
-                var mensagem = document.createElement("span");
-                mensagem.innerHTML = "Infelizmente, nenhum relatório foi encontrado.";
-                reportsField.appendChild(mensagem);
-                throw "Nenhum resultado encontrado!!";
-            }
-
-            resposta.json().then(function (resposta) {
-                console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                var reportsField = document.getElementById("reportsField");
-                reportsField.innerHTML = "";
-                for (let i = 0; i < resposta.length; i++) {
-                    var publicacao = resposta[i];
-
-                    var divReportsField = document.createElement("div");
-                    var divProblemReport = document.createElement("div");
-                    var divIconReport = document.createElement("img");
-                    var divIdReport = document.createElement("span");
-                    var divTitleReport = document.createElement("span");
-                    var divDateReport = document.createElement("span");
-                    var divDetailsReport = document.createElement("span");
-                    var divBtnViewReport = document.createElement("img");
-
-                    divReportsField.className = "reportsField";
-                    divProblemReport.className = "problemReport";
-                    divIconReport.className = "divIconReport";
-                    divIdReport.className = "divIdReport";
-                    divTitleReport.className = "divTitleReport";
-                    divDateReport.className = "divDateReport";
-                    divDetailsReport.className = "divDetailsReport";
-                    divBtnViewReport.className = "divBtnViewReport";
-
-                    divIconReport.src = "img/iconRelatorio.svg";
-                    divIconReport.alt = "icon de relatorio";
-                    divIdReport.innerHTML = i + 1;
-                    divTitleReport.innerHTML = publicacao.titulo;
-                    divDateReport.innerHTML = publicacao.data_relatorio;
-                    divDetailsReport.innerHTML = publicacao.descricao;
-
-                    if (publicacao.tipo == 'Desligamento' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
-                        repDesligamento++;
-                        qtdRelatoriosSemanais++
-                    } else if (publicacao.tipo == 'Sobrecarga' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
-                        repSobrecarga++;
-                        qtdRelatoriosSemanais++
-                    } else if (publicacao.tipo == 'Outro' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
-                        repOutro++;
-                        qtdRelatoriosSemanais++
-                    }
-                    if (primeiroDiaSemanaPassada >= publicacao.data_relatorio && ultimoDiaSemanaPassada >= publicacao.data_relatorio) {
-                        qtdRelatoriosSemanaPassada++
-                    }
-
-
-
-                    divBtnViewReport.src = "img/btnVisualizarRelatorio.svg";
-                    divBtnViewReport.setAttribute("onclick", `mostrarModalRelatorio(1), buscarDadosRelatorio(${publicacao.idRelatorio}), criarIdRelatório(${publicacao.idRelatorio})`);
-
-                    reportsField.appendChild(divProblemReport);
-                    divProblemReport.appendChild(divIconReport);
-                    divProblemReport.appendChild(divIdReport);
-                    divProblemReport.appendChild(divTitleReport);
-                    divProblemReport.appendChild(divDateReport);
-                    divProblemReport.appendChild(divDetailsReport);
-                    divProblemReport.appendChild(divBtnViewReport);
-
-                }
-                atualizarKpi();
-            });
-        } else {
-            throw "Houve um erro na API!";
-        }
-    })
-        .catch(function (resposta) {
-            console.error(resposta);
-        });
-}
-
-
-function atualizarKpi() {
-    atualizarVariacaoRelatorios()
-    //Variação de tempo inoperante
-    atualizarMaiorOcorrencia();
-}
 
 function buscarDadosRelatorio(idRelatorio) {
     fetch(`/relatorio/buscarDadosRelatorio/${idRelatorio}`)

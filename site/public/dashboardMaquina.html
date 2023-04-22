@@ -11,13 +11,14 @@
     <script src="js/geral.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/gerenciarDashMaquina.js"></script>
+    <script src="js/gerenciarMaquina.js"></script>
     <script src="./js/relatorios.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="js/charts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADE), privarFuncSupervisor(),obterDadosGraficoQtdRelatorios(`${sessionStorage.FK_EMPRESA}`)">
+<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), buscarRelatoriosCadastrados(sessionStorage.ID_UNIDADE), privarFuncSupervisor(),obterDadosGraficoFrequenciaProblemasMensal(`${sessionStorage.FK_EMPRESA}`)">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">
@@ -99,7 +100,7 @@
             <section class="reports">
                 <div class="boxReports"> 
                   <div class="graph">
-                    <canvas id="ocorrenciasPorUnidade" class="ocorrenciasPorUnidade"></canvas>
+                    <canvas id="frequenciaProblemasMensal" class="ocorrenciasPorUnidade"></canvas>
                   </div>
                 </div>
             </section>
@@ -109,7 +110,7 @@
                 <div class="titleListMachine">
                     <div class="container">
                         <h3 id="tituloMaquinas">Máquinas</h3>
-                        <input id="campoPesquisa" type="text">
+                        <input id="campoPesquisa" type="text" onkeyup="filtrarMaquinasDash(this.value)">
                         <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
                         <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                     </div>

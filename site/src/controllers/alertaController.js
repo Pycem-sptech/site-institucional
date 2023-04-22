@@ -67,7 +67,7 @@ function editarProcessadorAlertaCritico(req, res) {
   if (novoAlerta == undefined) {
     res.status(400).send("O alerta está undefined");
   } else {
-    alertaModel.editarProcessadorAlerta(fkEmpresa, novoAlerta).then(function (resultado) {
+    alertaModel.editarProcessadorAlertaCritico(fkEmpresa, novoAlerta).then(function (resultado) {
       res.json(resultado);
     }).catch(function (erro) {
       console.log(erro);

@@ -57,6 +57,31 @@ function ocorrenciasPorMes(fkEmpresa) {
   return database.executar(instrucao);
 }
 
+function frequenciaProblemasMensal(fkEmpresa) {
+  var instrucao = `
+        SELECT 
+        DATEPART(week, r.data_relatorio) AS semana, 
+        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Desligamento' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS count_desligamento,
+        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Sobrecarga' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS count_sobrecarga,
+        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Outro' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS count_outro
+      FROM 
+        unidade u
+        JOIN empresa e ON u.fkEmpresa = e.idEmpresa
+        JOIN totem t ON u.idUnidade = t.fkUnidade
+        JOIN relatorio r ON t.idTotem = r.fkTotem
+      WHERE 
+        e.idEmpresa = 100 AND
+        u.idUnidade = 1 AND
+        YEAR(r.data_relatorio) = 2023 AND
+        MONTH(r.data_relatorio) = 4
+      GROUP BY 
+        DATEPART(week, r.data_relatorio)
+      ORDER BY 
+        semana
+        `;
+  return database.executar(instrucao);
+}
+
 function verificarTelefone(telefone) {
   var instrucao = `select telefone from unidade where telefone = '${telefone}';`;
   return database.executar(instrucao);
@@ -99,5 +124,6 @@ module.exports = {
   deletar,
   filtrarUnidades,
   ocorrenciasPorMes,
-  atualizarListaUnidadesFiltradas
+  atualizarListaUnidadesFiltradas,
+  frequenciaProblemasMensal
 };
