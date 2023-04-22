@@ -12,6 +12,9 @@ var maqDesligado = 0;
 
 function atualizarMaqCadastradasComStatus() {
     // const select = document.querySelector('#escolherNumeroSerie');
+    maqDisponivel = 0;
+    maqManutencao = 0;
+    maqDesligado = 0;
   const fkEmpresa = sessionStorage.FK_EMPRESA;
   const fkUnidade = sessionStorage.VER_UNIDADE;
   var fkEmpresaVar = fkEmpresa;
@@ -187,6 +190,7 @@ function filtrarMaquinasDash(nomeDigitado) {
 
 
 function atualizarStatusBoxMachine() {
+  
   let disponivel = document.getElementById("statusOk");
   let manutencao = document.getElementById("statusAlert");
   let desligado = document.getElementById("statusDanger");
