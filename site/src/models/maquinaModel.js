@@ -11,7 +11,7 @@ function listarStatusTotem(fkEmpresa) {
 }
 
 function listarMaquinas(fkEmpresa) {
-  var instrucao = `select unidade.nome as nomeUnidade, totem.usuario ,totem.idTotem, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
+  var instrucao = `select unidade.nome as nomeUnidade, totem.usuario, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
   return database.executar(instrucao);
 }
 
@@ -31,6 +31,11 @@ function listarStatusMaqEmTempoReal(fkUnidade) {
 
 function filtrarMaquinas(nomeDigitado) {
   var instrucao = `select t.idTotem as idTotem, u.nome as nomeUnidade, t.usuario as usuario from totem t join unidade u on fkUnidade = idUnidade where t.usuario like '${nomeDigitado}%';`;
+  return database.executar(instrucao);
+}
+
+function filtrarMaquinasDash(nomeDigitado, idUnidade) {
+  var instrucao = `select t.idTotem as idTotem, u.nome as nomeUnidade, t.usuario as usuario, t.estado as "status" from totem t join unidade u on fkUnidade = idUnidade where t.usuario like '${nomeDigitado}%' and fkUnidade=${idUnidade};`;
   return database.executar(instrucao);
 }
 
@@ -77,5 +82,5 @@ module.exports = {
   listarUltimosDados,
   listarStatusTotem,
   atualizarStatusMaquina,
-
+  filtrarMaquinasDash
 };

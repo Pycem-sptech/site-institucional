@@ -25,6 +25,11 @@ router.get("/filtrarMaquinas/:nomeDigitado", function (req, res) {
     maquinaController.filtrarMaquinas(req, res);
 });
 
+router.get("/filtrarMaquinasDash/:nomeDigitado/:idUnidade", function (req, res) {
+    maquinaController.filtrarMaquinasDash(req, res);
+});
+
+
 router.get("/listarUsoMaquina/:fkTotem", function (req, res) {
     maquinaController.listarUsoMaquina(req, res);
 });
