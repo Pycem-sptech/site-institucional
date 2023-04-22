@@ -61,9 +61,9 @@ function frequenciaProblemasMensal(fkEmpresa) {
   var instrucao = `
         SELECT 
         DATEPART(week, r.data_relatorio) AS semana, 
-        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Desligamento' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS count_desligamento,
-        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Sobrecarga' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS count_sobrecarga,
-        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Outro' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS count_outro
+        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Desligamento' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Desligamento,
+        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Sobrecarga' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Sobrecarga,
+        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Outro' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Outro
       FROM 
         unidade u
         JOIN empresa e ON u.fkEmpresa = e.idEmpresa

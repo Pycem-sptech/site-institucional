@@ -99,7 +99,7 @@ function obterDadosGraficoFrequenciaProblemasMensal(fkEmpresa,idUnidade) {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                resposta.reverse();
+           
 
                 plotarGraficoFrequenciaProblemasMensal(resposta);
             });
@@ -124,21 +124,21 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
         labels: labels,
         datasets: [{
             label: 'Desligamento',
-            dataDesligamento: [],
+            data: [],
             fill: true,
             backgroundColor: 'rgba(0, 200, 232, 0.7)',
             borderColor: 'rgba(0, 200, 232, 1)',
             tension: 0.1
         },{
             label: 'Sobrecarga',
-            dataSobrecarga: [],
+            data: [],
             fill: true,
             backgroundColor: 'rgba(0, 12, 232, 0.7)',
             borderColor: 'rgba(0, 12, 232, 1)',
             tension: 0.1
         },{
             label: 'Outro',
-            dataOutro: [],
+            data: [],
             fill: true,
             backgroundColor: 'rgba(0, 100, 232, 0.7)',
             borderColor: 'rgba(0, 100, 232, 1)',
@@ -154,9 +154,9 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
     for (i = 0; i < resposta.length; i++) {
         var registro = resposta[i];
         labels.push(registro.semana);
-        dados.datasets[0].data.push(registro.count_desligamento);
-        dados.datasets[1].data.push(registro.count_sobrecarga);
-        dados.datasets[2].data.push(registro.count_outro);
+        dados.datasets[0].data.push(registro.Desligamento);
+        dados.datasets[1].data.push(registro.Sobrecarga);
+        dados.datasets[2].data.push(registro.Outro);
     }
 
     console.log('----------------------------------------------')
@@ -200,13 +200,6 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
     );
     // setTimeout(() => atualizarGrafico(fkEmpresa, dados, frequenciaProblemasMensal), tempoDeAtualizacao);
 }
-
-
-
-
-
-
-
 
 function obterFrequenciaDeOcorrencias(fkEmpresa) {
     fetch(`/unidade/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
