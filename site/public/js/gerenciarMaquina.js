@@ -1,3 +1,7 @@
+let dadosMaquina = {}
+
+setInterval(buscarDadosMaquina(sessionStorage.ID_TOTEM), 5000);
+
 function atualizarSelectUnidades(idSelect) {
     const select = document.querySelector(idSelect);
     const fkEmpresa = sessionStorage.FK_EMPRESA;
@@ -72,16 +76,15 @@ function buscarDadosMaquina(idMaquina){
     fetch(`/maquina/listarDadosMaquina/${idMaquina}`)
         .then(function (resposta) {
             if (resposta.ok) {
-                resposta.json().then(function (resposta) {
-                    escolherUnidadeModal.value = resposta[0].fkUnidade;
-                    numeroDeSerieModal.value = resposta[0].numeroSerie;
-                    processadorModal.value = resposta[0].processador;
-                    memoriaRamModal.value = resposta[0].ram;
-                    escolherArmazenamentoModal.value = resposta[0].tipo_armazenamento;
-                    qtdArmazenamentoModal.value = resposta[0].qtd_armazenamento;
-                    usuarioModal.value = resposta[0].usuario;
-                    senhaModal.value = resposta[0].senha;
-
+                resposta.json().then(function (resposta) {                   
+                    dadosMaquina.idUnidade = resposta[0].fkUnidade;
+                    dadosMaquina.numeroSerie = resposta[0].numeroSerie;
+                    dadosMaquina.processador = resposta[0].processador;
+                    dadosMaquina.ram = resposta[0].ram;
+                    dadosMaquina.tipoArmazenamento = resposta[0].tipo_armazenamento;
+                    dadosMaquina.qtdArmazenamento = resposta[0].qtd_armazenamento;
+                    dadosMaquina.usuario = resposta[0].usuario;
+                    dadosMaquina.senha = resposta[0].senha;
                 });
             } else {
                 throw "Houve um erro na API!";
@@ -90,6 +93,17 @@ function buscarDadosMaquina(idMaquina){
         .catch(function (resposta) {
             console.error(resposta);
         });
+}
+
+function postarModalDados(){
+    escolherUnidadeModal.value = dadosMaquina.idUnidade;
+    numeroDeSerieModal.value = dadosMaquina.numeroSerie;
+    processadorModal.value = dadosMaquina.processador;
+    memoriaRamModal.value = dadosMaquina.ram;
+    escolherArmazenamentoModal.value = dadosMaquina.tipoArmazenamento;
+    qtdArmazenamentoModal.value = dadosMaquina.qtdArmazenamento;
+    usuarioModal.value = dadosMaquina.usuario;
+    senhaModal.value = dadosMaquina.senha;
 }
 
 function buscarDadosEstado(idMaquina){
@@ -146,7 +160,7 @@ function atualizarMaquinasCadastradas() {
                         spanNumeroSerie.innerHTML = publicacao.usuario;
 
                         divBtnEditDelete.className = "btnEditDelete";
-                        divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idTotem}), buscarDadosMaquina(${publicacao.idTotem})'>`;
+                        divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idTotem}), postarModalDados()'>`;
                         divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarMaquina(${publicacao.idTotem})'>`;
 
                         feed.appendChild(divRegisteredMachine);
