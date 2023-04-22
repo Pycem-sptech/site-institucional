@@ -35,7 +35,7 @@ function filtrarMaquinas(nomeDigitado) {
 }
 
 function filtrarMaquinasDash(nomeDigitado, idUnidade) {
-  var instrucao = `select t.idTotem as idTotem, u.nome as nomeUnidade, t.usuario as usuario, t.estado as "status" from totem t join unidade u on fkUnidade = idUnidade where t.usuario like '${nomeDigitado}%' and fkUnidade=${idUnidade};`;
+  var instrucao = `select t.idTotem as idTotem, u.nome as nomeUnidade, t.usuario as usuario, t.estado as "status" from totem t join unidade u on fkUnidade = idUnidade where t.usuario like '${nomeDigitado}%' and fkUnidade = '${idUnidade}';`;
   return database.executar(instrucao);
 }
 
