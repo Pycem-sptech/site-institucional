@@ -153,7 +153,6 @@ function atualizarStatusMaqEmTempoReal() {
   }
 }
 
-
 function atualizarNomeUnidade(nomeUnidade) {
   divNomeUnidade = document.getElementById("welcomeSentence");
   divNomeUnidade.innerHTML = nomeUnidade;

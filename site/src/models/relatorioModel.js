@@ -4,10 +4,17 @@ function listarRelatorio(idUnidade) {
   var instrucao = `select idRelatorio, titulo, descricao, tipo, FORMAT(data_relatorio,'%d/%M/20%y') as data_relatorio from relatorio join totem on idTotem = fkTotem join unidade on idUnidade = fkUnidade where idUnidade = ${idUnidade};`;
   return database.executar(instrucao);
 }
+
 function listarRelatoriosTotem(idTotem) {
-  var instrucao = `select top 50 idRelatorio, titulo, descricao, FORMAT(data_relatorio,'%d/%M/20%y') as data_relatorio from relatorio join totem on idTotem = fkTotem where idTotem = ${idTotem} order by data_relatorio;`;
+  var instrucao = `select idRelatorio, titulo, descricao, FORMAT(data_relatorio,'%d/%M/20%y') as data_relatorio from relatorio join totem on idTotem = fkTotem where idTotem = ${idTotem} order by data_relatorio desc;`;
   return database.executar(instrucao);
 }
+
+function filtrarRelatorios(idTotem, nomeDigitado) {
+  var instrucao = `select idRelatorio, titulo, descricao, FORMAT(data_relatorio,'%d/%M/20%y') as data_relatorio from relatorio join totem on idTotem = fkTotem where idTotem = ${idTotem} and titulo like '${nomeDigitado}%' order by  data_relatorio;`;
+  return database.executar(instrucao);
+}
+
 
 function buscarDadosRelatorio(idRelatorio) {
   var instrucao = `select FORMAT(data_relatorio,'%d/%M/20%y') as dataRelatorio, titulo, descricao, tipo, fkTotem from relatorio where idRelatorio = ${idRelatorio};`;
@@ -30,5 +37,6 @@ module.exports = {
   cadastrarRelatorio,
   editarRelatorio,
   listarRelatorio,
-  listarRelatoriosTotem
+  listarRelatoriosTotem,
+  filtrarRelatorios
 };

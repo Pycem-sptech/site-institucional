@@ -156,7 +156,7 @@
                 <div class="titleListMachine">
                     <div class="container">
                         <h3 id="tituloMaquinas">Relatórios</h3>
-                        <input id="campoPesquisa" type="text">
+                        <input id="campoPesquisa" type="text" onkeyup="filtrarRelatorios(sessionStorage.ID_TOTEM, this.value)">
                         <img onclick="pesquisar()" id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
                         <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                     </div>
@@ -192,6 +192,7 @@
                                 <option value="" disabled></option>
                                 <option value="Desligamento">Desligamento</option>
                                 <option value="Sobrecarga">Sobrecarga</option>
+                                <option value="Mau_Funcionamento">Mau Funcionamento</option>
                                 <option value="Outro">Outro</option>
                             </select></span>
 

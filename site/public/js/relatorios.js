@@ -44,7 +44,7 @@ function atualizarRelatorios(idTotem) {
                     report.appendChild(titleReport);
                     report.appendChild(dateReport);
                     report.appendChild(btnViewReport);
-
+                    
                 }
             });
         } else {
@@ -56,12 +56,76 @@ function atualizarRelatorios(idTotem) {
         });
 }
 
+function filtrarRelatorios(idTotem, nomeDigitado) {
+
+    if (nomeDigitado.length > 0 && nomeDigitado.length > nomeDigitado.split(" ").length){
+    fetch(`/relatorio/filtrarRelatorios/${idTotem}/${nomeDigitado}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                var machineField = document.getElementById("machineField");
+                machineField.innerHTML = "";
+                var mensagem = document.createElement("span");
+                mensagem.innerHTML = "Infelizmente, nenhum relatório foi encontrado.";
+                machineField.appendChild(mensagem);
+                throw "Nenhum resultado encontrado!!";
+            }
+
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                var machineField = document.getElementById("machineField");
+                machineField.innerHTML = "";
+                for (let i = 0; i < resposta.length; i++) {
+                    var publicacao = resposta[i];
+
+                    var report = document.createElement("div");
+                    var iconReport = document.createElement("img");
+                    var titleReport = document.createElement("div");
+                    var dateReport = document.createElement("div");
+                    var btnViewReport = document.createElement("img");
+
+                    machineField.className = "machineField";
+                    report.className = "report";
+
+                    iconReport.className = "iconReport";
+                    titleReport.className = "titleReport";
+                    dateReport.className = "dateReport";
+                    btnViewReport.className = "btnViewReport";
+
+                    iconReport.src = "img/iconRelatorio.svg";
+                    iconReport.alt = "icon de relatorio";
+                    titleReport.innerHTML = publicacao.titulo;
+                    dateReport.innerHTML = publicacao.data_relatorio;
+                    btnViewReport.src = "img/btnVisualizarRelatorio.svg";
+                    btnViewReport.setAttribute("onclick", `mostrarModalRelatorio(1), buscarDadosRelatorio(${publicacao.idRelatorio}), criarIdRelatório(${publicacao.idRelatorio})`);
+
+                    machineField.appendChild(report);
+                    report.appendChild(iconReport);
+                    report.appendChild(titleReport);
+                    report.appendChild(dateReport);
+                    report.appendChild(btnViewReport);
+                    
+                }
+            });
+        } else {
+            throw "Houve um erro na API!";
+        }
+    })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+    }else {
+        atualizarRelatorios(sessionStorage.ID_TOTEM)
+    }
+}
+
 function editarRelatorio() {
     const tituloVar = tituloModal.value;
-    const dataVar = dataModal.value;
-    const ano = dataVar.substring(8, dataVar.length);    
-    const mes = dataVar.substring(4, 7);
-    const dia = dataVar.substring(0, 3);
+    const data = dataModal.value.split("/")
+    const dia = data[0].length == 1? "0"+data[0]: data[0];    
+    const mes = data[1].length == 1? "0"+data[1]: data[1];
+    const ano = data[2];
+    const dataVar = `${ano}-${mes}-${dia}`
     const tipoVar = escolherTipoProblemaModal.value;
     const descricaoVar = descricaoModal.value;
     
@@ -99,7 +163,8 @@ function editarRelatorio() {
                             'success'
                         ).then((result) => {
                             if (result.isConfirmed) {
-                                atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADES)
+                                atualizarRelatorios(sessionStorage.ID_UNIDADE)
+                                fecharModalRelatorio();
                             }
                         })
                     } else if (resposta.status == 404) {
@@ -122,7 +187,11 @@ function editarRelatorio() {
 
 function cadastrarRelatorio() {
     const tituloVar = tituloModal.value;
-    const dataVar = dataModal.value;
+    const data = dataModal.value.split("/")
+    const dia = data[0].length == 1? "0"+data[0]: data[0];    
+    const mes = data[1].length == 1? "0"+data[1]: data[1];
+    const ano = data[2];
+    const dataVar = `${ano}-${mes}-${dia}`;
     const tipoVar = escolherTipoProblemaModal.value;
     const descricaoVar = descricaoModal.value;
     const fkMaquinaVar = sessionStorage.ID_TOTEM;
@@ -150,7 +219,8 @@ function cadastrarRelatorio() {
 
                 if (resposta.ok) {
                     toastPadrao('success', 'Cadastro realizado com sucesso!')
-                    atualizarRelatoriosCadastrados(sessionStorage.ID_UNIDADE);
+                    atualizarRelatorios(sessionStorage.ID_UNIDADE);
+                    fecharModalRelatorio();
                 }
             })
             .catch(function (resposta) {
@@ -265,7 +335,7 @@ function buscarDadosRelatorio(idRelatorio) {
                     escolherTipoProblemaModal.value = resposta[0].tipo;
                     descricaoModal.value = resposta[0].descricao;
                     dataModal.value = resposta[0].dataRelatorio;
-                    escolherNumeroSerie.value = resposta[0].fkTotem;
+                    
 
                 });
             } else {
