@@ -33,8 +33,8 @@ function plotarGrafico(resposta) {
         datasets: [{
             label: 'Quantidade de relátorios',
             data: [],
-            fill: false,
-            backgroundColor: 'rgba(0, 120, 232, 1)',
+            fill: true,
+            backgroundColor: 'rgba(0, 120, 232, 0.7)',
             borderColor: 'rgba(0, 120, 232, 1)',
             tension: 0.1
         }]
@@ -73,11 +73,12 @@ function plotarGrafico(resposta) {
                             size: 17
                         }
                     }
-                },
-                responsive: true
+                }
             },
             scales: {
                 y: {
+                    min: 0,
+                    max: 100,
                     beginAtZero: true
                 }
             }
@@ -145,8 +146,8 @@ function plotarGraficoProcessador(resposta, fkTotem) {
         datasets: [{
             label: 'Uso do Processador',
             data: [],
-            fill: false,
-            backgroundColor: 'rgba(0, 120, 232, 1)',
+            fill: true,
+            backgroundColor: 'rgba(0, 120, 232, 0.7)',
             borderColor: 'rgba(0, 120, 232, 1)',
             tension: 0.1
         }]
@@ -176,6 +177,8 @@ function plotarGraficoProcessador(resposta, fkTotem) {
             },
             scales: {
                 y: {
+                    min: 0,
+                    max: 100,
                     beginAtZero: true
                 }
             }
@@ -199,8 +202,8 @@ function plotarGraficoRam(resposta, fkTotem) {
         datasets: [{
             label: 'Uso da Ram',
             data: [],
-            fill: false,
-            backgroundColor: 'rgba(0, 120, 232, 1)',
+            fill: true,
+            backgroundColor: 'rgba(0, 120, 232, 0.7)',
             borderColor: 'rgba(0, 120, 232, 1)',
             tension: 0.1
         }]
@@ -230,6 +233,8 @@ function plotarGraficoRam(resposta, fkTotem) {
             },
             scales: {
                 y: {
+                    min: 0,
+                    max: 100,
                     beginAtZero: true
                 }
             }
@@ -253,8 +258,8 @@ function plotarGraficoHd(resposta, fkTotem) {
         datasets: [{
             label: 'Uso da Memória de Massa',
             data: [],
-            fill: false,
-            backgroundColor: 'rgba(0, 120, 232, 1)',
+            fill: true,
+            backgroundColor: 'rgba(0, 120, 232, 0.7)',
             borderColor: 'rgba(0, 120, 232, 1)',
             tension: 0.1
         }]
@@ -284,6 +289,8 @@ function plotarGraficoHd(resposta, fkTotem) {
             },
             scales: {
                 y: {
+                    min: 0,
+                    max: 100,
                     beginAtZero: true
                 }
             }
@@ -405,3 +412,60 @@ function atualizarNomeMaquina() {
     userMachine.innerHTML = `${sessionStorage.VER_TOTEM}`;
 }
 
+function atualizarRelatorios(idTotem) {
+    fetch(`/relatorio/listarRelatoriosTotem/${idTotem}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                var machineField = document.getElementById("machineField");
+                machineField.innerHTML = "";
+                var mensagem = document.createElement("span");
+                mensagem.innerHTML = "Infelizmente, nenhum relatório foi encontrado.";
+                machineField.appendChild(mensagem);
+                throw "Nenhum resultado encontrado!!";
+            }
+
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                var machineField = document.getElementById("machineField");
+                machineField.innerHTML = "";
+                for (let i = 0; i < resposta.length; i++) {
+                    var publicacao = resposta[i];
+
+                    var report = document.createElement("div");
+                    var iconReport = document.createElement("img");
+                    var titleReport = document.createElement("div");
+                    var dateReport = document.createElement("div");
+                    var btnViewReport = document.createElement("img");
+                  
+                    machineField.className = "machineField";
+                    report.className = "report";
+
+                    iconReport.className = "iconReport";
+                    titleReport.className = "titleReport";
+                    dateReport.className = "dateReport";
+                    btnViewReport.className = "btnViewReport";
+
+                    iconReport.src = "img/iconRelatorio.svg";
+                    iconReport.alt = "icon de relatorio";
+                    titleReport.innerHTML = publicacao.titulo;
+                    dateReport.innerHTML = publicacao.data_relatorio;
+                    btnViewReport.src = "img/btnVisualizarRelatorio.svg";
+                    btnViewReport.setAttribute("onclick", `mostrarModalRelatorio(1), buscarDadosRelatorio(${publicacao.idRelatorio}), criarIdRelatório(${publicacao.idRelatorio})`);
+
+                    machineField.appendChild(report);
+                    report.appendChild(iconReport);
+                    report.appendChild(titleReport);
+                    report.appendChild(dateReport);
+                    report.appendChild(btnViewReport);
+                   
+                }
+            });
+        } else {
+            throw "Houve um erro na API!";
+        }
+    })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+}

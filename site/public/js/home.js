@@ -68,7 +68,6 @@ function listarStatusGeralTotem(fkEmpresa) {
         });
 }
 
-
 function atualizarGeralMaquinas(resposta){
     let total1 = document.getElementById("totalMaquinas1");
     let total2 = document.getElementById("totalMaquinas2");
@@ -86,7 +85,6 @@ function atualizarGeralMaquinas(resposta){
     total3.innerHTML = resposta.length;
 
     for(let i = 0; i < resposta.length; i++){
-        console.log(resposta.estado)
         if(resposta[i].estado == 'Desligado'){
             desligado++
         }else if(resposta[i].estado == 'Disponivel'){
@@ -98,7 +96,4 @@ function atualizarGeralMaquinas(resposta){
     totalDisponivel.innerHTML = disponivel;
     totalDesligado.innerHTML = desligado;
     totalManutencao.innerHTML = manutencao;
-
-   
-
 }
