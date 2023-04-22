@@ -157,6 +157,25 @@ function ocorrenciasPorMes(req, res) {
     );
 }
 
+function frequenciaProblemasMensal(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    const idUnidade = req.params.idUnidade;
+    unidadeModel.frequenciaProblemasMensal(fkEmpresa, idUnidade).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("entrou no controller");
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
 function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var telefone = req.body.telefoneServer;
@@ -294,5 +313,6 @@ module.exports = {
     filtrarUnidades,
     filtrarTodasUnidades,
     ocorrenciasPorMes,
-    atualizarListaUnidadesFiltradas
+    atualizarListaUnidadesFiltradas,
+    frequenciaProblemasMensal
 }

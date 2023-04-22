@@ -74,35 +74,35 @@
                     <div class="titleBoxHardInfo">
                         <div class="container">
                             <h3>Processador</h3>
-                            <h5 class="subtitleHardInfo" id="qtd_cpu" ></h5>
+                            <h5 class="subtitleHardInfo" id="qtd_cpu"></h5>
                         </div>
                     </div>
                     <div class="percentageUse">
-                        <h1 class="percent cpu" >20%</h1>
+                        <h1 class="percent cpu" id="percentualUsoCpu">-</h1>
                     </div>
                 </div>
                 <div class="boxHardInfo center">
                     <div class="titleBoxHardInfo">
                         <div class="container">
                             <h3>Memoria Ram</h3>
-                            <h5 class="subtitleHardInfo" id="qtd_ram"  ></h5>
+                            <h5 class="subtitleHardInfo" id="qtd_ram"></h5>
                         </div>
                     </div>
                     <div class="percentageUse">
-                        <h1 class="percent ram">70%</h1>
+                        <h1 class="percent ram" id="percentualUsoRam">-</h1>
                     </div>
                 </div>
                 <div class="boxHardInfo right">
                     <div class="titleBoxHardInfo">
                         <div class="container">
                             <h3 class="memoryTitle">Memória de Massa</h3>
-                            <h5 class="subtitleHardInfo" id="qtd_armazenamento" >
+                            <h5 class="subtitleHardInfo" id="qtd_armazenamento">
 
                             </h5>
                         </div>
                     </div>
                     <div class="percentageUse">
-                        <h1 class="percent memory">90%</h1>
+                        <h1 class="percent memory" id="percentualUsoHd">-</h1>
                     </div>
                 </div>
             </section>
@@ -145,7 +145,7 @@
                     <h3>Status da Máquina</h3>
                     <select name="" id="trocarStatus" class="selectStatus"
                     onchange="atualizarStatusMaquina(`${sessionStorage.ID_TOTEM}`)">
-                        <option value="" disabled></option>
+                        <option value="" disabled selected></option>
                         <option value="Disponivel">Disponível</option>
                         <option value="Manutencao">Manutenção</option>
                         <option value="Desligado">Desligada</option>

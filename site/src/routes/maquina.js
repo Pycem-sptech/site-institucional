@@ -54,7 +54,6 @@ router.post("/cadastrarMaquina", function (req, res) {
     maquinaController.cadastrarMaquina(req, res);
 })
 
-
 router.put("/editar/:idMaquina", function (req, res) {
     maquinaController.editar(req, res);
 });

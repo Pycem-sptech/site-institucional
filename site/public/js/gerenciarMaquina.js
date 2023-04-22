@@ -227,7 +227,6 @@ function filtrarMaquinas(nomeDigitado) {
                             spanNomeUnidade.className = "addresOpacity";
                             spanNomeUnidade.innerHTML = publicacao.nomeUnidade;
                             spanNumeroSerie.innerHTML = publicacao.usuario;
-
                             divBtnEditDelete.className = "btnEditDelete";
                             divBtnEditDelete.innerHTML += `<img src='img/Botão Editar.svg' onclick='mostrarModal(${publicacao.idTotem}), buscarDadosMaquina(${publicacao.idTotem})'>`;
                             divBtnEditDelete.innerHTML += `<img src='img/Botao Fechar.svg' onclick='deletarMaquina(${publicacao.idTotem})'>`;
