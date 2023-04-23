@@ -78,7 +78,6 @@ function plotarGrafico(resposta) {
             scales: {
                 y: {
                     min: 0,
-                    max: 100,
                     beginAtZero: true
                 }
             }
@@ -97,11 +96,15 @@ function plotarGrafico(resposta) {
 function obterDadosGraficoFrequenciaProblemasMensal(fkEmpresa,idUnidade) {
     fetch(`/unidade/frequenciaProblemasMensal/${fkEmpresa}/${idUnidade}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
+            
             response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+               
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
            
 
-                plotarGraficoFrequenciaProblemasMensal(resposta);
+                    plotarGraficoFrequenciaProblemasMensal(resposta);
+                
+              
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -294,7 +297,6 @@ function plotarGraficoProcessador(resposta, fkTotem) {
             scales: {
                 y: {
                     min: 0,
-                    max: 100,
                     beginAtZero: true
                 }
             }

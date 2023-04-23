@@ -284,6 +284,28 @@ function toastPadrao(icon, title) {
     });
 }
 
+function toastInfinito(icon, title) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: ``,
+        timerProgressBar: true,
+        showCloseButton:true,
+        didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+    });
+
+    Toast.fire({
+        icon: `${icon}`,
+        title: `${title}`,
+        
+    });
+    
+}
+
 // Redirecionamentos
 
 function redirectHome() {
