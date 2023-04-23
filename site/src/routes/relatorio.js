@@ -6,8 +6,13 @@ var relatorioController = require("../controllers/relatorioController");
 router.get("/listarRelatorio/:idUnidade", function (req, res) {
     relatorioController.listarRelatorio(req, res);
 });
+
 router.get("/listarRelatoriosTotem/:idTotem", function (req, res) {
     relatorioController.listarRelatoriosTotem(req, res);
+});
+
+router.get("/filtrarRelatorios/:idTotem/:nomeDigitado", function (req, res) {
+    relatorioController.filtrarRelatorios(req, res);
 });
 
 router.get("/buscarDadosRelatorio/:idRelatorio", function (req, res) {

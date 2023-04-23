@@ -80,16 +80,29 @@ function listarRelatoriosTotem(req, res) {
       res.status(500).json(erro.sqlMessage);
   });
 }
+function filtrarRelatorios(req, res) {
+  idTotem = req.params.idTotem;
+  nomeDigitado = req.params.nomeDigitado;
+  relatorioModel.filtrarRelatorios(idTotem, nomeDigitado).then(function (resultado) {
+      if (resultado.length > 0) {
+          res.status(200).json(resultado);
+      } else {
+          res.status(204).send("Nenhum resultado encontrado!")
+      }
+  }).catch(function (erro) {
+      console.log("Houve um erro ao buscar as maquinas: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+  });
+}
 
 function editarRelatorio(req, res) {
   var titulo = req.body.titulo;
   var tipo = req.body.tipo;
   var descricao = req.body.descricao;
   var data = req.body.data;
-  var fkMaquina = req.body.fkMaquina;
   var idRelatorio = req.params.idRelatorio;
 
-  relatorioModel.editarRelatorio(titulo, tipo, descricao, data, idRelatorio, fkMaquina).then(
+  relatorioModel.editarRelatorio(titulo, tipo, descricao, data, idRelatorio).then(
       function (resultado) {
           res.json(resultado);
       }
@@ -108,5 +121,6 @@ module.exports = {
   cadastrarRelatorio,
   editarRelatorio,
   listarRelatorio,
-  listarRelatoriosTotem
+  listarRelatoriosTotem,
+  filtrarRelatorios
 }
