@@ -57,13 +57,13 @@ create table totem(
 idTotem int primary key identity(1,1),
 usuario varchar(20) not null unique,
 senha varchar(10) not null,
-numeroSerie varchar(30),
-processador varchar(80),
-ram varchar(30),
-tipo_armazenamento varchar(3), constraint chkArmazenamento check (tipo_armazenamento in('HD','SSD')),
-qtd_armazenamento varchar(30),
-ipv4 varchar(16),
-mac_address varchar(18),
+numeroSerie varchar(30) not null default 'Não Especificado',
+processador varchar(80) not null default 'Não Especificado',
+ram varchar(30) not null default 'Não Especificado',
+tipo_armazenamento varchar(3) not null default 'HD', constraint chkArmazenamento check (tipo_armazenamento in('HD','SSD')),
+qtd_armazenamento varchar(30) not null default 'Não Especificado',
+ipv4 varchar(16) not null default 'Não Especificado',
+mac_address varchar(18) default 'Não Especificado',
 estado varchar(10) not null default 'Desligado', constraint chkEstado check (estado in('Disponivel','Manutencao','Desligado')),
 fkUnidade int, FOREIGN KEY (fkUnidade) REFERENCES unidade(idUnidade) ON DELETE CASCADE
 );
@@ -84,12 +84,12 @@ create table relatorio(
 idRelatorio int primary key identity(1,1),
 titulo varchar(50),
 descricao varchar(255),
-tipo varchar(17) not null default 'Desligamento', constraint chkTipo check (tipo in('Desligamento','Sobrecarga', 'Mau_funcionamento', 'Outro')),
+tipo varchar(17) not null default 'Desligamento', constraint chkTipo check (tipo in('Desligamento','Sobrecarga', 'MauFuncionamento', 'Outro')),
 data_relatorio date,
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 );
-
-
+Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz
+AMD Ryzen 5 5600X 6-Core Processor
 insert into [dbo].[relatorio] (titulo, descricao, tipo, data_relatorio, fkTotem) values
 ('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
 ('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),

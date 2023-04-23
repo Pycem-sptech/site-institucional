@@ -96,13 +96,14 @@ function plotarGrafico(resposta) {
 function obterDadosGraficoFrequenciaProblemasMensal(fkEmpresa,idUnidade) {
     fetch(`/unidade/frequenciaProblemasMensal/${fkEmpresa}/${idUnidade}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
+            
             response.json().then(function (resposta) {
-                if(resposta.length < 0){
+               
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
            
 
                     plotarGraficoFrequenciaProblemasMensal(resposta);
-                }
+                
               
             });
         } else {
