@@ -15,6 +15,7 @@ function atualizarMaqCadastradasComStatus() {
   const fkEmpresa = sessionStorage.FK_EMPRESA;
   const fkUnidade = sessionStorage.VER_UNIDADE;
   var fkEmpresaVar = fkEmpresa;
+
   fetch(`/maquina/listar/${fkEmpresaVar}/${fkUnidade}`)
     .then(function (resposta) {
       if (resposta.ok) {
@@ -34,9 +35,9 @@ function atualizarMaqCadastradasComStatus() {
           // for (var i = 0; i < resposta.length; i++) {
           //   select.options[select.options.length] = new Option(resposta[i].numeroSerie, resposta[i].idTotem);
           // }
+          
           for (let i = 0; i < resposta.length; i++) {
             var publicacao = resposta[i];
-
 
             var divMachineField = document.createElement("div");
             var divMachine = document.createElement("div");
@@ -100,12 +101,13 @@ function atualizarMaqCadastradasComStatus() {
 }
 
 function atualizarStatusBoxMachine() {
-  let disponivel = document.getElementById("statusOk");
-  let manutencao = document.getElementById("statusAlert");
-  let desligado = document.getElementById("statusDanger");
-  disponivel.innerHTML = maqDisponivel;
-  manutencao.innerHTML = maqManutencao;
-  desligado.innerHTML = maqDesligado;
+  const disponivel = document.getElementById("statusOk");
+  const manutencao = document.getElementById("statusAlert");
+  const desligado = document.getElementById("statusDanger");
+  
+  disponivel.innerHTML = totalDisponivel;
+  manutencao.innerHTML = totalManutencao;
+  desligado.innerHTML = totalDesligado;
 }
 var atualizando = false;
 function atualizarStatusMaqEmTempoReal() {
