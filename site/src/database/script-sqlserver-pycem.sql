@@ -15,11 +15,11 @@ create table alerta(
 idAlerta int primary key identity(1,1),
 freq_alerta int not null default 5,
 cpu_alerta int not null default 50,
-cpu_critico int not null default 80,
+cpu_critico int not null default 70,
 ram_alerta int not null default 50,
-ram_critico int not null default 80,
+ram_critico int not null default 70,
 hd_alerta int not null default 50,
-hd_critico int not null default 80,
+hd_critico int not null default 70,
 fkEmpresa int unique, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
@@ -62,7 +62,7 @@ processador varchar(80) not null default 'Não Especificado',
 ram varchar(30) not null default 'Não Especificado',
 tipo_armazenamento varchar(3) not null default 'HD', constraint chkArmazenamento check (tipo_armazenamento in('HD','SSD')),
 qtd_armazenamento varchar(30) not null default 'Não Especificado',
-ipv4 varchar(16) not null default 'Não Especificado',
+ipv6 varchar(40) not null default 'Não Especificado',
 mac_address varchar(18) default 'Não Especificado',
 estado varchar(10) not null default 'Desligado', constraint chkEstado check (estado in('Disponivel','Manutencao','Desligado')),
 fkUnidade int, FOREIGN KEY (fkUnidade) REFERENCES unidade(idUnidade) ON DELETE CASCADE
@@ -88,8 +88,7 @@ tipo varchar(17) not null default 'Desligamento', constraint chkTipo check (tipo
 data_relatorio date,
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 );
-Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz
-AMD Ryzen 5 5600X 6-Core Processor
+
 insert into [dbo].[relatorio] (titulo, descricao, tipo, data_relatorio, fkTotem) values
 ('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
 ('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
