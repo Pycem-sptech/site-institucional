@@ -1,3 +1,57 @@
+function mudarLista(valorCombo) {
+    if (valorCombo == "1") {
+        listUnit.innerHTML = ` <div class="box idUnit">
+                    <span>ID</span>
+                </div>
+                <div class="box nameUnit">
+                    <img src="img/storeIcon.svg" alt="">
+                    <span>Nome da Unidade</span>
+                </div>
+                <div class="box machineAvailable">
+                    <span>Máq. disponíveis</span>
+                    <div class="status green"></div>
+                </div>
+                <div class="box machineMaintenance">
+                    <span>Máq. em manutenção</span>
+                    <div class="status orange"></div>
+                </div>
+                <div class="box machineOff">
+                    <span>Máq. desligadas</span>
+                    <div class="status red"></div>
+                </div>
+                <div class="box totalMachine">
+                    <span>Total de máquinas</span>
+                </div>`;
+        atualizarListaUnidades();
+        inputSearch.setAttribute("onkeyup", "atualizarListaUnidadesFiltradas(this.value)");
+    } else {
+        listUnit.innerHTML = ` <div class="box idUnit">
+                    <span>ID</span>
+                </div>
+                <div class="box nameUnit">
+                    <img src="img/storeIcon.svg" alt="">
+                    <span >Nome da Máquina</span>
+                </div>
+                <div class="box machineAvailable">
+                    <span>Mac Address</span>
+                    
+                </div>
+                <div class="box machineMaintenance">
+                    <span>End. IPV4</span>
+                    
+                </div>
+                <div class="box machineOff">
+                    <span>Estado</span>
+                    
+                </div>
+                <div class="box totalMachine">
+                    <span>Status Alerta</span>
+                </div>`;
+                atualizarListaMaquinas();
+                inputSearch.setAttribute("onkeyup", "atualizarListaMaquinasFiltradas(this.value)")
+    }
+}
+
 function privarFuncTecnico() {
     if (sessionStorage.USER_CARGO == "Tecnico") {
         body.innerHTML = `<h1>ERRO</h1>`;
@@ -10,10 +64,10 @@ function privarFuncTecnico() {
                 window.location = "../home.html"
             }
         })
-    } 
+    }
 }
 
-function privarFuncSupervisor(){
+function privarFuncSupervisor() {
     if (sessionStorage.USER_CARGO == "Supervisor") {
         body.innerHTML = `<h1>ERRO</h1>`;
         Swal.fire({
@@ -237,7 +291,7 @@ function redirectHome() {
         window.location = "./home.html";
     }, 200);
 }
-function redirectCadEmpresa(){
+function redirectCadEmpresa() {
     setTimeout(function () {
         window.location = "./cadastroEmpresa.html";
     }, 250);
@@ -295,7 +349,7 @@ function redirectGraficos(totemDesejado, totem) {
 }
 
 
-function redirectVisaoGeral(){
+function redirectVisaoGeral() {
     setTimeout(function () {
         window.location = "home.html";
     }, 250);

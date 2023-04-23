@@ -14,6 +14,18 @@ function listarMaquinas(fkEmpresa) {
   var instrucao = `select unidade.nome as nomeUnidade, totem.usuario, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
   return database.executar(instrucao);
 }
+function atualizarListaMaquinas(fkEmpresa) {
+  var instrucao = `select totem.* from totem join unidade on fkUnidade = idUnidade join empresa on fkEmpresa = idEmpresa where idEmpresa = '${fkEmpresa}' and numeroSerie <> ' ';`;
+  return database.executar(instrucao);
+}
+function atualizarListaMaquinasFiltradas(fkEmpresa, nomeDigitado) {
+  var instrucao = `select totem.* from totem join unidade on fkUnidade = idUnidade join empresa on fkEmpresa = idEmpresa where idEmpresa = '${fkEmpresa}' and usuario like '${nomeDigitado}%' and numeroSerie <> ' ';`;
+  return database.executar(instrucao);
+}
+function mudarEstadoMaquina(idTotem) {
+  var instrucao = `select top 1 * from [dbo].[registro] where fkTotem = ${idTotem} order by  idRegistro desc;`;
+  return database.executar(instrucao);
+}
 
 function listarDadosMaquina(idMaquina) {
   var instrucao = `select totem.* from totem where idTotem = ${idMaquina};`;
@@ -82,5 +94,8 @@ module.exports = {
   listarUltimosDados,
   listarStatusTotem,
   atualizarStatusMaquina,
-  filtrarMaquinasDash
+  filtrarMaquinasDash,
+  atualizarListaMaquinasFiltradas,
+  atualizarListaMaquinas,
+  mudarEstadoMaquina
 };
