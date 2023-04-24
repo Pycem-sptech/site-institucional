@@ -240,15 +240,28 @@ var repSobrecarga = 0;
 var repMauFuncionamento = 0;
 var repOutro = 0;
 
-data = new Date
+const data = new Date;
+const ano = data.getFullYear();
 const primeiroDiaSemanaAtual = data.getDate() - data.getDay() + "/" + (data.getMonth() + 1);
 const ultimoDiaSemanaAtual = data.getDate() - data.getDay() + 7 + "/" + (data.getMonth() + 1);
 const primeiroDiaSemanaPassada = data.getDate() - data.getDay() - 7 + "/" + (data.getMonth() + 1);
 const ultimoDiaSemanaPassada = data.getDate() - data.getDay() + -1 + "/" + (data.getMonth() + 1);
 var qtdRelatoriosSemanais = 0;
 var qtdRelatoriosSemanaPassada = 0;
-// primeiroDiaSemanaAtual <= '15/4' && '15/4' <= ultimoDiaSemanaAtual;
-// primeiroDiaSemanaPassada >= '15/4' && ultimoDiaSemanaPassada >= '15/4';
+
+function getPrimeiroDiaDaSemana(ano, semana) {
+  const primeiroDeJaneiro = new Date(ano, 0, 1);
+  const diaDaSemana = primeiroDeJaneiro.getDay();
+  const primeiroDomingo = primeiroDeJaneiro;
+  primeiroDomingo.setDate(1 - diaDaSemana);
+  primeiroDomingo.setDate(primeiroDomingo.getDate() + (7 * (semana - 1)));
+  return primeiroDomingo;
+}
+
+// const primeiroDiaDaSemana = getPrimeiroDiaDaSemana(ano, primeiroDiaSemanaPassada);
+// const ultimoDiaDaSemana = new Date(primeiroDiaDaSemana);
+// ultimoDiaDaSemana.setDate(primeiroDiaDaSemana.getDate() + 6);
+
 
 function buscarRelatoriosCadastrados(idUnidade) {
     fetch(`/relatorio/listarRelatorio/${idUnidade}`).then(function (resposta) {
@@ -329,8 +342,6 @@ function atualizarMaiorOcorrencia() {
         maiorOcorrencia.innerHTML = 'Outro';
     }
 }
-
-
 
 function buscarDadosRelatorio(idRelatorio) {
     fetch(`/relatorio/buscarDadosRelatorio/${idRelatorio}`)
