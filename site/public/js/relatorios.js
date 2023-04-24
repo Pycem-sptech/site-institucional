@@ -237,6 +237,7 @@ function criarIdRelatório(id) {
 
 var repDesligamento = 0;
 var repSobrecarga = 0;
+var repMauFuncionamento = 0;
 var repOutro = 0;
 
 data = new Date
@@ -264,7 +265,10 @@ function buscarRelatoriosCadastrados(idUnidade) {
                     } else if (publicacao.tipo == 'Sobrecarga' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
                         repSobrecarga++;
                         qtdRelatoriosSemanais++
-                    } else if (publicacao.tipo == 'Outro' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+                    } else if (publicacao.tipo == 'MauFuncionamento' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+                        repMauFuncionamento++;
+                        qtdRelatoriosSemanais++
+                    }else if (publicacao.tipo == 'Outro' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
                         repOutro++;
                         qtdRelatoriosSemanais++
                     }
@@ -311,12 +315,15 @@ function atualizarVariacaoRelatorios() {
 function atualizarMaiorOcorrencia() {
     let maiorOcorrencia = document.getElementById("subtitleHardInfo");
     let qntOcorrencias = document.getElementById("qntOcorrencias");
-    if (repDesligamento >= repSobrecarga && repDesligamento >= repOutro) {
+    if (repDesligamento >= repSobrecarga && repDesligamento >= repOutro && repDesligamento >= repMauFuncionamento) {
         qntOcorrencias.innerHTML = repDesligamento;
         maiorOcorrencia.innerHTML = 'Desligamento';
-    } else if (repSobrecarga > repDesligamento && repSobrecarga >= repOutro) {
+    } else if (repSobrecarga > repDesligamento && repSobrecarga >= repOutro && repSobrecarga >= repMauFuncionamento) {
         qntOcorrencias.innerHTML = repSobrecarga;
         maiorOcorrencia.innerHTML = 'Sobrecarga';
+    } else if (repMauFuncionamento > repDesligamento && repMauFuncionamento > repSobrecarga && repMauFuncionamento >= repOutro) {
+        qntOcorrencias.innerHTML = repMauFuncionamento;
+        maiorOcorrencia.innerHTML = 'Mau funcionamento';
     } else {
         qntOcorrencias.innerHTML = repOutro;
         maiorOcorrencia.innerHTML = 'Outro';
