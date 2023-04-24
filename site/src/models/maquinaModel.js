@@ -52,12 +52,20 @@ function filtrarMaquinasDash(nomeDigitado, idUnidade) {
 }
 
 function listarUsoMaquina(fkTotem) {
-  var instrucao = `select top 7 idRegistro,uso_processador,uso_ram,uso_hd,FORMAT(data_registro,'%H:%m:%s') as data_registro from registro where fkTotem = '${fkTotem}' order by  idRegistro desc;`;
+  var instrucao = `SELECT TOP 7 
+  idRegistro, uso_processador, uso_ram, uso_hd, 
+  CONVERT(varchar, DATEADD(hour, -03, data_registro), 108) AS data_registro 
+FROM 
+  registro 
+WHERE 
+  fkTotem = '${fkTotem}' 
+ORDER BY 
+  idRegistro DESC;`;
   return database.executar(instrucao);
 }
 
 function listarUltimosDados(fkTotem) {
-  var instrucao = `select top 1 idRegistro,uso_processador,uso_ram,uso_hd,FORMAT(data_registro,'%H:%m:%s') as data_registro from registro where fkTotem = '${fkTotem}' order by idRegistro desc`;
+  var instrucao = `select top 1 idRegistro,uso_processador,uso_ram,uso_hd,CONVERT(varchar, DATEADD(hour, -03, data_registro), 108) as data_registro from registro where fkTotem = '${fkTotem}' order by idRegistro desc`;
   return database.executar(instrucao);
 }
 
