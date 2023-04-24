@@ -54,31 +54,13 @@ function mudarLista(valorCombo) {
 
 function privarFuncTecnico() {
     if (sessionStorage.USER_CARGO == "Tecnico") {
-        body.innerHTML = `<h1>ERRO</h1>`;
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Esta página não existe!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location = "../home.html"
-            }
-        })
+        window.location = "./erro404.html";
     }
 }
 
 function privarFuncSupervisor() {
     if (sessionStorage.USER_CARGO == "Supervisor") {
-        body.innerHTML = `<h1>ERRO</h1>`;
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Esta página não existe!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location = "../home.html"
-            }
-        })
+       window.location = "./erro404.html";
     }
 }
 
