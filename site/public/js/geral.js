@@ -54,12 +54,14 @@ function mudarLista(valorCombo) {
 
 function privarFuncTecnico() {
     if (sessionStorage.USER_CARGO == "Tecnico") {
+        document.body.innerHTML = "";
         window.location = "./erro404.html";
     }
 }
 
 function privarFuncSupervisor() {
     if (sessionStorage.USER_CARGO == "Supervisor") {
+        document.body.innerHTML = "";
        window.location = "./erro404.html";
     }
 }
