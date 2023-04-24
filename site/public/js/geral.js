@@ -344,7 +344,6 @@ function redirectDashUnits(unidadeDesejada, nomeUnidadeDesejada) {
         window.location = "./dashboardMaquina.html";
     }, 250);
 }
-
 function redirectGraficos(totemDesejado, totem) {
     sessionStorage.ID_TOTEM = totemDesejado;
     sessionStorage.VER_TOTEM = `${totem}`;
@@ -352,13 +351,15 @@ function redirectGraficos(totemDesejado, totem) {
         window.location = "./graficos.html";
     }, 250);
 }
-
-
 function redirectVisaoGeral() {
     setTimeout(function () {
         window.location = "home.html";
     }, 250);
 }
-
+function redirect404() {
+    setTimeout(function () {
+        window.location = "erro404.html";
+    }, 250);
+}
 
 
