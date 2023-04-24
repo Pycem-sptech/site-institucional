@@ -214,3 +214,45 @@
     background-color: rgba(97, 165, 227, 0.6);    
     border-radius: 20px;       
 }
+@media (max-width:500px){
+    .modal{
+        width:90%;
+        height: 85%;
+    }
+    .headerModal{
+        height: 8%;
+        font-size: 4.3vw;
+    }
+    .tituloModal{
+        padding-bottom: 0;
+    }
+    .btnFechar{
+        background-size: 100%;
+        margin-right: 4vw;
+    }
+    .bloco{
+        flex-wrap: wrap;
+    }
+    .tamanho1{
+        width: 90%;
+    }
+    .subTitulo{
+        font-size: 4.3vw;
+    }
+    .inputModal{
+        height: 4vh;
+        font-size: 3.3vw;
+    }
+    .tamanho3{
+        width: 94%;
+    }
+    .selectModal{
+        font-size: 3.3vw;
+        height: 4vh;
+    }
+    .btnSalvar{
+        height: 5vh;
+        width: 39vw;
+        font-size: 5.3vw;
+    }
+}
