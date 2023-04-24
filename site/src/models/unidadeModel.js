@@ -63,7 +63,7 @@ function frequenciaProblemasMensal(fkEmpresa, idUnidade) {
         DATEPART(week, r.data_relatorio) AS semana, 
         (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Desligamento' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Desligamento,
         (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Sobrecarga' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Sobrecarga,
-        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Mau funcionamento' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Mau_funcionamento,
+        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'MauFuncionamento' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS MauFuncionamento,
         (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Outro' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Outro
       FROM 
         unidade u
