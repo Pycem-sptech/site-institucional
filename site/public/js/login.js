@@ -52,7 +52,7 @@ function fazerLogin() {
 }
 
 function validarCargo(cargo, fkEmpresa) {
-  if (cargo == 'Dono' && fkEmpresa == 'null') {
+  if (cargo == 'Dono' && fkEmpresa == null) {
     redirectCadEmpresa();
   } else if (cargo == 'Dono') {
     redirectHome();

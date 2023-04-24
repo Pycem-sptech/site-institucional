@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/unidade.css">
     <script src="js/geral.js"></script>
     <script src="js/allUnits.js"></script>
+    <script src="js/allMach.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
@@ -62,19 +63,19 @@
     <main class="main">
         <div class="container">
             <div class="filtros">
-                <input type="text" class="inputSearch" onkeyup="atualizarListaUnidadesFiltradas(this.value)">
-                <select name="" id="" class="selectFiltrar">
-                    <option value="">Unidades</option>
-                    <option value="">Máquinas</option>
+                <input type="text" class="inputSearch" id="inputSearch" onkeyup="atualizarListaUnidadesFiltradas(this.value)">
+                <select name="" id="" class="selectFiltrar" onchange="mudarLista(this.value)">
+                    <option value="1">Unidades</option>
+                    <option value="2">Máquinas</option>
                 </select>
             </div>
-            <div class="listUnit">
+            <div class="listUnit" id="listUnit">
                 <div class="box idUnit">
                     <span>ID</span>
                 </div>
                 <div class="box nameUnit">
                     <img src="img/storeIcon.svg" alt="">
-                    <span>Nome da Unidade</span>
+                    <span id="nome_span">Nome da Unidade</span>
                 </div>
                 <div class="box machineAvailable">
                     <span>Máq. disponíveis</span>

@@ -18,7 +18,7 @@
     <script src="js/charts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), buscarRelatoriosCadastrados(sessionStorage.ID_UNIDADE), privarFuncSupervisor(),obterDadosGraficoFrequenciaProblemasMensal(`${sessionStorage.FK_EMPRESA}`)">
+<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), buscarRelatoriosCadastrados(sessionStorage.ID_UNIDADE), privarFuncSupervisor(),obterDadosGraficoFrequenciaProblemasMensal(`${sessionStorage.FK_EMPRESA}`,`${sessionStorage.ID_UNIDADE}`)">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">
@@ -136,54 +136,6 @@
             </section>
         </div>
 
-        <div class="overlay" id="overlay">
-            <div class="modalRelatorio" id="modalRelatorio">
-                <div class="headerModal">
-                    <span class="tituloModal">Relatório</span>
-                    <span class="fecharModal btnFechar" onclick="fecharModalRelatorio()"></span>
-                </div>
-                <div class="bodyModal">
-                    <div class="bloco">
-
-                        <span class="estilo tamanho9"><span class="subTitulo">Titulo:</span>
-                            <input class="inputModal" id="tituloModal"></span>
-                    </div>
-                    <div class="bloco">
-
-                        <span class="estilo tamanho11"><span class="subTitulo">Nº de Série:</span>
-                            <select class="selectModal" id="escolherNumeroSerie">
-                                <option value="" disabled selected>Nº de Série</option>
-                            </select></span>
-                    </div>
-
-                    <div class="bloco">
-                   
-                        <span class="estilo tamanho4"><span class="subTitulo">Data:</span>
-                            <input class="inputModal"type="text" id="dataModal" disabled></span>
-
-                            <span class="estilo tamanho10"><span class="subTitulo">Tipo do problema:</span>
-                            <select class="selectModal" id="escolherTipoProblemaModal">
-                                <option></option>
-                                <option value="Desligamento">Desligamento</option>
-                                <option value="Sobrecarga">Sobrecarga</option>
-                                <option value="Outro">Outro</option>
-                            </select></span>
-                    
-                    </div>
-                    <div class="bloco">
-                        <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
-                            <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
-                    </div>
-                </div>
-                <div class="modalFooter">
-                    <button class="btnSalvar"
-                        id="btnSalvarModal"
-                        onclick="cadastrarRelatorio()">Salvar</button>
-                </div>
-            </div>
-        </div>
-        
-
     </main>
 </body>
 </html>
@@ -215,7 +167,8 @@
         btnSearch.style.display = "none";
         btnClose.style.display = "block";
         campoPesquisa.classList.add("show")
-      
+        atulizando = true;
+        atualizarStatusMaqEmTempoReal()
 }
     function fechar(){
         campoPesquisa.classList.remove("show")
@@ -225,6 +178,9 @@
     }, 550);
         btnSearch.style.display = "block";
         btnClose.style.display = "none";
+        atulizando = false;
+        atualizarStatusMaqEmTempoReal()
+        
     }
     
 

@@ -1,7 +1,35 @@
+function mudarEstadoMaquina(idTotem, span) {
+    fetch(`/maquina/mudarEstadoMaquina/${idTotem}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("Nenhum resultado encontrado!!");
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+                    console.log
+                    const lista = resposta;
+                    if (lista.length > 0) {
+                        span.innerHTML = lista[0].cpu_status == "Critico" || lista[0].ram_status == "Critico" || lista[0].hd_status == "Critico" ? "Critico" :
+                            lista[0].cpu_status == "Alerta" || lista[0].ram_status == "Alerta" || lista.hd_status == "Alerta" ? "Alerta" : "Saudavel";
+                    } else {
+                        span.innerHTML = "---";
+                    }
+                });
+
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+}
+
 function atualizarListaMaquinas() {
     const listaMaquinas = [];
     const fkEmpresa = sessionStorage.FK_EMPRESA;
-    fetch(`/unidade/atualizarListaUnidades/${fkEmpresa}`)
+    fetch(`/maquina/atualizarListaMaquinas/${fkEmpresa}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -16,7 +44,7 @@ function atualizarListaMaquinas() {
                     }
                     console.log(listaMaquinas);
                 });
-                setTimeout(function () { mostrarTodasUnidades(listaMaquinas) }, 300)
+                setTimeout(function () { mostrarTodasMaquinas(listaMaquinas) }, 300)
             } else {
                 throw "Houve um erro na API!";
             }
@@ -32,6 +60,8 @@ function atualizarListaMaquinasFiltradas(nomeDigitado) {
     if (nomeDigitado.length > 0) {
         const listaMaquinas = []
         const fkEmpresa = sessionStorage.FK_EMPRESA;
+        console.log(`/maquina/atualizarListaMaquinasFiltradas/${fkEmpresa}/${nomeDigitado}`)
+
         fetch(`/maquina/atualizarListaMaquinasFiltradas/${fkEmpresa}/${nomeDigitado}`)
             .then(function (resposta) {
                 if (resposta.ok) {
@@ -39,7 +69,7 @@ function atualizarListaMaquinasFiltradas(nomeDigitado) {
                         console.log("Nenhum resultado encontrado!!");
                         limparFeed();
                         throw "Nenhum resultado encontrado!!";
-                        
+
                     }
                     resposta.json().then(function (resposta) {
                         for (var i = 0; i < resposta.length; i++) {
@@ -49,7 +79,7 @@ function atualizarListaMaquinasFiltradas(nomeDigitado) {
                         console.log(listaMaquinas);
 
                     });
-                    mostrarTodasUnidades(listaMaquinas);
+                    setTimeout(function () { mostrarTodasMaquinas(listaMaquinas) }, 300)
                 } else {
                     throw "Houve um erro na API!";
                 }
@@ -59,96 +89,83 @@ function atualizarListaMaquinasFiltradas(nomeDigitado) {
             });
 
         return false;
-    }else {limparFeed();}
+    } else { limparFeed(); }
 }
 
-function imprimirMaquina(fkEmpresa, id) {
-    const rota = `/maquina/listarTodasMaquinas/${fkEmpresa}/${fkUnidade}`
+function imprimirMaquina(respostas, id) {
+    publicacao = {};
+    for (resposta in respostas) {
+        publicacao[resposta] = respostas[resposta]
 
-    fetch(rota)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                if (resposta.status == 204) { }
+    }
 
-                resposta.json().then(function (resposta) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+    publicacao.status_maquina = mudarEstadoMaquina(publicacao.idTotem)
 
-                    var feed = document.getElementById("feed");
+    var feed = document.getElementById("feed");
 
-                    var publicacao = resposta[0];
 
-                    var divListUnits = document.createElement("div");
-                    divListUnits.className = "listUnit";
-                    divListUnits.setAttribute("onclick", `redirectDashUnits(${publicacao.idUnidade},'${publicacao.nomeUnidade}')`);
-                    var divBoxId = document.createElement("div");
-                    divBoxId.className = "box idUnit";
-                    var spanId = document.createElement("span");
-                    spanId.innerHTML = id+1;
 
-                    var divBoxName = document.createElement("div");
-                    divBoxName.className = "box nameUnit";
-                    var spanImgUnit = document.createElement("span");
-                    spanImgUnit.innerHTML = '<img src="img/storeIcon.svg" alt="">'
-                    var spanName = document.createElement("span");
-                    spanName.innerHTML = publicacao.nomeUnidade;
+    var divListUnits = document.createElement("div");
+    divListUnits.className = "listUnit";
+    divListUnits.setAttribute("onclick", `redirectGraficos(${publicacao.idTotem},'${publicacao.usuario}')`);
+    var divBoxId = document.createElement("div");
+    divBoxId.className = "box idUnit";
+    var spanId = document.createElement("span");
+    spanId.innerHTML = id + 1;
 
-                    var divBoxAvailable = document.createElement("div");
-                    divBoxAvailable.className = "box machineAvailable";
-                    var spanAvailable = document.createElement("span");
-                    spanAvailable.innerHTML = publicacao.Disponivel;
+    var divBoxName = document.createElement("div");
+    divBoxName.className = "box nameUnit";
+    var spanImgUnit = document.createElement("span");
+    spanImgUnit.innerHTML = '<img src="img/storeIcon.svg" alt="">'
+    var spanName = document.createElement("span");
+    spanName.innerHTML = publicacao.usuario;
 
-                    var divBoxMaintenance = document.createElement("div");
-                    divBoxMaintenance.className = "box machineMaintenance";
-                    var spanMaintenance = document.createElement("span");
-                    spanMaintenance.innerHTML = publicacao.Manutencao;
+    var divBoxAvailable = document.createElement("div");
+    divBoxAvailable.className = "box machineAvailable";
+    var spanAvailable = document.createElement("span");
+    spanAvailable.innerHTML = publicacao.mac_address;
 
-                    var divBoxMachineOff = document.createElement("div");
-                    divBoxMachineOff.className = "box machineOff";
-                    var spanMachineOff = document.createElement("span");
-                    spanMachineOff.innerHTML = publicacao.Desligado;
+    var divBoxMaintenance = document.createElement("div");
+    divBoxMaintenance.className = "box machineMaintenance";
+    var spanMaintenance = document.createElement("span");
+    spanMaintenance.innerHTML = publicacao.ipv6;
 
-                    var divBoxTotalMachine = document.createElement("div");
-                    divBoxTotalMachine.className = "box totalMachine";
-                    var spanTotalMachine = document.createElement("span");
-                    spanTotalMachine.innerHTML = publicacao.totalMaquinasUnidade;
+    var divBoxMachineOff = document.createElement("div");
+    divBoxMachineOff.className = "box machineOff";
+    var spanMachineOff = document.createElement("span");
+    spanMachineOff.innerHTML = publicacao.estado;
 
-                    feed.appendChild(divListUnits);
+    var divBoxTotalMachine = document.createElement("div");
+    divBoxTotalMachine.className = "box totalMachine";
+    var spanTotalMachine = document.createElement("span");
+    mudarEstadoMaquina(publicacao.idTotem, spanTotalMachine)
 
-                    divListUnits.appendChild(divBoxId);
-                    divBoxId.appendChild(spanId);
+    feed.appendChild(divListUnits);
 
-                    divListUnits.appendChild(divBoxName);
-                    divBoxName.appendChild(spanImgUnit);
-                    divBoxName.appendChild(spanName);
+    divListUnits.appendChild(divBoxId);
+    divBoxId.appendChild(spanId);
 
-                    divListUnits.appendChild(divBoxAvailable);
-                    divBoxAvailable.appendChild(spanAvailable);
+    divListUnits.appendChild(divBoxName);
+    divBoxName.appendChild(spanImgUnit);
+    divBoxName.appendChild(spanName);
 
-                    divListUnits.appendChild(divBoxMaintenance);
-                    divBoxMaintenance.appendChild(spanMaintenance);
+    divListUnits.appendChild(divBoxAvailable);
+    divBoxAvailable.appendChild(spanAvailable);
 
-                    divListUnits.appendChild(divBoxMachineOff);
-                    divBoxMachineOff.appendChild(spanMachineOff);
+    divListUnits.appendChild(divBoxMaintenance);
+    divBoxMaintenance.appendChild(spanMaintenance);
 
-                    divListUnits.appendChild(divBoxTotalMachine);
-                    divBoxTotalMachine.appendChild(spanTotalMachine);
+    divListUnits.appendChild(divBoxMachineOff);
+    divBoxMachineOff.appendChild(spanMachineOff);
 
-                });
-            } else {
-                throw "Houve um erro na API!";
-            }
-        })
-        .catch(function (resposta) {
-            console.error(resposta);
-        });
+    divListUnits.appendChild(divBoxTotalMachine);
+    divBoxTotalMachine.appendChild(spanTotalMachine);
 
 }
 
 function mostrarTodasMaquinas(listaMaquina) {
     limparFeed();
-    const fkEmpresa = sessionStorage.FK_EMPRESA;
-
-    for (i = 0; i < listaMaquina.length; i++){
-        imprimirUnidade(fkEmpresa, listaMaquina[i].idMaquina, i);
+    for (i = 0; i < listaMaquina.length; i++) {
+        imprimirMaquina(listaMaquina[i], i);
     }
 }

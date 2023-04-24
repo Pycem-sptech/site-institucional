@@ -14,6 +14,18 @@ function listarMaquinas(fkEmpresa) {
   var instrucao = `select unidade.nome as nomeUnidade, totem.usuario, totem.numeroSerie as numeroSerie, totem.idTotem from totem totem join unidade unidade on unidade.idUnidade = totem.fkUnidade where unidade.fkEmpresa = '${fkEmpresa}';`;
   return database.executar(instrucao);
 }
+function atualizarListaMaquinas(fkEmpresa) {
+  var instrucao = `select totem.* from totem join unidade on fkUnidade = idUnidade join empresa on fkEmpresa = idEmpresa where idEmpresa = '${fkEmpresa}' and numeroSerie <> ' ';`;
+  return database.executar(instrucao);
+}
+function atualizarListaMaquinasFiltradas(fkEmpresa, nomeDigitado) {
+  var instrucao = `select totem.* from totem join unidade on fkUnidade = idUnidade join empresa on fkEmpresa = idEmpresa where idEmpresa = '${fkEmpresa}' and usuario like '${nomeDigitado}%' and numeroSerie <> ' ';`;
+  return database.executar(instrucao);
+}
+function mudarEstadoMaquina(idTotem) {
+  var instrucao = `select top 1 * from [dbo].[registro] where fkTotem = ${idTotem} order by  idRegistro desc;`;
+  return database.executar(instrucao);
+}
 
 function listarDadosMaquina(idMaquina) {
   var instrucao = `select totem.* from totem where idTotem = ${idMaquina};`;
@@ -35,17 +47,25 @@ function filtrarMaquinas(nomeDigitado) {
 }
 
 function filtrarMaquinasDash(nomeDigitado, idUnidade) {
-  var instrucao = `select t.idTotem as idTotem, u.nome as nomeUnidade, t.usuario as usuario, t.estado as "status" from totem t join unidade u on fkUnidade = idUnidade where t.usuario like '${nomeDigitado}%' and fkUnidade=${idUnidade};`;
+  var instrucao = `select t.idTotem as idTotem, u.nome as nomeUnidade, t.usuario as usuario, t.estado as "status" from totem t join unidade u on fkUnidade = idUnidade where t.usuario like '${nomeDigitado}%' and fkUnidade = '${idUnidade}';`;
   return database.executar(instrucao);
 }
 
 function listarUsoMaquina(fkTotem) {
-  var instrucao = `select top 7 idRegistro,uso_processador,uso_ram,uso_hd,FORMAT(data_registro,'%H:%m:%s') as data_registro from registro where fkTotem = '${fkTotem}' order by  idRegistro desc;`;
+  var instrucao = `SELECT TOP 7 
+  idRegistro, uso_processador, uso_ram, uso_hd, 
+  CONVERT(varchar, DATEADD(hour, -03, data_registro), 108) AS data_registro 
+FROM 
+  registro 
+WHERE 
+  fkTotem = '${fkTotem}' 
+ORDER BY 
+  idRegistro DESC;`;
   return database.executar(instrucao);
 }
 
 function listarUltimosDados(fkTotem) {
-  var instrucao = `select top 1 idRegistro,uso_processador,uso_ram,uso_hd,FORMAT(data_registro,'%H:%m:%s') as data_registro from registro where fkTotem = '${fkTotem}' order by idRegistro desc`;
+  var instrucao = `select top 1 idRegistro,uso_processador,uso_ram,uso_hd,CONVERT(varchar, DATEADD(hour, -03, data_registro), 108) as data_registro from registro where fkTotem = '${fkTotem}' order by idRegistro desc`;
   return database.executar(instrucao);
 }
 
@@ -82,5 +102,8 @@ module.exports = {
   listarUltimosDados,
   listarStatusTotem,
   atualizarStatusMaquina,
-  filtrarMaquinasDash
+  filtrarMaquinasDash,
+  atualizarListaMaquinasFiltradas,
+  atualizarListaMaquinas,
+  mudarEstadoMaquina
 };

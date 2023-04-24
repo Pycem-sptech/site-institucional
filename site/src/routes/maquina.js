@@ -50,6 +50,11 @@ router.get("/atualizarListaMaquinas/:fkEmpresa", function (req, res) {
     maquinaController.atualizarListaMaquinas(req, res);
 });
 
+router.get("/mudarEstadoMaquina/:idTotem", function (req, res) {
+    maquinaController.mudarEstadoMaquina(req, res);
+});
+
+
 router.post("/cadastrarMaquina", function (req, res) {
     maquinaController.cadastrarMaquina(req, res);
 })
