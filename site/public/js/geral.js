@@ -37,7 +37,7 @@ function mudarLista(valorCombo) {
                     
                 </div>
                 <div class="box machineMaintenance">
-                    <span>End. IPV4</span>
+                    <span>End. IPV6</span>
                     
                 </div>
                 <div class="box machineOff">
@@ -81,7 +81,6 @@ function privarFuncSupervisor() {
         })
     }
 }
-
 
 // sessão
 function validarSessao() {
