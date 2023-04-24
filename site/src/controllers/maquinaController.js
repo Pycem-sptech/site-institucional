@@ -269,7 +269,52 @@ function atualizarStatusMaquina(req, res) {
 
 }
 
+function atualizarListaMaquinasFiltradas(req, res) {
+    const nomeDigitado = req.params.nomeDigitado;
+    const fkEmpresa = req.params.fkEmpresa;
 
+    maquinaModel.atualizarListaMaquinasFiltradas(fkEmpresa, nomeDigitado).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+
+}
+function atualizarListaMaquinas(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+
+    maquinaModel.atualizarListaMaquinas(fkEmpresa).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+
+}
+function mudarEstadoMaquina(req, res) {
+    const idTotem = req.params.idTotem;
+
+    maquinaModel.mudarEstadoMaquina(idTotem).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+
+}
 
 function deletarRegistroMaquina(req, res) {
     var idMaquina = req.params.idMaquina;
@@ -303,5 +348,8 @@ module.exports = {
     listarUltimosDados,
     listarStatusTotem,
     atualizarStatusMaquina,
-    filtrarMaquinasDash
+    filtrarMaquinasDash,
+    atualizarListaMaquinasFiltradas,
+    atualizarListaMaquinas,
+    mudarEstadoMaquina
 }

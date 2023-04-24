@@ -37,7 +37,6 @@ function fecharModalRelatorio() {
   dataModal.value = "";
   descricaoModal.value = "";
   escolherTipoProblemaModal.value = "";
-  escolherNumeroSerie.value = "";
   overlay.style.display = 'none';
   modalRelatorio.style.display = 'none';
 }

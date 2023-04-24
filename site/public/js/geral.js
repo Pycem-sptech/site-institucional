@@ -1,33 +1,70 @@
-function privarFuncTecnico() {
-    if (sessionStorage.USER_CARGO == "Tecnico") {
-        body.innerHTML = `<h1>ERRO</h1>`;
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Esta página não existe!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location = "../home.html"
-            }
-        })
-    } 
-}
-
-function privarFuncSupervisor(){
-    if (sessionStorage.USER_CARGO == "Supervisor") {
-        body.innerHTML = `<h1>ERRO</h1>`;
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Esta página não existe!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location = "../home.html"
-            }
-        })
+function mudarLista(valorCombo) {
+    if (valorCombo == "1") {
+        listUnit.innerHTML = ` <div class="box idUnit">
+                    <span>ID</span>
+                </div>
+                <div class="box nameUnit">
+                    <img src="img/storeIcon.svg" alt="">
+                    <span>Nome da Unidade</span>
+                </div>
+                <div class="box machineAvailable">
+                    <span>Máq. disponíveis</span>
+                    <div class="status green"></div>
+                </div>
+                <div class="box machineMaintenance">
+                    <span>Máq. em manutenção</span>
+                    <div class="status orange"></div>
+                </div>
+                <div class="box machineOff">
+                    <span>Máq. desligadas</span>
+                    <div class="status red"></div>
+                </div>
+                <div class="box totalMachine">
+                    <span>Total de máquinas</span>
+                </div>`;
+        atualizarListaUnidades();
+        inputSearch.setAttribute("onkeyup", "atualizarListaUnidadesFiltradas(this.value)");
+    } else {
+        listUnit.innerHTML = ` <div class="box idUnit">
+                    <span>ID</span>
+                </div>
+                <div class="box nameUnit">
+                    <img src="img/storeIcon.svg" alt="">
+                    <span >Nome da Máquina</span>
+                </div>
+                <div class="box machineAvailable">
+                    <span>Mac Address</span>
+                    
+                </div>
+                <div class="box machineMaintenance">
+                    <span>End. IPV6</span>
+                    
+                </div>
+                <div class="box machineOff">
+                    <span>Estado</span>
+                    
+                </div>
+                <div class="box totalMachine">
+                    <span>Status Alerta</span>
+                </div>`;
+                atualizarListaMaquinas();
+                inputSearch.setAttribute("onkeyup", "atualizarListaMaquinasFiltradas(this.value)")
     }
 }
 
+function privarFuncTecnico() {
+    if (sessionStorage.USER_CARGO == "Tecnico") {
+        document.body.innerHTML = "";
+        window.location = "./erro404.html";
+    }
+}
+
+function privarFuncSupervisor() {
+    if (sessionStorage.USER_CARGO == "Supervisor") {
+        document.body.innerHTML = "";
+       window.location = "./erro404.html";
+    }
+}
 
 // sessão
 function validarSessao() {
@@ -230,6 +267,28 @@ function toastPadrao(icon, title) {
     });
 }
 
+function toastInfinito(icon, title) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: ``,
+        timerProgressBar: true,
+        showCloseButton:true,
+        didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+    });
+
+    Toast.fire({
+        icon: `${icon}`,
+        title: `${title}`,
+        
+    });
+    
+}
+
 // Redirecionamentos
 
 function redirectHome() {
@@ -237,7 +296,7 @@ function redirectHome() {
         window.location = "./home.html";
     }, 200);
 }
-function redirectCadEmpresa(){
+function redirectCadEmpresa() {
     setTimeout(function () {
         window.location = "./cadastroEmpresa.html";
     }, 250);
@@ -285,7 +344,6 @@ function redirectDashUnits(unidadeDesejada, nomeUnidadeDesejada) {
         window.location = "./dashboardMaquina.html";
     }, 250);
 }
-
 function redirectGraficos(totemDesejado, totem) {
     sessionStorage.ID_TOTEM = totemDesejado;
     sessionStorage.VER_TOTEM = `${totem}`;
@@ -293,13 +351,15 @@ function redirectGraficos(totemDesejado, totem) {
         window.location = "./graficos.html";
     }, 250);
 }
-
-
-function redirectVisaoGeral(){
+function redirectVisaoGeral() {
     setTimeout(function () {
         window.location = "home.html";
     }, 250);
 }
-
+function redirect404() {
+    setTimeout(function () {
+        window.location = "erro404.html";
+    }, 250);
+}
 
 
