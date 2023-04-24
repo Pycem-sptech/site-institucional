@@ -2,17 +2,14 @@ const fkEmpresa = sessionStorage.FK_EMPRESA;
 const listaUnidades = [];
 var alertaParou = false
 
-const dataAtual = new Date;
-const anoAtual = dataAtual.getFullYear();
-
-function getPrimeiroDiaDaSemana(ano, semana) {
-    const primeiroDeJaneiro = new Date(ano, 0, 1);
-    const diaDaSemana = primeiroDeJaneiro.getDay();
-    const primeiroDomingo = primeiroDeJaneiro;
-    primeiroDomingo.setDate(1 - diaDaSemana);
-    primeiroDomingo.setDate(primeiroDomingo.getDate() + (7 * (semana - 1)));
-    return primeiroDomingo;
-}
+    function getPrimeiroDiaDaSemana(ano, semana) {
+        const primeiroDeJaneiro = new Date(ano, 0, 1);
+        const diaDaSemana = primeiroDeJaneiro.getDay();
+        const primeiroDomingo = primeiroDeJaneiro;
+        primeiroDomingo.setDate(1 - diaDaSemana);
+        primeiroDomingo.setDate(primeiroDomingo.getDate() + (7 * (semana - 1)));
+        return primeiroDomingo;
+    }
 
 function obterDadosGraficoQtdRelatorios(fkEmpresa) {
     fetch(`/unidade/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
