@@ -166,7 +166,7 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
         labels.push(registro.semana);
         dados.datasets[0].data.push(registro.Desligamento);
         dados.datasets[1].data.push(registro.Sobrecarga);
-        dados.datasets[2].data.push(registro.Mau_funcionamento);
+        dados.datasets[2].data.push(registro.MauFuncionamento);
         dados.datasets[3].data.push(registro.Outro);
     }
 
