@@ -7,6 +7,7 @@ function mudarEstadoMaquina(idTotem, span) {
                     throw "Nenhum resultado encontrado!!";
                 }
                 resposta.json().then(function (resposta) {
+                    console.log
                     const lista = resposta;
                     if (lista.length > 0) {
                         span.innerHTML = lista[0].cpu_status == "Critico" || lista[0].ram_status == "Critico" || lista[0].hd_status == "Critico" ? "Critico" :
@@ -127,7 +128,7 @@ function imprimirMaquina(respostas, id) {
     var divBoxMaintenance = document.createElement("div");
     divBoxMaintenance.className = "box machineMaintenance";
     var spanMaintenance = document.createElement("span");
-    spanMaintenance.innerHTML = publicacao.ipv4;
+    spanMaintenance.innerHTML = publicacao.ipv6;
 
     var divBoxMachineOff = document.createElement("div");
     divBoxMachineOff.className = "box machineOff";
