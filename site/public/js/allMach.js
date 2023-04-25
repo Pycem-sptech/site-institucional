@@ -123,12 +123,13 @@ function imprimirMaquina(respostas, id) {
     var divBoxAvailable = document.createElement("div");
     divBoxAvailable.className = "box machineAvailable";
     var spanAvailable = document.createElement("span");
-    spanAvailable.innerHTML = publicacao.mac_address;
+    // se a ultima posição for " " colocar os 3 pontos em na posicao na ultima posicao valida
+    spanAvailable.innerHTML = publicacao.mac_address.length > 17 ? publicacao.mac_address.substring(0, 14)+"...": publicacao.mac_address;
 
     var divBoxMaintenance = document.createElement("div");
     divBoxMaintenance.className = "box machineMaintenance";
     var spanMaintenance = document.createElement("span");
-    spanMaintenance.innerHTML = publicacao.ipv6;
+    spanMaintenance.innerHTML = publicacao.ipv6.length > 17 ? publicacao.ipv6.substring(0, 14)+"..." : publicacao.ipv6;
 
     var divBoxMachineOff = document.createElement("div");
     divBoxMachineOff.className = "box machineOff";

@@ -89,6 +89,13 @@ data_relatorio date,
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 );
 
+create table historico_totem(
+idHistorico int primary key identity(1,1),
+estado varchar(10) not null default 'Desligado', constraint chkEstado check (estado in('Disponivel','Manutencao','Desligado')),
+data_historico datetime not null,
+fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
+);
+
 insert into [dbo].[relatorio] (titulo, descricao, tipo, data_relatorio, fkTotem) values
 ('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
 ('deu ruim','a maquina parou de funcionar apos um pico de energia','Sobrecarga','04/04/2023',1),
