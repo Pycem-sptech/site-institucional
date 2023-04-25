@@ -44,7 +44,8 @@ function listarMaquinas(req, res) {
 
 function filtrarMaquinas(req, res) {
     nomeDigitado = req.params.nomeDigitado;
-    maquinaModel.filtrarMaquinas(nomeDigitado).then(function (resultado) {
+    fkEmpresa = req.params.fkEmpresa;
+    maquinaModel.filtrarMaquinas(nomeDigitado, fkEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

@@ -194,7 +194,8 @@ function atualizarMaquinasCadastradas() {
 
 function filtrarMaquinas(nomeDigitado) {
     if (nomeDigitado.length > 0) {
-        fetch(`/maquina/filtrarMaquinas/${nomeDigitado}`)
+        const fkEmpresa = sessionStorage.FK_EMPRESA;
+        fetch(`/maquina/filtrarMaquinas/${nomeDigitado}/${fkEmpresa}`)
             .then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {
