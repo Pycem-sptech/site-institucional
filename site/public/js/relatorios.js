@@ -44,7 +44,7 @@ function atualizarRelatorios(idTotem) {
                     report.appendChild(titleReport);
                     report.appendChild(dateReport);
                     report.appendChild(btnViewReport);
-                    
+
                 }
             });
         } else {
@@ -58,63 +58,63 @@ function atualizarRelatorios(idTotem) {
 
 function filtrarRelatorios(idTotem, nomeDigitado) {
 
-    if (nomeDigitado.length > 0 && nomeDigitado.length > nomeDigitado.split(" ").length){
-    fetch(`/relatorio/filtrarRelatorios/${idTotem}/${nomeDigitado}`).then(function (resposta) {
-        if (resposta.ok) {
-            if (resposta.status == 204) {
-                var machineField = document.getElementById("machineField");
-                machineField.innerHTML = "";
-                var mensagem = document.createElement("span");
-                mensagem.innerHTML = "Infelizmente, nenhum relatório foi encontrado.";
-                machineField.appendChild(mensagem);
-                throw "Nenhum resultado encontrado!!";
-            }
-
-            resposta.json().then(function (resposta) {
-                console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                var machineField = document.getElementById("machineField");
-                machineField.innerHTML = "";
-                for (let i = 0; i < resposta.length; i++) {
-                    var publicacao = resposta[i];
-
-                    var report = document.createElement("div");
-                    var iconReport = document.createElement("img");
-                    var titleReport = document.createElement("div");
-                    var dateReport = document.createElement("div");
-                    var btnViewReport = document.createElement("img");
-
-                    machineField.className = "machineField";
-                    report.className = "report";
-
-                    iconReport.className = "iconReport";
-                    titleReport.className = "titleReport";
-                    dateReport.className = "dateReport";
-                    btnViewReport.className = "btnViewReport";
-
-                    iconReport.src = "img/iconRelatorio.svg";
-                    iconReport.alt = "icon de relatorio";
-                    titleReport.innerHTML = publicacao.titulo;
-                    dateReport.innerHTML = publicacao.data_relatorio;
-                    btnViewReport.src = "img/btnVisualizarRelatorio.svg";
-                    btnViewReport.setAttribute("onclick", `mostrarModalRelatorio(1), buscarDadosRelatorio(${publicacao.idRelatorio}), criarIdRelatório(${publicacao.idRelatorio})`);
-
-                    machineField.appendChild(report);
-                    report.appendChild(iconReport);
-                    report.appendChild(titleReport);
-                    report.appendChild(dateReport);
-                    report.appendChild(btnViewReport);
-                    
+    if (nomeDigitado.length > 0 && nomeDigitado.length > nomeDigitado.split(" ").length) {
+        fetch(`/relatorio/filtrarRelatorios/${idTotem}/${nomeDigitado}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var machineField = document.getElementById("machineField");
+                    machineField.innerHTML = "";
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Infelizmente, nenhum relatório foi encontrado.";
+                    machineField.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
                 }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var machineField = document.getElementById("machineField");
+                    machineField.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        var report = document.createElement("div");
+                        var iconReport = document.createElement("img");
+                        var titleReport = document.createElement("div");
+                        var dateReport = document.createElement("div");
+                        var btnViewReport = document.createElement("img");
+
+                        machineField.className = "machineField";
+                        report.className = "report";
+
+                        iconReport.className = "iconReport";
+                        titleReport.className = "titleReport";
+                        dateReport.className = "dateReport";
+                        btnViewReport.className = "btnViewReport";
+
+                        iconReport.src = "img/iconRelatorio.svg";
+                        iconReport.alt = "icon de relatorio";
+                        titleReport.innerHTML = publicacao.titulo;
+                        dateReport.innerHTML = publicacao.data_relatorio;
+                        btnViewReport.src = "img/btnVisualizarRelatorio.svg";
+                        btnViewReport.setAttribute("onclick", `mostrarModalRelatorio(1), buscarDadosRelatorio(${publicacao.idRelatorio}), criarIdRelatório(${publicacao.idRelatorio})`);
+
+                        machineField.appendChild(report);
+                        report.appendChild(iconReport);
+                        report.appendChild(titleReport);
+                        report.appendChild(dateReport);
+                        report.appendChild(btnViewReport);
+
+                    }
+                });
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+            .catch(function (resposta) {
+                console.error(resposta);
             });
-        } else {
-            throw "Houve um erro na API!";
-        }
-    })
-        .catch(function (resposta) {
-            console.error(resposta);
-        });
-    }else {
+    } else {
         atualizarRelatorios(sessionStorage.ID_TOTEM)
     }
 }
@@ -122,16 +122,16 @@ function filtrarRelatorios(idTotem, nomeDigitado) {
 function editarRelatorio() {
     const tituloVar = tituloModal.value;
     const data = dataModal.value.split("/")
-    const dia = data[0].length == 1? "0"+data[0]: data[0];    
-    const mes = data[1].length == 1? "0"+data[1]: data[1];
+    const dia = data[0].length == 1 ? "0" + data[0] : data[0];
+    const mes = data[1].length == 1 ? "0" + data[1] : data[1];
     const ano = data[2];
     const dataVar = `${ano}-${mes}-${dia}`
     const tipoVar = escolherTipoProblemaModal.value;
     const descricaoVar = descricaoModal.value;
-    
 
 
-    if (tituloVar != undefined && tituloVar != '' && dataVar != undefined && dataVar != '' && tipoVar != undefined && tipoVar != '' && descricaoVar != undefined && descricaoVar != '' ) {
+
+    if (tituloVar != undefined && tituloVar != '' && dataVar != undefined && dataVar != '' && tipoVar != undefined && tipoVar != '' && descricaoVar != undefined && descricaoVar != '') {
         Swal.fire({
             title: 'Deseja mesmo salvar as alterações?',
             icon: 'warning',
@@ -152,7 +152,7 @@ function editarRelatorio() {
                         data: dataVar,
                         tipo: tipoVar,
                         descricao: descricaoVar,
-                        
+
                     })
                 }).then(function (resposta) {
 
@@ -188,8 +188,8 @@ function editarRelatorio() {
 function cadastrarRelatorio() {
     const tituloVar = tituloModal.value;
     const data = dataModal.value.split("/")
-    const dia = data[0].length == 1? "0"+data[0]: data[0];    
-    const mes = data[1].length == 1? "0"+data[1]: data[1];
+    const dia = data[0].length == 1 ? "0" + data[0] : data[0];
+    const mes = data[1].length == 1 ? "0" + data[1] : data[1];
     const ano = data[2];
     const dataVar = `${ano}-${mes}-${dia}`;
     const tipoVar = escolherTipoProblemaModal.value;
@@ -242,6 +242,7 @@ var repOutro = 0;
 
 const data = new Date;
 const ano = data.getFullYear();
+const mes = data.getMonth();
 const primeiroDiaSemanaAtual = data.getDate() - data.getDay() + "/" + (data.getMonth() + 1);
 const ultimoDiaSemanaAtual = data.getDate() - data.getDay() + 7 + "/" + (data.getMonth() + 1);
 const primeiroDiaSemanaPassada = data.getDate() - data.getDay() - 7 + "/" + (data.getMonth() + 1);
@@ -250,12 +251,12 @@ var qtdRelatoriosSemanais = 0;
 var qtdRelatoriosSemanaPassada = 0;
 
 function getPrimeiroDiaDaSemana(ano, semana) {
-  const primeiroDeJaneiro = new Date(ano, 0, 1);
-  const diaDaSemana = primeiroDeJaneiro.getDay();
-  const primeiroDomingo = primeiroDeJaneiro;
-  primeiroDomingo.setDate(1 - diaDaSemana);
-  primeiroDomingo.setDate(primeiroDomingo.getDate() + (7 * (semana - 1)));
-  return primeiroDomingo;
+    const primeiroDeJaneiro = new Date(ano, 0, 1);
+    const diaDaSemana = primeiroDeJaneiro.getDay();
+    const primeiroDomingo = primeiroDeJaneiro;
+    primeiroDomingo.setDate(1 - diaDaSemana);
+    primeiroDomingo.setDate(primeiroDomingo.getDate() + (7 * (semana - 1)));
+    return primeiroDomingo;
 }
 
 // const primeiroDiaDaSemana = getPrimeiroDiaDaSemana(ano, primeiroDiaSemanaPassada);
@@ -266,7 +267,7 @@ function getPrimeiroDiaDaSemana(ano, semana) {
 function buscarRelatoriosCadastrados(idUnidade) {
     fetch(`/relatorio/listarRelatorio/${idUnidade}`).then(function (resposta) {
         if (resposta.ok) {
-                resposta.json().then(function (resposta) {
+            resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
 
                 for (let i = 0; i < resposta.length; i++) {
@@ -281,7 +282,7 @@ function buscarRelatoriosCadastrados(idUnidade) {
                     } else if (publicacao.tipo == 'MauFuncionamento' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
                         repMauFuncionamento++;
                         qtdRelatoriosSemanais++
-                    }else if (publicacao.tipo == 'Outro' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+                    } else if (publicacao.tipo == 'Outro' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
                         repOutro++;
                         qtdRelatoriosSemanais++
                     }
@@ -289,7 +290,7 @@ function buscarRelatoriosCadastrados(idUnidade) {
                         qtdRelatoriosSemanaPassada++
                     }
                 }
-                atualizarKpi();
+                atualizarKpi(idUnidade);
             });
         } else {
             throw "Houve um erro na API!";
@@ -300,9 +301,9 @@ function buscarRelatoriosCadastrados(idUnidade) {
         });
 }
 
-function atualizarKpi() {
+function atualizarKpi(idUnidade) {
     atualizarVariacaoRelatorios()
-    //Variação de tempo inoperante
+    variacaoDeTempoInoperante(idUnidade)
     atualizarMaiorOcorrencia();
 }
 
@@ -324,6 +325,48 @@ function atualizarVariacaoRelatorios() {
     }
     variacaoRelatorios.innerHTML = variacao.toFixed(1) + "%"
 }
+
+function variacaoDeTempoInoperante(idUnidade) {
+    fetch(`/historico/listar/${idUnidade}`).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+                var fkTotemAntiga = resposta[0].fkTotem;
+                var dataAntiga = 0;
+                var diferencaEmSegundos = 0;
+                for (let i = 0; i < resposta.length; i++) {
+                    if (fkTotemAntiga == resposta[i].fkTotem) {
+                        if (resposta[i].estadoTotem == 'Disponivel') {
+                            diferencaMilissegundos = new Date(resposta[i].data_historico).getTime() - new Date(dataAntiga).getTime();
+                            diferencaEmSegundos += diferencaMilissegundos
+                        } else if (dataAntiga == 0) {
+                            dataAntiga = resposta[i].data_historico;
+                        }
+                    }
+                }
+                diferencaEmSegundos = diferencaEmSegundos / 1000
+                const tempoInoperante = document.getElementById("varTempoInoperante")
+
+                const diferencaEmMinutos = diferencaEmSegundos / 60;
+                const diferencaEmHoras = diferencaEmMinutos / 60;
+                const minutosSobrando = diferencaEmHoras % 60
+                const dia = diferencaEmHoras / 24
+                if (diferencaEmHoras >= 24) {
+                    tempoInoperante.innerHTML = dia.toFixed(0) + ' Day '
+                } else if (diferencaEmMinutos > 60) {
+                    tempoInoperante.innerHTML = diferencaEmHoras.toFixed(0) + 'h ' + minutosSobrando.toFixed(0) + 'm'
+                }
+
+            });
+        } else {
+            throw "Houve um erro na API!";
+        }
+    })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+}
+
 
 function atualizarMaiorOcorrencia() {
     let maiorOcorrencia = document.getElementById("subtitleHardInfo");
@@ -353,7 +396,7 @@ function buscarDadosRelatorio(idRelatorio) {
                     escolherTipoProblemaModal.value = resposta[0].tipo;
                     descricaoModal.value = resposta[0].descricao;
                     dataModal.value = resposta[0].dataRelatorio;
-                    
+
 
                 });
             } else {
