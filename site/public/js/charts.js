@@ -229,7 +229,7 @@ function listarUsoMaquina(fkTotem) {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                resposta.reverse();
+                // resposta.reverse();
                 plotarGraficos(resposta, fkTotem)
 
             });
