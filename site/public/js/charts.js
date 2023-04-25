@@ -2,14 +2,14 @@ const fkEmpresa = sessionStorage.FK_EMPRESA;
 const listaUnidades = [];
 var alertaParou = false
 
-    function getPrimeiroDiaDaSemana(ano, semana) {
-        const primeiroDeJaneiro = new Date(ano, 0, 1);
-        const diaDaSemana = primeiroDeJaneiro.getDay();
-        const primeiroDomingo = primeiroDeJaneiro;
-        primeiroDomingo.setDate(1 - diaDaSemana);
-        primeiroDomingo.setDate(primeiroDomingo.getDate() + (7 * (semana - 1)));
-        return primeiroDomingo;
-    }
+function getPrimeiroDiaDaSemana(ano, semana) {
+    const primeiroDeJaneiro = new Date(ano, 0, 1);
+    const diaDaSemana = primeiroDeJaneiro.getDay();
+    const primeiroDomingo = primeiroDeJaneiro;
+    primeiroDomingo.setDate(1 - diaDaSemana);
+    primeiroDomingo.setDate(primeiroDomingo.getDate() + (7 * (semana - 1)));
+    return primeiroDomingo;
+}
 
 function obterDadosGraficoQtdRelatorios(fkEmpresa) {
     fetch(`/unidade/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
@@ -17,7 +17,7 @@ function obterDadosGraficoQtdRelatorios(fkEmpresa) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                 resposta.reverse();
-             
+
                 plotarGrafico(resposta);
             });
         } else {
@@ -60,13 +60,7 @@ function plotarGrafico(resposta) {
         dados.datasets[0].data.push(registro.quantidade);
     }
 
-    console.log('----------------------------------------------')
-    console.log('O gráfico será plotado com os respectivos valores:')
-    console.log('Labels:')
-    console.log(labels)
-    console.log('Dados:')
-    console.log(dados.datasets)
-    console.log('----------------------------------------------')
+
 
     // Criando estrutura para plotar gráfico - config
     const configOcorrenciasPorUnidade = {
@@ -93,7 +87,6 @@ function plotarGrafico(resposta) {
         },
     };
 
-    // Adicionando gráfico criado em div na tela
     let ocorrenciasPorUnidade = new Chart(
         document.getElementById(`ocorrenciasPorUnidade`),
         configOcorrenciasPorUnidade
@@ -182,15 +175,6 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
         dados.datasets[3].data.push(registro.Outro);
     }
 
-    console.log('----------------------------------------------')
-    console.log('O gráfico será plotado com os respectivos valores:')
-    console.log('Labels:')
-    console.log(labels)
-    console.log('Dados:')
-    console.log(dados.datasets)
-    console.log('----------------------------------------------')
-
-    // Criando estrutura para plotar gráfico - config
     const configFrequenciaProblemasMensal = {
         type: 'bar',
         data: dados,
@@ -198,7 +182,6 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
             plugins: {
                 legend: {
                     labels: {
-                        // This more specific font property overrides the global property
                         font: {
                             family: 'Inter',
                             size: 17
@@ -215,12 +198,10 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
         },
     };
 
-    // Adicionando gráfico criado em div na tela
     let frequenciaProblemasMensal = new Chart(
         document.getElementById(`frequenciaProblemasMensal`),
         configFrequenciaProblemasMensal
     );
-    // setTimeout(() => atualizarGrafico(fkEmpresa, dados, frequenciaProblemasMensal), tempoDeAtualizacao);
 }
 
 function obterFrequenciaDeOcorrencias(fkEmpresa) {
@@ -283,14 +264,13 @@ function plotarGraficoProcessador(resposta, fkTotem) {
         }]
     };
 
-    // Inserindo valores recebidos em estrutura para plotar o gráfico
     for (i = 0; i < resposta.length; i++) {
         labels.push(resposta[i].data_registro);
         dados.datasets[0].data.push(resposta[i].uso_processador);
     }
     let usoCpu = document.getElementById("percentualUsoCpu")
+    validarCPU(resposta[0].uso_processador)
     usoCpu.innerHTML = resposta[0].uso_processador + "%";
-    // Criando estrutura para plotar gráfico - config
     const configUsoDoProcessador = {
         type: 'line',
         data: dados,
@@ -298,7 +278,6 @@ function plotarGraficoProcessador(resposta, fkTotem) {
             plugins: {
                 legend: {
                     labels: {
-                        // This more specific font property overrides the global property
                         font: {
                             family: 'Inter',
                             size: 17
@@ -316,7 +295,6 @@ function plotarGraficoProcessador(resposta, fkTotem) {
         },
     };
 
-    // Adicionando gráfico criado em div na tela
     let usoDoProcessador = new Chart(
         document.getElementById(`usoDoProcessador`),
         configUsoDoProcessador
@@ -340,14 +318,14 @@ function plotarGraficoRam(resposta, fkTotem) {
         }]
     };
 
-    // Inserindo valores recebidos em estrutura para plotar o gráfico
     for (i = 0; i < resposta.length; i++) {
         labels.push(resposta[i].data_registro);
         dados.datasets[0].data.push(resposta[i].uso_ram);
     }
     let usoRam = document.getElementById("percentualUsoRam")
     usoRam.innerHTML = resposta[0].uso_ram + "%";
-    // Criando estrutura para plotar gráfico - config
+    validarRAM(resposta[0].uso_ram)
+
     const configusoDaRam = {
         type: 'line',
         data: dados,
@@ -355,7 +333,6 @@ function plotarGraficoRam(resposta, fkTotem) {
             plugins: {
                 legend: {
                     labels: {
-                        // This more specific font property overrides the global property
                         font: {
                             family: 'Inter',
                             size: 17
@@ -373,7 +350,6 @@ function plotarGraficoRam(resposta, fkTotem) {
         },
     };
 
-    // Adicionando gráfico criado em div na tela
     let usoDaRam = new Chart(
         document.getElementById(`usoDaRam`),
         configusoDaRam
@@ -403,6 +379,7 @@ function plotarGraficoHd(resposta, fkTotem) {
         dados.datasets[0].data.push(resposta[i].uso_hd);
     }
     let usoHd = document.getElementById("percentualUsoHd")
+    validarHD(resposta[0].uso_hd)
     usoHd.innerHTML = resposta[0].uso_hd + "%";
     // Criando estrutura para plotar gráfico - config
     const configUsoDoHd = {
@@ -430,7 +407,6 @@ function plotarGraficoHd(resposta, fkTotem) {
         },
     };
 
-    // Adicionando gráfico criado em div na tela
     let usoDoHd = new Chart(
         document.getElementById(`usoDoHd`),
         configUsoDoHd
@@ -438,6 +414,36 @@ function plotarGraficoHd(resposta, fkTotem) {
     setTimeout(() => atualizarGraficoHd(fkTotem, dados, usoDoHd), tempoDeAtualizacao);
 }
 
+function validarCPU(registro) {
+    const percentual = document.getElementById("percentualUsoCpu")
+    if (registro >= sessionStorage.CRIT_CPU) {
+        percentual.className = "percent memory"
+    } else if (registro >= sessionStorage.ALERT_CPU && registro < sessionStorage.CRIT_CPU) {
+        percentual.className = "percent ram"
+    } else {
+        percentual.className = "percent cpu"
+    }
+}
+function validarRAM(registro) {
+    const percentual = document.getElementById("percentualUsoRam")
+    if (registro >= sessionStorage.CRIT_RAM) {
+        percentual.className = "percent memory"
+    } else if (registro >= sessionStorage.ALERT_RAM && registro < sessionStorage.CRIT_RAM) {
+        percentual.className = "percent ram"
+    } else {
+        percentual.className = "percent cpu"
+    }
+}
+function validarHD(registro) {
+    let percentual = document.getElementById("percentualUsoHd")
+    if (registro >= sessionStorage.CRIT_HD) {
+        percentual.className = "percent memory"
+    } else if (registro >= sessionStorage.ALERT_HD && registro < sessionStorage.CRIT_CPU) {
+        percentual.className = "percent ram"
+    } else {
+        percentual.className = "percent cpu"
+    }
+}
 function atualizarGraficoProcessador(fkTotem, dados, usoDoProcessador) {
 
     fetch(`/maquina/listarUltimosDados/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
@@ -454,7 +460,7 @@ function atualizarGraficoProcessador(fkTotem, dados, usoDoProcessador) {
 
                     dados.datasets[0].data.shift();  // apagar o primeiro de umidade
                     dados.datasets[0].data.push(novoRegistro[0].uso_processador); // incluir uma nova medida de umidade
-
+                    validarCPU(novoRegistro[0].uso_processador);
                     usoDoProcessador.update();
                 }
                 let usoCpu = document.getElementById("percentualUsoCpu")
@@ -489,7 +495,7 @@ function atualizarGraficoRam(fkTotem, dados, usoDaRam) {
 
                     dados.datasets[0].data.shift();  // apagar o primeiro de umidade
                     dados.datasets[0].data.push(novoRegistro[0].uso_ram); // incluir uma nova medida de umidade
-
+                    validarRAM(registro)
                     usoDaRam.update();
                 }
                 let usoRam = document.getElementById("percentualUsoRam")
@@ -524,7 +530,7 @@ function atualizarGraficoHd(fkTotem, dados, usoDoHd) {
 
                     dados.datasets[0].data.shift();  // apagar o primeiro de umidade
                     dados.datasets[0].data.push(novoRegistro[0].uso_hd); // incluir uma nova medida de umidade
-
+                    validarHD(registro)
                     usoDoHd.update();
                 }
                 let usoHd = document.getElementById("percentualUsoHd")
