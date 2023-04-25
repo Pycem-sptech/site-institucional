@@ -80,7 +80,13 @@ function editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect,
 }
 
 function atualizarStatusMaquina(idMaquina,statusNovo) {
+  atualizarHistoricoStatusMaquina(idMaquina,statusNovo)
   var instrucao = `UPDATE totem SET estado = '${statusNovo}' WHERE idTotem = ${idMaquina};`;
+  return database.executar(instrucao);
+}
+
+function atualizarHistoricoStatusMaquina(idMaquina,statusNovo){
+  var instrucao = `insert into historico_totem (estadoTotem,data_historico,fkTotem) values ('${statusNovo}',getdate(),'${idMaquina}')`;
   return database.executar(instrucao);
 }
 
@@ -105,5 +111,6 @@ module.exports = {
   filtrarMaquinasDash,
   atualizarListaMaquinasFiltradas,
   atualizarListaMaquinas,
-  mudarEstadoMaquina
+  mudarEstadoMaquina,
+  atualizarHistoricoStatusMaquina
 };
