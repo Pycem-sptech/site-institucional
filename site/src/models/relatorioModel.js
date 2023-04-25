@@ -6,7 +6,7 @@ function listarRelatorio(idUnidade) {
 }
 
 function listarRelatoriosTotem(idTotem) {
-  var instrucao = `select idRelatorio, titulo, descricao, FORMAT(data_relatorio,'%d/%M/20%y') as data_relatorio from relatorio join totem on idTotem = fkTotem where idTotem = ${idTotem} order by data_relatorio desc;`;
+  var instrucao = `select idRelatorio, titulo, descricao, FORMAT(data_relatorio,'%d/%M/20%y') as data_relatorio from relatorio join totem on idTotem = fkTotem where idTotem = ${idTotem} order by idRelatorio desc;`;
   return database.executar(instrucao);
 }
 
