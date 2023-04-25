@@ -168,7 +168,7 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
         const primeiroDiaDaSemana = getPrimeiroDiaDaSemana(data.getFullYear(), registro.semana);
         const ultimoDiaDaSemana = primeiroDiaDaSemana;
         ultimoDiaDaSemana.setDate(primeiroDiaDaSemana.getDate() + 6);
-        labels.push(`${primeiroDiaDaSemana.getDate()}/${primeiroDiaDaSemana.getMonth()} - ${ultimoDiaDaSemana.getDate()}/${ultimoDiaDaSemana.getMonth()}`);
+        labels.push(`${primeiroDiaDaSemana.getDate()-6}/${primeiroDiaDaSemana.getMonth()+1} - ${ultimoDiaDaSemana.getDate()}/${ultimoDiaDaSemana.getMonth()+1}`);
         dados.datasets[0].data.push(registro.Desligamento);
         dados.datasets[1].data.push(registro.Sobrecarga);
         dados.datasets[2].data.push(registro.MauFuncionamento);
@@ -269,7 +269,7 @@ function plotarGraficoProcessador(resposta, fkTotem) {
         dados.datasets[0].data.push(resposta[i].uso_processador);
     }
     let usoCpu = document.getElementById("percentualUsoCpu")
-    validarCPU(resposta[0].uso_processador)
+    validarCPU(resposta[resposta.length-1].uso_processador)
     usoCpu.innerHTML = resposta[0].uso_processador + "%";
     const configUsoDoProcessador = {
         type: 'line',
@@ -323,8 +323,8 @@ function plotarGraficoRam(resposta, fkTotem) {
         dados.datasets[0].data.push(resposta[i].uso_ram);
     }
     let usoRam = document.getElementById("percentualUsoRam")
+    validarRAM(resposta[resposta.length-1].uso_ram)
     usoRam.innerHTML = resposta[0].uso_ram + "%";
-    validarRAM(resposta[0].uso_ram)
 
     const configusoDaRam = {
         type: 'line',
@@ -379,7 +379,7 @@ function plotarGraficoHd(resposta, fkTotem) {
         dados.datasets[0].data.push(resposta[i].uso_hd);
     }
     let usoHd = document.getElementById("percentualUsoHd")
-    validarHD(resposta[0].uso_hd)
+    validarHD(resposta[resposta.length-1].uso_hd)
     usoHd.innerHTML = resposta[0].uso_hd + "%";
     // Criando estrutura para plotar gráfico - config
     const configUsoDoHd = {
@@ -424,6 +424,7 @@ function validarCPU(registro) {
         percentual.className = "percent cpu"
     }
 }
+
 function validarRAM(registro) {
     const percentual = document.getElementById("percentualUsoRam")
     if (registro >= sessionStorage.CRIT_RAM) {
@@ -495,7 +496,7 @@ function atualizarGraficoRam(fkTotem, dados, usoDaRam) {
 
                     dados.datasets[0].data.shift();  // apagar o primeiro de umidade
                     dados.datasets[0].data.push(novoRegistro[0].uso_ram); // incluir uma nova medida de umidade
-                    validarRAM(registro)
+                    validarRAM(novoRegistro[0].uso_ram)
                     usoDaRam.update();
                 }
                 let usoRam = document.getElementById("percentualUsoRam")
@@ -530,7 +531,7 @@ function atualizarGraficoHd(fkTotem, dados, usoDoHd) {
 
                     dados.datasets[0].data.shift();  // apagar o primeiro de umidade
                     dados.datasets[0].data.push(novoRegistro[0].uso_hd); // incluir uma nova medida de umidade
-                    validarHD(registro)
+                    validarHD(novoRegistro[0].uso_hd)
                     usoDoHd.update();
                 }
                 let usoHd = document.getElementById("percentualUsoHd")
