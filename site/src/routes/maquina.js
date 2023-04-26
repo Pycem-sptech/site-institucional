@@ -21,7 +21,7 @@ router.get("/listarStatusMaqEmTempoReal/:fkUnidade", function (req, res) {
     maquinaController.listarStatusMaqEmTempoReal(req, res);
 });
 
-router.get("/filtrarMaquinas/:nomeDigitado", function (req, res) {
+router.get("/filtrarMaquinas/:nomeDigitado/:fkEmpresa", function (req, res) {
     maquinaController.filtrarMaquinas(req, res);
 });
 

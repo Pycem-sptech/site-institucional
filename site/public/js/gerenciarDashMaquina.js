@@ -113,6 +113,7 @@ function filtrarMaquinasDash(nomeDigitado) {
                       var machineField = document.getElementById("machineField");
                       machineField.innerHTML = "";
                       var mensagem = document.createElement("span");
+                      mensagem.className = "msgNaoEncontrado"
                       mensagem.innerHTML = "Infelizmente, nenhuma máquina foi encontrada.";
                       machineField.appendChild(mensagem);
                       throw "Nenhum resultado encontrado!!";

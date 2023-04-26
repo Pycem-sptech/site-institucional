@@ -44,7 +44,8 @@ function listarMaquinas(req, res) {
 
 function filtrarMaquinas(req, res) {
     nomeDigitado = req.params.nomeDigitado;
-    maquinaModel.filtrarMaquinas(nomeDigitado).then(function (resultado) {
+    fkEmpresa = req.params.fkEmpresa;
+    maquinaModel.filtrarMaquinas(nomeDigitado, fkEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -232,6 +233,10 @@ function publicar(req, res) {
 }
 
 function editar(req, res) {
+
+    const fkUnidade = req.body.fkUnidade;
+    const usuario = req.body.usuario;
+    const senha = req.body.senha;
     const numeroSerial = req.body.numeroDeSerie;
     const processador = req.body.processador;
     const ram = req.body.memoriaRam;
@@ -239,7 +244,7 @@ function editar(req, res) {
     const storageSelect = req.body.tipoArmazenamento;
     const idMaquina = req.params.idMaquina;
 
-    maquinaModel.editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina).then(
+    maquinaModel.editar(fkUnidade,usuario,senha,numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina).then(
         function (resultado) {
             res.json(resultado);
         }
