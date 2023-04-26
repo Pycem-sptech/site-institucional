@@ -98,6 +98,15 @@
     box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+.graph{
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container-unidade {
@@ -148,7 +157,7 @@
 
 .boxUnits .containerBoxUnits{
     width: 80%;
-    height: 10vh;
+    height: 8vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -331,6 +340,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
+    margin-top: 1%;
 }
 
 .nameUnit{
