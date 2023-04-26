@@ -74,8 +74,8 @@ function cadastrarMaquina(fkUnidade, nomeMachine, password) {
   return database.executar(instrucao);
 }
 
-function editar(numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina) {
-  var instrucao = `UPDATE totem SET numeroSerie = '${numeroSerial}', processador = '${processador}', ram = '${ram}', qtd_armazenamento = '${qtdArmazenamento}', tipo_armazenamento = '${storageSelect}' WHERE idTotem = ${idMaquina};`;
+function editar(fkUnidade,usuario,senha,numeroSerial, processador, ram, qtdArmazenamento, storageSelect, idMaquina) {
+  var instrucao = `UPDATE totem SET usuario = '${usuario}', senha = '${senha}', numeroSerie = '${numeroSerial}', processador = '${processador}', ram = '${ram}', qtd_armazenamento = '${qtdArmazenamento}', tipo_armazenamento = '${storageSelect}',fkUnidade = '${fkUnidade}' WHERE idTotem = '${idMaquina}';`;
   return database.executar(instrucao);
 }
 

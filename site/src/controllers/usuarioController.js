@@ -244,7 +244,6 @@ function editarFuncinario(req, res) {
   var cpf = req.body.cpf;
   var senha = req.body.senha;
 
-
   usuarioModel.editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario)
       .then(
           function (resultado) {
