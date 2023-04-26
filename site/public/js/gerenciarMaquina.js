@@ -194,7 +194,8 @@ function atualizarMaquinasCadastradas() {
 
 function filtrarMaquinas(nomeDigitado) {
     if (nomeDigitado.length > 0) {
-        fetch(`/maquina/filtrarMaquinas/${nomeDigitado}`)
+        const fkEmpresa = sessionStorage.FK_EMPRESA;
+        fetch(`/maquina/filtrarMaquinas/${nomeDigitado}/${fkEmpresa}`)
             .then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {
@@ -255,6 +256,7 @@ function limparCamposMaquina() {
     document.getElementById('nameUnit').value = ("");
     document.getElementById('nomeMachine').value = ("");
     document.getElementById('password').value = ("");
+    document.getElementById('confirmPassword').value = ("");
     document.getElementById('ram').value = ("");
     document.getElementById('storageSelect').value = ("");
     document.getElementById('qtdArmazenamento').value = ("");

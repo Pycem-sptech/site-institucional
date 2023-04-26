@@ -91,7 +91,7 @@ fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 
 create table historico_totem(
 idHistorico int primary key identity(1,1),
-estado varchar(10) not null default 'Desligado', constraint chkEstado check (estado in('Disponivel','Manutencao','Desligado')),
+estadoTotem varchar(10) not null default 'Desligado', constraint chkEstadoTotem check (estadoTotem in('Disponivel','Manutencao','Desligado')),
 data_historico datetime not null,
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 );
