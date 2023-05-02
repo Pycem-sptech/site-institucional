@@ -58,6 +58,10 @@ function ocorrenciasPorMes(fkEmpresa) {
 }
 
 function frequenciaProblemasMensal(fkEmpresa, idUnidade) {
+  const dataAtual = new Date;
+  const ano = dataAtual.getFullYear();
+  const mes = dataAtual.getMonth() + 1;
+  console.log(mes)
   var instrucao = `
         SELECT 
         DATEPART(week, r.data_relatorio) AS semana, 
@@ -73,8 +77,8 @@ function frequenciaProblemasMensal(fkEmpresa, idUnidade) {
       WHERE 
         e.idEmpresa = '${fkEmpresa}' AND
         u.idUnidade = '${idUnidade}' AND
-        YEAR(r.data_relatorio) = 2023 AND
-        MONTH(r.data_relatorio) = 4
+        YEAR(r.data_relatorio) = '${ano}' AND
+        MONTH(r.data_relatorio) = '${mes}'
       GROUP BY 
         DATEPART(week, r.data_relatorio)
       ORDER BY 

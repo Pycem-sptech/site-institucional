@@ -242,11 +242,54 @@ var repOutro = 0;
 
 const data = new Date;
 const ano = data.getFullYear();
-const mes = data.getMonth();
-const primeiroDiaSemanaAtual = data.getDate() - data.getDay() + "/" + (data.getMonth() + 1);
-const ultimoDiaSemanaAtual = data.getDate() - data.getDay() + 7 + "/" + (data.getMonth() + 1);
-const primeiroDiaSemanaPassada = data.getDate() - data.getDay() - 7 + "/" + (data.getMonth() + 1);
-const ultimoDiaSemanaPassada = data.getDate() - data.getDay() + -1 + "/" + (data.getMonth() + 1);
+const mes = data.getMonth() + 1;
+const mesPassado = data.getMonth();
+var anoBissexto = false;
+if (ano % 4 == 0) {
+    anoBissexto == true
+}
+
+var diasMes;
+var diasMesPassado;
+
+if (mes % 2 != 0 || mes == 8) {
+    diasMes = 31
+} else if (mes % 2 == 0 && mes != 8 && mes != 2) {
+    diasMes = 30
+} else if (mes == 2 && anoBissexto) {
+    diasMes = 29
+} else if (mes == 2 && !anoBissexto) {
+    diasMes = 28
+}
+
+if(diasMes == 31 && mes != 8 && mes != 2){
+    diasMesPassado = 30
+}else if(mes == 8){
+    diasMesPassado = 31
+}else{
+    diasMesPassado = 28
+}
+
+var primeiroDiaSemanaAtual;
+if (data.getDay() - data.getDay() == 0) {
+    var primeiraSemana = true;
+    var primeiroDiaSemanaAtual = diasMesPassado - data.getDay() + "/" + (data.getMonth());
+} else {
+    var primeiroDiaSemanaAtual = data.getDate() - data.getDay() + "/" + (data.getMonth() + 1);
+}
+const ultimoDiaSemanaAtual = data.getDate() - data.getDay() + 6 + "/" + (data.getMonth() + 1);
+var primeiroDiaSemanaPassada;
+if (primeiraSemana) {
+    primeiroDiaSemanaPassada = new Date(data.getYear(), data.getMonth(), 0).getDate() - data.getDay() - 7 + "/" + (data.getMonth());
+} else {
+    primeiroDiaSemanaPassada = data.getDate() - data.getDay() - 7 + "/" + (data.getMonth() + 1);
+}
+var ultimoDiaSemanaPassada;
+if (primeiraSemana) {
+    ultimoDiaSemanaPassada = new Date(data.getYear(), data.getMonth(), 0).getDate() - data.getDay() + -1 + "/" + (data.getMonth());
+} else {
+    ultimoDiaSemanaPassada = data.getDate() - data.getDay() + -1 + "/" + (data.getMonth() + 1);
+}
 var qtdRelatoriosSemanais = 0;
 var qtdRelatoriosSemanaPassada = 0;
 
@@ -273,20 +316,20 @@ function buscarRelatoriosCadastrados(idUnidade) {
                 for (let i = 0; i < resposta.length; i++) {
                     var publicacao = resposta[i];
 
-                    if (publicacao.tipo == 'Desligamento' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+                    if (publicacao.tipo == 'Desligamento' && primeiroDiaSemanaAtual >= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
                         repDesligamento++;
                         qtdRelatoriosSemanais++
-                    } else if (publicacao.tipo == 'Sobrecarga' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+                    } else if (publicacao.tipo == 'Sobrecarga' && primeiroDiaSemanaAtual >= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
                         repSobrecarga++;
                         qtdRelatoriosSemanais++
-                    } else if (publicacao.tipo == 'MauFuncionamento' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+                    } else if (publicacao.tipo == 'MauFuncionamento' && primeiroDiaSemanaAtual >= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
                         repMauFuncionamento++;
                         qtdRelatoriosSemanais++
-                    } else if (publicacao.tipo == 'Outro' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
+                    } else if (publicacao.tipo == 'Outro' && primeiroDiaSemanaAtual >= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
                         repOutro++;
                         qtdRelatoriosSemanais++
                     }
-                    if (primeiroDiaSemanaPassada >= publicacao.data_relatorio && ultimoDiaSemanaPassada >= publicacao.data_relatorio) {
+                    if (primeiroDiaSemanaPassada >= publicacao.data_relatorio && ultimoDiaSemanaPassada <= publicacao.data_relatorio) {
                         qtdRelatoriosSemanaPassada++
                     }
                 }
@@ -336,12 +379,12 @@ function variacaoDeTempoInoperante(idUnidade) {
                 var milissegundos = 0;
                 var diferenca = 0;
                 for (let i = 0; i < resposta.length; i++) {
-                    
+
                     if (fkTotemAntiga == resposta[i].fkTotem) {
                         if (resposta[i].estadoTotem == 'Desligado' || resposta[i].estadoTotem == 'Manutencao') {
-                            if(new Date(dataAntiga) < new Date(resposta[i].data_historico).getTime()){
+                            if (new Date(dataAntiga) < new Date(resposta[i].data_historico).getTime()) {
                                 console.log(dataAntiga + "é a mais antiga")
-                            }else{
+                            } else {
                                 dataAntiga = resposta[i].data_historico;
                                 milissegundos = new Date(resposta[i].data_historico).getTime();
                                 console.log(milissegundos + "mili")

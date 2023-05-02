@@ -49,9 +49,7 @@ function plotarGrafico(resposta) {
         }]
     };
 
-    console.log('----------------------------------------------')
-    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-    console.log(resposta)
+    
 
     // Inserindo valores recebidos em estrutura para plotar o gráfico
     for (i = 0; i < resposta.length; i++) {
@@ -158,9 +156,7 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
         }]
     };
 
-    console.log('----------------------------------------------')
-    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-    console.log(resposta)
+    
 
     // Inserindo valores recebidos em estrutura para plotar o gráfico
     for (i = 0; i < resposta.length; i++) {
@@ -168,7 +164,11 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
         const primeiroDiaDaSemana = getPrimeiroDiaDaSemana(data.getFullYear(), registro.semana);
         const ultimoDiaDaSemana = primeiroDiaDaSemana;
         ultimoDiaDaSemana.setDate(primeiroDiaDaSemana.getDate() + 6);
-        labels.push(`${primeiroDiaDaSemana.getDate()-6}/${primeiroDiaDaSemana.getMonth()+1} - ${ultimoDiaDaSemana.getDate()}/${ultimoDiaDaSemana.getMonth()+1}`);
+        if(`${primeiroDiaDaSemana.getDay()-6}` == 0){
+            labels.push(`${primeiroDiaDaSemana.getDay()-5}/${primeiroDiaDaSemana.getMonth()+1} - ${ultimoDiaDaSemana.getDate()}/${ultimoDiaDaSemana.getMonth()+1}`);
+        }else{
+            labels.push(`${primeiroDiaDaSemana.getDay()-6}/${primeiroDiaDaSemana.getMonth()+1} - ${ultimoDiaDaSemana.getDate()}/${ultimoDiaDaSemana.getMonth()+1}`);
+        }
         dados.datasets[0].data.push(registro.Desligamento);
         dados.datasets[1].data.push(registro.Sobrecarga);
         dados.datasets[2].data.push(registro.MauFuncionamento);
