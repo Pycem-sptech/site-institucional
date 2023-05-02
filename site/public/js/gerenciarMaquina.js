@@ -256,6 +256,7 @@ function limparCamposMaquina() {
     document.getElementById('nameUnit').value = ("");
     document.getElementById('nomeMachine').value = ("");
     document.getElementById('password').value = ("");
+    document.getElementById('confirmPassword').value = ("");
     document.getElementById('ram').value = ("");
     document.getElementById('storageSelect').value = ("");
     document.getElementById('qtdArmazenamento').value = ("");

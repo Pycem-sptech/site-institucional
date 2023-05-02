@@ -42,13 +42,16 @@ function fecharModalRelatorio() {
 }
 
 function salvarEdicaoMaquina(idMaquina) {
+  let fkUnidade = document.getElementById("escolherUnidadeModal").value;
+  let usuario = document.getElementById("usuarioModal").value;
+  let senha = document.getElementById("senhaModal").value;
   let numeroDeSerie = document.getElementById('numeroDeSerieModal').value;
   let processador = document.getElementById('processadorModal').value;
   let memoriaRam = document.getElementById('memoriaRamModal').value;
   let escolherArmazenamento = document.getElementById('escolherArmazenamentoModal').value;
   let qtdArmazenamento = document.getElementById('qtdArmazenamentoModal').value;
 
-  if (numeroDeSerie != undefined && numeroDeSerie != '' && processador != undefined && processador != '' && memoriaRam != undefined && memoriaRam != '' && escolherArmazenamento != undefined && escolherArmazenamento != '' && qtdArmazenamento != undefined && qtdArmazenamento != '') {
+  if (fkUnidade != undefined && numeroDeSerie != undefined && usuario != undefined && senha != undefined && numeroDeSerie != '' && processador != undefined && processador != '' && memoriaRam != undefined && memoriaRam != '' && escolherArmazenamento != undefined && escolherArmazenamento != '' && qtdArmazenamento != undefined && qtdArmazenamento != '') {
     Swal.fire({
       title: 'Deseja mesmo salvar as alterações?',
       icon: 'warning',
@@ -65,6 +68,9 @@ function salvarEdicaoMaquina(idMaquina) {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
+            fkUnidade: fkUnidade,
+            usuario: usuario,
+            senha:senha,
             numeroDeSerie: numeroDeSerie,
             processador: processador,
             memoriaRam: memoriaRam,
@@ -80,7 +86,8 @@ function salvarEdicaoMaquina(idMaquina) {
               'success'
             ).then((result) => {
               if (result.isConfirmed) {
-                window.location = "../gerenciamentoMaquinas.html"
+                limparFeed();
+                atualizarMaquinasCadastradas();
               }
             })
           } else if (resposta.status == 404) {
@@ -127,7 +134,8 @@ function deletarMaquina(idMaquina) {
             'success'
           ).then((result) => {
             if (result.isConfirmed) {
-              window.location = "../../gerenciamentoMaquinas.html"
+              limparFeed();
+              atualizarMaquinasCadastradas();
             }
           })
         } else if (resposta.status == 404) {
@@ -251,6 +259,7 @@ function deletarUnidade(idUnidade) {
 }
 
 function salvarEdicaoFuncionario(idFuncionario) {
+  let idFunc = sessionStorage.ID_SELECIONADO
   let nomeFuncionario = document.getElementById('nomeFuncionarioModal').value;
   let cargoFuncionario = document.getElementById('escolherCargoModal').value;
   let emailFuncionario = document.getElementById('emailModal').value;
@@ -268,7 +277,7 @@ function salvarEdicaoFuncionario(idFuncionario) {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`usuario/editar/${idFuncionario}`, {
+        fetch(`usuario/editar/${idFunc}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -289,7 +298,8 @@ function salvarEdicaoFuncionario(idFuncionario) {
               'success'
             ).then((result) => {
               if (result.isConfirmed) {
-                window.location = "../gerenciamentoFuncionarios.html"
+                limparFeed();
+                atualizarFuncionariosCadastrados();
               }
             })
           } else if (resposta.status == 404) {
