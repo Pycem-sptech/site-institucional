@@ -18,7 +18,7 @@
     <script src="js/charts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), buscarRelatoriosCadastrados(sessionStorage.ID_UNIDADE), privarFuncSupervisor(),obterDadosGraficoFrequenciaProblemasMensal(`${sessionStorage.FK_EMPRESA}`,`${sessionStorage.ID_UNIDADE}`)">
+<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(),buscarRelatoriosMensais(sessionStorage.FK_EMPRESA,sessionStorage.ID_UNIDADE), privarFuncSupervisor(),obterDadosGraficoFrequenciaProblemasMensal(`${sessionStorage.FK_EMPRESA}`,`${sessionStorage.ID_UNIDADE}`)">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">

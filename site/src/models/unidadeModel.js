@@ -61,14 +61,14 @@ function frequenciaProblemasMensal(fkEmpresa, idUnidade) {
   const dataAtual = new Date;
   const ano = dataAtual.getFullYear();
   const mes = dataAtual.getMonth() + 1;
-  console.log(mes)
   var instrucao = `
         SELECT 
         DATEPART(week, r.data_relatorio) AS semana, 
         (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Desligamento' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Desligamento,
         (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Sobrecarga' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Sobrecarga,
         (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'MauFuncionamento' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS MauFuncionamento,
-        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Outro' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Outro
+        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Outro' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Outro,
+        (SELECT COUNT(tipo) FROM relatorio WHERE DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Total        
       FROM 
         unidade u
         JOIN empresa e ON u.fkEmpresa = e.idEmpresa

@@ -101,7 +101,6 @@ function obterDadosGraficoFrequenciaProblemasMensal(fkEmpresa, idUnidade) {
 
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-
                 plotarGraficoFrequenciaProblemasMensal(resposta);
 
 

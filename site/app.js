@@ -16,8 +16,6 @@ var maquinaRouter = require("./src/routes/maquina");
 var relatorioRouter = require("./src/routes/relatorio");
 var alertaRouter = require("./src/routes/alerta");
 var historicoRouter = require("./src/routes/historico");
-var chatRouter = require("./src/routes/chat");
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,8 +31,6 @@ app.use("/maquina", maquinaRouter)
 app.use("/relatorio", relatorioRouter)
 app.use("/alerta", alertaRouter)
 app.use("/historico", historicoRouter)
-app.use("/chat", chatRouter)
-
 
 app.listen(PORTA, function () {
     if (process.env.AMBIENTE_PROCESSO == 'desenvolvimento') {

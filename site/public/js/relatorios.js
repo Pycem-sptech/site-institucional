@@ -302,37 +302,27 @@ function getPrimeiroDiaDaSemana(ano, semana) {
     return primeiroDomingo;
 }
 
-// const primeiroDiaDaSemana = getPrimeiroDiaDaSemana(ano, primeiroDiaSemanaPassada);
-// const ultimoDiaDaSemana = new Date(primeiroDiaDaSemana);
-// ultimoDiaDaSemana.setDate(primeiroDiaDaSemana.getDate() + 6);
+var semanaAtual = 0;
+var semanaPassada = 0;
+var totalRegistrosSemanaAtual = 0;
+var totalRegistrosSemanaPassada = 0;
 
-
-function buscarRelatoriosCadastrados(idUnidade) {
-    fetch(`/relatorio/listarRelatorio/${idUnidade}`).then(function (resposta) {
+function buscarRelatoriosMensais(fkEmpresa,idUnidade) {
+    fetch(`/relatorio/listarRelatoriosMensais/${fkEmpresa}/${idUnidade}`).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
+                var resp = resposta;
+                 semanaAtual = resp[0].semana;
+                 semanaPassada = resp[1].semana;
+                 totalRegistrosSemanaAtual = resp[0].Total;
+                 totalRegistrosSemanaPassada = resp[1].Total;
 
-                for (let i = 0; i < resposta.length; i++) {
-                    var publicacao = resposta[i];
+                 repDesligamento = resp[0].Desligamento;
+                 repSobrecarga = resp[0].Sobrecarga;
+                 repMauFuncionamento = resp[0].MauFuncionamento;
+                 repOutro = resp[0].Outro;
 
-                    if (publicacao.tipo == 'Desligamento' && primeiroDiaSemanaAtual >= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
-                        repDesligamento++;
-                        qtdRelatoriosSemanais++
-                    } else if (publicacao.tipo == 'Sobrecarga' && primeiroDiaSemanaAtual >= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
-                        repSobrecarga++;
-                        qtdRelatoriosSemanais++
-                    } else if (publicacao.tipo == 'MauFuncionamento' && primeiroDiaSemanaAtual >= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
-                        repMauFuncionamento++;
-                        qtdRelatoriosSemanais++
-                    } else if (publicacao.tipo == 'Outro' && primeiroDiaSemanaAtual >= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
-                        repOutro++;
-                        qtdRelatoriosSemanais++
-                    }
-                    if (primeiroDiaSemanaPassada >= publicacao.data_relatorio && ultimoDiaSemanaPassada <= publicacao.data_relatorio) {
-                        qtdRelatoriosSemanaPassada++
-                    }
-                }
                 atualizarKpi(idUnidade);
             });
         } else {
@@ -346,23 +336,23 @@ function buscarRelatoriosCadastrados(idUnidade) {
 
 function atualizarKpi(idUnidade) {
     atualizarVariacaoRelatorios()
-    // variacaoDeTempoInoperante(idUnidade)
+    variacaoDeTempoInoperante(idUnidade)
     atualizarMaiorOcorrencia();
 }
 
 function atualizarVariacaoRelatorios() {
     let variacaoRelatorios = document.getElementById("variacaoRelatorios")
     let variacao;
-    if (qtdRelatoriosSemanaPassada == 0) {
-        variacao = (qtdRelatoriosSemanais / 1) * 100;
+    if (totalRegistrosSemanaPassada == 0) {
+        variacao = (totalRegistrosSemanaAtual / 1) * 100;
         variacaoRelatorios.className = 'percent memory'
-    } else if (qtdRelatoriosSemanais > qtdRelatoriosSemanaPassada) {
-        variacao = ((qtdRelatoriosSemanais - qtdRelatoriosSemanaPassada) / qtdRelatoriosSemanaPassada) * 100;
+    } else if (totalRegistrosSemanaAtual > totalRegistrosSemanaPassada) {
+        variacao = ((totalRegistrosSemanaAtual - totalRegistrosSemanaPassada) / totalRegistrosSemanaPassada) * 100;
         variacaoRelatorios.className = 'percent memory'
-    } else if (qtdRelatoriosSemanais < qtdRelatoriosSemanaPassada) {
-        variacao = ((qtdRelatoriosSemanais - qtdRelatoriosSemanaPassada) / qtdRelatoriosSemanaPassada) * 100;
+    } else if (totalRegistrosSemanaAtual < totalRegistrosSemanaPassada) {
+        variacao = ((totalRegistrosSemanaAtual - totalRegistrosSemanaPassada) / totalRegistrosSemanaPassada) * 100;
         variacaoRelatorios.className = 'percent cpu'
-    } else if (qtdRelatoriosSemanais == qtdRelatoriosSemanaPassada) {
+    } else if (totalRegistrosSemanaAtual == totalRegistrosSemanaPassada) {
         variacao = 0;
         variacaoRelatorios.className = 'percent ram'
     }
