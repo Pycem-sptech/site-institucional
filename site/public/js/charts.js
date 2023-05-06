@@ -31,12 +31,7 @@ function obterDadosGraficoQtdRelatorios(fkEmpresa) {
 
 function plotarGrafico(resposta) {
 
-    console.log('iniciando plotagem do gráfico...');
-
-    // Criando estrutura para plotar gráfico - labels
     let labels = [];
-
-    // Criando estrutura para plotar gráfico - dados
     let dados = {
         labels: labels,
         datasets: [{
@@ -49,18 +44,12 @@ function plotarGrafico(resposta) {
         }]
     };
 
-    
-
-    // Inserindo valores recebidos em estrutura para plotar o gráfico
     for (i = 0; i < resposta.length; i++) {
         var registro = resposta[i];
         labels.push(registro.ano_mes);
         dados.datasets[0].data.push(registro.quantidade);
     }
 
-
-
-    // Criando estrutura para plotar gráfico - config
     const configOcorrenciasPorUnidade = {
         type: 'bar',
         data: dados,
@@ -68,8 +57,7 @@ function plotarGrafico(resposta) {
             plugins: {
                 legend: {
                     labels: {
-                        // This more specific font property overrides the global property
-                        font: {
+                            font: {
                             family: 'Inter',
                             size: 17
                         }
@@ -84,26 +72,18 @@ function plotarGrafico(resposta) {
             }
         },
     };
-
     let ocorrenciasPorUnidade = new Chart(
         document.getElementById(`ocorrenciasPorUnidade`),
         configOcorrenciasPorUnidade
     );
-    // setTimeout(() => atualizarGrafico(fkEmpresa, dados, ocorrenciasPorUnidade), tempoDeAtualizacao);
 }
-
 
 function obterDadosGraficoFrequenciaProblemasMensal(fkEmpresa, idUnidade) {
     fetch(`/unidade/frequenciaProblemasMensal/${fkEmpresa}/${idUnidade}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
-
             response.json().then(function (resposta) {
-
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
                 plotarGraficoFrequenciaProblemasMensal(resposta);
-
-
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -115,13 +95,8 @@ function obterDadosGraficoFrequenciaProblemasMensal(fkEmpresa, idUnidade) {
 }
 
 function plotarGraficoFrequenciaProblemasMensal(resposta) {
-
-    console.log('iniciando plotagem do gráfico...');
-
-    // Criando estrutura para plotar gráfico - labels
+   
     let labels = [];
-
-    // Criando estrutura para plotar gráfico - dados
     let dados = {
         labels: labels,
         datasets: [{
@@ -155,9 +130,6 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
         }]
     };
 
-    
-
-    // Inserindo valores recebidos em estrutura para plotar o gráfico
     for (i = 0; i < resposta.length; i++) {
         var registro = resposta[i];
         const primeiroDiaDaSemana = getPrimeiroDiaDaSemana(data.getFullYear(), registro.semana);
@@ -209,7 +181,6 @@ function obterFrequenciaDeOcorrencias(fkEmpresa) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                 resposta.reverse();
-
                 plotarGrafico(resposta);
             });
         } else {
@@ -223,14 +194,11 @@ function obterFrequenciaDeOcorrencias(fkEmpresa) {
 
 const tempoDeAtualizacao = sessionStorage.ATT_FREQ
 function listarUsoMaquina(fkTotem) {
-
     fetch(`/maquina/listarUsoMaquina/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                // resposta.reverse();
                 plotarGraficos(resposta, fkTotem)
-
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -250,7 +218,6 @@ function plotarGraficos(resposta, fkTotem) {
 function plotarGraficoProcessador(resposta, fkTotem) {
 
     let labels = [];
-
     let dados = {
         labels: labels,
         datasets: [{
@@ -267,9 +234,11 @@ function plotarGraficoProcessador(resposta, fkTotem) {
         labels.push(resposta[i].data_registro);
         dados.datasets[0].data.push(resposta[i].uso_processador);
     }
+
     let usoCpu = document.getElementById("percentualUsoCpu")
     validarCPU(resposta[resposta.length-1].uso_processador)
     usoCpu.innerHTML = resposta[0].uso_processador + "%";
+
     const configUsoDoProcessador = {
         type: 'line',
         data: dados,
@@ -304,7 +273,6 @@ function plotarGraficoProcessador(resposta, fkTotem) {
 function plotarGraficoRam(resposta, fkTotem) {
 
     let labels = [];
-
     let dados = {
         labels: labels,
         datasets: [{
@@ -321,6 +289,7 @@ function plotarGraficoRam(resposta, fkTotem) {
         labels.push(resposta[i].data_registro);
         dados.datasets[0].data.push(resposta[i].uso_ram);
     }
+
     let usoRam = document.getElementById("percentualUsoRam")
     validarRAM(resposta[resposta.length-1].uso_ram)
     usoRam.innerHTML = resposta[0].uso_ram + "%";
@@ -359,7 +328,6 @@ function plotarGraficoRam(resposta, fkTotem) {
 function plotarGraficoHd(resposta, fkTotem) {
 
     let labels = [];
-
     let dados = {
         labels: labels,
         datasets: [{
@@ -372,7 +340,6 @@ function plotarGraficoHd(resposta, fkTotem) {
         }]
     };
 
-    // Inserindo valores recebidos em estrutura para plotar o gráfico
     for (i = 0; i < resposta.length; i++) {
         labels.push(resposta[i].data_registro);
         dados.datasets[0].data.push(resposta[i].uso_hd);
@@ -380,7 +347,7 @@ function plotarGraficoHd(resposta, fkTotem) {
     let usoHd = document.getElementById("percentualUsoHd")
     validarHD(resposta[resposta.length-1].uso_hd)
     usoHd.innerHTML = resposta[0].uso_hd + "%";
-    // Criando estrutura para plotar gráfico - config
+   
     const configUsoDoHd = {
         type: 'line',
         data: dados,
@@ -388,7 +355,6 @@ function plotarGraficoHd(resposta, fkTotem) {
             plugins: {
                 legend: {
                     labels: {
-                        // This more specific font property overrides the global property
                         font: {
                             family: 'Inter',
                             size: 17
@@ -413,32 +379,38 @@ function plotarGraficoHd(resposta, fkTotem) {
     setTimeout(() => atualizarGraficoHd(fkTotem, dados, usoDoHd), tempoDeAtualizacao);
 }
 
+const cpuAlerta = sessionStorage.ALERT_CPU * 1;
+const cpuCritico = sessionStorage.CRIT_CPU * 1;
 function validarCPU(registro) {
-    const percentual = document.getElementById("percentualUsoCpu")
-    if (registro >= sessionStorage.CRIT_CPU) {
+    let percentual = document.getElementById("percentualUsoCpu")
+    if (registro >= cpuCritico) {
         percentual.className = "percent memory"
-    } else if (registro >= sessionStorage.ALERT_CPU && registro < sessionStorage.CRIT_CPU) {
+    } else if (registro >= cpuAlerta && registro < cpuCritico) {
         percentual.className = "percent ram"
     } else {
         percentual.className = "percent cpu"
     }
 }
 
+const ramAlerta = sessionStorage.ALERT_RAM * 1;
+const ramCritico = sessionStorage.CRIT_RAM * 1;
 function validarRAM(registro) {
-    const percentual = document.getElementById("percentualUsoRam")
-    if (registro >= sessionStorage.CRIT_RAM) {
+    let percentual = document.getElementById("percentualUsoRam")
+    if (registro >= ramCritico) {
         percentual.className = "percent memory"
-    } else if (registro >= sessionStorage.ALERT_RAM && registro < sessionStorage.CRIT_RAM) {
+    } else if (registro >= ramAlerta && registro < ramCritico) {
         percentual.className = "percent ram"
     } else {
         percentual.className = "percent cpu"
     }
 }
+const hdAlerta = sessionStorage.ALERT_HD * 1;
+const hdCritico = sessionStorage.CRIT_HD * 1;
 function validarHD(registro) {
     let percentual = document.getElementById("percentualUsoHd")
-    if (registro >= sessionStorage.CRIT_HD) {
+    if (registro >= hdCritico) {
         percentual.className = "percent memory"
-    } else if (registro >= sessionStorage.ALERT_HD && registro < sessionStorage.CRIT_CPU) {
+    } else if (registro >= hdAlerta && registro < hdCritico) {
         percentual.className = "percent ram"
     } else {
         percentual.className = "percent cpu"
@@ -452,25 +424,21 @@ function atualizarGraficoProcessador(fkTotem, dados, usoDoProcessador) {
                 console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
 
                 if (novoRegistro[0].data_registro == dados.labels[dados.labels.length - 1]) {
-
                 } else {
-                    // tirando e colocando valores no gráfico
-                    dados.labels.shift(); // apagar o primeiro
-                    dados.labels.push(novoRegistro[0].data_registro); // incluir um novo momento
-
-                    dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                    dados.datasets[0].data.push(novoRegistro[0].uso_processador); // incluir uma nova medida de umidade
+                    
+                    dados.labels.shift(); 
+                    dados.labels.push(novoRegistro[0].data_registro); 
+                    dados.datasets[0].data.shift();  
+                    dados.datasets[0].data.push(novoRegistro[0].uso_processador); 
                     validarCPU(novoRegistro[0].uso_processador);
                     usoDoProcessador.update();
                 }
                 let usoCpu = document.getElementById("percentualUsoCpu")
                 usoCpu.innerHTML = novoRegistro[0].uso_processador + "%";
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGraficoProcessador(fkTotem, dados, usoDoProcessador), tempoDeAtualizacao);
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoProcessador(fkTotem, dados, usoDoProcessador), tempoDeAtualizacao);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
-            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
             proximaAtualizacao = setTimeout(() => atualizarGraficoProcessador(fkTotem, dados, usoDoProcessador), tempoDeAtualizacao);
         }
     })
@@ -489,23 +457,21 @@ function atualizarGraficoRam(fkTotem, dados, usoDaRam) {
                 if (novoRegistro[0].data_registro == dados.labels[dados.labels.length - 1]) {
 
                 } else {
-                    // tirando e colocando valores no gráfico
-                    dados.labels.shift(); // apagar o primeiro
-                    dados.labels.push(novoRegistro[0].data_registro); // incluir um novo momento
+                    
+                    dados.labels.shift(); 
+                    dados.labels.push(novoRegistro[0].data_registro); 
 
-                    dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                    dados.datasets[0].data.push(novoRegistro[0].uso_ram); // incluir uma nova medida de umidade
+                    dados.datasets[0].data.shift();  
+                    dados.datasets[0].data.push(novoRegistro[0].uso_ram); 
                     validarRAM(novoRegistro[0].uso_ram)
                     usoDaRam.update();
                 }
                 let usoRam = document.getElementById("percentualUsoRam")
                 usoRam.innerHTML = novoRegistro[0].uso_ram + "%";
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGraficoRam(fkTotem, dados, usoDaRam), tempoDeAtualizacao);
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoRam(fkTotem, dados, usoDaRam), tempoDeAtualizacao);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
-            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
             proximaAtualizacao = setTimeout(() => atualizarGraficoRam(fkTotem, dados, usoDaRam), tempoDeAtualizacao);
         }
     })
@@ -524,23 +490,21 @@ function atualizarGraficoHd(fkTotem, dados, usoDoHd) {
                 if (novoRegistro[0].data_registro == dados.labels[dados.labels.length - 1]) {
 
                 } else {
-                    // tirando e colocando valores no gráfico
-                    dados.labels.shift(); // apagar o primeiro
-                    dados.labels.push(novoRegistro[0].data_registro); // incluir um novo momento
+                    
+                    dados.labels.shift(); 
+                    dados.labels.push(novoRegistro[0].data_registro); 
 
-                    dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                    dados.datasets[0].data.push(novoRegistro[0].uso_hd); // incluir uma nova medida de umidade
+                    dados.datasets[0].data.shift();  
+                    dados.datasets[0].data.push(novoRegistro[0].uso_hd); 
                     validarHD(novoRegistro[0].uso_hd)
                     usoDoHd.update();
                 }
                 let usoHd = document.getElementById("percentualUsoHd")
                 usoHd.innerHTML = novoRegistro[0].uso_hd + "%";
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGraficoHd(fkTotem, dados, usoDoHd), tempoDeAtualizacao);
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoHd(fkTotem, dados, usoDoHd), tempoDeAtualizacao);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
-            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
             proximaAtualizacao = setTimeout(() => atualizarGraficoHd(fkTotem, dados, usoDoHd), tempoDeAtualizacao);
         }
     })

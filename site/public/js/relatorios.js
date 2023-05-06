@@ -356,7 +356,13 @@ function atualizarVariacaoRelatorios() {
         variacao = 0;
         variacaoRelatorios.className = 'percent ram'
     }
-    variacaoRelatorios.innerHTML = variacao.toFixed(1) + "%"
+
+    if(variacao < 0){
+        variacaoRelatorios.innerHTML = "<img src = './img/arrowGreen.svg'>"
+    }else if(variacao > 0){
+        variacaoRelatorios.innerHTML = "<img src = './img/arrowRed.svg'>"
+    }
+    variacaoRelatorios.innerHTML += variacao.toFixed(1) + "%"
 }
 
 function variacaoDeTempoInoperante(idUnidade) {
