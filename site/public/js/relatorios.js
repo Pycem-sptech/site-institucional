@@ -370,43 +370,12 @@ function variacaoDeTempoInoperante(idUnidade) {
         if (resposta.ok) {
             resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
-                var fkTotemAntiga = resposta[0].fkTotem;
-                var dataAntiga = resposta[0].data_historico;
-                var milissegundos = 0;
-                var diferenca = 0;
-                for (let i = 0; i < resposta.length; i++) {
-
-                    if (fkTotemAntiga == resposta[i].fkTotem) {
-                        if (resposta[i].estadoTotem == 'Desligado' || resposta[i].estadoTotem == 'Manutencao') {
-                            if (new Date(dataAntiga) < new Date(resposta[i].data_historico).getTime()) {
-                                console.log(dataAntiga + "é a mais antiga")
-                            } else {
-                                dataAntiga = resposta[i].data_historico;
-                                milissegundos = new Date(resposta[i].data_historico).getTime();
-                                console.log(milissegundos + "mili")
-                            }
-
-                        } else if (resposta[i].estadoTotem == 'Disponivel') {
-                            diferenca = Math.abs(new Date(resposta[i].data_historico).getTime() - new Date(dataAntiga).getTime()) / 1000
-                            console.log(diferenca)
-                        }
-                    } else {
-
-                    }
-                }
-                diferencaEmSegundos = diferencaEmSegundos / 1000;
-                const tempoInoperante = document.getElementById("varTempoInoperante")
-
-                const diferencaEmMinutos = diferencaEmSegundos / 60;
-                const diferencaEmHoras = diferencaEmMinutos / 60;
-                const minutosSobrando = diferencaEmHoras % 60
-                const dia = diferencaEmHoras / 24
-                if (diferencaEmMinutos >= 24) {
-                    tempoInoperante.innerHTML = dia.toFixed(0) + ' Day '
-                } else if (diferencaEmMinutos > 60) {
-                    tempoInoperante.innerHTML = diferencaEmHoras.toFixed(0) + 'h ' + minutosSobrando.toFixed(0) + 'm'
-                }
-
+                const semanaAtualMin = resposta[0].semanaAtual;
+                const semanaPassadaMin = resposta[0].semanaPassada;
+                const horasAtual = semanaAtualMin / 60;
+                const diasAtual = horasAtual / 60;
+                const div = document.getElementById("varTempoInoperante")
+                div.innerHTML = diasAtual.toFixed(0) + " Dias"
             });
         } else {
             throw "Houve um erro na API!";
