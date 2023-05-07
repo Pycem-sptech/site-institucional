@@ -51,7 +51,38 @@
             <span class="welcomeSentence">Gerenciar Perfil</span>
             <span class="firstStep">Perfil</span>
     </div>
-    <!-- <button onclick="chamar()">chamar</button> -->
+    <main class="main">
+        <div class="boxPerfil">
+            <h2>Perfil</h2>
+            <div class="inputField">
+                <input type="text" class="campoEntradaDado inputNome" placeholder="Nome Completo">
+                <select name="" id="" class="campoEntradaDado selectCargo">
+                    <option value="">Cargo</option>
+                    <option value="">Gerente</option>
+                    <option value="">Técnico</option>
+                </select>
+                <input type="text" class="campoEntradaDado inputCpf" placeholder="CPF">
+                <input type="text" class="campoEntradaDado inputEmail" placeholder="Email">
+                <input type="text" class="campoEntradaDado inputSenha atual" placeholder="Senha atual">
+                <input type="text" class="campoEntradaDado inputSenha" placeholder="Nova Senha">
+            </div>
+            <div class="divBtn">
+                <button class="btnSalvar">Salvar</button>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
+<script>
+    const btnMobile = document.getElementById('btn-mobile');
 
+    function toggleMenu(event) {
+        if (event.type === 'touchstart') event.preventDefault();
+        const nav = document.getElementById('nav');
+        nav.classList.toggle('active');
+
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+</script>
