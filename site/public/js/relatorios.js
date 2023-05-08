@@ -242,11 +242,54 @@ var repOutro = 0;
 
 const data = new Date;
 const ano = data.getFullYear();
-const mes = data.getMonth();
-const primeiroDiaSemanaAtual = data.getDate() - data.getDay() + "/" + (data.getMonth() + 1);
-const ultimoDiaSemanaAtual = data.getDate() - data.getDay() + 7 + "/" + (data.getMonth() + 1);
-const primeiroDiaSemanaPassada = data.getDate() - data.getDay() - 7 + "/" + (data.getMonth() + 1);
-const ultimoDiaSemanaPassada = data.getDate() - data.getDay() + -1 + "/" + (data.getMonth() + 1);
+const mes = data.getMonth() + 1;
+const mesPassado = data.getMonth();
+var anoBissexto = false;
+if (ano % 4 == 0) {
+    anoBissexto == true
+}
+
+var diasMes;
+var diasMesPassado;
+
+if (mes % 2 != 0 || mes == 8) {
+    diasMes = 31
+} else if (mes % 2 == 0 && mes != 8 && mes != 2) {
+    diasMes = 30
+} else if (mes == 2 && anoBissexto) {
+    diasMes = 29
+} else if (mes == 2 && !anoBissexto) {
+    diasMes = 28
+}
+
+if(diasMes == 31 && mes != 8 && mes != 2){
+    diasMesPassado = 30
+}else if(mes == 8){
+    diasMesPassado = 31
+}else{
+    diasMesPassado = 28
+}
+
+var primeiroDiaSemanaAtual;
+if (data.getDay() - data.getDay() == 0) {
+    var primeiraSemana = true;
+    var primeiroDiaSemanaAtual = diasMesPassado - data.getDay() + "/" + (data.getMonth());
+} else {
+    var primeiroDiaSemanaAtual = data.getDate() - data.getDay() + "/" + (data.getMonth() + 1);
+}
+const ultimoDiaSemanaAtual = data.getDate() - data.getDay() + 6 + "/" + (data.getMonth() + 1);
+var primeiroDiaSemanaPassada;
+if (primeiraSemana) {
+    primeiroDiaSemanaPassada = new Date(data.getYear(), data.getMonth(), 0).getDate() - data.getDay() - 7 + "/" + (data.getMonth());
+} else {
+    primeiroDiaSemanaPassada = data.getDate() - data.getDay() - 7 + "/" + (data.getMonth() + 1);
+}
+var ultimoDiaSemanaPassada;
+if (primeiraSemana) {
+    ultimoDiaSemanaPassada = new Date(data.getYear(), data.getMonth(), 0).getDate() - data.getDay() + -1 + "/" + (data.getMonth());
+} else {
+    ultimoDiaSemanaPassada = data.getDate() - data.getDay() + -1 + "/" + (data.getMonth() + 1);
+}
 var qtdRelatoriosSemanais = 0;
 var qtdRelatoriosSemanaPassada = 0;
 
@@ -259,37 +302,27 @@ function getPrimeiroDiaDaSemana(ano, semana) {
     return primeiroDomingo;
 }
 
-// const primeiroDiaDaSemana = getPrimeiroDiaDaSemana(ano, primeiroDiaSemanaPassada);
-// const ultimoDiaDaSemana = new Date(primeiroDiaDaSemana);
-// ultimoDiaDaSemana.setDate(primeiroDiaDaSemana.getDate() + 6);
+var semanaAtual = 0;
+var semanaPassada = 0;
+var totalRegistrosSemanaAtual = 0;
+var totalRegistrosSemanaPassada = 0;
 
-
-function buscarRelatoriosCadastrados(idUnidade) {
-    fetch(`/relatorio/listarRelatorio/${idUnidade}`).then(function (resposta) {
+function buscarRelatoriosMensais(fkEmpresa,idUnidade) {
+    fetch(`/relatorio/listarRelatoriosMensais/${fkEmpresa}/${idUnidade}`).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
+                var resp = resposta;
+                 semanaAtual = resp[0].semana;
+                 semanaPassada = resp[1].semana;
+                 totalRegistrosSemanaAtual = resp[0].Total;
+                 totalRegistrosSemanaPassada = resp[1].Total;
 
-                for (let i = 0; i < resposta.length; i++) {
-                    var publicacao = resposta[i];
+                 repDesligamento = resp[0].Desligamento;
+                 repSobrecarga = resp[0].Sobrecarga;
+                 repMauFuncionamento = resp[0].MauFuncionamento;
+                 repOutro = resp[0].Outro;
 
-                    if (publicacao.tipo == 'Desligamento' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
-                        repDesligamento++;
-                        qtdRelatoriosSemanais++
-                    } else if (publicacao.tipo == 'Sobrecarga' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
-                        repSobrecarga++;
-                        qtdRelatoriosSemanais++
-                    } else if (publicacao.tipo == 'MauFuncionamento' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
-                        repMauFuncionamento++;
-                        qtdRelatoriosSemanais++
-                    } else if (publicacao.tipo == 'Outro' && primeiroDiaSemanaAtual <= publicacao.data_relatorio && publicacao.data_relatorio <= ultimoDiaSemanaAtual) {
-                        repOutro++;
-                        qtdRelatoriosSemanais++
-                    }
-                    if (primeiroDiaSemanaPassada >= publicacao.data_relatorio && ultimoDiaSemanaPassada >= publicacao.data_relatorio) {
-                        qtdRelatoriosSemanaPassada++
-                    }
-                }
                 atualizarKpi(idUnidade);
             });
         } else {
@@ -303,27 +336,33 @@ function buscarRelatoriosCadastrados(idUnidade) {
 
 function atualizarKpi(idUnidade) {
     atualizarVariacaoRelatorios()
-    // variacaoDeTempoInoperante(idUnidade)
+    variacaoDeTempoInoperante(idUnidade)
     atualizarMaiorOcorrencia();
 }
 
 function atualizarVariacaoRelatorios() {
     let variacaoRelatorios = document.getElementById("variacaoRelatorios")
     let variacao;
-    if (qtdRelatoriosSemanaPassada == 0) {
-        variacao = (qtdRelatoriosSemanais / 1) * 100;
+    if (totalRegistrosSemanaPassada == 0) {
+        variacao = (totalRegistrosSemanaAtual / 1) * 100;
         variacaoRelatorios.className = 'percent memory'
-    } else if (qtdRelatoriosSemanais > qtdRelatoriosSemanaPassada) {
-        variacao = ((qtdRelatoriosSemanais - qtdRelatoriosSemanaPassada) / qtdRelatoriosSemanaPassada) * 100;
+    } else if (totalRegistrosSemanaAtual > totalRegistrosSemanaPassada) {
+        variacao = ((totalRegistrosSemanaAtual - totalRegistrosSemanaPassada) / totalRegistrosSemanaPassada) * 100;
         variacaoRelatorios.className = 'percent memory'
-    } else if (qtdRelatoriosSemanais < qtdRelatoriosSemanaPassada) {
-        variacao = ((qtdRelatoriosSemanais - qtdRelatoriosSemanaPassada) / qtdRelatoriosSemanaPassada) * 100;
+    } else if (totalRegistrosSemanaAtual < totalRegistrosSemanaPassada) {
+        variacao = ((totalRegistrosSemanaAtual - totalRegistrosSemanaPassada) / totalRegistrosSemanaPassada) * 100;
         variacaoRelatorios.className = 'percent cpu'
-    } else if (qtdRelatoriosSemanais == qtdRelatoriosSemanaPassada) {
+    } else if (totalRegistrosSemanaAtual == totalRegistrosSemanaPassada) {
         variacao = 0;
         variacaoRelatorios.className = 'percent ram'
     }
-    variacaoRelatorios.innerHTML = variacao.toFixed(1) + "%"
+
+    if(variacao < 0){
+        variacaoRelatorios.innerHTML = "<img src = './img/arrowGreen.svg'>"
+    }else if(variacao > 0){
+        variacaoRelatorios.innerHTML = "<img src = './img/arrowRed.svg'>"
+    }
+    variacaoRelatorios.innerHTML += variacao.toFixed(1) + "%"
 }
 
 function variacaoDeTempoInoperante(idUnidade) {
@@ -331,43 +370,12 @@ function variacaoDeTempoInoperante(idUnidade) {
         if (resposta.ok) {
             resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
-                var fkTotemAntiga = resposta[0].fkTotem;
-                var dataAntiga = resposta[0].data_historico;
-                var milissegundos = 0;
-                var diferenca = 0;
-                for (let i = 0; i < resposta.length; i++) {
-                    
-                    if (fkTotemAntiga == resposta[i].fkTotem) {
-                        if (resposta[i].estadoTotem == 'Desligado' || resposta[i].estadoTotem == 'Manutencao') {
-                            if(new Date(dataAntiga) < new Date(resposta[i].data_historico).getTime()){
-                                console.log(dataAntiga + "é a mais antiga")
-                            }else{
-                                dataAntiga = resposta[i].data_historico;
-                                milissegundos = new Date(resposta[i].data_historico).getTime();
-                                console.log(milissegundos + "mili")
-                            }
-
-                        } else if (resposta[i].estadoTotem == 'Disponivel') {
-                            diferenca = Math.abs(new Date(resposta[i].data_historico).getTime() - new Date(dataAntiga).getTime()) / 1000
-                            console.log(diferenca)
-                        }
-                    } else {
-
-                    }
-                }
-                diferencaEmSegundos = diferencaEmSegundos / 1000;
-                const tempoInoperante = document.getElementById("varTempoInoperante")
-
-                const diferencaEmMinutos = diferencaEmSegundos / 60;
-                const diferencaEmHoras = diferencaEmMinutos / 60;
-                const minutosSobrando = diferencaEmHoras % 60
-                const dia = diferencaEmHoras / 24
-                if (diferencaEmMinutos >= 24) {
-                    tempoInoperante.innerHTML = dia.toFixed(0) + ' Day '
-                } else if (diferencaEmMinutos > 60) {
-                    tempoInoperante.innerHTML = diferencaEmHoras.toFixed(0) + 'h ' + minutosSobrando.toFixed(0) + 'm'
-                }
-
+                const semanaAtualMin = resposta[0].semanaAtual;
+                const semanaPassadaMin = resposta[0].semanaPassada;
+                const horasAtual = semanaAtualMin / 60;
+                const diasAtual = horasAtual / 60;
+                const div = document.getElementById("varTempoInoperante")
+                div.innerHTML = diasAtual.toFixed(0) + " Dias"
             });
         } else {
             throw "Houve um erro na API!";

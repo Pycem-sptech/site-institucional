@@ -134,6 +134,7 @@ function editarProcessadorAlertaCritico(alerta, novoAlertaCritico) {
     return false;
   }
 }
+
 function editarRamAlerta(novoAlerta, alertaCritico) {
   let alertaAntigo = sessionStorage.ALERT_RAM;
   let alertaValido = validarNovoAlerta(novoAlerta, alertaCritico, alertaAntigo);
@@ -301,4 +302,11 @@ function validarNovoAlertaCritico(alerta, novoAlertaCritico, alertaAntigo) {
   } else {
     return false;
   }
+}
+
+
+//Registros
+
+function exibirRegistros(){
+  
 }

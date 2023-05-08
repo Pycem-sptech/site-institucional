@@ -19,6 +19,10 @@ router.get("/buscarDadosRelatorio/:idRelatorio", function (req, res) {
     relatorioController.buscarDadosRelatorio(req, res);
 });
 
+router.get("/listarRelatoriosMensais/:fkEmpresa/:idUnidade", function (req, res) {
+    relatorioController.listarRelatoriosMensais(req, res);
+});
+
 router.post("/cadastrarRelatorio", function (req, res) {
     relatorioController.cadastrarRelatorio(req, res);
 })
