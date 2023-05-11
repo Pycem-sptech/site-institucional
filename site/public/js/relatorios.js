@@ -362,6 +362,7 @@ function atualizarVariacaoRelatorios() {
     }else if(variacao > 0){
         variacaoRelatorios.innerHTML = "<img src = './img/arrowRed.svg'>"
     }
+    variacao *= -1
     variacaoRelatorios.innerHTML += variacao.toFixed(1) + "%"
 }
 

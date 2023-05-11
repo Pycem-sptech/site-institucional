@@ -133,12 +133,18 @@ function plotarGraficoFrequenciaProblemasMensal(resposta) {
     for (i = 0; i < resposta.length; i++) {
         var registro = resposta[i];
         const primeiroDiaDaSemana = getPrimeiroDiaDaSemana(data.getFullYear(), registro.semana);
+        console.log(primeiroDiaDaSemana.getDate())
         const ultimoDiaDaSemana = primeiroDiaDaSemana;
+        console.log(ultimoDiaDaSemana.getDate())
+
         ultimoDiaDaSemana.setDate(primeiroDiaDaSemana.getDate() + 6);
-        if(`${primeiroDiaDaSemana.getDay()-6}` == 0){
+        console.log(ultimoDiaDaSemana.getDate())
+
+        if(`${primeiroDiaDaSemana.getDate()-6}`== 0){
+            console.log(primeiroDiaDaSemana.getDay())
             labels.push(`${primeiroDiaDaSemana.getDay()-5}/${primeiroDiaDaSemana.getMonth()+1} - ${ultimoDiaDaSemana.getDate()}/${ultimoDiaDaSemana.getMonth()+1}`);
         }else{
-            labels.push(`${primeiroDiaDaSemana.getDay()-6}/${primeiroDiaDaSemana.getMonth()+1} - ${ultimoDiaDaSemana.getDate()}/${ultimoDiaDaSemana.getMonth()+1}`);
+            labels.push(`${primeiroDiaDaSemana.getDay()+1}/${primeiroDiaDaSemana.getMonth()+1} - ${ultimoDiaDaSemana.getDate()}/${ultimoDiaDaSemana.getMonth()+1}`);
         }
         dados.datasets[0].data.push(registro.Desligamento);
         dados.datasets[1].data.push(registro.Sobrecarga);
