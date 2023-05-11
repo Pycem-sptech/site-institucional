@@ -204,7 +204,7 @@ function listarUsoMaquina(fkTotem) {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                plotarGraficos(resposta, fkTotem)
+                plotarGraficos(resposta.reverse(), fkTotem)
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
