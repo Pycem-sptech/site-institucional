@@ -99,8 +99,6 @@ function imprimirMaquina(respostas, id) {
 
     }
 
-    publicacao.status_maquina = mudarEstadoMaquina(publicacao.idTotem)
-
     var feed = document.getElementById("feed");
 
 

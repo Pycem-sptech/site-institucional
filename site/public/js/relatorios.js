@@ -219,7 +219,7 @@ function cadastrarRelatorio() {
 
                 if (resposta.ok) {
                     toastPadrao('success', 'Cadastro realizado com sucesso!')
-                    atualizarRelatorios(sessionStorage.ID_UNIDADE);
+                    atualizarRelatorios(sessionStorage.ID_TOTEM);
                     fecharModalRelatorio();
                 }
             })

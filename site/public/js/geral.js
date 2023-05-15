@@ -1,5 +1,9 @@
-function mudarLista(valorCombo) {
-    if (valorCombo == "1") {
+
+function mudarLista(valorCombo="0") {
+    if (valorCombo != "0") {
+        sessionStorage.TIPO_TELA = valorCombo;
+    }
+    if (sessionStorage.TIPO_TELA == "1") {
         listUnit.innerHTML = ` <div class="box idUnit">
                     <span>ID</span>
                 </div>
@@ -22,6 +26,11 @@ function mudarLista(valorCombo) {
                 <div class="box totalMachine">
                     <span>Total de máquinas</span>
                 </div>`;
+
+        navigationIconUnit.className = "iconSidebar navigationIcon telaAtual";
+        navigationIconMach.className = "iconSidebar navigationIcon";
+        firstStep.innerHTML = "Unidades";
+        welcomeSentence.innerHTML = "Todas as unidades";
         atualizarListaUnidades();
         inputSearch.setAttribute("onkeyup", "atualizarListaUnidadesFiltradas(this.value)");
     } else {
@@ -47,9 +56,14 @@ function mudarLista(valorCombo) {
                 <div class="box totalMachine">
                     <span>Status Alerta</span>
                 </div>`;
-                atualizarListaMaquinas();
-                inputSearch.setAttribute("onkeyup", "atualizarListaMaquinasFiltradas(this.value)")
+        navigationIconUnit.className = "iconSidebar navigationIcon";
+        navigationIconMach.className = "iconSidebar navigationIcon  telaAtual";
+        welcomeSentence.innerHTML = "Todas as máquinas";
+        firstStep.innerHTML = "Máquinas";      
+        atualizarListaMaquinas();
+        inputSearch.setAttribute("onkeyup", "atualizarListaMaquinasFiltradas(this.value)")
     }
+    selectMachUnit.value =  sessionStorage.TIPO_TELA;
 }
 
 function privarFuncTecnico() {
@@ -62,7 +76,7 @@ function privarFuncTecnico() {
 function privarFuncSupervisor() {
     if (sessionStorage.USER_CARGO == "Supervisor") {
         document.body.innerHTML = "";
-       window.location = "./erro404.html";
+        window.location = "./erro404.html";
     }
 }
 
@@ -274,7 +288,7 @@ function toastInfinito(icon, title) {
         showConfirmButton: false,
         timer: ``,
         timerProgressBar: true,
-        showCloseButton:true,
+        showCloseButton: true,
         didOpen: (toast) => {
             toast.addEventListener("mouseenter", Swal.stopTimer);
             toast.addEventListener("mouseleave", Swal.resumeTimer);
@@ -284,9 +298,9 @@ function toastInfinito(icon, title) {
     Toast.fire({
         icon: `${icon}`,
         title: `${title}`,
-        
+
     });
-    
+
 }
 
 // Redirecionamentos
@@ -318,8 +332,16 @@ function redirectUnit() {
 }
 function redirectAllUnits() {
     setTimeout(function () {
+        sessionStorage.TIPO_TELA = "1";
         window.location = "./unidade.html";
     }, 200);
+}
+function redirectAllMach() {
+    setTimeout(function () {
+        sessionStorage.TIPO_TELA = "2";
+        window.location = "./unidade.html";
+    }, 200);
+
 }
 function redirectSuport() {
     setTimeout(function () {
