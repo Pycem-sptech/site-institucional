@@ -6,6 +6,14 @@ function mostrarModal(id) {
   modal.style.display = 'block';
 }
 
+function mostrarModalChamado(id) {
+  sessionStorage.ID_SELECIONADO = id;
+  let overlay = document.querySelector('.overlay')
+  let modal = document.querySelector('.modalChamado')
+  overlay.style.display = 'block';
+  modal.style.display = 'block';
+}
+
 function mostrarModalRelatorio(chamada=0) {
   let overlay = document.querySelector('.overlay')
   let modalRelatorio = document.querySelector('.modalRelatorio')
@@ -39,6 +47,14 @@ function fecharModalRelatorio() {
   escolherTipoProblemaModal.value = "";
   overlay.style.display = 'none';
   modalRelatorio.style.display = 'none';
+}
+
+function fecharModalChamado() {
+  sessionStorage.ID_SELECIONADO = "";
+  let overlay = document.querySelector('.overlay')
+  let modal = document.querySelector('.modalChamado')
+  overlay.style.display = 'none';
+  modal.style.display = 'none';
 }
 
 function salvarEdicaoMaquina(idMaquina) {

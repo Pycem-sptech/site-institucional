@@ -63,6 +63,29 @@
         animation-duration: 780ms;
 }
 
+.modalChamado{
+    display: flex;
+    align-items: flex-start;
+    width: 45%;
+    height: 92%;
+    padding-top: 1%;
+    background-color: white;
+    border-radius: 0.8vw;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    z-index: 1;
+    overflow:scroll;
+    overflow:hidden;
+    top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        animation: animate;
+        animation-duration: 780ms;
+}
+
+
 @keyframes animate{
 
     from{opacity: 1;}
@@ -73,6 +96,16 @@
     display: flex;
     justify-content: space-between;
     height: 10%;
+    width: 100%;
+    border-bottom: 0.1vw solid rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+    font-size: 1.3vw;
+
+}
+.headerModalChamado{
+    display: flex;
+    justify-content: space-between;
+    height: 5%;
     width: 100%;
     border-bottom: 0.1vw solid rgba(0, 0, 0, 0.3);
     font-weight: 600;
@@ -142,6 +175,13 @@
 .tamanho11{
     width: 100%;
 }
+.tamanho12{
+    width: 47%;
+}
+
+.data{
+    padding-right: 2%;
+}
 .bloco{
     padding-top: 2%;
     display: flex; 
@@ -156,11 +196,31 @@
     border-radius: 0.8vw;
     font-weight: 500;
     font-size: 1.3vw;
-    padding-left: 3%;
+    padding-left: 4%;
+}
+.selectModal2{
+    width: 98%;
+    margin-left: 3%;
+    height: 6.4vh;
+    background: #FFFFFF;
+    border: 0.3vh solid rgba(0, 0, 0, 0.18);
+    border-radius: 0.8vw;
+    font-weight: 500;
+    font-size: 1.3vw;
+    padding-left: 4%;
 }
 
-
 .inputModal{
+    width: 100%;
+    height: 6vh;
+    background: #FFFFFF;
+    border: 0.3vh solid rgba(0, 0, 0, 0.18);
+    border-radius: 0.8vw;
+    font-weight: 500;
+    font-size: 1.3vw;
+    padding-left: 3%;
+}
+.inputModal2{
     width: 100%;
     height: 6vh;
     background: #FFFFFF;
