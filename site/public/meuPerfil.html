@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pycem²</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/meuPerfil.css">
+</head>
+<body>
+    <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
+    <nav class="sidebar">
+        <div class="container">
+            <div class="navigationButtons">
+                <h2 onclick="redirectHome()">Py</h2>
+                <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+            </div>
+            <div class="footerButtons">
+                <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
+                <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
+            </div>
+        </div>
+    </nav>
+    <header class="header">
+        <div class="container">
+            <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>                <nav id="nav" class="navbarHamburguer">
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <ul class="menu" id="menu">
+                    <li  onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                    <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                    <li onclick="redirectAllUnits()">Unidades</li>
+                    <li onclick="redirectVisaoGeral()">Visão Geral</li>
+                    <li onclick="redirectConfig()">Configurações</li>
+                    <li onclick="limparSessao()">Sair</li>
+                </ul>
+            </nav>
+            <div class="user">
+                <h4 class="usuarioLogado">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg">
+            </div>
+        </div>
+    </header>
+    <div class="guideText">
+            <span class="welcomeSentence">Gerenciar Perfil</span>
+            <span class="firstStep">Perfil</span>
+    </div>
+    <main class="main">
+        <div class="boxPerfil">
+            <h2>Perfil</h2>
+            <div class="inputField">
+                <input type="text" class="campoEntradaDado inputNome" placeholder="Nome Completo">
+                <select name="" id="" class="campoEntradaDado selectCargo">
+                    <option value="">Cargo</option>
+                    <option value="">Gerente</option>
+                    <option value="">Técnico</option>
+                </select>
+                <input type="text" class="campoEntradaDado inputCpf" placeholder="CPF">
+                <input type="text" class="campoEntradaDado inputEmail" placeholder="Email">
+                <input type="text" class="campoEntradaDado inputSenha atual" placeholder="Senha atual">
+                <input type="text" class="campoEntradaDado inputSenha" placeholder="Nova Senha">
+            </div>
+            <div class="divBtn">
+                <button onclick="botao()" class="btnSalvar">Salvar</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+<script>
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+        if (event.type === 'touchstart') event.preventDefault();
+        const nav = document.getElementById('nav');
+        nav.classList.toggle('active');
+
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+    
+</script>
