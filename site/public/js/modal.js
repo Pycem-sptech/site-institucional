@@ -14,6 +14,14 @@ function mostrarModalChamado(id) {
   modal.style.display = 'block';
 }
 
+function mostrarModalNovoChamado(id) {
+  sessionStorage.ID_SELECIONADO = id;
+  let overlay = document.querySelector('.overlay')
+  let modal = document.querySelector('.modalNovoChamado')
+  overlay.style.display = 'block';
+  modal.style.display = 'block';
+}
+
 function mostrarModalRelatorio(chamada=0) {
   let overlay = document.querySelector('.overlay')
   let modalRelatorio = document.querySelector('.modalRelatorio')
@@ -53,6 +61,14 @@ function fecharModalChamado() {
   sessionStorage.ID_SELECIONADO = "";
   let overlay = document.querySelector('.overlay')
   let modal = document.querySelector('.modalChamado')
+  overlay.style.display = 'none';
+  modal.style.display = 'none';
+}
+
+function fecharModalNovoChamado() {
+  sessionStorage.ID_SELECIONADO = "";
+  let overlay = document.querySelector('.overlay')
+  let modal = document.querySelector('.modalNovoChamado')
   overlay.style.display = 'none';
   modal.style.display = 'none';
 }
