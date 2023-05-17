@@ -45,14 +45,14 @@
         <div class="msgErro">
             <h2>Erro no servidor pycem</h2>
             <p>Sua solicitação não pode ser processada no momento, tente novamente mais tarde.</p>
-            <button onclick="mostrarModalChamado()">Voltar</button>
+            <button onclick="mostrarModalNovoChamado()">Voltar</button>
         </div>
 
          <!-- Modal Chamado -->
-         <div class="overlay" id="overlay">
+         <!-- <div class="overlay" id="overlay">
             <div class="modalChamado" id="modalChamado">
                 <div class="headerModalChamado">
-                    <span class="tituloModal">Chamado <span>----</span></span>
+                    <span class="tituloModal">Chamado ----</span>
                     <span class="fecharModal btnFechar" onclick="fecharModalChamado()"></span>
                 </div>
                 <div class="bodyModal">
@@ -100,6 +100,59 @@
                         <select class="selectModal2" id="escolherAtribuicaoModal">                              
                             <option value="" disabled></option>
                         </select></span>
+                    </div>
+                <div class="bloco">
+                    <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
+                        <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
+                </div>
+            </div>
+
+                <div class="modalFooter">
+                    <button class="btnSalvar" id="btnSalvarModal" onclick="cadastrarRelatorio()">Salvar</button>
+                </div>
+            </div>
+        </div> -->
+
+ <!-- Modal Novo Chamado -->
+         <div class="overlay" id="overlay">
+            <div class="modalNovoChamado" id="modalNovoChamado">
+                <div class="headerModalChamado">
+                    <span class="tituloModal">Novo Chamado</span>
+                    <span class="fecharModal btnFechar" onclick="fecharModalNovoChamado()"></span>
+                </div>
+                <div class="bodyModal">
+                    <div class="bloco">
+                        <span class="estilo tamanho10"><span class="subTitulo">Máquina:</span>
+                        <select class="selectModal" id="escolherMaquinaModal">                              
+                            <option value="" disabled></option>
+                        </select></span>
+                        
+                        <span class="estilo tamanho10"><span class="subTitulo">Prioridade:</span>
+                        <select class="selectModal" id="escolherPrioridadeModal">                              
+                            <option value="" disabled></option>
+                            <option value="P1">P1</option>
+                            <option value="P2">P2</option>
+                            <option value="P3">P3</option>
+                        </select></span>
+                    </div>
+
+                    <div class="bloco">
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
+                        <select class="selectModal" id="escolherUnidadeModal">                              
+                            <option value="" disabled></option>
+                        </select></span>
+                        <span class="estilo tamanho8"><span class="subTitulo">Tipo:</span>
+                        <select class="selectModal" id="escolherTipoModal">                              
+                            <option value="" disabled></option>
+                        </select></span>
+
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho1"><span class="subTitulo">Data Inicial:</span>
+                        <input class="inputModal" type="date" id="dataInicialModal" disabled></span>
+
+                        
                     </div>
                 <div class="bloco">
                     <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
