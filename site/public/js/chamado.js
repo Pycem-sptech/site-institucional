@@ -16,8 +16,8 @@ function criarChamado(){
     const fkUnidade = 1//escolherUnidadeModal.value;
     const dataInicio = dataInicialModal.value;
     const dataFim = dataEncerramentoModal.value;
-    const prioridade = escolherPrioridadeModal.value;
-    const status = escolherStatusModal.value;
+    const prioridade = "Alta" //escolherPrioridadeModal.value;
+    const status = "A fazer"//escolherStatusModal.value;
     const tipo = escolherTipoModal.value;
     const descricao = descricaoModal.value;
     if (fkMaquina == "" || fkUsuario == "" || dataInicio == "" || dataFim == "" || prioridade == "" || status == "" || tipo == "" || fkUnidade == "" || descricao == "") {
