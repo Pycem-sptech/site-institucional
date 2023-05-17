@@ -7,11 +7,11 @@ router.get("/listarChamado/:fkEmpresa", function (req, res) {
     chamadoController.listar(req, res);
 });
 
-router.get("/listarChamadoFiltrado/:fkEmpresa", function (req, res) {
+router.get("/listarChamadoFiltrado/:fkUsuario", function (req, res) {
     chamadoController.listar(req, res);
 });
 
-router.post("/cadastrarChamado/:fkEmpresa", function (req, res) {
+router.post("/cadastrarChamado/", function (req, res) {
     chamadoController.cadastrar(req, res);
 })
 

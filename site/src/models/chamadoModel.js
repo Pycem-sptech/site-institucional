@@ -4,8 +4,8 @@ function listar(fkEmpresa) {
     var instrucao = `select * from chamado;`;
     return database.executar(instrucao);
 }
-function cadastrar(titulo,descricao,prioridade,estado,atribuicao,fkTotem,fkRelatorio,fkUnidade,fkEmpresa){
-    var instrucao = `insert into chamado(titulo,descricao,prioridade,estado,atribuicao,fkTotem,fkRelatorio,fkUnidade, fkUnidade)('${titulo}','${descricao}','${prioridade}','${estado}','${atribuicao}','${fkTotem}','${fkRelatorio}','${fkUnidade}','${fkEmpresa}');`;
+function cadastrar(descricao,prioridade,estado,atribuicao,fkTotem,fkUsuario,fkUnidade,fkEmpresa){
+    var instrucao = `insert into chamado(descricao, prioridade, estado, atribuicao, fkTotem, fkUsuario, fkUnidade, fkUnidade) values ('${descricao}','${prioridade}','${estado}','${atribuicao}','${fkTotem}','${fkUsuario}','${fkUnidade}','${fkEmpresa}');`;
     return database.executar(instrucao);
 }
 function editar(idChamado,titulo,descricao,prioridade,estado,atribuicao,fkTotem,fkRelatorio,fkUnidade){

@@ -18,37 +18,40 @@ function listar(req, res) {
 
 }
 function cadastrar(req, res) {
-    const fkEmpresa = req.params.fkEmpresa;
+    const fkMaquina = req.body.fkMaquina;
+    const fkUnidade = req.body.fkUnidade;
+    const fkUsuario = req.body.fkUsuario;
+    const dataInicio = req.body.dataInicio;
+    const dataFim = req.body.dataFim;
+    const prioridade = req.body.prioridade;
+    const tipo = req.body.tipo;
+    const status = req.body.status;
+    const descricao = req.body.descricao;
+    const fkEmpresa = req.body.fkEmpresa;
 
-    var titulo = req.body.tituloServer;
-    var descricao = req.body.descricaoServer;
-    var prioridade = req.body.prioridadeServer;
-    var estado = req.body.estadoServer;
-    var atribuicao = req.body.atribuicaoServer;
-    var fkTotem = req.body.fkTotemServer;
-    var fkRelatorio = req.body.fkRelatorioServer;
-    var fkUnidade = req.body.fkUnidadeServer;
 
-    if (titulo == undefined) {
-        res.status(400).send("Seu titulo está undefined!");
+    if (fkMaquina == undefined) {
+        res.status(400).send("Seu fkMaquina está undefined!");
     } else if (descricao == undefined) {
         res.status(400).send("Sua descricao está undefined!");
     } else if (prioridade == undefined) {
         res.status(400).send("Sua prioridade está undefined!");
-    } else if (estado == undefined) {
-        res.status(400).send("Sua estado está undefined!");
-    } else if (atribuicao == undefined) {
-        res.status(400).send("Sua atribuicao está undefined!");
-    } else if (fkTotem == undefined) {
-        res.status(400).send("A identificação do totem no chamado está undefined!");
-    } else if (fkRelatorio == undefined) {
+    } else if (fkUsuario == undefined) {
+        res.status(400).send("Sua fkUsuario está undefined!");
+    } else if (dataInicio == undefined) {
+        res.status(400).send("Sua dataInicio está undefined!");
+    } else if (dataFim == undefined) {
+        res.status(400).send("A dataFim do chamado está undefined!");
+    } else if (tipo == undefined) {
         res.status(400).send("A identificação do relatorio no chamado está undefined!");
     } else if (fkUnidade == undefined) {
         res.status(400).send("A identificação da unidade no chamado está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("A identificação da empresa no chamado está undefined!");
+    }else if (status == undefined) {
+        res.status(400).send("A status do chamado está undefined!");
     } else {
-        chamadoModel.cadastrar(titulo,descricao,prioridade,estado,atribuicao,fkTotem,fkRelatorio,fkUnidade,fkEmpresa).then(
+        chamadoModel.cadastrar(descricao,prioridade,status,fkMaquina,fkMaquina,fkUsuario,fkUnidade,fkEmpresa).then(
             function (resultado) {
                 res.json(resultado);
             }

@@ -1,13 +1,19 @@
-let chamadosAbertos = [];
-let chamadosFechados = [];
-let chamadosEmAndamento = [];
-let meusChamados =  
-
+let meusChamados =  {
+  chamadosAbertos: [],
+  chamadosFechados: [],
+  chamadosEmAndamento: []
+}
+let todosChamados =  {
+  chamadosAbertos: [],
+  chamadosFechados: [],
+  chamadosEmAndamento: []
+}
 
 function criarChamado(){
-    const fkMaquina = escolherMaquinaModal.value;
-    const fkUsuario = escolherAtribuicaoModal.value;
-    const fkUnidade = escolherUnidadeModal.value;
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
+    const fkMaquina = 1//escolherMaquinaModal.value;
+    const fkUsuario = 1//escolherAtribuicaoModal.value;
+    const fkUnidade = 1//escolherUnidadeModal.value;
     const dataInicio = dataInicialModal.value;
     const dataFim = dataEncerramentoModal.value;
     const prioridade = escolherPrioridadeModal.value;
@@ -33,7 +39,8 @@ function criarChamado(){
             prioridade: prioridade,
             tipo: tipo,
             status: status,
-            descricao:descricao
+            descricao:descricao,
+            fkEmpresa:fkEmpresa
           }),
         })
           .then(function (resposta) {
@@ -155,7 +162,7 @@ function imprimirChamado() {
 
 function filtrarChamados() {
     const fkEmpresa = sessionStorage.FK_EMPRESA;
-    fetch(`/maquina/atualizarListaMaquinas/${fkEmpresa}`)
+    fetch(`/maquina/listarChamadoFiltrado/${fkEmpresa}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
