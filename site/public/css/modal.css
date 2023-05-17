@@ -85,6 +85,28 @@
         animation-duration: 780ms;
 }
 
+.modalNovoChamado{
+    display: flex;
+    align-items: flex-start;
+    width: 45%;
+    height: 80%;
+    padding-top: 1%;
+    background-color: white;
+    border-radius: 0.8vw;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    z-index: 1;
+    overflow:scroll;
+    overflow:hidden;
+    top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        animation: animate;
+        animation-duration: 780ms;
+}
+
 
 @keyframes animate{
 
