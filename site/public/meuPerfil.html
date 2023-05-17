@@ -7,8 +7,6 @@
     <title>Pycem²</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/meuPerfil.css">
-    <!-- <script src="https://unpkg.com/@slack/webhook"></script> -->
-    <script src="js/slack.js"></script>
 </head>
 <body>
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
@@ -67,7 +65,7 @@
                 <input type="text" class="campoEntradaDado inputSenha" placeholder="Nova Senha">
             </div>
             <div class="divBtn">
-                <button class="btnSalvar">Salvar</button>
+                <button onclick="botao()" class="btnSalvar">Salvar</button>
             </div>
         </div>
     </main>
@@ -85,4 +83,5 @@
 
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
+    
 </script>
