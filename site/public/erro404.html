@@ -9,8 +9,11 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/erro.css">
     <link rel="stylesheet" href="css/modal.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="./js/geral.js"></script>
     <script src="./js/modal.js"></script>
-    <script src="./js/chamado.jsnpm"></script>
+    <script src="./js/chamado.js"></script>
 </head>
 
 <body>
@@ -52,10 +55,10 @@
         </div>
 
         <!-- Modal Chamado -->
-        <!-- <div class="overlay" id="overlay">
+        <div class="overlay" id="overlay">
             <div class="modalChamado" id="modalChamado">
                 <div class="headerModalChamado">
-                    <span class="tituloModal">Chamado ----</span>
+                    <span class="tituloModal" id="tituloModal">Chamado ----</span>
                     <span class="fecharModal btnFechar" onclick="fecharModalChamado()"></span>
                 </div>
                 <div class="bodyModal">
@@ -83,6 +86,10 @@
                         <span class="estilo tamanho8"><span class="subTitulo">Status:</span>
                         <select class="selectModal" id="escolherStatusModal">                              
                             <option value="" disabled></option>
+                            <option value="" ></option>
+                            <option value="" ></option>
+                            <option value="" ></option>
+
                         </select></span>
 
                     </div>
@@ -111,13 +118,13 @@
             </div>
 
                 <div class="modalFooter">
-                    <button class="btnSalvar" id="btnSalvarModal" onclick="criarChamado()">Salvar</button>
+                    <button class="btnSalvar" id="btnSalvarModal" onclick="editarChamado()">Salvar</button>
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <!-- Modal Novo Chamado -->
-        <div class="overlay" id="overlay">
+        <!-- <div class="overlay" id="overlay">
             <div class="modalNovoChamado" id="modalNovoChamado">
                 <div class="headerModalChamado">
                     <span class="tituloModal">Novo Chamado</span>
@@ -157,7 +164,7 @@
                     </div>
                     <div class="bloco">
                         <span class="estilo tamanho1"><span class="subTitulo">Data Inicial:</span>
-                            <input class="inputModal" type="date" id="dataInicialModal" disabled></span>
+                            <input class="inputModal" type="date" id="dataInicialModal" ></span>
 
 
                     </div>
@@ -168,10 +175,10 @@
                 </div>
 
                 <div class="modalFooter">
-                    <button class="btnSalvar" id="btnSalvarModal" onclick="cadastrarRelatorio()">Salvar</button>
+                    <button class="btnSalvar" id="btnSalvarModal" onclick="criarChamado()">Salvar</button>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </main>
 </body>

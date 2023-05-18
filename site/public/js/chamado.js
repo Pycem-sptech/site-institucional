@@ -11,16 +11,13 @@ let todosChamados =  {
 
 function criarChamado(){
     const fkEmpresa = sessionStorage.FK_EMPRESA;
-    const fkMaquina = 1//escolherMaquinaModal.value;
-    const fkUsuario = 1//escolherAtribuicaoModal.value;
-    const fkUnidade = 1//escolherUnidadeModal.value;
+    const fkMaquina = escolherMaquinaModal.value;
+    const fkUnidade = escolherUnidadeModal.value;
     const dataInicio = dataInicialModal.value;
-    const dataFim = dataEncerramentoModal.value;
-    const prioridade = "Alta" //escolherPrioridadeModal.value;
-    const status = "A fazer"//escolherStatusModal.value;
+    const prioridade = escolherPrioridadeModal.value;
     const tipo = escolherTipoModal.value;
     const descricao = descricaoModal.value;
-    if (fkMaquina == "" || fkUsuario == "" || dataInicio == "" || dataFim == "" || prioridade == "" || status == "" || tipo == "" || fkUnidade == "" || descricao == "") {
+    if (dataInicio == "") {
         toastPadrao('error', 'Preencha os campos que estão vazios!');
         return false;
       } else {
@@ -33,12 +30,9 @@ function criarChamado(){
     
             fkMaquina: fkMaquina,
             fkUnidade: fkUnidade,
-            fkUsuario: fkUsuario,
             dataInicio: dataInicio,
-            dataFim: dataFim,
             prioridade: prioridade,
             tipo: tipo,
-            status: status,
             descricao:descricao,
             fkEmpresa:fkEmpresa
           }),
@@ -47,7 +41,7 @@ function criarChamado(){
             console.log("resposta: ", resposta);
     
             if (resposta.ok) {
-              toastPadrao('success', 'Cadastro realizado com sucesso!')
+              console.log('success ' + 'Cadastro realizado com sucesso!')
             } else {
               throw "Houve um erro ao tentar realizar o cadastro!";
             }
@@ -59,9 +53,9 @@ function criarChamado(){
         return false;
       }
 }
-function editarChamado(idChamado){
+function editarChamado(idChamado=100){
   const fkMaquina = escolherMaquinaModal.value;
-  const fkUsuario = escolherAtribuicaoModal.value;
+  const atribuicao = escolherAtribuicaoModal.value;
   const fkUnidade = escolherUnidadeModal.value;
   const dataInicio = dataInicialModal.value;
   const dataFim = dataEncerramentoModal.value;
@@ -82,7 +76,7 @@ function editarChamado(idChamado){
     
             fkMaquina: fkMaquina,
             fkUnidade: fkUnidade,
-            fkUsuario: fkUsuario,
+            atribuicao: atribuicao,
             dataInicio: dataInicio,
             dataFim: dataFim,
             prioridade: prioridade,

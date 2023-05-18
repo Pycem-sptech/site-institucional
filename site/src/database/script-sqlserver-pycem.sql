@@ -98,17 +98,23 @@ fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 
 create table chamado(
 idChamado int primary key identity(100,1),
-titulo varchar(30),
+tipo varchar(17) not null default 'Desligamento', constraint chkTipo2 check (tipo in('Desligamento','Sobrecarga', 'MauFuncionamento', 'Outro')),
 descricao varchar(255),
 prioridade varchar(10),
-estado varchar(10),
-atribuicao varchar(255),
-data_chamado datetime,
+estado varchar(15),
+atribuicao int, FOREIGN KEY (atribuicao) REFERENCES usuario(idUsuario),
+data_inicio datetime,
+data_fim datetime,
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem),
-fkRelatorio int, FOREIGN KEY (fkRelatorio) REFERENCES relatorio(idRelatorio),
 fkUnidade int, FOREIGN KEY (fkUnidade) REFERENCES unidade(idUnidade),
-fkEmpresa int, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
+fkEmpresa int, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
+
+insert into chamado(estado, tipo, descricao, prioridade, atribuicao, fkUnidade, fkEmpresa) values 
+('Aberto', 'Sobrecarga', 'Aaaaaaaa', 'Alta',  1, 1, 100),
+('Em Andamento', 'Sobrecarga', 'Aaaaaaaa', 'Alta', 1, 1, 100),
+('Encerrado', 'Sobrecarga', 'Aaaaaaaa', 'Alta',  1, 1, 100);
+
 
 insert into [dbo].[relatorio] (titulo, descricao, tipo, data_relatorio, fkTotem) values
 ('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),

@@ -4,12 +4,12 @@ function listar(fkEmpresa) {
     var instrucao = `select * from chamado;`;
     return database.executar(instrucao);
 }
-function cadastrar(descricao,prioridade,estado,atribuicao,fkTotem,fkUsuario,fkUnidade,fkEmpresa){
-    var instrucao = `insert into chamado(descricao, prioridade, estado, atribuicao, fkTotem, fkUsuario, fkUnidade, fkUnidade) values ('${descricao}','${prioridade}','${estado}','${atribuicao}','${fkTotem}','${fkUsuario}','${fkUnidade}','${fkEmpresa}');`;
+function cadastrar(dataInicio, tipo, descricao, prioridade, fkTotem, fkUnidade, fkEmpresa){
+    var instrucao = `insert into chamado(data_inicio, status, tipo, descricao, prioridade, fkTotem, fkUnidade, fkEmpresa) values ('${dataInicio}', 'Aberto', '${tipo}', '${descricao}','${prioridade}', '${fkTotem}', '${fkUnidade}','${fkEmpresa}');`;
     return database.executar(instrucao);
 }
-function editar(idChamado,titulo,descricao,prioridade,estado,atribuicao,fkTotem,fkRelatorio,fkUnidade){
-    var instrucao = `update chamado set titulo = '${titulo}',descricao = '${descricao}',prioridade = '${prioridade}',estado = '${estado}',atribuicao = '${atribuicao}',fkTotem = '${fkTotem}',fkRelatorio = '${fkRelatorio}',fkUnidade = '${fkUnidade}' where idChamado = '${idChamado}';`;
+function editar(idChamado, descricao, tipo, prioridade, estado, atribuicao, dataInicio, dataFim, fkTotem, fkUnidade){
+        var instrucao = `update chamado set tipo='${tipo}',  descricao = '${descricao}', prioridade = '${prioridade}', estado = '${estado}', data_inicio = '${dataInicio}', data_fim='${dataFim}', atribuicao = '${atribuicao}',fkTotem = '${fkTotem}', fkUnidade = '${fkUnidade}' where idChamado = '${idChamado}';`;
     return database.executar(instrucao);
 }
 function deletar(idChamado) {

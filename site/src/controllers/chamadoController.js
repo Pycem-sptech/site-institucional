@@ -20,12 +20,9 @@ function listar(req, res) {
 function cadastrar(req, res) {
     const fkMaquina = req.body.fkMaquina;
     const fkUnidade = req.body.fkUnidade;
-    const fkUsuario = req.body.fkUsuario;
     const dataInicio = req.body.dataInicio;
-    const dataFim = req.body.dataFim;
     const prioridade = req.body.prioridade;
     const tipo = req.body.tipo;
-    const status = req.body.status;
     const descricao = req.body.descricao;
     const fkEmpresa = req.body.fkEmpresa;
 
@@ -36,22 +33,16 @@ function cadastrar(req, res) {
         res.status(400).send("Sua descricao está undefined!");
     } else if (prioridade == undefined) {
         res.status(400).send("Sua prioridade está undefined!");
-    } else if (fkUsuario == undefined) {
-        res.status(400).send("Sua fkUsuario está undefined!");
-    } else if (dataInicio == undefined) {
+    }else if (dataInicio == undefined) {
         res.status(400).send("Sua dataInicio está undefined!");
-    } else if (dataFim == undefined) {
-        res.status(400).send("A dataFim do chamado está undefined!");
     } else if (tipo == undefined) {
         res.status(400).send("A identificação do relatorio no chamado está undefined!");
     } else if (fkUnidade == undefined) {
         res.status(400).send("A identificação da unidade no chamado está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("A identificação da empresa no chamado está undefined!");
-    }else if (status == undefined) {
-        res.status(400).send("A status do chamado está undefined!");
     } else {
-        chamadoModel.cadastrar(descricao,prioridade,status,fkMaquina,fkMaquina,fkUsuario,fkUnidade,fkEmpresa).then(
+        chamadoModel.cadastrar(dataInicio, tipo, descricao, prioridade, fkMaquina, fkUnidade, fkEmpresa).then(
             function (resultado) {
                 res.json(resultado);
             }
@@ -66,18 +57,19 @@ function cadastrar(req, res) {
 
 function editar(req, res) {
     const idChamado = req.params.idChamado;
+    const fkTotem = req.body.fkMaquina;
+    const fkUnidade = req.body.fkUnidade;
+    const atribuicao = req.body.atribuicao;
+    const dataInicio = req.body.dataInicio;
+    const dataFim = req.body.dataFim;
+    const prioridade = req.body.prioridade;
+    const estado = req.body.status;
+    const tipo = req.body.tipo;
+    const descricao = req.body.descricao;
 
-    var titulo = req.body.tituloServer;
-    var descricao = req.body.descricaoServer;
-    var prioridade = req.body.prioridadeServer;
-    var estado = req.body.estadoServer;
-    var atribuicao = req.body.atribuicaoServer;
-    var fkTotem = req.body.fkTotemServer;
-    var fkRelatorio = req.body.fkRelatorioServer;
-    var fkUnidade = req.body.fkUnidadeServer;
 
-    if (titulo == undefined) {
-        res.status(400).send("Seu titulo do chamado está undefined!");
+    if (atribuicao == undefined) {
+        res.status(400).send("Seu fkMaquina do chamado está undefined!");
     } else if (descricao == undefined) {
         res.status(400).send("A descricao do chamado está undefined!");
     } else if (prioridade == undefined) {
@@ -88,14 +80,18 @@ function editar(req, res) {
         res.status(400).send("A atribuicao do chamado está undefined!");
     } else if (fkTotem == undefined) {
         res.status(400).send("A identificação do totem no chamado está undefined!");
-    } else if (fkRelatorio == undefined) {
-        res.status(400).send("A identificação do relatorio no chamado está undefined!");
     } else if (fkUnidade == undefined) {
         res.status(400).send("A identificação da unidade no chamado está undefined!");
-    } else if (fkEmpresa == undefined) {
-        res.status(400).send("A identificação da empresa no chamado está undefined!");
-    } else {
-        chamadoModel.editar(idChamado).then(
+    } else if (dataInicio == undefined) {
+        res.status(400).send("A dataInicio no chamado está undefined!");
+    } else if (dataFim == undefined) {
+        res.status(400).send("A dataFim no chamado está undefined!");
+    }  else if (dataFim == undefined) {
+        res.status(400).send("A dataFim no chamado está undefined!");
+    }  else if (tipo == undefined) {
+        res.status(400).send("A tipo no chamado está undefined!");
+    }else {
+        chamadoModel.editar(idChamado, descricao, tipo, prioridade, estado, atribuicao, dataInicio, dataFim, fkTotem, fkUnidade).then(
             function (resultado) {
                 res.json(resultado);
             }
