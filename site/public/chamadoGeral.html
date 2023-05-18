@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/chamadoTecnico.css">
 </head>
+
 <body>
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
@@ -30,7 +32,8 @@
         <div class="container">
             <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>
             <nav id="nav" class="navbarHamburguer">
-                <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg"
+                        src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
                     <li onclick="redirectMachine()">Gerenciar Maquinas</li>
@@ -47,8 +50,8 @@
         </div>
     </header>
     <div class="guideText">
-            <span class="welcomeSentence">Chamados</span>
-            <span class="firstStep">Chamados</span>
+        <span class="welcomeSentence">Chamados</span>
+        <span class="firstStep">Chamados</span>
     </div>
     <div class="divBtnChamado">
         <button class="btnNovoChamado">Novo chamado +</button>
@@ -63,64 +66,30 @@
             <div class="boxListaChamados">
                 <div class="titleBox">
                     <h1>Aberto</h1>
-                </div>  
-                <div class="feed">
-                <div class="boxChamado">
-                    <div class="infoChamado">
-                        <h3>0002</h3>
-                        <div class="infoMaquina">
-                            <span>Máquina: <span>PY_MACHE</span></span>
-                            <span>Tipo: <span>Mau funcionamento</span></span>
-                        </div>
-                    </div>
-                    <div class="infoAtribuicao">
-                        <span>Eduardo</span>
-                        <span>P1</span>
-                    </div>
                 </div>
+                <div class="feed">
+
                 </div>
             </div>
             <div class="boxListaChamados">
                 <div class="titleBox">
                     <h1>Em Andamento</h1>
-                </div>  
+                </div>
                 <div class="feed">
-                    <div class="boxChamado">
-                        <div class="infoChamado">
-                            <h3>0002</h3>
-                            <div class="infoMaquina">
-                                <span>Máquina: <span>PY_MACHE</span></span>
-                                <span>Tipo: <span>Mau funcionamento</span></span>
-                            </div>
-                        </div>
-                        <div class="infoAtribuicao">
-                            <span>Eduardo</span>
-                            <span>P1</span>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div class="boxListaChamados">
                 <div class="titleBox">
                     <h1>Encerrado</h1>
-                </div>  
+                </div>
                 <div class="feed">
-                    <div class="boxChamado">
-                        <div class="infoChamado">
-                            <h3>0002</h3>
-                            <div class="infoMaquina">
-                                <span>Máquina: <span>PY_MACHE</span></span>
-                                <span>Tipo: <span>Mau funcionamento</span></span>
-                            </div>
-                        </div>
-                        <div class="infoAtribuicao">
-                            <span>Eduardo</span>
-                            <span>P1</span>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
     </main>
 </body>
+
 </html>
+<script src="js/chamado.js"></script>
