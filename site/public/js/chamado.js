@@ -181,5 +181,92 @@ function filtrarChamados() {
         });
 
     return false;
+  }
 
+  function atualizarListaUnidades() {
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
+
+    fetch(`/unidade/listarUnidades/${fkEmpresa}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("Nenhum resultado encontrado!!");
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+                  for(var i = 0; i < resposta.length; i++){
+                    listaUnidades = reposta[i];
+                  }
+                }
+                );
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+
+    return false;
+}
+
+
+
+
+    function atualizarSelectChamado(idSelect) {
+      const select = document.querySelector(idSelect);
+      const fkEmpresa = sessionStorage.FK_EMPRESA;
+      var fkEmpresaVar = fkEmpresa;
+  
+      fetch(`/unidade/listarUnidades/${fkEmpresaVar}`)
+          .then(function (resposta) {
+              if (resposta.ok) {
+                  if (resposta.status == 204) {
+                      console.log("Nenhum resultado encontrado!!");
+                      throw "Nenhum resultado encontrado!!";
+                  }
+                  resposta.json().then(function (resposta) {
+                      for (var i = 0; i < resposta.length; i++) {
+                          select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
+                      }
+                  }
+                  );
+              } else {
+                  throw "Houve um erro na API!";
+              }
+          })
+          .catch(function (resposta) {
+              console.error(resposta);
+          });
+  
+      return false;
+  }
+
+
+function atualizarSelectMaquina(idSelect) {
+  const select = document.querySelector(idSelect);
+  const fkEmpresa = sessionStorage.FK_EMPRESA;
+  var fkEmpresaVar = fkEmpresa;
+  fetch(`/maquina/listarMaquinas/${fkEmpresaVar}`)
+      .then(function (resposta) {
+          if (resposta.ok) {
+              if (resposta.status == 204) {
+                  console.log("Nenhum resultado encontrado!!");
+                  throw "Nenhum resultado encontrado!!";
+              }
+              resposta.json().then(function (resposta) {
+                  for (var i = 0; i < resposta.length; i++) {
+                      select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
+                  }
+              }
+              );
+          } else {
+              throw "Houve um erro na API!";
+          }
+      })
+      .catch(function (resposta) {
+          console.error(resposta);
+      });
+
+  return false;
 }

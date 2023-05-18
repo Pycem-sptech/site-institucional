@@ -345,7 +345,7 @@ function redirectAllMach() {
 }
 function redirectSuport() {
     setTimeout(function () {
-        window.location = "#";
+        window.location = "./chamadoGeral.html";
     }, 250);
 }
 function redirectConfig() {
@@ -376,6 +376,11 @@ function redirectGraficos(totemDesejado, totem) {
 function redirectVisaoGeral() {
     setTimeout(function () {
         window.location = "home.html";
+    }, 250);
+}
+function redirectMeuPerfil() {
+    setTimeout(function () {
+        window.location = "meuPerfil.html";
     }, 250);
 }
 function redirect404() {
