@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,15 @@
     <title>Pycem²</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/chamadoTecnico.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="./js/geral.js"></script>
+    <script src="./js/modal.js"></script>
+    <script src="./js/chamado.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
-<body>
+
+<body onload="validarSessao()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -16,12 +24,12 @@
                 <h2 onclick="redirectHome()">Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
-                <img class="iconSidebar telaAtual" src="img/settingIcon.svg"><!-- onclick="redirectConfig()" -->
+                <img class="iconSidebar telaAtual" src="img/settingIcon.svg" onclick="redirectConfig()">
                 <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
             </div>
         </div>
@@ -30,7 +38,8 @@
         <div class="container">
             <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>
             <nav id="nav" class="navbarHamburguer">
-                <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg"
+                        src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
                     <li onclick="redirectMachine()">Gerenciar Maquinas</li>
@@ -47,11 +56,11 @@
         </div>
     </header>
     <div class="guideText">
-            <span class="welcomeSentence">Chamados</span>
-            <span class="firstStep">Chamados</span>
+        <span class="welcomeSentence">Chamados</span>
+        <span class="firstStep">Chamados</span>
     </div>
     <div class="divBtnChamado">
-        <button class="btnNovoChamado">Novo chamado +</button>
+        <button class="btnNovoChamado" onclick="mostrarModalNovoChamado()">Novo chamado +</button>
         <select class="selectFiltrarChamados" name="" id="">
             <option value="">Todos</option>
             <option value="">Meus chamados</option>
@@ -63,29 +72,29 @@
             <div class="boxListaChamados">
                 <div class="titleBox">
                     <h1>Aberto</h1>
-                </div>  
+                </div>
                 <div class="feed">
-                <div class="boxChamado">
-                    <div class="infoChamado">
-                        <h3>0002</h3>
-                        <div class="infoMaquina">
-                            <span>Máquina: <span>PY_MACHE</span></span>
-                            <span>Tipo: <span>Mau funcionamento</span></span>
+                    <div class="boxChamado" onclick="mostrarModalChamado()">
+                        <div class="infoChamado">
+                            <h3>0002</h3>
+                            <div class="infoMaquina">
+                                <span>Máquina: <span>PY_MACHE</span></span>
+                                <span>Tipo: <span>Mau funcionamento</span></span>
+                            </div>
+                        </div>
+                        <div class="infoAtribuicao">
+                            <span>Eduardo</span>
+                            <span>P1</span>
                         </div>
                     </div>
-                    <div class="infoAtribuicao">
-                        <span>Eduardo</span>
-                        <span>P1</span>
-                    </div>
-                </div>
                 </div>
             </div>
             <div class="boxListaChamados">
                 <div class="titleBox">
                     <h1>Em Andamento</h1>
-                </div>  
+                </div>
                 <div class="feed">
-                    <div class="boxChamado">
+                    <div class="boxChamado" onclick="mostrarModalChamado()">
                         <div class="infoChamado">
                             <h3>0002</h3>
                             <div class="infoMaquina">
@@ -103,9 +112,9 @@
             <div class="boxListaChamados">
                 <div class="titleBox">
                     <h1>Encerrado</h1>
-                </div>  
+                </div>
                 <div class="feed">
-                    <div class="boxChamado">
+                    <div class="boxChamado" onclick="mostrarModalChamado()">
                         <div class="infoChamado">
                             <h3>0002</h3>
                             <div class="infoMaquina">
@@ -121,6 +130,141 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Chamado -->
+        <div class="overlay" id="overlay">
+            <div class="modalChamado" id="modalChamado">
+                <div class="headerModalChamado">
+                    <span class="tituloModal">Chamado ----</span>
+                    <span class="fecharModal btnFechar" onclick="fecharModalChamado()"></span>
+                </div>
+                <div class="bodyModal">
+                    <div class="bloco">
+                        <span class="estilo tamanho10"><span class="subTitulo">Máquina:</span>
+                            <select class="selectModal" id="escolherMaquinaModal">
+                                <option value="" disabled></option>
+                            </select></span>
+
+                        <span class="estilo tamanho10"><span class="subTitulo">Prioridade:</span>
+                            <select class="selectModal" id="escolherPrioridadeModal">
+                                <option value="" disabled></option>
+                                <option value="P1">P1</option>
+                                <option value="P2">P2</option>
+                                <option value="P3">P3</option>
+                            </select></span>
+                    </div>
+
+                    <div class="bloco">
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
+                            <select class="selectModal" id="escolherUnidadeModal">
+                                <option value="" disabled></option>
+                            </select></span>
+                        <span class="estilo tamanho8"><span class="subTitulo">Status:</span>
+                            <select class="selectModal" id="escolherStatusModal">
+                                <option value="" disabled></option>
+                            </select></span>
+
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho12"><span class="subTitulo">Data Inicial:</span>
+                            <input class="inputModal" type="date" id="dataInicialModal" disabled></span>
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Tipo:</span>
+                            <select class="selectModal2" id="escolherTipoModal">
+                                <option value="" disabled></option>
+                            </select></span>
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho12"><span class="subTitulo">Data Encerramento:</span>
+                            <input class="inputModal" type="date" id="dataEncerramentoModal" disabled></span>
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Atribuição:</span>
+                            <select class="selectModal2" id="escolherAtribuicaoModal">
+                                <option value="" disabled></option>
+                            </select></span>
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
+                            <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
+                    </div>
+                </div>
+
+                <div class="modalFooter">
+                    <button class="btnSalvar" id="btnSalvarModal" onclick="criarChamado()">Salvar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Novo Chamado -->
+        <div class="overlayNovoChamado" id="overlayNovoChamado">
+            <div class="modalNovoChamado" id="modalNovoChamado">
+                <div class="headerModalChamado">
+                    <span class="tituloModal">Novo Chamado</span>
+                    <span class="fecharModal btnFechar" onclick="fecharModalNovoChamado()"></span>
+                </div>
+                <div class="bodyModal">
+                    <div class="bloco">
+                        <span class="estilo tamanho10"><span class="subTitulo">Máquina:</span>
+                            <select class="selectModal" id="escolherMaquinaModal">
+                                <option value="" disabled></option>
+                            </select></span>
+
+                        <span class="estilo tamanho10"><span class="subTitulo">Prioridade:</span>
+                            <select class="selectModal" id="escolherPrioridadeModal">
+                                <option value="" disabled></option>
+                                <option value="P1">P1</option>
+                                <option value="P2">P2</option>
+                                <option value="P3">P3</option>
+                            </select></span>
+                    </div>
+
+                    <div class="bloco">
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
+                            <select class="selectModal" id="escolherUnidadeModal">
+                                <option value="" disabled></option>
+                            </select></span>
+                        <span class="estilo tamanho8"><span class="subTitulo">Tipo:</span>
+                            <select class="selectModal" id="escolherTipoModal">
+                                <option value="" disabled></option>
+                            </select></span>
+
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho1"><span class="subTitulo">Data Inicial:</span>
+                            <input class="inputModal" type="date" id="dataInicialModal" disabled></span>
+
+
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
+                            <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
+                    </div>
+                </div>
+
+                <div class="modalFooter">
+                    <button class="btnSalvar" id="btnSalvarModal" onclick="editarChamado()">Salvar</button>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
+
 </html>
+<script>
+
+    var overlay = document.getElementById('overlay');
+    overlay.addEventListener('click', function (e) {
+        if (e.target == this) {
+            fecharModalChamado()
+        };
+    });
+    var overlayNovoChamado = document.getElementById('overlayNovoChamado');
+    overlayNovoChamado.addEventListener('click', function (e) {
+        if (e.target == this) {
+            fecharModalNovoChamado()
+        };
+    });
+    
+</script>

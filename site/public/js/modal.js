@@ -14,11 +14,10 @@ function mostrarModalChamado(id) {
   modal.style.display = 'block';
 }
 
-function mostrarModalNovoChamado(id) {
-  sessionStorage.ID_SELECIONADO = id;
-  let overlay = document.querySelector('.overlay')
+function mostrarModalNovoChamado() {
+  let overlayNovoChamado = document.querySelector('.overlayNovoChamado')
   let modal = document.querySelector('.modalNovoChamado')
-  overlay.style.display = 'block';
+  overlayNovoChamado.style.display = 'block';
   modal.style.display = 'block';
 }
 
@@ -67,10 +66,10 @@ function fecharModalChamado() {
 
 function fecharModalNovoChamado() {
   sessionStorage.ID_SELECIONADO = "";
-  let overlay = document.querySelector('.overlay')
-  let modal = document.querySelector('.modalNovoChamado')
-  overlay.style.display = 'none';
-  modal.style.display = 'none';
+  let overlayNovoChamado = document.querySelector('.overlayNovoChamado')
+  let modalNovoChamado = document.querySelector('.modalNovoChamado')
+  overlayNovoChamado.style.display = 'none';
+  modalNovoChamado.style.display = 'none';
 }
 
 function salvarEdicaoMaquina(idMaquina) {
@@ -389,4 +388,32 @@ function deletarFuncionario(idFuncionario) {
     });
     }
   })
+}
+let selects =  {
+  maquinas: [],
+  unidades: [],
+  usuarios: []
+}
+function atualizarSelects() {
+  const fkEmpresa = sessionStorage.FK_EMPRESA;
+  fetch(`/chamado/listarSelects/${fkEmpresa}`)
+      .then(function (resposta) {
+          if (resposta.ok) {
+              if (resposta.status == 204) {
+                  console.log("Nenhum resultado encontrado!!");
+                  throw "Nenhum resultado encontrado!!";
+              }
+              resposta.json().then(function (resposta) {
+               
+              }
+              );
+          } else {
+              throw "Houve um erro na API!";
+          }
+      })
+      .catch(function (resposta) {
+          console.error(resposta);
+      });
+
+  return false;
 }

@@ -189,9 +189,6 @@ function filtrarChamados() {
     return false;
   }
 
-  const listaMaquinas = [];
-  const listaUnidades = [];
-
   function atualizarListaUnidades() {
     const fkEmpresa = sessionStorage.FK_EMPRESA;
 
@@ -222,7 +219,7 @@ function filtrarChamados() {
 
 
 
-    function atualizarSelectUnidades(idSelect) {
+    function atualizarSelectChamado(idSelect) {
       const select = document.querySelector(idSelect);
       const fkEmpresa = sessionStorage.FK_EMPRESA;
       var fkEmpresaVar = fkEmpresa;

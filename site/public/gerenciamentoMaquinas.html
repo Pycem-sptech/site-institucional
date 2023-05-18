@@ -27,7 +27,7 @@
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                 <img class="iconSidebar navigationIcon telaAtual" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
-                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg" onclick="redirectSuport()">
             </div>
             <div class="footerButtons">
                 <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
@@ -153,12 +153,14 @@
     nav.classList.toggle('active');
     
     }
+    
     var overlay = document.getElementById('overlay');
     overlay.addEventListener('click', function(e) {
     if (e.target == this){
         fecharModal()
     } ;
     });
+
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
 
