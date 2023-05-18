@@ -97,18 +97,44 @@ fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 );
 
 create table chamado(
-idChamado int primary key identity(100,1),
+idChamado int primary key identity(1,1),
+titulo varchar(30),
 tipo varchar(17) not null default 'Desligamento', constraint chkTipo2 check (tipo in('Desligamento','Sobrecarga', 'MauFuncionamento', 'Outro')),
-descricao varchar(255),
-prioridade varchar(10),
-estado varchar(15),
-atribuicao int, FOREIGN KEY (atribuicao) REFERENCES usuario(idUsuario),
-data_inicio datetime,
+prioridade varchar(10) not null default 'P1', constraint chkPrioridade check (tipo in('P1','P2', 'P3'),
+estado varchar(15) not null default 'Aberto', constraint chkEstado check (tipo in('Aberto','Em Andamento', 'Encerrado')),
+criado_por_nome varchar(50) not null,
+criado_por_id int, FOREIGN KEY (atribuido) REFERENCES usuario(idUsuario),
+atribuido_nome varchar(50),
+atribuido_id int, FOREIGN KEY (atribuido) REFERENCES usuario(idUsuario),
+data_inicio datetime not null default current_timestamp,
 data_fim datetime,
+descricao varchar(255),
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem),
 fkUnidade int, FOREIGN KEY (fkUnidade) REFERENCES unidade(idUnidade),
 fkEmpresa int, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
+
+-- TRIGGERS
+
+-- Atualizar titulo dos chamados
+create trigger CriarTituloChamado
+ON chamado
+AFTER INSERT
+AS
+BEGIN
+	SET NOCOUNT ON;
+    DECLARE @idChamado INT
+	DECLARE @idTotem INT
+	DECLARE @idEmpresa INT
+
+	SELECT @idChamado = i.idChamado FROM inserted i
+	SELECT @idTotem = i.fkTotem FROM inserted i
+	SELECT @idEmpresa = i.fkEmpresa FROM inserted i
+
+UPDATE chamado SET titulo = (SELECT FORMAT(@idChamado, CAST('MC'+REPLICATE(0, 8) AS NVARCHAR(8)))) where idChamado = @idChamado;
+
+END;
+
 
 insert into chamado(estado, tipo, descricao, prioridade, atribuicao, fkUnidade, fkEmpresa) values 
 ('Aberto', 'Sobrecarga', 'Aaaaaaaa', 'Alta',  1, 1, 100),
