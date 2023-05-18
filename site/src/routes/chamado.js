@@ -3,8 +3,8 @@ var router = express.Router();
 
 var chamadoController = require("../controllers/chamadoController");
 
-router.get("/listarChamado/:fkEmpresa", function (req, res) {
-    chamadoController.listar(req, res);
+router.get("/listarChamados/:fkEmpresa", function (req, res) {
+    chamadoController.listarChamados(req, res);
 });
 
 router.get("/listarChamadoFiltrado/:fkUsuario", function (req, res) {

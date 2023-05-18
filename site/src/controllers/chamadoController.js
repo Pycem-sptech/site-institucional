@@ -17,6 +17,23 @@ function listar(req, res) {
     );
 
 }
+
+function listarChamados(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+
+    chamadoModel.listarChamados(fkEmpresa).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+
+}
+
 function cadastrar(req, res) {
     const fkMaquina = req.body.fkMaquina;
     const fkUnidade = req.body.fkUnidade;
@@ -41,6 +58,8 @@ function cadastrar(req, res) {
         res.status(400).send("A identificação da unidade no chamado está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("A identificação da empresa no chamado está undefined!");
+    }else if (status == undefined) {
+        res.status(400).send("A status do chamado está undefined!");
     } else {
         chamadoModel.cadastrar(dataInicio, tipo, descricao, prioridade, fkMaquina, fkUnidade, fkEmpresa).then(
             function (resultado) {
@@ -127,5 +146,6 @@ module.exports = {
     listar,
     cadastrar,
     editar,
-    deletar
+    deletar,
+    listarChamados
 }

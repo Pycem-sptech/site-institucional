@@ -1,12 +1,17 @@
-let meusChamados =  {
+let meusChamados = {
   chamadosAbertos: [],
-  chamadosFechados: [],
-  chamadosEmAndamento: []
+  chamadosEmAndamento: [],
+  chamadosEncerrados: []
 }
-let todosChamados =  {
+let todosChamados = {
   chamadosAbertos: [],
-  chamadosFechados: [],
-  chamadosEmAndamento: []
+  chamadosEmAndamento: [],
+  chamadosEncerrados: []
+}
+
+function buscarChamados() {
+
+
 }
 
 function criarChamado(){
@@ -103,114 +108,125 @@ function editarChamado(idChamado=100){
 }
 
 
-function deletarChamado(idChamado){
-    Swal.fire({
-        title: 'Você tem certeza?',
-        text: "Você não irá conseguir reverter isso!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sim, deletar!',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          fetch(`/chamado/deletarChamado/${idChamado}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
-    
-            if (resposta.ok) {
-              Swal.fire(
-                'Pronto!',
-                'Suas alterações foram gravadas',
-                'success'
-              ).then((result) => {
-                if (result.isConfirmed) {
-                  window.location = "../chamados.html"
-                }
-              })
-            } else if (resposta.status == 404) {
-                console.log("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
+function deletarChamado(idChamado) {
+  Swal.fire({
+    title: 'Você tem certeza?',
+    text: "Você não irá conseguir reverter isso!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, deletar!',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch(`/chamado/deletarChamado/${idChamado}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
         }
-      })
+      }).then(function (resposta) {
+
+        if (resposta.ok) {
+          Swal.fire(
+            'Pronto!',
+            'Suas alterações foram gravadas',
+            'success'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              window.location = "../chamados.html"
+            }
+          })
+        } else if (resposta.status == 404) {
+          console.log("Deu 404!");
+        } else {
+          throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    }
+  })
 }
 
-function mostrarChamado(lista){
-    for (i = 0; i < lista.length; i++) {
-        imprimirChamado(lista[i], i);
-    }
+function mostrarChamado(lista) {
+  for (i = 0; i < lista.length; i++) {
+    imprimirChamado(lista[i], i);
+  }
 }
 
 function imprimirChamado() {
-    
+
 }
 
 function filtrarChamados() {
-    const fkEmpresa = sessionStorage.FK_EMPRESA;
-    fetch(`/maquina/listarChamadoFiltrado/${fkEmpresa}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                if (resposta.status == 204) {
-                    console.log("Nenhum resultado encontrado!!");
-                    throw "Nenhum resultado encontrado!!";
-                }
-                resposta.json().then(function (resposta) {
+  const fkEmpresa = sessionStorage.FK_EMPRESA;
+  fetch(`/maquina/listarChamadoFiltrado/${fkEmpresa}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          console.log("Nenhum resultado encontrado!!");
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then(function (resposta) {
 
-                    for (var i = 0; i < resposta.length; i++) {
+          for (var i = 0; i < resposta.length; i++) {
 
-                        listaMaquinas.push(resposta[i]);
-                    }
-                    console.log(listaMaquinas);
-                });
-                setTimeout(function () { mostrarTodasMaquinas(listaMaquinas) }, 300)
-            } else {
-                throw "Houve um erro na API!";
-            }
-        })
-        .catch(function (resposta) {
-            console.error(resposta);
+            listaMaquinas.push(resposta[i]);
+          }
+          console.log(listaMaquinas);
         });
+        setTimeout(function () { mostrarTodasMaquinas(listaMaquinas) }, 300)
+      } else {
+        throw "Houve um erro na API!";
+      }
+    })
+    .catch(function (resposta) {
+      console.error(resposta);
+    });
 
-    return false;
-  }
-
-  function atualizarListaUnidades() {
-    const fkEmpresa = sessionStorage.FK_EMPRESA;
-
-    fetch(`/unidade/listarUnidades/${fkEmpresa}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                if (resposta.status == 204) {
-                    console.log("Nenhum resultado encontrado!!");
-                    throw "Nenhum resultado encontrado!!";
-                }
-                resposta.json().then(function (resposta) {
-                  for(var i = 0; i < resposta.length; i++){
-                    listaUnidades = reposta[i];
-                  }
-                }
-                );
-            } else {
-                throw "Houve um erro na API!";
-            }
-        })
-        .catch(function (resposta) {
-            console.error(resposta);
-        });
-
-    return false;
+  return false;
 }
 
+function atualizarListaChamados() {
+  const fkEmpresa = sessionStorage.FK_EMPRESA;
 
+  fetch(`/chamado/listarChamados/${fkEmpresa}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          console.log("Nenhum resultado encontrado!!");
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then(function (resposta) {
+          console.log("Dados: ", JSON.stringify(resposta))
+
+          for (var i = 0; i < resposta.length; i++) {
+            if (resposta[i].estado == "Aberto") {
+              todosChamados.chamadosAbertos.push(resposta[i])
+            } else if (resposta[i].estado == ("Em Andamento")) {
+              todosChamados.chamadosEmAndamento.push(resposta[i])
+            } else if (resposta[i].estado == ("Encerrado")) {
+              todosChamados.chamadosEncerrados.push(resposta[i])
+            }
+          }
+
+          console.log(todosChamados)
+          console.log(resposta[0])
+          exibirChamados()
+        }
+        );
+      } else {
+        throw "Houve um erro na API!";
+      }
+    })
+    .catch(function (resposta) {
+      console.error(resposta);
+    });
+
+  return false;
+}
+atualizarListaChamados();
 
 
     function atualizarSelectChamado(idSelect) {
@@ -248,25 +264,83 @@ function atualizarSelectMaquina(idSelect) {
   const fkEmpresa = sessionStorage.FK_EMPRESA;
   var fkEmpresaVar = fkEmpresa;
   fetch(`/maquina/listarMaquinas/${fkEmpresaVar}`)
-      .then(function (resposta) {
-          if (resposta.ok) {
-              if (resposta.status == 204) {
-                  console.log("Nenhum resultado encontrado!!");
-                  throw "Nenhum resultado encontrado!!";
-              }
-              resposta.json().then(function (resposta) {
-                  for (var i = 0; i < resposta.length; i++) {
-                      select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
-                  }
-              }
-              );
-          } else {
-              throw "Houve um erro na API!";
+    .then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          console.log("Nenhum resultado encontrado!!");
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then(function (resposta) {
+          for (var i = 0; i < resposta.length; i++) {
+            select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
           }
-      })
-      .catch(function (resposta) {
-          console.error(resposta);
-      });
+        }
+        );
+      } else {
+        throw "Houve um erro na API!";
+      }
+    })
+    .catch(function (resposta) {
+      console.error(resposta);
+    });
 
   return false;
+}
+
+let boxChamados = document.querySelectorAll(".feed")
+let chamadosAbertos = boxChamados[0]
+let chamadosEmAndamento = boxChamados[1]
+let chamadosEncerrados = boxChamados[2]
+
+function exibirChamados() {
+  // Exibindo o chamado
+  for (let i = 0; i < todosChamados.chamadosAbertos.length; i++) {
+    chamadosAbertos.innerHTML += `<div class="boxChamado">
+                                  <div class="infoChamado">
+                                      <h3>${todosChamados.chamadosAbertos[i].titulo}</h3>
+                                      <div class="infoMaquina">
+                                          <span>Máquina: <span>${todosChamados.chamadosAbertos[i].usuario}</span></span>
+                                          <span>Tipo: <span>${todosChamados.chamadosAbertos[i].tipo}</span></span>
+                                      </div>
+                                  </div>
+                                  <div class="infoAtribuicao">
+                                      <span>${todosChamados.chamadosAbertos[i].nome}</span>
+                                      <span>${todosChamados.chamadosAbertos[i].prioridade}</span>
+                                  </div>
+                              </div> `
+  }
+
+  for(let i = 0; i < todosChamados.chamadosEmAndamento.length; i++){
+    chamadosEmAndamento.innerHTML = `<div class="boxChamado">
+                                      <div class="infoChamado">
+                                          <h3>${todosChamados.chamadosEmAndamento[i].titulo}</h3>
+                                          <div class="infoMaquina">
+                                              <span>Máquina: <span>${todosChamados.chamadosEmAndamento[i].usuario}</span></span>
+                                              <span>Tipo: <span>${todosChamados.chamadosEmAndamento[i].tipo}</span></span>
+                                          </div>
+                                      </div>
+                                      <div class="infoAtribuicao">
+                                          <span>${todosChamados.chamadosEmAndamento[i].nome}</span>
+                                          <span>${todosChamados.chamadosEmAndamento[i].prioridade}</span>
+                                      </div>
+                                  </div> `
+  }
+
+  for(let i = 0; i < todosChamados.chamadosEncerrados.length; i++){
+    chamadosEncerrados.innerHTML = `<div class="boxChamado">
+                                      <div class="infoChamado">
+                                          <h3>${todosChamados.chamadosEncerrados[i].titulo}</h3>
+                                          <div class="infoMaquina">
+                                              <span>Máquina: <span>${todosChamados.chamadosEncerrados[i].usuario}</span></span>
+                                              <span>Tipo: <span>${todosChamados.chamadosEncerrados[i].tipo}</span></span>
+                                          </div>
+                                      </div>
+                                      <div class="infoAtribuicao">
+                                          <span>${todosChamados.chamadosEncerrados[i].nome}</span>
+                                          <span>${todosChamados.chamadosEncerrados[i].prioridade}</span>
+                                      </div>
+                                      </div> `
+  }
+  
+
 }
