@@ -208,11 +208,11 @@ function atualizarListaChamados() {
           console.log("Dados: ", JSON.stringify(resposta))
 
           for (var i = 0; i < resposta.length; i++) {
-            if (resposta[i].estado == "Aberto") {
+            if (resposta[i].estado[0] == "Aberto") {
               todosChamados.chamadosAbertos.push(resposta[i])
-            } else if (resposta[i].estado == ("Em Andamento")) {
+            } else if (resposta[i].estado[0] == ("Em Andamento")) {
               todosChamados.chamadosEmAndamento.push(resposta[i])
-            } else if (resposta[i].estado == ("Encerrado")) {
+            } else if (resposta[i].estado[0] == ("Encerrado")) {
               todosChamados.chamadosEncerrados.push(resposta[i])
             }
           }

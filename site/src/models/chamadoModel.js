@@ -6,10 +6,11 @@ function listar(fkEmpresa) {
 }
 
 function listarChamados(fkEmpresa) {
-    var instrucao = `select chamado.titulo, chamado.tipo, chamado.descricao, chamado.prioridade, chamado.estado, chamado.atribuicao, chamado.fkTotem, chamado.fkEmpresa, usuario.idUsuario, usuario.nome, totem.idTotem, totem.usuario from chamado 
-                    join usuario on usuario.idUsuario = chamado.atribuicao
-                    join totem on chamado.fkTotem = totem.idTotem
-                    where chamado.fkEmpresa = '${fkEmpresa}';`;
+    var instrucao = `select * from chamado
+    left join usuario on chamado.atribuido_id = usuario.idUsuario
+    join totem on chamado.fkTotem = totem.idTotem
+    join unidade on chamado.fkUnidade = unidade.idUnidade
+    where chamado.fkEmpresa = ${fkEmpresa};`;
     return database.executar(instrucao);
 }
 
