@@ -16,16 +16,16 @@ function verificarCnpj(cnpj) {
     var instrucao = `select cnpj from empresa where cnpj = '${cnpj}';`;
     return database.executar(instrucao);
 }
-function cadastrarEmpresa(nome, email, telefone, cnpj) {
-    var instrucao = `INSERT INTO empresa (nome, email, telefone, cnpj) VALUES ('${nome}', '${email}', '${telefone}', '${cnpj}');`;
+function cadastrarEmpresa(nome, email, telefone, cnpj, sigla) {
+    var instrucao = `INSERT INTO empresa (nome, email, telefone, cnpj, sigla) VALUES ('${nome}', '${email}', '${telefone}', '${cnpj}', '${sigla}');`;
     return database.executar(instrucao);
 }
 function cadastrarAlertasEmpresa(cnpj,telefone){
     var instrucao = `INSERT INTO alerta (fkEmpresa) VALUES ((select idEmpresa from Empresa where cnpj = '${cnpj}' and telefone = '${telefone}'));`;
     return database.executar(instrucao);
 }
-function cadastrar(nome, email, telefone, cnpj, emailUser) {
-    cadastrarEmpresa(nome, email, telefone, cnpj);
+function cadastrar(nome, email, telefone, cnpj, emailUser ,sigla) {
+    cadastrarEmpresa(nome, email, telefone, cnpj, sigla);
     cadastrarAlertasEmpresa(cnpj,telefone);
     instrucao = ''
     if (process.env.AMBIENTE_PROCESSO == "producao") {

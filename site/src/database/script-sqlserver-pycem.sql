@@ -8,6 +8,7 @@ nome varchar(60) not null,
 cnpj varchar(18) not null,
 telefone varchar(15) not null unique,
 email varchar(100) not null unique,
+sigla CHAR(2) not null,
 data_cadastro datetime not null default current_timestamp
 );
 
@@ -98,22 +99,24 @@ fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 
 create table chamado(
 idChamado int primary key identity(1,1),
-titulo varchar(30),
-tipo varchar(17) not null default 'Desligamento', constraint chkTipo2 check (tipo in('Desligamento','Sobrecarga', 'MauFuncionamento', 'Outro')),
-prioridade varchar(10) not null default 'P1', constraint chkPrioridade check (tipo in('P1','P2', 'P3'),
-estado varchar(15) not null default 'Aberto', constraint chkEstado check (tipo in('Aberto','Em Andamento', 'Encerrado')),
-criado_por_nome varchar(50) not null,
-criado_por_id int, FOREIGN KEY (atribuido) REFERENCES usuario(idUsuario),
+titulo CHAR(7) not null default '--',
+tipo varchar(17) not null default 'Desligamento', constraint chkTipoChamado check (tipo in('Desligamento','Sobrecarga', 'MauFuncionamento', 'Outro')),
+prioridade varchar(10) not null default 'P1', constraint chkPrioridadeChamado check (prioridade in('P1','P2', 'P3')),
+estado varchar(15) not null default 'Aberto', constraint chkEstadoChamado check (estado in('Aberto','Em Andamento', 'Encerrado')),
+criado_por_nome varchar(50) not null default 'System Administrator',
+criado_por_id int, FOREIGN KEY (criado_por_id) REFERENCES usuario(idUsuario),
 atribuido_nome varchar(50),
-atribuido_id int, FOREIGN KEY (atribuido) REFERENCES usuario(idUsuario),
-data_inicio datetime not null default current_timestamp,
-data_fim datetime,
+atribuido_id int, FOREIGN KEY (atribuido_id) REFERENCES usuario(idUsuario),
+data_inicio varchar(30) not null default FORMAT(DATEADD(Hour, -3, getdate()),'%d/%M/20%y - %H:%m:%s'),
+data_fim varchar(30),
 descricao varchar(255),
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem),
 fkUnidade int, FOREIGN KEY (fkUnidade) REFERENCES unidade(idUnidade),
 fkEmpresa int, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
+insert into chamado(fkTotem, fkUnidade, fkEmpresa) values 
+(1, 1, 100)
 -- TRIGGERS
 
 -- Atualizar titulo dos chamados
@@ -131,16 +134,55 @@ BEGIN
 	SELECT @idTotem = i.fkTotem FROM inserted i
 	SELECT @idEmpresa = i.fkEmpresa FROM inserted i
 
-UPDATE chamado SET titulo = (SELECT FORMAT(@idChamado, CAST('MC'+REPLICATE(0, 8) AS NVARCHAR(8)))) where idChamado = @idChamado;
+UPDATE chamado SET titulo = (SELECT FORMAT((SELECT count(idChamado) from chamado where fkEmpresa = @idEmpresa), CAST((SELECT sigla FROM empresa where idEmpresa = @idEmpresa)+REPLICATE(0, 7) AS NVARCHAR(7)))) where idChamado = @idChamado;
 
 END;
 
+-- Atualizar SLA chamado
+-- SE P1 == 2 HORAS
+-- SE P2 == 4 HORAS
+-- SE P3 == 8 HORAS
+-- SE P4 == 16 HORAS
+-- SE P5 == 24 HORAS
 
-insert into chamado(estado, tipo, descricao, prioridade, atribuicao, fkUnidade, fkEmpresa) values 
-('Aberto', 'Sobrecarga', 'Aaaaaaaa', 'Alta',  1, 1, 100),
-('Em Andamento', 'Sobrecarga', 'Aaaaaaaa', 'Alta', 1, 1, 100),
-('Encerrado', 'Sobrecarga', 'Aaaaaaaa', 'Alta',  1, 1, 100);
+create trigger AtualizarSla
+ON chamado
+AFTER INSERT
+AS
+BEGIN
+	SET NOCOUNT ON;
+    DECLARE @idChamado INT
+	DECLARE @prioridade VARCHAR(30)
+    DECLARE @data_inicio VARCHAR(30)
 
+	SELECT @idChamado = i.idChamado FROM inserted i
+	SELECT @prioridade = i.prioridade FROM inserted i
+	SELECT @data_inicio = i.data_inicio FROM inserted i
+
+	IF (@prioridade = 'P1')
+		BEGIN 
+		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +1, getdate()),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		END
+	ELSE IF(@prioridade = 'P2')
+		BEGIN 
+		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +3, getdate()),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		END
+	ELSE IF(@prioridade = 'P3')
+		BEGIN 
+		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +7, getdate()),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		END
+	ELSE IF(@prioridade = 'P4')
+		BEGIN 
+		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +15, getdate()),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		END
+	ELSE IF(@prioridade = 'P5')
+		BEGIN 
+		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +23, getdate()),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		END
+END;
+
+INSERT INTO chamado(fkTotem, fkUnidade, fkEmpresa) values
+(1, 1, 100);
 
 insert into [dbo].[relatorio] (titulo, descricao, tipo, data_relatorio, fkTotem) values
 ('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),

@@ -7,8 +7,9 @@ function cadastrarEmp() {
   const telefoneVar = telefoneCompany.value;
   const cnpjVar = cnpjCompany.value;
   const emailUserVar = sessionStorage.USER_EMAIL;
+  const siglaCompanyVar = siglaCompany.value;
 
-  if (nomeVar == "" || emailVar == "" || telefoneVar == "" || cnpjVar == "") {
+  if (nomeVar == "" || emailVar == "" || telefoneVar == "" || cnpjVar == "" || siglaCompanyVar == '') {
     toastPadrao('error', 'Preencha os campos estão vazios');
     return false;
   } else if (emailExiste) {
@@ -29,6 +30,7 @@ function cadastrarEmp() {
         telefoneServer: telefoneVar,
         cnpjServer: cnpjVar,
         emailUserServer: emailUserVar,
+        siglaCompanyServer: siglaCompanyVar
       }),
     })
       .then(function (resposta) {
