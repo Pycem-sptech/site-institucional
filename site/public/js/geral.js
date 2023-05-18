@@ -361,5 +361,10 @@ function redirect404() {
         window.location = "erro404.html";
     }, 250);
 }
+function redirectMeuPerfil() {
+    setTimeout(function () {
+        window.location = "meuPerfil.html";
+    }, 250);
+}
 
 

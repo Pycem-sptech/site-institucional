@@ -2,14 +2,14 @@
 create database pycem;
 use pycem;
 
-create table empresa(
-idEmpresa int primary key auto_increment,
-nome varchar(60) not null,
-cnpj varchar(18) not null,
-telefone varchar(15) not null unique,
-email varchar(100) not null unique,
-data_cadastro datetime not null default current_timestamp
-)auto_increment = 100;
+    create table empresa(
+    idEmpresa int primary key auto_increment,
+    nome varchar(60) not null,
+    cnpj varchar(18) not null,
+    telefone varchar(15) not null unique,
+    email varchar(100) not null unique,
+    data_cadastro datetime not null default current_timestamp
+    )auto_increment = 100;
 
 create table alerta(
 idAlerta int primary key auto_increment,

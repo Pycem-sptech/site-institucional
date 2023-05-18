@@ -48,7 +48,7 @@ function editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario) {
 function entrar(email, senha) {
   var instrucao = ''
   if(process.env.AMBIENTE_PROCESSO == "producao"){
-    instrucao = `SELECT 
+    instrucao = `SELECT idUsuario,
     (SELECT SUBSTRING(nome, 1, CHARINDEX(' ', nome + ' ') - 1) AS primeiro_nome FROM usuario WHERE email = '${email}' AND senha = (HASHBYTES('SHA2_256','${senha}'))) as nome, email, cpf, senha, cargo, fkEmpresa FROM usuario WHERE email = '${email}' AND senha = (HASHBYTES('SHA2_256','${senha}'));`;
   }else{
     instrucao = `SELECT * FROM usuario WHERE email = '${email}' AND senha = sha2('${senha}', 256);`;

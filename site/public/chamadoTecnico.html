@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pycem</title>
+    <title>Pycem²</title>
     <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/config.css">
-    <script src="js/geral.js"></script>
+    <link rel="stylesheet" href="css/chamadoTecnico.css">
 </head>
-<body onload="validarSessao()">
+<body>
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -48,66 +47,76 @@
         </div>
     </header>
     <div class="guideText">
-            <span class="welcomeSentence">Configurações do sistema</span>
-            <span class="firstStep">Pycem</span>
+            <span class="welcomeSentence">Meus chamados</span>
+            <span class="firstStep">Chamados</span>
     </div>
+    <div class="divBtnChamado">
+        <button class="btnNovoChamado">Novo chamado +</button>
+    </div>
+
     <main class="main">
         <div class="container">
-            <div onclick="redirectUnit()" class="boxManage">
-                    <div class="iconBox">
-                        <img src="img/storeIcon.svg">
+            <div class="boxListaChamados">
+                <div class="titleBox">
+                    <h1>Aberto</h1>
+                </div>  
+                <div class="feed">
+                <div class="boxChamado">
+                    <div class="infoChamado">
+                        <h3>0002</h3>
+                        <div class="infoMaquina">
+                            <span>Máquina: <span>PY_MACHE</span></span>
+                            <span>Tipo: <span>Mau funcionamento</span></span>
+                        </div>
                     </div>
-                    <div class="titleBox">
-                        <span>Unidades</span>
+                    <div class="infoAtribuicao">
+                        <span>Eduardo</span>
+                        <span>P1</span>
                     </div>
-            </div>
-            <div onclick="redirectMachine()" class="boxManage">
-                <div class="iconBox">
-                    <img src="img/smartphoneIcon.svg">
                 </div>
+                </div>
+            </div>
+            <div class="boxListaChamados">
                 <div class="titleBox">
-                    <span>Máquinas</span>
+                    <h1>Em Andamento</h1>
+                </div>  
+                <div class="feed">
+                    <div class="boxChamado">
+                        <div class="infoChamado">
+                            <h3>0002</h3>
+                            <div class="infoMaquina">
+                                <span>Máquina: <span>PY_MACHE</span></span>
+                                <span>Tipo: <span>Mau funcionamento</span></span>
+                            </div>
+                        </div>
+                        <div class="infoAtribuicao">
+                            <span>Eduardo</span>
+                            <span>P1</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div onclick="redirectAlert()" class="boxManage">
-                <div class="iconBox">
-                    <img src="img/warning(1) 1.svg">
-                </div>
+            <div class="boxListaChamados">
                 <div class="titleBox">
-                    <span>Alertas</span>
+                    <h1>Encerrado</h1>
+                </div>  
+                <div class="feed">
+                    <div class="boxChamado">
+                        <div class="infoChamado">
+                            <h3>0002</h3>
+                            <div class="infoMaquina">
+                                <span>Máquina: <span>PY_MACHE</span></span>
+                                <span>Tipo: <span>Mau funcionamento</span></span>
+                            </div>
+                        </div>
+                        <div class="infoAtribuicao">
+                            <span>Eduardo</span>
+                            <span>P1</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div onclick="redirectFunc()" class="boxManage">
-                <div class="iconBox">
-                    <img src="img/employee(1) 1.svg">
-                </div>
-                <div class="titleBox">
-                    <span>Usuários</span>
-                </div>
-            </div>
-            <div class="boxManage" onclick="redirectMeuPerfil()">
-                <div class="iconBox">
-                    <img src="img/user(1) 1.svg">
-                </div>
-                <div class="titleBox">
-                    <span>Meu Perfil</span>
-                </div>
-            </div>
-        </div>    
+        </div>
     </main>
-            
 </body>
 </html>
-<script>
-    const btnMobile = document.getElementById('btn-mobile');
-
-    function toggleMenu(event) {
-      if (event.type === 'touchstart') event.preventDefault();  
-    const nav = document.getElementById('nav');
-    nav.classList.toggle('active');
-    
-    }
-
-    btnMobile.addEventListener('click', toggleMenu);
-    btnMobile.addEventListener('touchstart', toggleMenu);
-</script>
