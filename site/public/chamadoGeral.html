@@ -9,14 +9,13 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/chamadoTecnico.css">
     <link rel="stylesheet" href="css/modal.css">
-    <script src="./js/geral.js"></script>
-    <script src="./js/modal.js"></script>
-    <script src="./js/chamado.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/geral.js"></script>
+    <script src="js/chamado.js"></script>
+
 </head>
 
-<body onload="validarSessao()">
+<body>
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -24,12 +23,12 @@
                 <h2 onclick="redirectHome()">Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
+                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
-                <img class="iconSidebar telaAtual" src="img/settingIcon.svg" onclick="redirectConfig()">
+                <img class="iconSidebar telaAtual" src="img/settingIcon.svg"><!-- onclick="redirectConfig()" -->
                 <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
             </div>
         </div>
@@ -73,24 +72,24 @@
                 <div class="titleBox">
                     <h1>Aberto</h1>
                 </div>
-                </div>
                 <div class="feed">
+
                 </div>
             </div>
             <div class="boxListaChamados">
                 <div class="titleBox">
                     <h1>Em Andamento</h1>
                 </div>
-                </div>
                 <div class="feed">
+
                 </div>
             </div>
             <div class="boxListaChamados">
                 <div class="titleBox">
                     <h1>Encerrado</h1>
                 </div>
-                </div>
                 <div class="feed">
+
                 </div>
             </div>
         </div>
@@ -180,6 +179,8 @@
                                 <option value="P1">P1</option>
                                 <option value="P2">P2</option>
                                 <option value="P3">P3</option>
+                                <option value="P4">P4</option>
+                                <option value="P5">P5</option>
                             </select></span>
                     </div>
 
@@ -212,8 +213,6 @@
                 </div>
             </div>
         </div>
-
-      
     </main>
 </body>
 
