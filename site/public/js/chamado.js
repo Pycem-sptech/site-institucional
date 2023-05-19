@@ -14,51 +14,57 @@ function buscarChamados() {
 
 }
 
-function criarChamado(){
-    const fkEmpresa = sessionStorage.FK_EMPRESA;
-    const fkMaquina = escolherMaquinaModal.value;
-    const fkUnidade = escolherUnidadeModal.value;
-    const dataInicio = dataInicialModal.value;
-    const prioridade = escolherPrioridadeModal.value;
-    const tipo = escolherTipoModal.value;
-    const descricao = descricaoModal.value;
-    if (dataInicio == "") {
-        toastPadrao('error', 'Preencha os campos que estão vazios!');
-        return false;
-      } else {
-        fetch("/chamado/cadastrarChamado", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-    
-            fkMaquina: fkMaquina,
-            fkUnidade: fkUnidade,
-            dataInicio: dataInicio,
-            prioridade: prioridade,
-            tipo: tipo,
-            descricao:descricao,
-            fkEmpresa:fkEmpresa
-          }),
-        })
-          .then(function (resposta) {
-            console.log("resposta: ", resposta);
-    
-            if (resposta.ok) {
-              console.log('success ' + 'Cadastro realizado com sucesso!')
-            } else {
-              throw "Houve um erro ao tentar realizar o cadastro!";
-            }
-          })
-          .catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-          });
-    
-        return false;
-      }
+function criarChamado() {
+  const fkEmpresa = sessionStorage.FK_EMPRESA;
+  const fkMaquina = 1//escolherMaquinaModal.value;
+  const fkUsuario = 1//escolherAtribuicaoModal.value;
+  const fkUnidade = 1//escolherUnidadeModal.value;
+  const dataInicio = dataInicialModal.value;
+  const dataFim = dataEncerramentoModal.value;
+  const prioridade = escolherPrioridadeModal.value;
+  const status = escolherStatusModal.value;
+  const tipo = escolherTipoModal.value;
+  const descricao = descricaoModal.value;
+  if (fkMaquina == "" || fkUsuario == "" || dataInicio == "" || dataFim == "" || prioridade == "" || status == "" || tipo == "" || fkUnidade == "" || descricao == "") {
+    toastPadrao('error', 'Preencha os campos que estão vazios!');
+    return false;
+  } else {
+    fetch("/chamado/cadastrarChamado", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+
+        fkMaquina: fkMaquina,
+        fkUnidade: fkUnidade,
+        fkUsuario: fkUsuario,
+        dataInicio: dataInicio,
+        dataFim: dataFim,
+        prioridade: prioridade,
+        tipo: tipo,
+        status: status,
+        descricao: descricao,
+        fkEmpresa: fkEmpresa
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          toastPadrao('success', 'Cadastro realizado com sucesso!')
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+  }
 }
-function editarChamado(idChamado=100){
+function editarChamado(idChamado) {
   const fkMaquina = escolherMaquinaModal.value;
   const atribuicao = escolherAtribuicaoModal.value;
   const fkUnidade = escolherUnidadeModal.value;
@@ -68,43 +74,43 @@ function editarChamado(idChamado=100){
   const status = escolherStatusModal.value;
   const tipo = escolherTipoModal.value;
   const descricao = descricaoModal.value;
-    if (fkMaquina == "" || fkUsuario == "" || dataInicio == "" || dataFim == "" || prioridade == "" || status == "" || tipo == "" || fkUnidade == "" || descricao == "") {
-        toastPadrao('error', 'Preencha os campos que estão vazios!');
-        return false;
-      } else {
-        fetch(`/chamado/editarChamado/${idChamado}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-    
-            fkMaquina: fkMaquina,
-            fkUnidade: fkUnidade,
-            atribuicao: atribuicao,
-            dataInicio: dataInicio,
-            dataFim: dataFim,
-            prioridade: prioridade,
-            tipo: tipo,
-            status: status,
-            descricao:descricao
-          }),
-        })
-          .then(function (resposta) {
-            console.log("resposta: ", resposta);
-    
-            if (resposta.ok) {
-              toastPadrao('success', 'Atualização realizada com sucesso!')
-            } else {
-              throw "Houve um erro ao tentar realizar a atualização!";
-            }
-          })
-          .catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-          });
-    
-        return false;
-      }
+  if (fkMaquina == "" || fkUsuario == "" || dataInicio == "" || dataFim == "" || prioridade == "" || status == "" || tipo == "" || fkUnidade == "" || descricao == "") {
+    toastPadrao('error', 'Preencha os campos que estão vazios!');
+    return false;
+  } else {
+    fetch(`/chamado/editarChamado/${idChamado}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+
+        fkMaquina: fkMaquina,
+        fkUnidade: fkUnidade,
+        fkUsuario: fkUsuario,
+        dataInicio: dataInicio,
+        dataFim: dataFim,
+        prioridade: prioridade,
+        tipo: tipo,
+        status: status,
+        descricao: descricao
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          toastPadrao('success', 'Atualização realizada com sucesso!')
+        } else {
+          throw "Houve um erro ao tentar realizar a atualização!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+  }
 }
 
 
@@ -202,11 +208,11 @@ function atualizarListaChamados() {
           console.log("Dados: ", JSON.stringify(resposta))
 
           for (var i = 0; i < resposta.length; i++) {
-            if (resposta[i].estado == "Aberto") {
+            if (resposta[i].estado[0] == "Aberto") {
               todosChamados.chamadosAbertos.push(resposta[i])
-            } else if (resposta[i].estado == ("Em Andamento")) {
+            } else if (resposta[i].estado[0] == ("Em Andamento")) {
               todosChamados.chamadosEmAndamento.push(resposta[i])
-            } else if (resposta[i].estado == ("Encerrado")) {
+            } else if (resposta[i].estado[0] == ("Encerrado")) {
               todosChamados.chamadosEncerrados.push(resposta[i])
             }
           }
@@ -229,34 +235,34 @@ function atualizarListaChamados() {
 atualizarListaChamados();
 
 
-    function atualizarSelectChamado(idSelect) {
-      const select = document.querySelector(idSelect);
-      const fkEmpresa = sessionStorage.FK_EMPRESA;
-      var fkEmpresaVar = fkEmpresa;
-  
-      fetch(`/unidade/listarUnidades/${fkEmpresaVar}`)
-          .then(function (resposta) {
-              if (resposta.ok) {
-                  if (resposta.status == 204) {
-                      console.log("Nenhum resultado encontrado!!");
-                      throw "Nenhum resultado encontrado!!";
-                  }
-                  resposta.json().then(function (resposta) {
-                      for (var i = 0; i < resposta.length; i++) {
-                          select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
-                      }
-                  }
-                  );
-              } else {
-                  throw "Houve um erro na API!";
-              }
-          })
-          .catch(function (resposta) {
-              console.error(resposta);
-          });
-  
-      return false;
-  }
+function atualizarSelectUnidades(idSelect) {
+  const select = document.querySelector(idSelect);
+  const fkEmpresa = sessionStorage.FK_EMPRESA;
+  var fkEmpresaVar = fkEmpresa;
+
+  fetch(`/unidade/listarUnidades/${fkEmpresaVar}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          console.log("Nenhum resultado encontrado!!");
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then(function (resposta) {
+          for (var i = 0; i < resposta.length; i++) {
+            select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
+          }
+        }
+        );
+      } else {
+        throw "Houve um erro na API!";
+      }
+    })
+    .catch(function (resposta) {
+      console.error(resposta);
+    });
+
+  return false;
+}
 
 
 function atualizarSelectMaquina(idSelect) {

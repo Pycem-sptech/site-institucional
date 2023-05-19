@@ -58,10 +58,10 @@ function cadastrar(req, res) {
         res.status(400).send("A identificação da unidade no chamado está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("A identificação da empresa no chamado está undefined!");
-    }else if (status == undefined) {
+    } else if (status == undefined) {
         res.status(400).send("A status do chamado está undefined!");
     } else {
-        chamadoModel.cadastrar(dataInicio, tipo, descricao, prioridade, fkMaquina, fkUnidade, fkEmpresa).then(
+        chamadoModel.cadastrar(descricao, prioridade, status, fkMaquina, fkMaquina, fkUsuario, fkUnidade, fkEmpresa).then(
             function (resultado) {
                 res.json(resultado);
             }
