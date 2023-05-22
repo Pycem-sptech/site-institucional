@@ -291,7 +291,9 @@ function atualizarSelectMaquina(idSelect) {
 }
 
 let boxChamados = document.querySelectorAll(".feed")
+console.log(boxChamados)
 let chamadosAbertos = boxChamados[0]
+console.log(chamadosAbertos)
 let chamadosEmAndamento = boxChamados[1]
 let chamadosEncerrados = boxChamados[2]
 
