@@ -383,6 +383,12 @@ function redirectMeuPerfil() {
         window.location = "meuPerfil.html";
     }, 250);
 }
+
+function redirectChamado(){
+    setTimeout(function () {
+        window.location = "chamadoGeral.html";
+    }, 250);
+}
 function redirect404() {
     setTimeout(function () {
         window.location = "erro404.html";
