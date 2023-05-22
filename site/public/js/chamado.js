@@ -9,8 +9,7 @@ let todosChamados = {
   chamadosEncerrados: []
 }
 
-function buscarChamados() {
-
+function buscarChamados(titulo) {
 
 }
 
