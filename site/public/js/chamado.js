@@ -214,8 +214,6 @@ function atualizarListaChamados() {
             }
           }
 
-          console.log(todosChamados)
-          console.log(resposta[0])
           exibirChamados()
         }
         );
@@ -291,16 +289,14 @@ function atualizarSelectMaquina(idSelect) {
 }
 
 let boxChamados = document.querySelectorAll(".feed")
-console.log(boxChamados)
 let chamadosAbertos = boxChamados[0]
-console.log(chamadosAbertos)
 let chamadosEmAndamento = boxChamados[1]
 let chamadosEncerrados = boxChamados[2]
 
 function exibirChamados() {
   // Exibindo o chamado
   for (let i = 0; i < todosChamados.chamadosAbertos.length; i++) {
-    chamadosAbertos.innerHTML += `<div class="boxChamado">
+    chamadosAbertos.innerHTML += `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosAbertos[i].idChamado})">
                                   <div class="infoChamado">
                                       <h3>${todosChamados.chamadosAbertos[i].titulo}</h3>
                                       <div class="infoMaquina">
@@ -316,7 +312,7 @@ function exibirChamados() {
   }
 
   for(let i = 0; i < todosChamados.chamadosEmAndamento.length; i++){
-    chamadosEmAndamento.innerHTML = `<div class="boxChamado">
+    chamadosEmAndamento.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosEmAndamento[i].idChamado})">
                                       <div class="infoChamado">
                                           <h3>${todosChamados.chamadosEmAndamento[i].titulo}</h3>
                                           <div class="infoMaquina">
@@ -332,7 +328,7 @@ function exibirChamados() {
   }
 
   for(let i = 0; i < todosChamados.chamadosEncerrados.length; i++){
-    chamadosEncerrados.innerHTML = `<div class="boxChamado">
+    chamadosEncerrados.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosEncerrados[i].idChamado})">
                                       <div class="infoChamado">
                                           <h3>${todosChamados.chamadosEncerrados[i].titulo}</h3>
                                           <div class="infoMaquina">
