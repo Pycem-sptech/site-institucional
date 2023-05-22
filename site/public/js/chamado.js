@@ -16,16 +16,15 @@ function buscarChamados() {
 
 function criarChamado() {
   const fkEmpresa = sessionStorage.FK_EMPRESA;
-  const fkMaquina = 1//escolherMaquinaModal.value;
-  const fkUsuario = 1//escolherAtribuicaoModal.value;
-  const fkUnidade = 1//escolherUnidadeModal.value;
-  const dataInicio = dataInicialModal.value;
-  const dataFim = dataEncerramentoModal.value;
-  const prioridade = escolherPrioridadeModal.value;
-  const status = escolherStatusModal.value;
-  const tipo = escolherTipoModal.value;
-  const descricao = descricaoModal.value;
-  if (fkMaquina == "" || fkUsuario == "" || dataInicio == "" || dataFim == "" || prioridade == "" || status == "" || tipo == "" || fkUnidade == "" || descricao == "") {
+  const criado_por_id = sessionStorage.USER_ID;
+  const criado_por_nome = sessionStorage.USER_FULLNAME;
+  const fkMaquina = escolherMaquinaModalNovoChamado.value;
+  const fkUnidade = escolherUnidadeModalNovoChamado.value;
+  const prioridade = escolherPrioridadeModalNovoChamado.value;
+  const tipo = escolherTipoModalNovoChamado.value;
+  const descricao = descricaoModalNovoChamado.value;
+
+  if (fkEmpresa == "" || fkMaquina == "" || criado_por_id == "" || criado_por_nome == "" || prioridade == "" || tipo == "" || fkUnidade == "" || descricao == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
   } else {
@@ -36,16 +35,14 @@ function criarChamado() {
       },
       body: JSON.stringify({
 
+        fkEmpresa: fkEmpresa,
+        criado_por_id: criado_por_id,
+        criado_por_nome: criado_por_nome,
         fkMaquina: fkMaquina,
         fkUnidade: fkUnidade,
-        fkUsuario: fkUsuario,
-        dataInicio: dataInicio,
-        dataFim: dataFim,
         prioridade: prioridade,
         tipo: tipo,
-        status: status,
         descricao: descricao,
-        fkEmpresa: fkEmpresa
       }),
     })
       .then(function (resposta) {

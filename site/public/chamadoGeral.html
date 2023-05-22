@@ -12,10 +12,11 @@
     <script src="js/modal.js"></script>
     <script src="js/geral.js"></script>
     <script src="js/chamado.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
 
-<body>
+<body onload="validarSessao(),atualizarSelectUnidadesNovoChamado(),atualizarSelectMaquinaNovoChamado()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -59,10 +60,11 @@
         <span class="firstStep">Chamados</span>
     </div>
     <div class="divBtnChamado">
+        <button class="btnNovoChamado" onclick="mostrarModalChamado(1)">Abrir chamado teste</button>
         <button class="btnNovoChamado" onclick="mostrarModalNovoChamado()">Novo chamado +</button>
-        <select class="selectFiltrarChamados" name="" id="">
-            <option value="">Todos</option>
-            <option value="">Meus chamados</option>
+        <select class="selectFiltrarChamados" name="" id="filtrarChamados" onchange="filtrarChamados()">
+            <option value="todos">Todos</option>
+            <option value="meusChamados">Meus chamados</option>
         </select>
     </div>
 
@@ -98,22 +100,24 @@
         <div class="overlay" id="overlay">
             <div class="modalChamado" id="modalChamado">
                 <div class="headerModalChamado">
-                    <span class="tituloModal">Chamado ----</span>
+                    <span class="tituloModal">Chamado <span id="titulo">-------</span></span>
                     <span class="fecharModal btnFechar" onclick="fecharModalChamado()"></span>
                 </div>
                 <div class="bodyModal">
                     <div class="bloco">
                         <span class="estilo tamanho10"><span class="subTitulo">Máquina:</span>
                             <select class="selectModal" id="escolherMaquinaModal">
-                                <option value="" disabled></option>
+                                <option value="" disabled selected>Máquina</option>
                             </select></span>
 
                         <span class="estilo tamanho10"><span class="subTitulo">Prioridade:</span>
                             <select class="selectModal" id="escolherPrioridadeModal">
-                                <option value="" disabled></option>
+                                <option value="" disabled selected>Prioridade</option>
                                 <option value="P1">P1</option>
                                 <option value="P2">P2</option>
                                 <option value="P3">P3</option>
+                                <option value="P4">P4</option>
+                                <option value="P5">P5</option>
                             </select></span>
                     </div>
 
@@ -121,7 +125,7 @@
 
                         <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
                             <select class="selectModal" id="escolherUnidadeModal">
-                                <option value="" disabled></option>
+                                <option value="" disabled selected>Unidade</option>
                             </select></span>
                         <span class="estilo tamanho8"><span class="subTitulo">Status:</span>
                             <select class="selectModal" id="escolherStatusModal">
@@ -154,7 +158,7 @@
                 </div>
 
                 <div class="modalFooter">
-                    <button class="btnSalvar" id="btnSalvarModal" onclick="criarChamado()">Salvar</button>
+                    <button class="btnSalvar" id="btnSalvarModal" onclick="editarChamado()">Salvar</button>
                 </div>
             </div>
         </div>
@@ -168,14 +172,15 @@
                 </div>
                 <div class="bodyModal">
                     <div class="bloco">
-                        <span class="estilo tamanho10"><span class="subTitulo">Máquina:</span>
-                            <select class="selectModal" id="escolherMaquinaModal">
-                                <option value="" disabled></option>
-                            </select></span>
+                       
+                        <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
+                        <select class="selectModal" id="escolherUnidadeModalNovoChamado" onchange="atualizarSelectMaquinaNovoChamadoPorUnidade()">
+                            <option value="" disabled selected>Unidade</option>
+                        </select></span>
 
-                        <span class="estilo tamanho10"><span class="subTitulo">Prioridade:</span>
-                            <select class="selectModal" id="escolherPrioridadeModal">
-                                <option value="" disabled></option>
+                        <span class="estilo tamanho8"><span class="subTitulo">Prioridade:</span>
+                            <select class="selectModal" id="escolherPrioridadeModalNovoChamado" >
+                                <option value="" disabled selected>Prioridade</option>
                                 <option value="P1">P1</option>
                                 <option value="P2">P2</option>
                                 <option value="P3">P3</option>
@@ -185,31 +190,30 @@
                     </div>
 
                     <div class="bloco">
-
-                        <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
-                            <select class="selectModal" id="escolherUnidadeModal">
-                                <option value="" disabled></option>
-                            </select></span>
+                        <span class="estilo tamanho8"><span class="subTitulo">Máquina:</span>
+                        <select class="selectModal" id="escolherMaquinaModalNovoChamado" onchange="atualizarSelectUnidadeNovoChamadoPorMaquina()">
+                            <option value="" disabled selected>Máquina</option>
+                        </select></span>
+                        
                         <span class="estilo tamanho8"><span class="subTitulo">Tipo:</span>
-                            <select class="selectModal" id="escolherTipoModal">
-                                <option value="" disabled></option>
+                            <select class="selectModal" id="escolherTipoModalNovoChamado">
+                                <option value="" disabled selected>Tipo</option>
+                                <option value="Desligamento">Desligamento</option>
+                                <option value="Sobrecarga">Sobrecarga</option>
+                                <option value="MauFuncionamento">MauFuncionamento</option>
+                                <option value="Outro">Outro</option>
                             </select></span>
 
                     </div>
-                    <div class="bloco">
-                        <span class="estilo tamanho1"><span class="subTitulo">Data Inicial:</span>
-                            <input class="inputModal" type="date" id="dataInicialModal" disabled></span>
-
-
-                    </div>
+            
                     <div class="bloco">
                         <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
-                            <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
+                            <textarea class="textAreaModal" id="descricaoModalNovoChamado" maxlength="255"></textarea>
                     </div>
                 </div>
 
                 <div class="modalFooter">
-                    <button class="btnSalvar" id="btnSalvarModal" onclick="editarChamado()">Salvar</button>
+                    <button class="btnSalvar" id="btnSalvarModal" onclick="criarChamado()">Salvar</button>
                 </div>
             </div>
         </div>

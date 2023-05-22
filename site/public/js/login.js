@@ -30,7 +30,9 @@ function fazerLogin() {
         console.log(JSON.stringify(json));
 
         sessionStorage.USER_EMAIL = json.email;
+        sessionStorage.USER_ID = json.idUsuario;
         sessionStorage.USER_NAME = json.nome;
+        sessionStorage.USER_FULLNAME = json.nomeCompleto;
         sessionStorage.USER_CARGO = json.cargo;
         sessionStorage.FK_EMPRESA = json.fkEmpresa;
         listarAlertas();

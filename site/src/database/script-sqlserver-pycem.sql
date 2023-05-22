@@ -101,7 +101,7 @@ create table chamado(
 idChamado int primary key identity(1,1),
 titulo CHAR(7) not null default '--',
 tipo varchar(17) not null default 'Desligamento', constraint chkTipoChamado check (tipo in('Desligamento','Sobrecarga', 'MauFuncionamento', 'Outro')),
-prioridade varchar(10) not null default 'P1', constraint chkPrioridadeChamado check (prioridade in('P1','P2', 'P3')),
+prioridade varchar(10) not null default 'P1', constraint chkPrioridadeChamado check (prioridade in('P1','P2', 'P3','P4','P5')),
 estado varchar(15) not null default 'Aberto', constraint chkEstadoChamado check (estado in('Aberto','Em Andamento', 'Encerrado')),
 criado_por_nome varchar(50) not null default 'System Administrator',
 criado_por_id int, FOREIGN KEY (criado_por_id) REFERENCES usuario(idUsuario),
@@ -157,32 +157,34 @@ BEGIN
 
 	SELECT @idChamado = i.idChamado FROM inserted i
 	SELECT @prioridade = i.prioridade FROM inserted i
-	SELECT @data_inicio = i.data_inicio FROM inserted i
+	SELECT @data_inicio = DATEADD(Hour, -3, getdate())
 
 	IF (@prioridade = 'P1')
 		BEGIN 
-		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +1, getdate()),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +2, @data_inicio),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
 		END
 	ELSE IF(@prioridade = 'P2')
 		BEGIN 
-		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +3, getdate()),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +4, @data_inicio),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
 		END
 	ELSE IF(@prioridade = 'P3')
 		BEGIN 
-		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +7, getdate()),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +8, @data_inicio),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
 		END
 	ELSE IF(@prioridade = 'P4')
 		BEGIN 
-		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +15, getdate()),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +16, @data_inicio),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
 		END
 	ELSE IF(@prioridade = 'P5')
 		BEGIN 
-		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +23, getdate()),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +24, @data_inicio),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
 		END
 END;
 
-INSERT INTO chamado(fkTotem, fkUnidade, fkEmpresa) values
-(1, 1, 100);
+INSERT INTO chamado(prioridade,fkTotem, fkUnidade, fkEmpresa) values
+('P2',1, 1, 100);
+
+select top 1 * from chamado order by idChamado desc
 
 insert into [dbo].[relatorio] (titulo, descricao, tipo, data_relatorio, fkTotem) values
 ('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),

@@ -10,6 +10,15 @@ router.get("/listarChamados/:fkEmpresa", function (req, res) {
 router.get("/listarChamadoFiltrado/:fkUsuario", function (req, res) {
     chamadoController.listar(req, res);
 });
+router.get("/listarMaquinasPorUnidade/:fkUnidade", function (req, res) {
+    chamadoController.listarMaquinasPorUnidade(req, res);
+});
+router.get("/listarUnidadesPorMaquina/:idTotem", function (req, res) {
+    chamadoController.listarUnidadesPorMaquina(req, res);
+});
+router.get("/buscarChamado/:idChamado", function (req, res) {
+    chamadoController.buscarChamado(req, res);
+});
 
 router.post("/cadastrarChamado/", function (req, res) {
     chamadoController.cadastrar(req, res);

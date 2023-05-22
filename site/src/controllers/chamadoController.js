@@ -33,16 +33,61 @@ function listarChamados(req, res) {
     );
 
 }
+function listarMaquinasPorUnidade(req, res) {
+    const fkUnidade = req.params.fkUnidade;
+
+    chamadoModel.listarMaquinasPorUnidade(fkUnidade).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+
+}
+function listarUnidadesPorMaquina(req, res) {
+    const idTotem = req.params.idTotem;
+
+    chamadoModel.listarUnidadesPorMaquina(idTotem).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+
+}
+function buscarChamado(req, res) {
+    const idChamado = req.params.idChamado;
+
+    chamadoModel.buscarChamado(idChamado).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+
+}
 
 function cadastrar(req, res) {
+    const fkEmpresa = req.body.fkEmpresa;
+    const criado_por_id = req.body.criado_por_id;
+    const criado_por_nome = req.body.criado_por_nome;
     const fkMaquina = req.body.fkMaquina;
     const fkUnidade = req.body.fkUnidade;
-    const dataInicio = req.body.dataInicio;
     const prioridade = req.body.prioridade;
     const tipo = req.body.tipo;
     const descricao = req.body.descricao;
-    const fkEmpresa = req.body.fkEmpresa;
-
 
     if (fkMaquina == undefined) {
         res.status(400).send("Seu fkMaquina está undefined!");
@@ -50,18 +95,18 @@ function cadastrar(req, res) {
         res.status(400).send("Sua descricao está undefined!");
     } else if (prioridade == undefined) {
         res.status(400).send("Sua prioridade está undefined!");
-    }else if (dataInicio == undefined) {
-        res.status(400).send("Sua dataInicio está undefined!");
     } else if (tipo == undefined) {
         res.status(400).send("A identificação do relatorio no chamado está undefined!");
     } else if (fkUnidade == undefined) {
         res.status(400).send("A identificação da unidade no chamado está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("A identificação da empresa no chamado está undefined!");
-    } else if (status == undefined) {
-        res.status(400).send("A status do chamado está undefined!");
+    } else if (criado_por_id == undefined) {
+        res.status(400).send("A identificação do usuario no chamado está undefined!");
+    } else if (criado_por_nome == undefined) {
+        res.status(400).send("A identificação do usuario no chamado está undefined!");
     } else {
-        chamadoModel.cadastrar(descricao, prioridade, status, fkMaquina, fkMaquina, fkUsuario, fkUnidade, fkEmpresa).then(
+        chamadoModel.cadastrar(descricao, prioridade, fkMaquina, criado_por_id, criado_por_nome,fkUnidade, fkEmpresa).then(
             function (resultado) {
                 res.json(resultado);
             }
@@ -144,8 +189,11 @@ function deletar(req, res) {
 
 module.exports = {
     listar,
+    listarChamados,
+    listarMaquinasPorUnidade,
+    listarUnidadesPorMaquina,
+    buscarChamado,
     cadastrar,
     editar,
     deletar,
-    listarChamados
 }
