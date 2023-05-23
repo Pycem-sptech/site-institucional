@@ -10,7 +10,7 @@ let todosChamados = {
 }
 
 function buscarChamados(titulo) {
-
+                ' '
 }
 
 function criarChamado() {
@@ -61,15 +61,14 @@ function criarChamado() {
   }
 }
 function editarChamado(idChamado) {
-  const fkMaquina = escolherMaquinaModal.value;
   const atribuicao = escolherAtribuicaoModal.value;
-  const fkUnidade = escolherUnidadeModal.value;
   const dataInicio = dataInicialModal.value;
   const dataFim = dataEncerramentoModal.value;
   const prioridade = escolherPrioridadeModal.value;
   const status = escolherStatusModal.value;
   const tipo = escolherTipoModal.value;
   const descricao = descricaoModal.value;
+  
   if (fkMaquina == "" || fkUsuario == "" || dataInicio == "" || dataFim == "" || prioridade == "" || status == "" || tipo == "" || fkUnidade == "" || descricao == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
