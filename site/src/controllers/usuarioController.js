@@ -37,6 +37,24 @@ function listarFuncionarios(req, res) {
   });
 }
 
+function listarTecnicos(req, res) {
+  var fkEmpresa = req.params.fkEmpresa;
+  usuarioModel.listarTecnicos(fkEmpresa).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum resultado encontrado!");
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log(
+      "Houve um erro ao realizar a consulta! Erro: ",
+      erro.sqlMessage
+    );
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
 function filtrarFuncionarios(req, res) {
   const nomeDigitado = req.params.nomeDigitado;
   const fkEmpresa = req.params.fkEmpresa;
@@ -285,6 +303,7 @@ module.exports = {
   autenticar,
   cadastrarFuncionario,
   listarFuncionarios,
+  listarTecnicos,
   editarFuncinario,
   deletar,
   listarDadosFuncionario,
