@@ -24,6 +24,10 @@ function listarFuncionarios(fkEmpresa) {
   var instrucao = `select nome, cargo, idUsuario from usuario where fkEmpresa = ${fkEmpresa} AND (cargo = 'Tecnico' OR cargo = 'Supervisor');`;
   return database.executar(instrucao);
 }
+function listarTecnicos(fkEmpresa) {
+  var instrucao = `select nome, idUsuario from usuario where fkEmpresa = ${fkEmpresa} AND cargo = 'Tecnico';`;
+  return database.executar(instrucao);
+}
 
 function filtrarFuncionarios(nomeDigitado, fkEmpresa) {
   var instrucao = `select idUsuario, nome, cargo from usuario where nome like '${nomeDigitado}%' and (cargo in ('Supervisor', 'Tecnico')) and fkEmpresa = ${fkEmpresa};`;
@@ -83,6 +87,7 @@ function cadastrarFuncionario(nome, email, cpf, senha, cargo, fkEmpresa) {
 module.exports = {
   listar,
   listarFuncionarios,
+  listarTecnicos,
   listarDadosFuncionario,
   verificarCpf,
   verificarEmail,

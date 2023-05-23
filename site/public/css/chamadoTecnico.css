@@ -58,6 +58,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: scroll;
 }
 .feed::-webkit-scrollbar {
     width: 10px;

@@ -428,8 +428,9 @@ function deletarFuncionario(idFuncionario) {
   })
 }
 
-function atualizarSelectUnidadesNovoChamado() {
-  const select = document.querySelector('#escolherUnidadeModalNovoChamado');
+function atualizarSelectUnidadesChamado() {
+  const selectChamado = document.querySelector('#escolherUnidadeModal');
+  const selectNovoChamado = document.querySelector('#escolherUnidadeModalNovoChamado');
   const fkEmpresa = sessionStorage.FK_EMPRESA;
   var fkEmpresaVar = fkEmpresa;
 
@@ -442,7 +443,8 @@ function atualizarSelectUnidadesNovoChamado() {
         }
         resposta.json().then(function (resposta) {
           for (var i = 0; i < resposta.length; i++) {
-            select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
+            selectChamado.options[selectChamado.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
+            selectNovoChamado.options[selectNovoChamado.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
           }
         }
         );
@@ -457,8 +459,9 @@ function atualizarSelectUnidadesNovoChamado() {
   return false;
 }
 
-function atualizarSelectMaquinaNovoChamado() {
-  const select = document.querySelector('#escolherMaquinaModalNovoChamado');
+function atualizarSelectMaquinaChamado() {
+  const selectChamado = document.querySelector('#escolherMaquinaModal');
+  const selectNovoChamado = document.querySelector('#escolherMaquinaModalNovoChamado');  
   const fkEmpresa = sessionStorage.FK_EMPRESA;
   var fkEmpresaVar = fkEmpresa;
   fetch(`/maquina/listarMaquinas/${fkEmpresaVar}`)
@@ -470,7 +473,8 @@ function atualizarSelectMaquinaNovoChamado() {
         }
         resposta.json().then(function (resposta) {
           for (var i = 0; i < resposta.length; i++) {
-            select.options[select.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
+            selectChamado.options[selectChamado.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
+            selectNovoChamado.options[selectNovoChamado.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
           }
         }
         );
@@ -516,7 +520,7 @@ function atualizarSelectUnidadeNovoChamadoPorMaquina() {
   return false;
 }
 
-function atualizarSelectMaquinaNovoChamadoPorUnidade() {
+function atualizarSelectMaquinaChamadoPorUnidade() {
   const select = document.querySelector('#escolherMaquinaModalNovoChamado');
   const unidadeSelecionada = escolherUnidadeModalNovoChamado.value;
   fetch(`/chamado/listarMaquinasPorUnidade/${unidadeSelecionada}`)
@@ -538,6 +542,34 @@ function atualizarSelectMaquinaNovoChamadoPorUnidade() {
             select.options[select.options.length] = new Option('Nenhuma Máquina encontrada', '');
             select.options[select.options.length - 1].disabled = true;
           }
+        }
+        );
+      } else {
+        throw "Houve um erro na API!";
+      }
+    })
+    .catch(function (resposta) {
+      console.error(resposta);
+    });
+
+  return false;
+}
+
+function atualizarSelectAtribuicaoChamado() {
+  const select = document.querySelector('#escolherAtribuicaoModal');
+  const empresa = sessionStorage.FK_EMPRESA;
+  fetch(`/usuario/listarTecnicos/${empresa}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          console.log("Nenhum resultado encontrado!!");
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then(function (resposta) {
+          for (var i = 0; i < resposta.length; i++) {
+            select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUsuario);
+          }
+      
         }
         );
       } else {
