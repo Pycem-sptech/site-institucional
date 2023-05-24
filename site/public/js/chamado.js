@@ -345,3 +345,62 @@ function exibirChamados() {
   
 
 }
+
+function atualizarDadosModal(idChamado){
+  let selectMaquina = document.querySelector("#escolherMaquinaModal")
+  for(var i = 0; i < todosChamados.chamadosAbertos.length; i++){
+    if(idChamado == todosChamados.chamadosAbertos[i].idChamado){
+      for(var j = 0; j < selectMaquina.options.length; j++){
+        if(todosChamados.chamadosAbertos[i].idTotem == selectMaquina.options[j].value){
+          selectMaquina.options[j].selected = true;
+        }
+      }
+    }
+  }
+  
+  let selectUnidade = document.querySelector("#escolherUnidadeModal")
+  for(var i = 0; i < todosChamados.chamadosAbertos.length; i++){
+    if(idChamado == todosChamados.chamadosAbertos[i].idChamado){
+      for(var j = 0; j < selectUnidade.options.length; j++){
+        if(todosChamados.chamadosAbertos[i].idUnidade == selectUnidade.options[j].value){
+          selectUnidade.options[j].selected = true;
+        }
+      }
+    }
+  }
+  
+  let selectPrioridade = document.querySelector('#escolherPrioridadeModal');
+  for(var i = 0; i < todosChamados.chamadosAbertos.length; i++){
+    if(idChamado == todosChamados.chamadosAbertos[i].idChamado){
+      for(var j = 0; j < selectPrioridade.options.length; j++){
+        if(todosChamados.chamadosAbertos[i].prioridade == selectPrioridade.options[j].value){
+          selectPrioridade.options[j].selected = true;
+        }
+      }
+    }
+  }
+
+  let selectEstado = document.querySelector('#escolherEstadoModal')
+  for(var i = 0; i < todosChamados.chamadosAbertos.length; i++){
+    if(idChamado == todosChamados.chamadosAbertos[i].idChamado){
+      for(var j = 0; j < selectEstado.options.length; j++){
+        if(todosChamados.chamadosAbertos[i].estado[0] == selectEstado.options[j].value){
+          selectEstado.options[j].selected = true;
+        }
+      }
+    }
+  }
+
+  let selectTipo = document.querySelector('#escolherTipoModal')
+  for(var i = 0; i < todosChamados.chamadosAbertos.length; i++){
+    if(idChamado == todosChamados.chamadosAbertos[i].idChamado){
+      for(var j = 0; j < selectTipo.options.length; j++){
+        if(todosChamados.chamadosAbertos[i].tipo == selectTipo.options[j].value){
+          selectTipo.options[j].selected = true;
+        }
+      }
+    }
+  }
+
+  
+}

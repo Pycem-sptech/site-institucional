@@ -18,19 +18,14 @@ function mostrarModalChamado(idChamado) {
           //Atualiza o modal
           let tituloModal = document.getElementById("titulo");
           tituloModal.innerHTML = resposta[0].titulo;
-
+          atualizarDadosModal(idChamado)
           //Atualiza a Máquina
           //Atualiza a Unidade
 
 
           //Atualiza a prioridade
-          let selectPrioridade = document.querySelector('#escolherPrioridadeModal');
-          for (var i = 0; i < selectPrioridade.options.length; i++) {
-            if (resposta[0].prioridade == selectPrioridade.options[i].value) {
-              selectPrioridade.options[i].selected = true;
-            }
-          }
-
+          
+          
 
           //Mostra o modal
           let overlay = document.querySelector('.overlay')
