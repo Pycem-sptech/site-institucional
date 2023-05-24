@@ -6,7 +6,7 @@ function mostrarModal(id) {
   modal.style.display = 'block';
 }
 
-function mostrarModalChamado(idChamado) {
+function mostrarModalChamado(idChamado, statusChamado) {
   fetch(`/chamado/buscarChamado/${idChamado}`)
     .then(function (resposta) {
       if (resposta.ok) {
@@ -18,7 +18,7 @@ function mostrarModalChamado(idChamado) {
           //Atualiza o modal
           let tituloModal = document.getElementById("titulo");
           tituloModal.innerHTML = resposta[0].titulo;
-          atualizarDadosModal(idChamado)
+          atualizarDadosModal(idChamado, statusChamado)
           //Atualiza a Máquina
           //Atualiza a Unidade
 
