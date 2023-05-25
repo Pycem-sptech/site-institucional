@@ -7,6 +7,12 @@
     <title>Pycem²</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/meuPerfil.css">
+    <script src="js/gerenciarFuncionario.js"></script>
+    <script src="js/geral.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 </head>
 <body>
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
@@ -53,25 +59,27 @@
         <div class="boxPerfil">
             <h2>Perfil</h2>
             <div class="inputField">
-                <input type="text" class="campoEntradaDado inputNome" placeholder="Nome Completo">
-                <select name="" id="" class="campoEntradaDado selectCargo">
+                <input type="text" id="inputNome" class="campoEntradaDado inputNome" placeholder="Nome Completo">
+                <select name="" id="selectCargo" class="campoEntradaDado selectCargo">
                     <option value="">Cargo</option>
-                    <option value="">Gerente</option>
-                    <option value="">Técnico</option>
+                    <option value="Dono">Dono</option>
+                    <option value="Gerente">Gerente</option>
+                    <option value="Técnico">Técnico</option>
                 </select>
-                <input type="text" class="campoEntradaDado inputCpf" placeholder="CPF">
-                <input type="text" class="campoEntradaDado inputEmail" placeholder="Email">
-                <input type="text" class="campoEntradaDado inputSenha atual" placeholder="Senha atual">
-                <input type="text" class="campoEntradaDado inputSenha" placeholder="Nova Senha">
+                <input type="text" id="inputCpf" class="campoEntradaDado inputCpf" placeholder="CPF">
+                <input type="text" id="inputEmail" class="campoEntradaDado inputEmail" placeholder="Email">
+                <input type="text" id="inputSenha" class="campoEntradaDado inputSenha atual" placeholder="Senha atual">
+                <input type="text" id="inputConfirmarSenha" class="campoEntradaDado inputSenha" placeholder="Nova Senha">
             </div>
             <div class="divBtn">
-                <button onclick="botao()" class="btnSalvar">Salvar</button>
+                <button onclick="atualizarDadosUsuarioLogado(sessionStorage.USER_ID)" class="btnSalvar">Salvar</button>
             </div>
         </div>
     </main>
 </body>
 </html>
 <script>
+    window.onload = buscarDadosUsuarioLogado(sessionStorage.USER_ID);
     const btnMobile = document.getElementById('btn-mobile');
 
     function toggleMenu(event) {

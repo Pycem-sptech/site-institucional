@@ -28,7 +28,8 @@ function fazerLogin() {
       resposta.json().then(json => {
         console.log(json);
         console.log(JSON.stringify(json));
-
+        
+        sessionStorage.USER_ID = json.idUsuario;
         sessionStorage.USER_EMAIL = json.email;
         sessionStorage.USER_ID = json.idUsuario;
         sessionStorage.USER_NAME = json.nome;
