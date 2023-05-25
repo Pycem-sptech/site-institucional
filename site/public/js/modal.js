@@ -7,6 +7,7 @@ function mostrarModal(id) {
 }
 
 function mostrarModalChamado(idChamado, statusChamado) {
+  sessionStorage.ID_CHAMADO_ATUAL = idChamado;
   fetch(`/chamado/buscarChamado/${idChamado}`)
     .then(function (resposta) {
       if (resposta.ok) {

@@ -31,14 +31,16 @@ function cadastrar(descricao, prioridade, fkMaquina, criado_por_id, criado_por_n
     return database.executar(instrucao);
 }
 
-function editar(idChamado, descricao, prioridade, estado, atribuicao) {
+function editar(idChamado, resolucao, descricao, tipo, prioridade, estado, atribuicao, fkMaquina) {
     var instrucao = `update chamado set 
-    atribuicao_id = ${atribuicao},
-    atribuicao_nome = (select nome from usuario where idUsuario = ${atribuicao}),
+    atribuido_id = ${atribuicao},
+    atribuido_nome = (select nome from usuario where idUsuario = ${atribuicao}),
     descricao = '${descricao}',
+    resolucao = '${resolucao}',
     prioridade = '${prioridade}',
     estado = '${estado}',
-    atribuicao = '${atribuicao}',
+    tipo = '${tipo}',
+    fkTotem = '${fkMaquina}'
     where idChamado = '${idChamado}';`;
     return database.executar(instrucao);
 }
