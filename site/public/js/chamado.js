@@ -62,14 +62,13 @@ function criarChamado() {
 }
 function editarChamado(idChamado) {
   const atribuicao = escolherAtribuicaoModal.value;
-  const dataInicio = dataInicialModal.value;
-  const dataFim = dataEncerramentoModal.value;
   const prioridade = escolherPrioridadeModal.value;
   const status = escolherStatusModal.value;
   const tipo = escolherTipoModal.value;
   const descricao = descricaoModal.value;
+
   
-  if (fkMaquina == "" || fkUsuario == "" || dataInicio == "" || dataFim == "" || prioridade == "" || status == "" || tipo == "" || fkUnidade == "" || descricao == "") {
+  if ( fkUsuario == ""  || prioridade == "" || status == "" || tipo == "" ||  descricao == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
   } else {
@@ -79,16 +78,14 @@ function editarChamado(idChamado) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-
-        fkMaquina: fkMaquina,
-        fkUnidade: fkUnidade,
         fkUsuario: fkUsuario,
-        dataInicio: dataInicio,
-        dataFim: dataFim,
+        // dataInicio: dataInicio,
+        // dataFim: dataFim,
         prioridade: prioridade,
         tipo: tipo,
         status: status,
-        descricao: descricao
+        descricao: descricao,
+        atribuicao: atribuicao
       }),
     })
       .then(function (resposta) {

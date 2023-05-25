@@ -31,8 +31,15 @@ function cadastrar(descricao, prioridade, fkMaquina, criado_por_id, criado_por_n
     return database.executar(instrucao);
 }
 
-function editar(idChamado, titulo, descricao, prioridade, estado, atribuicao, fkTotem, fkRelatorio, fkUnidade) {
-    var instrucao = `update chamado set titulo = '${titulo}',descricao = '${descricao}',prioridade = '${prioridade}',estado = '${estado}',atribuicao = '${atribuicao}',fkTotem = '${fkTotem}',fkRelatorio = '${fkRelatorio}',fkUnidade = '${fkUnidade}' where idChamado = '${idChamado}';`;
+function editar(idChamado, descricao, prioridade, estado, atribuicao) {
+    var instrucao = `update chamado set 
+    atribuicao_id = ${atribuicao},
+    atribuicao_nome = (select nome from usuario where idUsuario = ${atribuicao}),
+    descricao = '${descricao}',
+    prioridade = '${prioridade}',
+    estado = '${estado}',
+    atribuicao = '${atribuicao}',
+    where idChamado = '${idChamado}';`;
     return database.executar(instrucao);
 }
 function deletar(idChamado) {
