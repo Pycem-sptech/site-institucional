@@ -42,7 +42,25 @@ function deletar(idFuncionario) {
 function editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario) {
   var instrucao = ''
   if(process.env.AMBIENTE_PROCESSO == "producao"){
-    instrucao = `UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = (HASHBYTES('SHA2_256','${senha}')) WHERE idUsuario =' ${idFuncionario}';`;
+    instrucao = `
+    IF (SELECT senha FROM usuario where idUsuario = ${idFuncionario}) > 0
+
+   BEGIN
+
+   UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}' WHERE idUsuario =' ${idFuncionario}';
+
+   END
+
+ELSE
+
+   BEGIN
+
+   UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = (HASHBYTES('SHA2_256','${senha}')) WHERE idUsuario =' ${idFuncionario}';
+
+   END
+    
+    
+    `;
   }else{
     instrucao = `UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = sha2('${senha}', 256) WHERE idUsuario = '${idFuncionario}';`;
   }
