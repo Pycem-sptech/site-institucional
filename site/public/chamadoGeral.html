@@ -49,8 +49,8 @@
                 </ul>
             </nav>
             <div class="user">
-                <h4 class="usuarioLogado">Usuário</h4>
-                <img class="iconUser" src="img/personIcon.svg">
+                <h4 class="usuarioLogado" onclick="redirectMeuPerfil()">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg" onclick="redirectMeuPerfil()">
             </div>
         </div>
     </header>
@@ -164,12 +164,12 @@
 
                     <div class="bloco">
                         <span class="estilo tamanho9"><span class="subTitulo">Resolução:</span>
-                            <textarea disabled class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
+                            <textarea disabled class="textAreaModal" id="resolucaoModal" maxlength="255"></textarea>
                     </div>
                 </div>
 
                 <div class="modalFooter">
-                    <button class="btnSalvar" id="btnSalvarModal" onclick="editarChamado()">Salvar</button>
+                    <button class="btnSalvar" id="btnSalvarModal" onclick="editarChamado(sessionStorage.ID_CHAMADO_ATUAL)">Salvar</button>
                 </div>
             </div>
         </div>

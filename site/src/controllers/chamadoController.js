@@ -124,25 +124,27 @@ function editar(req, res) {
     const atribuicao = req.body.atribuicao;
     const prioridade = req.body.prioridade;
     const estado = req.body.status;
- 
     const tipo = req.body.tipo;
     const descricao = req.body.descricao;
-
+    const resolucao = req.body.resolucao;
+    const fkMaquina = req.body.fkMaquina;
 
     if (atribuicao == undefined) {
-        res.status(400).send("Seu fkMaquina do chamado está undefined!");
+        res.status(400).send("Sua atribuição do chamado está undefined!");
     } else if (descricao == undefined) {
         res.status(400).send("A descricao do chamado está undefined!");
     } else if (prioridade == undefined) {
         res.status(400).send("A prioridade do chamado está undefined!");
     } else if (estado == undefined) {
         res.status(400).send("Sua estado do chamado está undefined!");
-    } else if (atribuicao == undefined) {
-        res.status(400).send("A atribuicao do chamado está undefined!");
-    }  else if (tipo == undefined) {
+    }   else if (tipo == undefined) {
         res.status(400).send("A tipo no chamado está undefined!");
+    } else if (resolucao == undefined) {
+        res.status(400).send("A resolucao no chamado está undefined!");
+    } else if (fkMaquina == undefined) {
+        res.status(400).send("A fkMaquina no chamado está undefined!");
     }else {
-        chamadoModel.editar(idChamado, descricao, tipo, prioridade, estado, atribuicao, dataInicio, dataFim, fkTotem, fkUnidade).then(
+        chamadoModel.editar(idChamado, resolucao, descricao, tipo, prioridade, estado, atribuicao, fkMaquina).then(
             function (resultado) {
                 res.json(resultado);
             }

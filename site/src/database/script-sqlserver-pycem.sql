@@ -110,7 +110,7 @@ atribuido_id int, FOREIGN KEY (atribuido_id) REFERENCES usuario(idUsuario),
 data_inicio varchar(30) not null default FORMAT(DATEADD(Hour, -3, getdate()),'%d/%M/20%y - %H:%m:%s'),
 data_fim varchar(30),
 descricao varchar(255),
-solucao varchar(255),
+resolucao varchar(255),
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem),
 fkUnidade int, FOREIGN KEY (fkUnidade) REFERENCES unidade(idUnidade),
 fkEmpresa int, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
