@@ -43,19 +43,19 @@ function editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario) {
   var instrucao = ''
   if(process.env.AMBIENTE_PROCESSO == "producao"){
     instrucao = `
-    IF (SELECT senha FROM usuario where idUsuario = ${idFuncionario}) > 0
+    IF (SELECT senha FROM usuario where idUsuario = ${idFuncionario}) in ('${senha}')
 
-   BEGIN
+      BEGIN
 
-   UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}' WHERE idUsuario =' ${idFuncionario}';
+    UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}' WHERE idUsuario =' ${idFuncionario}'
 
-   END
+    END
 
-ELSE
+    ELSE
 
-   BEGIN
+      BEGIN
 
-   UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = (HASHBYTES('SHA2_256','${senha}')) WHERE idUsuario =' ${idFuncionario}';
+    UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = (HASHBYTES('SHA2_256','${senha}')) WHERE idUsuario =' ${idFuncionario}'
 
    END
     
