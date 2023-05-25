@@ -291,7 +291,7 @@ let chamadosEncerrados = boxChamados[2]
 function exibirChamados() {
   // Exibindo o chamado
   for (let i = 0; i < todosChamados.chamadosAbertos.length; i++) {
-    chamadosAbertos.innerHTML += `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosAbertos[i].idChamado})">
+    chamadosAbertos.innerHTML += `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosAbertos[i].idChamado}, 'chamadosAbertos')">
                                   <div class="infoChamado">
                                       <h3>${todosChamados.chamadosAbertos[i].titulo}</h3>
                                       <div class="infoMaquina">
@@ -307,7 +307,7 @@ function exibirChamados() {
   }
 
   for(let i = 0; i < todosChamados.chamadosEmAndamento.length; i++){
-    chamadosEmAndamento.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosEmAndamento[i].idChamado})">
+    chamadosEmAndamento.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosEmAndamento[i].idChamado}, 'chamadosEmAndamento')">
                                       <div class="infoChamado">
                                           <h3>${todosChamados.chamadosEmAndamento[i].titulo}</h3>
                                           <div class="infoMaquina">
@@ -323,7 +323,7 @@ function exibirChamados() {
   }
 
   for(let i = 0; i < todosChamados.chamadosEncerrados.length; i++){
-    chamadosEncerrados.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosEncerrados[i].idChamado})">
+    chamadosEncerrados.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosEncerrados[i].idChamado}, 'chamadosEncerrados')">
                                       <div class="infoChamado">
                                           <h3>${todosChamados.chamadosEncerrados[i].titulo}</h3>
                                           <div class="infoMaquina">
@@ -339,4 +339,101 @@ function exibirChamados() {
   }
   
 
+}
+
+function atualizarDadosModal(idChamado, statusChamado){
+  let selectMaquina = document.querySelector("#escolherMaquinaModal")
+  for(var i = 0; i < todosChamados[statusChamado].length; i++){
+    if(idChamado == todosChamados[statusChamado][i].idChamado){
+      for(var j = 0; j < selectMaquina.options.length; j++){
+        if(todosChamados[statusChamado][i].idTotem == selectMaquina.options[j].value){
+          selectMaquina.options[j].selected = true;
+        }
+      }
+    }
+  }
+  
+  let selectUnidade = document.querySelector("#escolherUnidadeModal")
+  for(var i = 0; i < todosChamados[statusChamado].length; i++){
+    if(idChamado == todosChamados[statusChamado][i].idChamado){
+      for(var j = 0; j < selectUnidade.options.length; j++){
+        if(todosChamados[statusChamado][i].idUnidade == selectUnidade.options[j].value){
+          selectUnidade.options[j].selected = true;
+        }
+      }
+    }
+  }
+  
+  let selectPrioridade = document.querySelector('#escolherPrioridadeModal');
+  for(var i = 0; i < todosChamados[statusChamado].length; i++){
+    if(idChamado == todosChamados[statusChamado][i].idChamado){
+      for(var j = 0; j < selectPrioridade.options.length; j++){
+        if(todosChamados[statusChamado][i].prioridade == selectPrioridade.options[j].value){
+          selectPrioridade.options[j].selected = true;
+        }
+      }
+    }
+  }
+
+ 
+  let selectEstado = document.querySelector('#escolherEstadoModal')
+  for(var i = 0; i < todosChamados[statusChamado].length; i++){
+    if(idChamado == todosChamados[statusChamado][i].idChamado){
+      for(var j = 0; j < selectEstado.options.length; j++){
+        if(todosChamados[statusChamado][i].estado[0] == selectEstado.options[j].value){
+          selectEstado.options[j].selected = true;
+        }
+      }
+    }
+  }
+
+  let selectTipo = document.querySelector('#escolherTipoModal')
+  for(var i = 0; i < todosChamados[statusChamado].length; i++){
+    if(idChamado == todosChamados[statusChamado][i].idChamado){
+      for(var j = 0; j < selectTipo.options.length; j++){
+        if(todosChamados[statusChamado][i].tipo == selectTipo.options[j].value){
+          selectTipo.options[j].selected = true;
+        }
+      }
+    }
+  }
+
+  let selectAtribuicao = document.querySelector('#escolherAtribuicaoModal')
+  for(var i = 0; i < todosChamados[statusChamado].length; i++){
+    var existe = false;
+    if(idChamado == todosChamados[statusChamado][i].idChamado){
+      for(var j = 0; j < selectAtribuicao.options.length; j++){
+        if(todosChamados[statusChamado][i].atribuido_id == selectAtribuicao.options[j].value){
+          selectAtribuicao.options[j].selected = true;
+        }else if (todosChamados[statusChamado][i].atribuido_id == null){
+          selectAtribuicao.options[0].selected = true;
+        }
+      }
+    }
+  }
+
+  let inputDataInicial = document.querySelector('#dataInicialModal')
+  for(var i = 0; i < todosChamados[statusChamado].length; i++){
+    if(idChamado == todosChamados[statusChamado][i].idChamado){
+      inputDataInicial.value = todosChamados[statusChamado][i].data_inicio
+    }
+  }
+
+  let inputDataFinal = document.querySelector('#dataEncerramentoModal')
+  for(var i = 0; i < todosChamados[statusChamado].length; i++){
+    if(idChamado == todosChamados[statusChamado][i].idChamado){
+      inputDataFinal.value = todosChamados[statusChamado][i].data_fim
+    }
+  }
+
+  let inputDescricao = document.querySelector('#descricaoModal')
+  for(var i = 0; i < todosChamados[statusChamado].length; i++){
+    if(idChamado == todosChamados[statusChamado][i].idChamado){
+      if(todosChamados[statusChamado][i].descricao == null){
+        inputDescricao.value = "Nenhuma descrição"
+      } else {
+        inputDescricao.value = todosChamados[statusChamado][i].descricao
+      }
+    }
+  }
 }

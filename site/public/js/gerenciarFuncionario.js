@@ -346,3 +346,89 @@ function limparCamposFuncionarios() {
   document.getElementById('password').value = ("");
   document.getElementById('confirmPassword').value = ("");
 }
+
+function buscarDadosUsuarioLogado(idFuncionario){
+  fetch(`/usuario/listarDadosFuncionario/${idFuncionario}`)
+      .then(function (resposta) {
+          if (resposta.ok) {
+              resposta.json().then(function (resposta) {
+                inputNome.value = resposta[0].nome;
+                selectCargo.value = resposta[0].cargo;
+                inputEmail.value = resposta[0].email;
+                inputCpf.value = resposta[0].cpf;
+                inputSenha.value = "********";
+                inputConfirmarSenha.value = "********";
+                  
+              });
+          } else {
+              throw "Houve um erro na API!";
+          }
+      })
+      .catch(function (resposta) {
+          console.error(resposta);
+      });
+
+}
+
+function atualizarDadosUsuarioLogado(idFunc){
+  var nome = inputNome.value;
+  var cargo = selectCargo.value;
+  var cpf = inputCpf.value;
+  var email = inputEmail.value;
+  var senha = inputSenha.value;
+  var confirmarSenha = inputConfirmarSenha.value;
+  
+  if(nome.trim() != '' && cargo.trim() != '' && cpf.trim() != '' && email.trim() != '' && senha.trim() != '' && confirmarSenha.trim() != '' && senha.trim() == confirmarSenha && senha != '********'){
+    Swal.fire({
+      title: 'Deseja mesmo salvar as alterações?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, salvar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`usuario/editar/${idFunc}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nome: nome,
+            cargo: cargo,
+            email: email,
+            cpf: cpf,
+            senha: senha 
+          })
+        }).then(function (resposta) {
+
+          if (resposta.ok) {
+            Swal.fire(
+              'Pronto!',
+              'Suas alterações foram gravadas',
+              'success'
+            ).then((result) => {
+              if (result.isConfirmed) {
+                buscarDadosUsuarioLogado(sessionStorage.USER_ID);
+              }
+            })
+          } else if (resposta.status == 404) {
+            return false
+          } else {
+            return false
+          }
+        }).catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+      }
+    })
+
+  }else{
+    Swal.fire({
+      icon: 'error',
+      title: 'Erro',
+      text: 'Todos os campos devem estar prenchidos!'
+    })
+  }
+
+}

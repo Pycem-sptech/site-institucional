@@ -37,9 +37,10 @@
     width: 96%;
     display: flex;
     justify-content: space-between;
+    gap: 60px;
 }
 .boxListaChamados{
-    width: 28%;
+    flex: 1;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
@@ -73,10 +74,10 @@
     border-radius: 20px;       
 }
 .boxChamado{
+    box-sizing: border-box;
     width: 90%;
-    height: 30%;
-    background-color: #F8F8F8;
     margin-top: 5%;
+    background-color: #F8F8F8;
     border: 1px solid #C6C6C6;
     border-radius: 10px;
     cursor: pointer;
@@ -84,29 +85,30 @@
 .infoChamado{
     display: flex;
     flex-direction: column;
-    height: 75%;
     justify-content: space-evenly;
     border-bottom: 1px solid rgba(0, 0, 0, 0.18);
 }
 .infoChamado h3{
-    margin-left: 5%;
+    padding-top: 3%;
+    padding-left: 5%;
+    padding-bottom: 7%;
 }
 .infoMaquina{
     display: flex;
     flex-direction: column;
     margin-left: 5%;
+    margin-bottom: 1%;
 }
 .infoAtribuicao{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    height: 25%;
+    padding: 10px 5%;
+    /*background-color: #68B2F7;*/
 }
 .infoAtribuicao span{
-    width: 27%;
     text-align: center;
     font-weight: 500;
-    padding: 25px 0;
 }
 .selectFiltrarChamados{
     margin-left:5%;

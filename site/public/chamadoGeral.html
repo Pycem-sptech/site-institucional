@@ -59,7 +59,6 @@
         <span class="firstStep">Chamados</span>
     </div>
     <div class="divBtnChamado">
-        <button class="btnNovoChamado" onclick="mostrarModalChamado(1)">Abrir chamado teste</button>
         <button class="btnNovoChamado" onclick="mostrarModalNovoChamado()">Novo chamado +</button>
         <select class="selectFiltrarChamados" name="" id="filtrarChamados" onchange="filtrarChamados()">
             <option value="todos">Todos</option>
@@ -138,7 +137,7 @@
                     </div>
                     <div class="bloco">
                         <span class="estilo tamanho12"><span class="subTitulo">Data Inicial:</span>
-                            <input class="inputModal" type="date" id="dataInicialModal" disabled></span>
+                            <input class="inputModal" type="text" id="dataInicialModal" disabled></span>
 
                         <span class="estilo tamanho8"><span class="subTitulo">Tipo:</span>
                             <select class="selectModal2" id="escolherTipoModal">
@@ -151,16 +150,21 @@
                     </div>
                     <div class="bloco">
                         <span class="estilo tamanho12"><span class="subTitulo">Data Encerramento:</span>
-                            <input class="inputModal" type="date" id="dataEncerramentoModal" disabled></span>
+                            <input class="inputModal" type="text" id="dataEncerramentoModal" disabled></span>
 
                         <span class="estilo tamanho8"><span class="subTitulo">Atribuição:</span>
                             <select class="selectModal2" id="escolherAtribuicaoModal">
-                                <option value="" disabled selected>Atribuição</option>
+                                <option value="null" disabled selected>Não atribuido</option>
                             </select></span>
                     </div>
                     <div class="bloco">
                         <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
                             <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
+                    </div>
+
+                    <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Resolução:</span>
+                            <textarea disabled class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
                     </div>
                 </div>
 
@@ -217,6 +221,8 @@
                         <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
                             <textarea class="textAreaModal" id="descricaoModalNovoChamado" maxlength="255"></textarea>
                     </div>
+
+                    
                 </div>
 
                 <div class="modalFooter">
