@@ -203,7 +203,7 @@ function atualizarListaChamados() {
           for (var i = 0; i < resposta.length; i++) {
             if (resposta[i].estado[0] == "Aberto") {
               todosChamados.chamadosAbertos.push(resposta[i])
-            } else if (resposta[i].estado[0] == ("Em Andamento")) {
+            } else if (resposta[i].estado[0] == ("EmAndamento")) {
               todosChamados.chamadosEmAndamento.push(resposta[i])
             } else if (resposta[i].estado[0] == ("Encerrado")) {
               todosChamados.chamadosEncerrados.push(resposta[i])
@@ -291,6 +291,7 @@ let chamadosEncerrados = boxChamados[2]
 
 function exibirChamados() {
   // Exibindo o chamado
+  console.log(todosChamados.chamadosEmAndamento.length)
   for (let i = 0; i < todosChamados.chamadosAbertos.length; i++) {
     chamadosAbertos.innerHTML += `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosAbertos[i].idChamado}, 'chamadosAbertos')">
                                   <div class="infoChamado">
@@ -301,13 +302,14 @@ function exibirChamados() {
                                       </div>
                                   </div>
                                   <div class="infoAtribuicao">
-                                      <span>${todosChamados.chamadosAbertos[i].nome}</span>
+                                      <span>${todosChamados.chamadosAbertos[i].atribuido_nome}</span>
                                       <span>${todosChamados.chamadosAbertos[i].prioridade}</span>
                                   </div>
                               </div> `
   }
 
   for(let i = 0; i < todosChamados.chamadosEmAndamento.length; i++){
+    console.log("OPA!")
     chamadosEmAndamento.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosEmAndamento[i].idChamado}, 'chamadosEmAndamento')">
                                       <div class="infoChamado">
                                           <h3>${todosChamados.chamadosEmAndamento[i].titulo}</h3>
@@ -317,7 +319,7 @@ function exibirChamados() {
                                           </div>
                                       </div>
                                       <div class="infoAtribuicao">
-                                          <span>${todosChamados.chamadosEmAndamento[i].nome}</span>
+                                          <span>${todosChamados.chamadosEmAndamento[i].atribuido_nome}</span>
                                           <span>${todosChamados.chamadosEmAndamento[i].prioridade}</span>
                                       </div>
                                   </div> `
@@ -333,7 +335,7 @@ function exibirChamados() {
                                           </div>
                                       </div>
                                       <div class="infoAtribuicao">
-                                          <span>${todosChamados.chamadosEncerrados[i].nome}</span>
+                                          <span>${todosChamados.chamadosEncerrados[i].atribuido_nome}</span>
                                           <span>${todosChamados.chamadosEncerrados[i].prioridade}</span>
                                       </div>
                                       </div> `
