@@ -75,8 +75,9 @@ function atualizarMaqCadastradasComStatus() {
               divStatus.className = "status danger";
               maqDesligado++;
             }
-
-            divMachine.setAttribute("onclick", `redirectGraficos(${publicacao.idTotem}, '${publicacao.usuario}')`);
+            if(sessionStorage.USER_CARGO != "Supervisor"){
+              divMachine.setAttribute("onclick", `redirectGraficos(${publicacao.idTotem}, '${publicacao.usuario}')`);
+            }
             machineField.appendChild(divMachine);
 
             divMachine.appendChild(divContainer);

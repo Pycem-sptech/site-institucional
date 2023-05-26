@@ -28,6 +28,10 @@ function listarTecnicos(fkEmpresa) {
   var instrucao = `select nome, idUsuario from usuario where fkEmpresa = ${fkEmpresa} AND cargo = 'Tecnico';`;
   return database.executar(instrucao);
 }
+function listarChamadosUsuario(idUsuario) {
+  var instrucao = `select count(atribuido_id) as totalAtribuicoes from chamado where atribuido_id = ${idUsuario};`;
+  return database.executar(instrucao);
+}
 
 function filtrarFuncionarios(nomeDigitado, fkEmpresa) {
   var instrucao = `select idUsuario, nome, cargo from usuario where nome like '${nomeDigitado}%' and (cargo in ('Supervisor', 'Tecnico')) and fkEmpresa = ${fkEmpresa};`;
@@ -106,6 +110,7 @@ module.exports = {
   listar,
   listarFuncionarios,
   listarTecnicos,
+  listarChamadosUsuario,
   listarDadosFuncionario,
   verificarCpf,
   verificarEmail,

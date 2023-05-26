@@ -23,9 +23,8 @@
         <div class="container">
             <div class="navigationButtons" id="navIcons">
                 <h2 onclick="redirectHome()">Py</h2>
-                <img class="iconSidebar navigationIcon" id="navigationIconFunc" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon telaAtual" id="navigationIconUnit" src="img/storeIcon.svg" onclick="redirectAllUnits()">
-                <img class="iconSidebar navigationIcon" id="navigationIconMach" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
+                <img class="iconSidebar navigationIcon privGer" id="navigationIconMach" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
                 <img class="iconSidebar navigationIcon" id="navigationIconGeral" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" id="navigationIconSuporte" src="img/supportIcon.svg" onclick="redirectSuport()">
             </div>
@@ -62,7 +61,7 @@
     </div>
     <main class="main">
         <div class="container">
-            <div class="filtros">
+            <div class="filtros privGer">
                 <input type="text" class="inputSearch" id="inputSearch" onkeyup="atualizarListaUnidadesFiltradas(this.value)">
                 <select name="" id="selectMachUnit" class="selectFiltrar" onchange="mudarLista(this.value)">
                     <option value="1">Unidades</option>

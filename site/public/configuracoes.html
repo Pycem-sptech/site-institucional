@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/config.css">
     <script src="js/geral.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
 <body onload="validarSessao()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
@@ -53,7 +55,7 @@
     </div>
     <main class="main">
         <div class="container">
-            <div onclick="redirectUnit()" class="boxManage">
+            <div onclick="redirectUnit()" class="boxManage privTec privGer">
                     <div class="iconBox">
                         <img src="img/storeIcon.svg">
                     </div>
@@ -61,7 +63,7 @@
                         <span>Unidades</span>
                     </div>
             </div>
-            <div onclick="redirectMachine()" class="boxManage">
+            <div onclick="redirectMachine()" class="boxManage privGer">
                 <div class="iconBox">
                     <img src="img/smartphoneIcon.svg">
                 </div>
@@ -69,7 +71,7 @@
                     <span>Máquinas</span>
                 </div>
             </div>
-            <div onclick="redirectAlert()" class="boxManage">
+            <div onclick="redirectAlert()" class="boxManage privGer">
                 <div class="iconBox">
                     <img src="img/warning(1) 1.svg">
                 </div>
@@ -77,7 +79,7 @@
                     <span>Alertas</span>
                 </div>
             </div>
-            <div onclick="redirectFunc()" class="boxManage">
+            <div onclick="redirectFunc()" class="boxManage privTec privGer">
                 <div class="iconBox">
                     <img src="img/gerenciarFunc.svg">
                 </div>
