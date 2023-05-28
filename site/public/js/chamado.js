@@ -1,12 +1,14 @@
 let meusChamados = {
   chamadosAbertos: [],
   chamadosEmAndamento: [],
-  chamadosEncerrados: []
+  chamadosEncerrados: [],
+  chamadosCancelados: []
 }
 let todosChamados = {
   chamadosAbertos: [],
   chamadosEmAndamento: [],
-  chamadosEncerrados: []
+  chamadosEncerrados: [],
+  chamadosCancelados: []
 }
 
 function buscarChamados(titulo) {
@@ -205,8 +207,10 @@ function atualizarListaChamados() {
               todosChamados.chamadosAbertos.push(resposta[i])
             } else if (resposta[i].estado[0] == ("EmAndamento")) {
               todosChamados.chamadosEmAndamento.push(resposta[i])
-            } else if (resposta[i].estado[0] == ("Encerrado")) {
+            } else if (resposta[i].estado[0] == ("Encerrado")){
               todosChamados.chamadosEncerrados.push(resposta[i])
+            } else if (resposta[i].estado[0] == ("Cancelado")){
+              todosChamados.chamadosCancelados.push(resposta[i])
             }
           }
 
@@ -288,7 +292,7 @@ let boxChamados = document.querySelectorAll(".feed")
 let chamadosAbertos = boxChamados[0]
 let chamadosEmAndamento = boxChamados[1]
 let chamadosEncerrados = boxChamados[2]
-
+let chamadosCancelados = boxChamados[2]
 function exibirChamados() {
   // Exibindo o chamado
   console.log(todosChamados.chamadosEmAndamento.length)
@@ -309,7 +313,6 @@ function exibirChamados() {
   }
 
   for(let i = 0; i < todosChamados.chamadosEmAndamento.length; i++){
-    console.log("OPA!")
     chamadosEmAndamento.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosEmAndamento[i].idChamado}, 'chamadosEmAndamento')">
                                       <div class="infoChamado">
                                           <h3>${todosChamados.chamadosEmAndamento[i].titulo}</h3>
@@ -341,7 +344,21 @@ function exibirChamados() {
                                       </div> `
   }
   
-
+  for(let i = 0; i < todosChamados.chamadosCancelados.length; i++){
+    chamadosEncerrados.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosCancelados[i].idChamado}, 'chamadosCancelados')">
+    <div class="infoChamado">
+        <h3>${todosChamados.chamadosCancelados[i].titulo}</h3>
+        <div class="infoMaquina">
+            <span>Máquina: <span>${todosChamados.chamadosCancelados[i].usuario}</span></span>
+            <span>Tipo: <span>${todosChamados.chamadosCancelados[i].tipo}</span></span>
+        </div>
+    </div>
+    <div class="infoAtribuicao">
+        <span>${todosChamados.chamadosCancelados[i].atribuido_nome}</span>
+        <span>${todosChamados.chamadosCancelados[i].prioridade}</span>
+    </div>
+    </div> `
+  }
 }
 
 function atualizarDadosModal(idChamado, statusChamado){

@@ -16,8 +16,7 @@
     justify-content: flex-end;
 }
 .btnNovoChamado{
-    width: 30%;
-    height: 50%;
+    padding: 8px 15px;
     border-radius: 20px;
     outline:none;
     border: none;
