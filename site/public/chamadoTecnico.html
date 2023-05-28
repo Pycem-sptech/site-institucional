@@ -52,11 +52,16 @@
     </div>
     <div class="divBtnChamado">
         <button class="btnNovoChamado">Novo chamado +</button>
+        <select class="selectFiltrarChamados mobile" id="filtrarAndamentoChamados" onchange="filtrarAndamentoChamado()">
+            <option value="abertos">Abertos</option>
+            <option value="andamento">Em andamento</option>
+            <option value="encerrados">Encerrados</option>
+        </select>
     </div>
 
     <main class="main">
         <div class="container">
-            <div class="boxListaChamados">
+            <div class="boxListaChamados" id="abertos">
                 <div class="titleBox">
                     <h1>Aberto</h1>
                 </div>  
@@ -76,7 +81,7 @@
                 </div>
                 </div>
             </div>
-            <div class="boxListaChamados">
+            <div class="boxListaChamados" id="andamento">
                 <div class="titleBox">
                     <h1>Em Andamento</h1>
                 </div>  
@@ -96,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <div class="boxListaChamados">
+            <div class="boxListaChamados" id="encerrados">
                 <div class="titleBox">
                     <h1>Encerrado</h1>
                 </div>  
@@ -120,3 +125,34 @@
     </main>
 </body>
 </html>
+<script>
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+    if (event.type === 'touchstart') event.preventDefault();  
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('active');
+
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+
+    
+    function filtrarAndamentoChamado(){
+        var opcao = filtrarAndamentoChamados.value;
+        if(opcao == "abertos"){
+            encerrados.style.display = 'none';
+            abertos.style.display = 'block';
+            andamento.style.display = 'none';
+        } else if(opcao == "andamento"){
+            abertos.style.display = 'none';
+            encerrados.style.display = 'none';
+            andamento.style.display = 'block';
+        }else{
+            abertos.style.display = 'none';
+            encerrados.style.display = 'block';
+            andamento.style.display = 'none';
+        }
+    }
+</script>
