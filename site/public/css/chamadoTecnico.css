@@ -118,12 +118,10 @@
     margin-left:5%;
     outline: none;
     border: none;
-    width: 30%;
-    height: 50%;
+    padding: 10px 50px 10px 15px;
     border-radius: 20px;
     font-weight: 600;
     font-size: 1.3em;
-    padding-left: 1.5%;
     box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     appearance: none;
