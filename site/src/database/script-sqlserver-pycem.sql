@@ -181,6 +181,23 @@ BEGIN
 		END
 END;
 
+-- Procedures
+-- DesatribuirChamado
+CREATE PROCEDURE DesatribuirChamado
+@idUsuario INT
+AS
+BEGIN
+    DECLARE @contador INT;
+    DECLARE @qtdChamadosAtribuidos INT;
+    SET @contador = 0;
+    SET @qtdChamadosAtribuidos = (select count(idChamado) from chamado where atribuido_id = @idUsuario)
+    WHILE @contador < @qtdChamadosAtribuidos
+        BEGIN
+			DECLARE @idChamado INT;
+			SET @idChamado = (select top 1 idChamado from chamado where atribuido_id = @idUsuario);
+			update chamado set atribuido_id = null, atribuido_nome = 'Nao Atribuido' where idChamado = @idChamado;
+        END
+END
 INSERT INTO chamado(prioridade,fkTotem, fkUnidade, fkEmpresa) values
 ('P2',1, 1, 100);
 
