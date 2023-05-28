@@ -146,9 +146,10 @@ function validarSessao() {
         visaoTecnico();
     } else if (cargo == "Supervisor") {
         visaoGerente();
-    } else if (cargo == "" && fkEmpresa == "" && email == "" && nome == "") {
-        window.location = "./login.html";
-    }
+    } 
+    // else if (cargo == "" && fkEmpresa == "" && email == "" && nome == "") {
+    //     window.location = "./login.html";
+    // }
 }
 
 function limparSessao() {
