@@ -28,7 +28,7 @@
                 <img class="iconSidebar navigationIcon atual" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
-                <img class="iconSidebar telaAtual" src="img/settingIcon.svg"><!-- onclick="redirectConfig()" -->
+                <img class="iconSidebar telaAtual" src="img/settingIcon.svg" onclick="redirectConfig()">
                 <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
             </div>
         </div>
@@ -65,7 +65,6 @@
             <option value="meusChamados">Meus chamados</option>
         </select>
         <select class="selectFiltrarChamados mobile" id="filtrarAndamentoChamados" onchange="filtrarAndamentoChamado()">
-            <!-- <option value="todos">Todos</option> -->
             <option value="abertos">Abertos</option>
             <option value="andamento">Em andamento</option>
             <option value="encerrados">Encerrados</option>
@@ -123,7 +122,7 @@
                     <div class="bloco">
                         <span class="estilo tamanho10"><span class="subTitulo">Máquina:</span>
                             <select class="selectModal" id="escolherMaquinaModal">
-                                <option value="" disabled selected>Máquina</option>
+                                <option value="" name="" disabled selected>Máquina</option>
                             </select></span>
 
                         <span class="estilo tamanho10"><span class="subTitulo">Prioridade:</span>
@@ -141,7 +140,7 @@
 
                         <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
                             <select class="selectModal" id="escolherUnidadeModal">
-                                <option value="" disabled selected>Unidade</option>
+                                <option value="" name="0" disabled selected>Unidade</option>
                             </select></span>
                         <span class="estilo tamanho8"><span class="subTitulo">Estado:</span>
                             <select class="selectModal" id="escolherEstadoModal">

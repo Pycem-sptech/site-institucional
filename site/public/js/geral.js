@@ -75,7 +75,7 @@ function privarFuncTecnico() {
 
 function visaoTecnico() {
     if (sessionStorage.USER_CARGO == "Tecnico") {
-        chamadosAtribuidos();
+        chamadosAtribuidos();p
         let chamadosAntigos = sessionStorage.USER_CHAMADOS_ANTIGOS;
         let chamadosNovos = sessionStorage.USER_CHAMADOS;
         if (chamadosNovos != chamadosAntigos) {
@@ -146,9 +146,10 @@ function validarSessao() {
         visaoTecnico();
     } else if (cargo == "Supervisor") {
         visaoGerente();
-    } else if (cargo == "" && fkEmpresa == "" && email == "" && nome == "") {
-        window.location = "./login.html";
-    }
+    } 
+    // else if (cargo == "" && fkEmpresa == "" && email == "" && nome == "") {
+    //     window.location = "./login.html";
+    // }
 }
 
 function limparSessao() {
