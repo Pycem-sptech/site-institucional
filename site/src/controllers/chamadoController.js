@@ -33,6 +33,22 @@ function listarChamados(req, res) {
     );
 
 }
+
+function listarOcorrenciasChamados(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+
+    chamadoModel.listarOcorrenciasChamados(fkEmpresa).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+
+}
 function listarMaquinasPorUnidade(req, res) {
     const fkUnidade = req.params.fkUnidade;
 
@@ -115,7 +131,7 @@ function cadastrar(req, res) {
     } else if (nome_unidade == undefined) {
         res.status(400).send("O nome da unidade no chamado está undefined!");
     } else {
-        chamadoModel.cadastrar(descricao, prioridade, usuario_totem, fkMaquina, criado_por_id, criado_por_nome, nome_unidade, fkUnidade, fkEmpresa).then(
+        chamadoModel.cadastrar(descricao, prioridade,tipo, usuario_totem, fkMaquina, criado_por_id, criado_por_nome, nome_unidade, fkUnidade, fkEmpresa).then(
             function (resultado) {
                 res.json(resultado);
             }
@@ -191,13 +207,53 @@ function deletar(req, res) {
     }
 }
 
+function ocorrenciasPorMes(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    chamadoModel.ocorrenciasPorMes(fkEmpresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("entrou no controller");
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
+function frequenciaProblemasMensal(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    const idUnidade = req.params.idUnidade;
+    chamadoModel.frequenciaProblemasMensal(fkEmpresa, idUnidade).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("entrou no controller");
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
 module.exports = {
     listar,
     listarChamados,
+    listarOcorrenciasChamados,
     listarMaquinasPorUnidade,
     listarUnidadesPorMaquina,
+    ocorrenciasPorMes,
     buscarChamado,
     cadastrar,
     editar,
     deletar,
+    frequenciaProblemasMensal
 }

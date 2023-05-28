@@ -65,7 +65,7 @@
                 <div class="boxHardInfo left">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3>Variação de relátorios</h3>
+                            <h3>Variação de chamados</h3>
                             <h5 class="subtitleHardInfo">Semanal</h5>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
             </section>
             <section class="reports">
                 <div class="boxReports"> 
-                    <h3>Ocorrências</h3> 
+                    <h3>Quantidade de ocorrências x Semana</h3> 
                     <div class="graph">
                         <canvas id="frequenciaProblemasMensal" class="ocorrenciasPorUnidade"></canvas>
                     </div>
@@ -140,6 +140,8 @@
 </body>
 </html>
 <script>
+atualizarChamados()
+    
     let dataAtual = new Date()
     dataAtual = dataAtual.toLocaleDateString('pt-BR')
 

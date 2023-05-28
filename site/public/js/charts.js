@@ -1,18 +1,7 @@
 const fkEmpresa = sessionStorage.FK_EMPRESA;
-const listaUnidades = [];
-var alertaParou = false
 
-function getPrimeiroDiaDaSemana(ano, semana) {
-    const primeiroDeJaneiro = new Date(ano, 0, 1);
-    const diaDaSemana = primeiroDeJaneiro.getDay();
-    const primeiroDomingo = primeiroDeJaneiro;
-    primeiroDomingo.setDate(1 - diaDaSemana);
-    primeiroDomingo.setDate(primeiroDomingo.getDate() + (7 * (semana - 1)));
-    return primeiroDomingo;
-}
-
-function obterDadosGraficoQtdRelatorios(fkEmpresa) {
-    fetch(`/unidade/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+function obterDadosGraficoQtdChamados(fkEmpresa) {
+    fetch(`/chamado/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -57,7 +46,7 @@ function plotarGrafico(resposta) {
             plugins: {
                 legend: {
                     labels: {
-                            font: {
+                        font: {
                             family: 'Inter',
                             size: 17
                         }
@@ -78,127 +67,115 @@ function plotarGrafico(resposta) {
     );
 }
 
-function obterDadosGraficoFrequenciaProblemasMensal(fkEmpresa, idUnidade) {
-    fetch(`/unidade/frequenciaProblemasMensal/${fkEmpresa}/${idUnidade}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                plotarGraficoFrequenciaProblemasMensal(resposta);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-}
+// function obterDadosGraficoFrequenciaProblemasMensal(fkEmpresa, idUnidade) {
+//     fetch(`/chamado/frequenciaProblemasMensal/${fkEmpresa}/${idUnidade}`, { cache: 'no-store' }).then(function (response) {
+//         if (response.ok) {
+//             response.json().then(function (resposta) {
+//                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+//                 plotarGraficoFrequenciaProblemasMensal(resposta);
+//             });
+//         } else {
+//             console.error('Nenhum dado encontrado ou erro na API');
+//         }
+//     })
+//         .catch(function (error) {
+//             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+//         });
+// }
 
-function plotarGraficoFrequenciaProblemasMensal(resposta) {
-   
-    let labels = [];
-    let dados = {
-        labels: labels,
-        datasets: [{
-            label: 'Desligamento',
-            data: [],
-            fill: true,
-            backgroundColor: 'rgba(0, 255, 232, 1)',
-            borderColor: 'rgba(0, 255, 232, 1)',
-            tension: 0.1
-        }, {
-            label: 'Sobrecarga',
-            data: [],
-            fill: true,
-            backgroundColor: 'rgba(0, 150, 232, 1)',
-            borderColor: 'rgba(0, 150, 232, 1)',
-            tension: 0.1
-        }, {
-            label: 'Mau funcionamento',
-            data: [],
-            fill: true,
-            backgroundColor: 'rgba(0, 12, 232, 1)',
-            borderColor: 'rgba(0, 12, 232, 1)',
-            tension: 0.1
-        }, {
-            label: 'Outro',
-            data: [],
-            fill: true,
-            backgroundColor: 'rgba(0, 23, 100, 1)',
-            borderColor: 'rgba(0, 23, 100, 1)',
-            tension: 0.1
-        }]
-    };
+// function plotarGraficoFrequenciaProblemasMensal(resposta) {
 
-    for (i = 0; i < resposta.length; i++) {
-        var registro = resposta[i];
-        const primeiroDiaDaSemana = getPrimeiroDiaDaSemana(data.getFullYear(), registro.semana);
-        console.log(primeiroDiaDaSemana.getDate())
-        const ultimoDiaDaSemana = primeiroDiaDaSemana;
-        console.log(ultimoDiaDaSemana.getDate())
+//     let labels = [];
+//     let dados = {
+//         labels: labels,
+//         datasets: [{
+//             label: 'Desligamento',
+//             data: [],
+//             fill: true,
+//             backgroundColor: 'rgba(0, 255, 232, 1)',
+//             borderColor: 'rgba(0, 255, 232, 1)',
+//             tension: 0.1
+//         }, {
+//             label: 'Sobrecarga',
+//             data: [],
+//             fill: true,
+//             backgroundColor: 'rgba(0, 150, 232, 1)',
+//             borderColor: 'rgba(0, 150, 232, 1)',
+//             tension: 0.1
+//         }, {
+//             label: 'Mau funcionamento',
+//             data: [],
+//             fill: true,
+//             backgroundColor: 'rgba(0, 12, 232, 1)',
+//             borderColor: 'rgba(0, 12, 232, 1)',
+//             tension: 0.1
+//         }, {
+//             label: 'Outro',
+//             data: [],
+//             fill: true,
+//             backgroundColor: 'rgba(0, 23, 100, 1)',
+//             borderColor: 'rgba(0, 23, 100, 1)',
+//             tension: 0.1
+//         }]
+//     };
 
-        ultimoDiaDaSemana.setDate(primeiroDiaDaSemana.getDate() + 6);
-        console.log(ultimoDiaDaSemana.getDate())
+//     for (i = 0; i < resposta.length; i++) {
+//         var registro = resposta[i];
+//         labels.push(registro.primeiroDiaSemana + " - " + registro.ultimoDiaSemana);
 
-        if(`${primeiroDiaDaSemana.getDate()-6}`== 0){
-            console.log(primeiroDiaDaSemana.getDay())
-            labels.push(`${primeiroDiaDaSemana.getDay()-5}/${primeiroDiaDaSemana.getMonth()+1} - ${ultimoDiaDaSemana.getDate()}/${ultimoDiaDaSemana.getMonth()+1}`);
-        }else{
-            labels.push(`${primeiroDiaDaSemana.getDay()+1}/${primeiroDiaDaSemana.getMonth()+1} - ${ultimoDiaDaSemana.getDate()}/${ultimoDiaDaSemana.getMonth()+1}`);
-        }
-        dados.datasets[0].data.push(registro.Desligamento);
-        dados.datasets[1].data.push(registro.Sobrecarga);
-        dados.datasets[2].data.push(registro.MauFuncionamento);
-        dados.datasets[3].data.push(registro.Outro);
-    }
+//         dados.datasets[0].data.push(registro.Desligamento);
+//         dados.datasets[1].data.push(registro.Sobrecarga);
+//         dados.datasets[2].data.push(registro.MauFuncionamento);
+//         dados.datasets[3].data.push(registro.Outro);
+//     }
 
-    const configFrequenciaProblemasMensal = {
-        type: 'bar',
-        data: dados,
-        options: {
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            family: 'Inter',
-                            size: 17
-                        }
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    min: 0,
-                    beginAtZero: true
-                }
-            }
-        },
-    };
+//     const configFrequenciaProblemasMensal = {
+//         type: 'bar',
+//         data: dados,
+//         options: {
+//             plugins: {
+//                 legend: {
+//                     labels: {
+//                         font: {
+//                             family: 'Inter',
+//                             size: 17
+//                         }
+//                     }
+//                 }
+//             },
+//             scales: {
+//                 y: {
+//                     min: 0,
+//                     beginAtZero: true
+//                 }
+//             }
+//         },
+//     };
 
-    let frequenciaProblemasMensal = new Chart(
-        document.getElementById(`frequenciaProblemasMensal`),
-        configFrequenciaProblemasMensal
-    );
-}
+//     let frequenciaProblemasMensal = new Chart(
+//         document.getElementById(`frequenciaProblemasMensal`),
+//         configFrequenciaProblemasMensal
+//     );
+// }
 
-function obterFrequenciaDeOcorrencias(fkEmpresa) {
-    fetch(`/unidade/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                resposta.reverse();
-                plotarGrafico(resposta);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-}
+// function obterFrequenciaDeOcorrencias(fkEmpresa) {
+//     fetch(`/unidade/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+//         if (response.ok) {
+//             response.json().then(function (resposta) {
+//                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+//                 resposta.reverse();
+//                 plotarGrafico(resposta);
+//             });
+//         } else {
+//             console.error('Nenhum dado encontrado ou erro na API');
+//         }
+//     })
+//         .catch(function (error) {
+//             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+//         });
+// }
 
-const tempoDeAtualizacao = sessionStorage.ATT_FREQ
+// const tempoDeAtualizacao = sessionStorage.ATT_FREQ
 function listarUsoMaquina(fkTotem) {
     fetch(`/maquina/listarUsoMaquina/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
@@ -242,7 +219,7 @@ function plotarGraficoProcessador(resposta, fkTotem) {
     }
 
     let usoCpu = document.getElementById("percentualUsoCpu")
-    validarCPU(resposta[resposta.length-1].uso_processador)
+    validarCPU(resposta[resposta.length - 1].uso_processador)
     usoCpu.innerHTML = resposta[0].uso_processador + "%";
 
     const configUsoDoProcessador = {
@@ -297,7 +274,7 @@ function plotarGraficoRam(resposta, fkTotem) {
     }
 
     let usoRam = document.getElementById("percentualUsoRam")
-    validarRAM(resposta[resposta.length-1].uso_ram)
+    validarRAM(resposta[resposta.length - 1].uso_ram)
     usoRam.innerHTML = resposta[0].uso_ram + "%";
 
     const configusoDaRam = {
@@ -351,9 +328,9 @@ function plotarGraficoHd(resposta, fkTotem) {
         dados.datasets[0].data.push(resposta[i].uso_hd);
     }
     let usoHd = document.getElementById("percentualUsoHd")
-    validarHD(resposta[resposta.length-1].uso_hd)
+    validarHD(resposta[resposta.length - 1].uso_hd)
     usoHd.innerHTML = resposta[0].uso_hd + "%";
-   
+
     const configUsoDoHd = {
         type: 'line',
         data: dados,
@@ -431,17 +408,17 @@ function atualizarGraficoProcessador(fkTotem, dados, usoDoProcessador) {
 
                 if (novoRegistro[0].data_registro == dados.labels[dados.labels.length - 1]) {
                 } else {
-                    
-                    dados.labels.shift(); 
-                    dados.labels.push(novoRegistro[0].data_registro); 
-                    dados.datasets[0].data.shift();  
-                    dados.datasets[0].data.push(novoRegistro[0].uso_processador); 
+
+                    dados.labels.shift();
+                    dados.labels.push(novoRegistro[0].data_registro);
+                    dados.datasets[0].data.shift();
+                    dados.datasets[0].data.push(novoRegistro[0].uso_processador);
                     validarCPU(novoRegistro[0].uso_processador);
                     usoDoProcessador.update();
                 }
                 let usoCpu = document.getElementById("percentualUsoCpu")
                 usoCpu.innerHTML = novoRegistro[0].uso_processador + "%";
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoProcessador(fkTotem, dados, usoDoProcessador), tempoDeAtualizacao);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoProcessador(fkTotem, dados, usoDoProcessador), tempoDeAtualizacao);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -463,18 +440,18 @@ function atualizarGraficoRam(fkTotem, dados, usoDaRam) {
                 if (novoRegistro[0].data_registro == dados.labels[dados.labels.length - 1]) {
 
                 } else {
-                    
-                    dados.labels.shift(); 
-                    dados.labels.push(novoRegistro[0].data_registro); 
 
-                    dados.datasets[0].data.shift();  
-                    dados.datasets[0].data.push(novoRegistro[0].uso_ram); 
+                    dados.labels.shift();
+                    dados.labels.push(novoRegistro[0].data_registro);
+
+                    dados.datasets[0].data.shift();
+                    dados.datasets[0].data.push(novoRegistro[0].uso_ram);
                     validarRAM(novoRegistro[0].uso_ram)
                     usoDaRam.update();
                 }
                 let usoRam = document.getElementById("percentualUsoRam")
                 usoRam.innerHTML = novoRegistro[0].uso_ram + "%";
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoRam(fkTotem, dados, usoDaRam), tempoDeAtualizacao);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoRam(fkTotem, dados, usoDaRam), tempoDeAtualizacao);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -496,18 +473,18 @@ function atualizarGraficoHd(fkTotem, dados, usoDoHd) {
                 if (novoRegistro[0].data_registro == dados.labels[dados.labels.length - 1]) {
 
                 } else {
-                    
-                    dados.labels.shift(); 
-                    dados.labels.push(novoRegistro[0].data_registro); 
 
-                    dados.datasets[0].data.shift();  
-                    dados.datasets[0].data.push(novoRegistro[0].uso_hd); 
+                    dados.labels.shift();
+                    dados.labels.push(novoRegistro[0].data_registro);
+
+                    dados.datasets[0].data.shift();
+                    dados.datasets[0].data.push(novoRegistro[0].uso_hd);
                     validarHD(novoRegistro[0].uso_hd)
                     usoDoHd.update();
                 }
                 let usoHd = document.getElementById("percentualUsoHd")
                 usoHd.innerHTML = novoRegistro[0].uso_hd + "%";
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoHd(fkTotem, dados, usoDoHd), tempoDeAtualizacao);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoHd(fkTotem, dados, usoDoHd), tempoDeAtualizacao);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');

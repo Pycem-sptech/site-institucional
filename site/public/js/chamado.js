@@ -29,7 +29,7 @@ function criarChamado() {
   const prioridade = escolherPrioridadeModalNovoChamado.value;
   const tipo = escolherTipoModalNovoChamado.value;
   const descricao = descricaoModalNovoChamado.value;
-  
+    
   if (fkEmpresa == "" || fkMaquina == "" || criado_por_id == "" || criado_por_nome == "" || nome_unidade == "" || usuario_totem == "" ||prioridade == "" || tipo == "" || fkUnidade == "" || descricao == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;

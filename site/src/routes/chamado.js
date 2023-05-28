@@ -6,6 +6,9 @@ var chamadoController = require("../controllers/chamadoController");
 router.get("/listarChamados/:fkEmpresa", function (req, res) {
     chamadoController.listarChamados(req, res);
 });
+router.get("/listarOcorrenciasChamados/:fkEmpresa", function (req, res) {
+    chamadoController.listarOcorrenciasChamados(req, res);
+});
 
 router.get("/listarChamadoFiltrado/:fkUsuario", function (req, res) {
     chamadoController.listar(req, res);
@@ -30,6 +33,14 @@ router.put("/editarChamado/:idChamado", function (req, res) {
 
 router.delete("/deletarChamado/:idChamado", function (req, res) {
     chamadoController.deletar(req, res);
+});
+
+router.get("/ocorrenciasPorMes/:fkEmpresa", function (req, res) {
+    chamadoController.ocorrenciasPorMes(req, res);
+});
+
+router.get("/frequenciaProblemasMensal/:fkEmpresa/:idUnidade", function (req, res) {
+    chamadoController.frequenciaProblemasMensal(req, res);
 });
 
 module.exports = router;

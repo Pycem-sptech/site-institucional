@@ -9,7 +9,7 @@ cnpj varchar(18) not null,
 telefone varchar(15) not null unique,
 email varchar(100) not null unique,
 sigla CHAR(2) not null,
-data_cadastro datetime not null default current_timestamp
+data_cadastro datetime not null default GETDATE()
 );
 
 create table alerta(
@@ -77,7 +77,7 @@ uso_hd varchar(45),
 cpu_status varchar(8) not null,
 ram_status varchar(8) not null,
 hd_status varchar(8) not null,
-data_registro datetime not null default current_timestamp,
+data_registro datetime not null default GETDATE(),
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem)
 );
 
@@ -107,10 +107,10 @@ criado_por_nome varchar(50) not null default 'System Administrator',
 criado_por_id int, FOREIGN KEY (criado_por_id) REFERENCES usuario(idUsuario),
 atribuido_nome varchar(50) not null default 'Nao Atribuido',
 atribuido_id int, FOREIGN KEY (atribuido_id) REFERENCES usuario(idUsuario),
-data_inicio varchar(30) not null default FORMAT(DATEADD(Hour, -3, getdate()),'%d/%M/20%y - %H:%m:%s'),
+data_inicio varchar(30) not null default GETDATE(),
 data_fim varchar(30),
 descricao varchar(255) not null,
-resolucao varchar(255) not null default "",
+resolucao varchar(255),
 usuario_totem varchar(20),
 fkTotem int, FOREIGN KEY (fkTotem) REFERENCES totem(idTotem),
 nome_unidade varchar(60),
@@ -164,23 +164,23 @@ BEGIN
 
 	IF (@prioridade = 'P1')
 		BEGIN 
-		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +2, @data_inicio),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		UPDATE chamado SET data_fim = (SELECT DATEADD(Hour, +2, @data_inicio)) WHERE idChamado = @idChamado
 		END
 	ELSE IF(@prioridade = 'P2')
 		BEGIN 
-		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +4, @data_inicio),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		UPDATE chamado SET data_fim = (SELECT DATEADD(Hour, +4, @data_inicio)) WHERE idChamado = @idChamado
 		END
 	ELSE IF(@prioridade = 'P3')
 		BEGIN 
-		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +8, @data_inicio),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		UPDATE chamado SET data_fim = (SELECT DATEADD(Hour, +8, @data_inicio)) WHERE idChamado = @idChamado
 		END
 	ELSE IF(@prioridade = 'P4')
 		BEGIN 
-		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +16, @data_inicio),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		UPDATE chamado SET data_fim = (SELECT DATEADD(Hour, +16, @data_inicio)) WHERE idChamado = @idChamado
 		END
 	ELSE IF(@prioridade = 'P5')
 		BEGIN 
-		UPDATE chamado SET data_fim = (SELECT FORMAT(DATEADD(Hour, +24, @data_inicio),'%d/%M/20%y - %H:%m:%s')) WHERE idChamado = @idChamado
+		UPDATE chamado SET data_fim = (SELECT DATEADD(Hour, +24, @data_inicio)) WHERE idChamado = @idChamado
 		END
 END;
 

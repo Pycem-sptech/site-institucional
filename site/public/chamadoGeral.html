@@ -15,7 +15,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
 
-<body onload="validarSessao(),verificarTamanhoTela(),atualizarSelectMaquinaChamado(),atualizarSelectAtribuicaoChamado(), filtrarAndamentoChamado()">
+<body onload="validarSessao(),verificarTamanhoTela(),atualizarSelectMaquinaChamado(),atualizarSelectUnidadesChamado(), atualizarSelectAtribuicaoChamado(), filtrarAndamentoChamado()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -23,7 +23,7 @@
                 <h2 onclick="redirectHome()">Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
                 
-                <img class="iconSidebar navigationIcon privGer" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon privGer" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon atual" src="img/supportIcon.svg">
             </div>
@@ -94,19 +94,7 @@
                     <h1>Encerrado</h1>
                 </div>
                 <div class="feed">
-                    <div class="boxChamado">
-                        <div class="infoChamado">
-                            <h3>0002</h3>
-                            <div class="infoMaquina">
-                                <span>Máquina: <span>PY_MACHE</span></span>
-                                <span>Tipo: <span>Mau funcionamento</span></span>
-                            </div>
-                        </div>
-                        <div class="infoAtribuicao">
-                            <span>Eduardo</span>
-                            <span>P1</span>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>

@@ -235,11 +235,6 @@ function criarIdRelatório(id) {
     sessionStorage.ID_RELATORIO = id
 }
 
-var repDesligamento = 0;
-var repSobrecarga = 0;
-var repMauFuncionamento = 0;
-var repOutro = 0;
-
 const data = new Date;
 const ano = data.getFullYear();
 const mes = data.getMonth() + 1;
@@ -337,7 +332,213 @@ function buscarRelatoriosMensais(fkEmpresa,idUnidade) {
 function atualizarKpi(idUnidade) {
     atualizarVariacaoRelatorios()
     variacaoDeTempoInoperante(idUnidade)
-    atualizarMaiorOcorrencia();
+    // atualizarMaiorOcorrencia();
+}
+
+
+function variacaoDeTempoInoperante(idUnidade) {
+    fetch(`/historico/listar/${idUnidade}`).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+                const semanaAtualMin = resposta[0].semanaAtual;
+                const semanaPassadaMin = resposta[0].semanaPassada;
+                const horasAtual = semanaAtualMin / 60;
+                const diasAtual = horasAtual / 60;
+                const div = document.getElementById("varTempoInoperante")
+                div.innerHTML = diasAtual.toFixed(0) + " Dias"
+            });
+        } else {
+            throw "Houve um erro na API!";
+        }
+    })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+}
+
+function buscarDadosRelatorio(idRelatorio) {
+    fetch(`/relatorio/buscarDadosRelatorio/${idRelatorio}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    tituloModal.value = resposta[0].titulo;
+                    dataModal.value = resposta[0].dataPublicacao;
+                    escolherTipoProblemaModal.value = resposta[0].tipo;
+                    descricaoModal.value = resposta[0].descricao;
+                    dataModal.value = resposta[0].dataRelatorio;
+                });
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+
+}
+
+function obterDadosGraficoFrequenciaProblemasMensal(fkEmpresa, idUnidade) {
+    fetch(`/chamado/frequenciaProblemasMensal/${fkEmpresa}/${idUnidade}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                plotarGraficoFrequenciaProblemasMensal(resposta);
+                let i = resposta.length - 1;
+                atualizarMaiorOcorrencia(resposta[i].Desligamento, resposta[i].Sobrecarga, resposta[i].MauFuncionamento, resposta[i].Outro)
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarGraficoFrequenciaProblemasMensal(resposta) {
+
+    let labels = [];
+    let dados = {
+        labels: labels,
+        datasets: [{
+            label: 'Desligamento',
+            data: [],
+            fill: true,
+            backgroundColor: 'rgba(0, 255, 232, 1)',
+            borderColor: 'rgba(0, 255, 232, 1)',
+            tension: 0.1
+        }, {
+            label: 'Sobrecarga',
+            data: [],
+            fill: true,
+            backgroundColor: 'rgba(0, 150, 232, 1)',
+            borderColor: 'rgba(0, 150, 232, 1)',
+            tension: 0.1
+        }, {
+            label: 'Mau funcionamento',
+            data: [],
+            fill: true,
+            backgroundColor: 'rgba(0, 12, 232, 1)',
+            borderColor: 'rgba(0, 12, 232, 1)',
+            tension: 0.1
+        }, {
+            label: 'Outro',
+            data: [],
+            fill: true,
+            backgroundColor: 'rgba(0, 23, 100, 1)',
+            borderColor: 'rgba(0, 23, 100, 1)',
+            tension: 0.1
+        }]
+    };
+
+    for (i = 0; i < resposta.length; i++) {
+        var registro = resposta[i];
+        labels.push(registro.primeiroDiaSemana + " - " + registro.ultimoDiaSemana);
+
+        dados.datasets[0].data.push(registro.Desligamento);
+        dados.datasets[1].data.push(registro.Sobrecarga);
+        dados.datasets[2].data.push(registro.MauFuncionamento);
+        dados.datasets[3].data.push(registro.Outro);
+    }
+
+    const configFrequenciaProblemasMensal = {
+        type: 'bar',
+        data: dados,
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            family: 'Inter',
+                            size: 17
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    beginAtZero: true
+                }
+            }
+        },
+    };
+
+    let frequenciaProblemasMensal = new Chart(
+        document.getElementById(`frequenciaProblemasMensal`),
+        configFrequenciaProblemasMensal
+    );
+}
+
+function obterFrequenciaDeOcorrencias(fkEmpresa) {
+    fetch(`/unidade/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.reverse();
+                plotarGrafico(resposta);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+const tempoDeAtualizacao = sessionStorage.ATT_FREQ
+
+
+
+
+function atualizarChamados(){
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
+    fetch(`/chamado/listarOcorrenciasChamados/${fkEmpresa}`)
+      .then(function (resposta) {
+        if (resposta.ok) {
+          if (resposta.status == 204) {
+            console.log("Nenhum resultado encontrado!!");
+            throw "Nenhum resultado encontrado!!";
+          }
+          resposta.json().then(function (resposta) {
+            console.log("Dados: ", JSON.stringify(resposta))
+            const totalDesligamento = resposta[0].totalDesligamento;
+            const totalSobrecarga = resposta[0].totalSobrecarga;
+            const totalMauFuncionamento = resposta[0].totalMauFuncionamento;
+            const totalOutro = resposta[0].totalOutro;
+            atualizarMaiorOcorrencia(totalDesligamento, totalSobrecarga, totalMauFuncionamento, totalOutro)
+          }
+          );
+        } else {
+          throw "Houve um erro na API!";
+        }
+      })
+      .catch(function (resposta) {
+        console.error(resposta);
+      });
+  
+    return false;
+  }
+
+  function atualizarMaiorOcorrencia(totalDesligamento, totalSobrecarga, totalMauFuncionamento, totalOutro) {
+    let maiorOcorrencia = document.getElementById("subtitleHardInfo");
+    let qntOcorrencias = document.getElementById("qntOcorrencias");
+
+    if (totalDesligamento >= totalSobrecarga && totalDesligamento >= totalOutro && totalDesligamento >= totalMauFuncionamento) {
+        qntOcorrencias.innerHTML = totalDesligamento;
+        maiorOcorrencia.innerHTML = 'Desligamento';
+    } else if (totalSobrecarga > totalDesligamento && totalSobrecarga >= totalOutro && totalSobrecarga >= totalMauFuncionamento) {
+        qntOcorrencias.innerHTML = totalSobrecarga;
+        maiorOcorrencia.innerHTML = 'Sobrecarga';
+    } else if (totalMauFuncionamento > totalDesligamento && totalMauFuncionamento > totalSobrecarga && totalMauFuncionamento >= totalOutro) {
+        qntOcorrencias.innerHTML = totalMauFuncionamento;
+        maiorOcorrencia.innerHTML = 'Mau funcionamento';
+    } else {
+        qntOcorrencias.innerHTML = totalOutro;
+        maiorOcorrencia.innerHTML = 'Outro';
+    }
 }
 
 function atualizarVariacaoRelatorios() {
@@ -364,67 +565,4 @@ function atualizarVariacaoRelatorios() {
     }
     variacao *= -1
     variacaoRelatorios.innerHTML += variacao.toFixed(1) + "%"
-}
-
-function variacaoDeTempoInoperante(idUnidade) {
-    fetch(`/historico/listar/${idUnidade}`).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then(function (resposta) {
-                console.log("Dados recebidos: ", JSON.stringify(resposta));
-                const semanaAtualMin = resposta[0].semanaAtual;
-                const semanaPassadaMin = resposta[0].semanaPassada;
-                const horasAtual = semanaAtualMin / 60;
-                const diasAtual = horasAtual / 60;
-                const div = document.getElementById("varTempoInoperante")
-                div.innerHTML = diasAtual.toFixed(0) + " Dias"
-            });
-        } else {
-            throw "Houve um erro na API!";
-        }
-    })
-        .catch(function (resposta) {
-            console.error(resposta);
-        });
-}
-
-
-function atualizarMaiorOcorrencia() {
-    let maiorOcorrencia = document.getElementById("subtitleHardInfo");
-    let qntOcorrencias = document.getElementById("qntOcorrencias");
-    if (repDesligamento >= repSobrecarga && repDesligamento >= repOutro && repDesligamento >= repMauFuncionamento) {
-        qntOcorrencias.innerHTML = repDesligamento;
-        maiorOcorrencia.innerHTML = 'Desligamento';
-    } else if (repSobrecarga > repDesligamento && repSobrecarga >= repOutro && repSobrecarga >= repMauFuncionamento) {
-        qntOcorrencias.innerHTML = repSobrecarga;
-        maiorOcorrencia.innerHTML = 'Sobrecarga';
-    } else if (repMauFuncionamento > repDesligamento && repMauFuncionamento > repSobrecarga && repMauFuncionamento >= repOutro) {
-        qntOcorrencias.innerHTML = repMauFuncionamento;
-        maiorOcorrencia.innerHTML = 'Mau funcionamento';
-    } else {
-        qntOcorrencias.innerHTML = repOutro;
-        maiorOcorrencia.innerHTML = 'Outro';
-    }
-}
-
-function buscarDadosRelatorio(idRelatorio) {
-    fetch(`/relatorio/buscarDadosRelatorio/${idRelatorio}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(function (resposta) {
-                    tituloModal.value = resposta[0].titulo;
-                    dataModal.value = resposta[0].dataPublicacao;
-                    escolherTipoProblemaModal.value = resposta[0].tipo;
-                    descricaoModal.value = resposta[0].descricao;
-                    dataModal.value = resposta[0].dataRelatorio;
-
-
-                });
-            } else {
-                throw "Houve um erro na API!";
-            }
-        })
-        .catch(function (resposta) {
-            console.error(resposta);
-        });
-
 }
