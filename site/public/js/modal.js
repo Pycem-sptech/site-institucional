@@ -441,6 +441,8 @@ function atualizarSelectUnidadesChamado() {
           for (var i = 0; i < resposta.length; i++) {
             selectChamado.options[selectChamado.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
             selectNovoChamado.options[selectNovoChamado.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
+            selectChamado.options[selectChamado.options.length -1].id = resposta[i].nome;
+            selectNovoChamado.options[selectNovoChamado.options.length -1].id = resposta[i].nome;
           }
         }
         );
@@ -471,6 +473,8 @@ function atualizarSelectMaquinaChamado() {
           for (var i = 0; i < resposta.length; i++) {
             selectChamado.options[selectChamado.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
             selectNovoChamado.options[selectNovoChamado.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
+            selectChamado.options[selectChamado.options.length -1].id = resposta[i].usuario;
+            selectNovoChamado.options[selectNovoChamado.options.length -1].id = resposta[i].usuario;
           }
         }
         );
@@ -498,7 +502,6 @@ function atualizarSelectUnidadeNovoChamadoPorMaquina() {
         resposta.json().then(function (resposta) {
           for (var i = 0; i < select.options.length; i++) {
             if (resposta[0].fkUnidade == select.options[i].value) {
-              select.options[i] = new Option(resposta[0].nome, resposta[0].fkUnidade);
               select.options[i].selected = true;
             }
           }
@@ -533,6 +536,7 @@ function atualizarSelectMaquinaChamadoPorUnidade() {
           select.options[select.options.length - 1].disabled = true;
           for (var i = 0; i < resposta.length; i++) {
             select.options[select.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
+            select.options[select.options.length -1].id = resposta[i].usuario;
           }
           if (resposta.length == 0) {
             select.options[select.options.length] = new Option('Nenhuma Máquina encontrada', '');
@@ -564,6 +568,7 @@ function atualizarSelectAtribuicaoChamado() {
         resposta.json().then(function (resposta) {
           for (var i = 0; i < resposta.length; i++) {
             select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUsuario);
+            select.options[select.options.length -1].id = resposta[i].nome;
           }
       
         }

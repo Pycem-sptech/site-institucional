@@ -44,6 +44,7 @@
     border-radius: 10px;
     box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);
 }
+
 .titleBox{
     display: flex;
     justify-content: center;
@@ -51,6 +52,7 @@
     width: 100%;
     height: 12%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+    text-align: center;
 }
 .feed{
     width: 100%;
@@ -81,6 +83,10 @@
     border-radius: 10px;
     cursor: pointer;
 }
+.boxChamado:hover{
+    border: 1px solid #000;
+    transition: ease 0.8s;
+}
 .infoChamado{
     display: flex;
     flex-direction: column;
@@ -103,7 +109,6 @@
     align-items: flex-start;
     justify-content: space-between;
     padding: 10px 5%;
-    /*background-color: #68B2F7;*/
 }
 .infoAtribuicao span{
     text-align: center;
@@ -125,4 +130,116 @@
     background-image: url(../img/Vector\ 2.svg);
     background-position: 90%;
     background-repeat: no-repeat;
+}
+
+.mobile{
+    display: none;
+}
+.andamento{
+    display: block;
+}
+.encerrados{
+    display: block;
+}
+.atual{
+    opacity: 1;
+}
+
+
+@media (max-width:1500px){
+    .btnNovoChamado{
+        font-size: 1.1em;
+    }
+    .selectFiltrarChamados{
+        font-size: 1.1em;
+    }
+}
+@media (max-width:1400px){
+    .btnNovoChamado{
+        font-size: 0.9em;
+    }
+    .selectFiltrarChamados{
+        font-size: 0.9em;
+    }
+    .titleBox h1{
+        font-size: 25px;
+    }
+}
+@media (max-width:1050px){
+    .btnNovoChamado{
+        font-size: 0.75em;
+    }
+    .titleBox h1{
+        font-size: 20px;
+        
+    }
+}
+
+@media (max-width:800px){
+    .guideText{
+        width: 100%;
+    }
+    .welcomeSentence{
+        margin: 0;
+    }
+    .firstStep{
+        margin: 0;
+    }
+    .divBtnChamado{
+        width: 100%;
+        justify-content: space-evenly;
+    }
+    .mobile{
+        display: block;
+    }
+    .selectFiltrarChamados{
+        width: 25%;
+        margin: 0;
+    }
+    .btnNovoChamado{
+        width: 25%;
+        margin: 0;
+    }
+    .main{
+        width: 100%;
+        justify-content: center;
+    }
+    .main .container{
+        width: 87%;
+    }
+    .btnNovoChamado{
+        font-size: 0.9em;
+    }
+    .andamento{
+        display: none;
+    }
+    .encerrados{
+        display: none;
+    }
+    
+}
+@media (max-width:650px){
+    .selectFiltrarChamados{
+        padding-right: 6%;
+    }
+}
+@media (max-width:475px){
+    .btnNovoChamado{
+        font-size: 12px;
+    }
+    .selectFiltrarChamados{
+        font-size: 12px;
+    }   
+}
+@media (max-width: 414px){
+    .boxChamado h3{
+        font-size: 15px;
+
+    }
+    .boxChamado span{
+        font-size: 14px;
+    }
+    .selectFiltrarChamados{
+        padding-right: 8%;
+    }
 }

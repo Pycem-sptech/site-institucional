@@ -39,7 +39,13 @@ function filtrarFuncionarios(nomeDigitado, fkEmpresa) {
 }
 
 function deletar(idFuncionario) {
+  desassociarFuncionario(idFuncionario);
   var instrucao = `DELETE FROM usuario where idUsuario = ${idFuncionario};`;
+  return database.executar(instrucao);
+}
+
+function desassociarFuncionario(idFuncionario){
+  var instrucao = `exec DesatribuirChamado @idUsuario = '${idFuncionario}'`;
   return database.executar(instrucao);
 }
 
@@ -113,6 +119,7 @@ module.exports = {
   listarChamadosUsuario,
   listarDadosFuncionario,
   verificarCpf,
+  desassociarFuncionario,
   verificarEmail,
   entrar,
   autenticar,

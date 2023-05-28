@@ -16,16 +16,23 @@ function buscarChamados(titulo) {
 }
 
 function criarChamado() {
+  const selectUnidade = document.querySelector('#escolherUnidadeModalNovoChamado');
+  let selectedUnidadeOption = selectUnidade.options[selectUnidade.selectedIndex].id;
+  const selectTotem = document.querySelector('#escolherMaquinaModalNovoChamado');
+  let selectedTotemOption = selectTotem.options[selectTotem.selectedIndex].id;
+
   const fkEmpresa = sessionStorage.FK_EMPRESA;
   const criado_por_id = sessionStorage.USER_ID;
   const criado_por_nome = sessionStorage.USER_FULLNAME;
   const fkMaquina = escolherMaquinaModalNovoChamado.value;
   const fkUnidade = escolherUnidadeModalNovoChamado.value;
+  const nome_unidade = selectedUnidadeOption;
+  const usuario_totem = selectedTotemOption;
   const prioridade = escolherPrioridadeModalNovoChamado.value;
   const tipo = escolherTipoModalNovoChamado.value;
   const descricao = descricaoModalNovoChamado.value;
-
-  if (fkEmpresa == "" || fkMaquina == "" || criado_por_id == "" || criado_por_nome == "" || prioridade == "" || tipo == "" || fkUnidade == "" || descricao == "") {
+  
+  if (fkEmpresa == "" || fkMaquina == "" || criado_por_id == "" || criado_por_nome == "" || nome_unidade == "" || usuario_totem == "" ||prioridade == "" || tipo == "" || fkUnidade == "" || descricao == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
   } else {
@@ -39,7 +46,9 @@ function criarChamado() {
         fkEmpresa: fkEmpresa,
         criado_por_id: criado_por_id,
         criado_por_nome: criado_por_nome,
+        usuario_totem: usuario_totem,
         fkMaquina: fkMaquina,
+        nome_unidade: nome_unidade,
         fkUnidade: fkUnidade,
         prioridade: prioridade,
         tipo: tipo,
@@ -63,6 +72,13 @@ function criarChamado() {
   }
 }
 function editarChamado(idChamado) {
+  const selectUnidade = document.querySelector('#escolherUnidadeModal');
+  let selectedUnidadeOption = selectUnidade.options[selectUnidade.selectedIndex].id;
+  const selectTotem = document.querySelector('#escolherMaquinaModal');
+  let selectedTotemOption = selectTotem.options[selectTotem.selectedIndex].id;
+  const nome_unidade = selectedUnidadeOption;
+  const usuario_totem = selectedTotemOption;
+
   const atribuicao = escolherAtribuicaoModal.value;
   const prioridade = escolherPrioridadeModal.value;
   const status = escolherEstadoModal.value;
@@ -72,7 +88,7 @@ function editarChamado(idChamado) {
   const fkMaquina = escolherMaquinaModal.value;
 
   
-  if ( fkMaquina == "" || atribuicao == ""  || prioridade == "" || status == "" || tipo == "" ||  descricao == "") {
+  if ( fkMaquina == "" || atribuicao == ""  || prioridade == "" || status == "" || tipo == "" ||  descricao == "" || nome_unidade == "" || usuario_totem == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
   } else {
@@ -84,6 +100,8 @@ function editarChamado(idChamado) {
       body: JSON.stringify({
         fkMaquina: fkMaquina,
         prioridade: prioridade,
+        nome_unidade:nome_unidade,
+        usuario_totem:usuario_totem,
         tipo: tipo,
         status: status,
         descricao: descricao,
