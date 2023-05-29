@@ -19,6 +19,9 @@ router.get("/listarMaquinasPorUnidade/:fkUnidade", function (req, res) {
 router.get("/listarUnidadesPorMaquina/:idTotem", function (req, res) {
     chamadoController.listarUnidadesPorMaquina(req, res);
 });
+router.get("/variacaoChamadoSemana/:fkUnidade", function (req, res) {
+    chamadoController.variacaoChamadoSemana(req, res);
+});
 router.get("/buscarChamado/:idChamado", function (req, res) {
     chamadoController.buscarChamado(req, res);
 });

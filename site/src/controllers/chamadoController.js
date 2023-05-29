@@ -79,6 +79,21 @@ function listarUnidadesPorMaquina(req, res) {
     );
 
 }
+function variacaoChamadoSemana(req, res) {
+    const fkUnidade = req.params.fkUnidade;
+
+    chamadoModel.variacaoChamadoSemana(fkUnidade).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+
+}
 function buscarChamado(req, res) {
     const idChamado = req.params.idChamado;
 
@@ -255,5 +270,6 @@ module.exports = {
     cadastrar,
     editar,
     deletar,
-    frequenciaProblemasMensal
+    frequenciaProblemasMensal,
+    variacaoChamadoSemana
 }

@@ -107,7 +107,7 @@ criado_por_nome varchar(50) not null default 'System Administrator',
 criado_por_id int, FOREIGN KEY (criado_por_id) REFERENCES usuario(idUsuario),
 atribuido_nome varchar(50) not null default 'Nao Atribuido',
 atribuido_id int, FOREIGN KEY (atribuido_id) REFERENCES usuario(idUsuario),
-data_inicio varchar(30) not null default GETDATE(),
+data_inicio varchar(30) not null default DATEADD(Hour, -3, getdate()),
 data_fim varchar(30),
 descricao varchar(255) not null,
 resolucao varchar(255),
@@ -117,9 +117,8 @@ nome_unidade varchar(60),
 fkUnidade int, FOREIGN KEY (fkUnidade) REFERENCES unidade(idUnidade),
 fkEmpresa int, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
-
-insert into chamado(fkTotem, fkUnidade, fkEmpresa) values 
-(1, 1, 100)
+insert into chamado(descricao, prioridade,tipo, criado_por_id, criado_por_nome, usuario_totem,fkTotem, nome_unidade, fkUnidade, fkEmpresa, data_inicio) values 
+('aaaa','P1','Desligamento','1','Matheus','PY_MACHE','17','PY Hamburgueria','1','100',(select DATEADD(week, -11, getdate())));
 
 -- TRIGGERS
 -- Atualizar titulo dos chamados
@@ -160,7 +159,7 @@ BEGIN
 
 	SELECT @idChamado = i.idChamado FROM inserted i
 	SELECT @prioridade = i.prioridade FROM inserted i
-	SELECT @data_inicio = DATEADD(Hour, -3, getdate())
+	SELECT @data_inicio = i.data_inicio FROM inserted i
 
 	IF (@prioridade = 'P1')
 		BEGIN 

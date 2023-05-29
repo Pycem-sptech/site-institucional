@@ -30,6 +30,26 @@ function listarUnidadesPorMaquina(idTotem) {
     var instrucao = `select t.fkUnidade, u.nome from totem t join unidade u on t.fkUnidade = u.idUnidade where t.idTotem = ${idTotem};`;
     return database.executar(instrucao);
 }
+function variacaoChamadoSemana(fkUnidade) {
+    var instrucao = `SELECT top 2
+            Semana,
+            QuantidadeChamados,
+            LAG(QuantidadeChamados) OVER (ORDER BY Semana) AS QuantidadeChamadosAnterior,
+            QuantidadeChamados - LAG(QuantidadeChamados) OVER (ORDER BY Semana) AS VariacaoSemanal
+        FROM
+        (SELECT
+            DATEPART(WEEK, data_inicio) AS Semana,
+            COUNT(*) AS QuantidadeChamados
+        FROM
+            chamado
+            where fkUnidade = '${fkUnidade}'
+        GROUP BY
+            DATEPART(WEEK, data_inicio)
+        ) AS TabelaSemanas
+        ORDER BY
+              Semana desc;`;
+    return database.executar(instrucao);
+}
 function buscarChamado(idChamado) {
     var instrucao = `select * from chamado where idChamado = ${idChamado};`;
     return database.executar(instrucao);
@@ -91,11 +111,11 @@ function frequenciaProblemasMensal(fkEmpresa, idUnidade) {
             DATEPART(week, c.data_inicio) AS semana, 
             FORMAT(DATEADD(WEEK, DATEPART(week, c.data_inicio) - 1, DATEADD(YEAR, 2023 - 1900, 0)) - DATEPART(WEEKDAY, DATEADD(YEAR, 2023 - 1900, 0)) + 1,'dd/MM') as primeiroDiaSemana,
 			FORMAT(DATEADD(DAY, 6, DATEADD(WEEK, DATEPART(week, c.data_inicio) - 1, DATEADD(YEAR, 2023 - 1900, 0)) - DATEPART(WEEKDAY, DATEADD(YEAR, 2023 - 1900, 0)) + 1),'dd/MM') as ultimoDiaSemana,
-            (SELECT COUNT(tipo) FROM chamado WHERE tipo = 'Desligamento' AND DATEPART(week, data_inicio) = DATEPART(week, c.data_inicio)) AS Desligamento,
-            (SELECT COUNT(tipo) FROM chamado WHERE tipo = 'Sobrecarga' AND DATEPART(week, data_inicio) = DATEPART(week, c.data_inicio)) AS Sobrecarga,
-            (SELECT COUNT(tipo) FROM chamado WHERE tipo = 'MauFuncionamento' AND DATEPART(week, data_inicio) = DATEPART(week, c.data_inicio)) AS MauFuncionamento,
-            (SELECT COUNT(tipo) FROM chamado WHERE tipo = 'Outro' AND DATEPART(week, data_inicio) = DATEPART(week, c.data_inicio)) AS Outro,
-            (SELECT COUNT(tipo) FROM chamado WHERE DATEPART(week, data_inicio) = DATEPART(week, c.data_inicio)) AS Total        
+            (SELECT COUNT(tipo) FROM chamado WHERE fkUnidade = '${idUnidade}' AND tipo = 'Desligamento' AND DATEPART(week, data_inicio) = DATEPART(week, c.data_inicio)) AS Desligamento,
+            (SELECT COUNT(tipo) FROM chamado WHERE fkUnidade = '${idUnidade}' AND tipo = 'Sobrecarga' AND DATEPART(week, data_inicio) = DATEPART(week, c.data_inicio)) AS Sobrecarga,
+            (SELECT COUNT(tipo) FROM chamado WHERE fkUnidade = '${idUnidade}' AND tipo = 'MauFuncionamento' AND DATEPART(week, data_inicio) = DATEPART(week, c.data_inicio)) AS MauFuncionamento,
+            (SELECT COUNT(tipo) FROM chamado WHERE fkUnidade = '${idUnidade}' AND tipo = 'Outro' AND DATEPART(week, data_inicio) = DATEPART(week, c.data_inicio)) AS Outro,
+            (SELECT COUNT(tipo) FROM chamado WHERE fkUnidade = '${idUnidade}' AND DATEPART(week, data_inicio) = DATEPART(week, c.data_inicio)) AS Total        
         FROM 
             unidade u
             JOIN empresa e ON u.fkEmpresa = e.idEmpresa
@@ -126,4 +146,5 @@ module.exports = {
     cadastrar,
     editar,
     deletar,
+    variacaoChamadoSemana
 }

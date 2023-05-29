@@ -257,11 +257,11 @@ if (mes % 2 != 0 || mes == 8) {
     diasMes = 28
 }
 
-if(diasMes == 31 && mes != 8 && mes != 2){
+if (diasMes == 31 && mes != 8 && mes != 2) {
     diasMesPassado = 30
-}else if(mes == 8){
+} else if (mes == 8) {
     diasMesPassado = 31
-}else{
+} else {
     diasMesPassado = 28
 }
 
@@ -302,21 +302,21 @@ var semanaPassada = 0;
 var totalRegistrosSemanaAtual = 0;
 var totalRegistrosSemanaPassada = 0;
 
-function buscarRelatoriosMensais(fkEmpresa,idUnidade) {
+function buscarRelatoriosMensais(fkEmpresa, idUnidade) {
     fetch(`/relatorio/listarRelatoriosMensais/${fkEmpresa}/${idUnidade}`).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
                 var resp = resposta;
-                 semanaAtual = resp[0].semana;
-                 semanaPassada = resp[1].semana;
-                 totalRegistrosSemanaAtual = resp[0].Total;
-                 totalRegistrosSemanaPassada = resp[1].Total;
+                semanaAtual = resp[0].semana;
+                semanaPassada = resp[1].semana;
+                totalRegistrosSemanaAtual = resp[0].Total;
+                totalRegistrosSemanaPassada = resp[1].Total;
 
-                 repDesligamento = resp[0].Desligamento;
-                 repSobrecarga = resp[0].Sobrecarga;
-                 repMauFuncionamento = resp[0].MauFuncionamento;
-                 repOutro = resp[0].Outro;
+                repDesligamento = resp[0].Desligamento;
+                repSobrecarga = resp[0].Sobrecarga;
+                repMauFuncionamento = resp[0].MauFuncionamento;
+                repOutro = resp[0].Outro;
 
                 atualizarKpi(idUnidade);
             });
@@ -493,36 +493,9 @@ const tempoDeAtualizacao = sessionStorage.ATT_FREQ
 
 
 
-function atualizarChamados(){
-    const fkEmpresa = sessionStorage.FK_EMPRESA;
-    fetch(`/chamado/listarOcorrenciasChamados/${fkEmpresa}`)
-      .then(function (resposta) {
-        if (resposta.ok) {
-          if (resposta.status == 204) {
-            console.log("Nenhum resultado encontrado!!");
-            throw "Nenhum resultado encontrado!!";
-          }
-          resposta.json().then(function (resposta) {
-            console.log("Dados: ", JSON.stringify(resposta))
-            const totalDesligamento = resposta[0].totalDesligamento;
-            const totalSobrecarga = resposta[0].totalSobrecarga;
-            const totalMauFuncionamento = resposta[0].totalMauFuncionamento;
-            const totalOutro = resposta[0].totalOutro;
-            atualizarMaiorOcorrencia(totalDesligamento, totalSobrecarga, totalMauFuncionamento, totalOutro)
-          }
-          );
-        } else {
-          throw "Houve um erro na API!";
-        }
-      })
-      .catch(function (resposta) {
-        console.error(resposta);
-      });
-  
-    return false;
-  }
 
-  function atualizarMaiorOcorrencia(totalDesligamento, totalSobrecarga, totalMauFuncionamento, totalOutro) {
+
+function atualizarMaiorOcorrencia(totalDesligamento, totalSobrecarga, totalMauFuncionamento, totalOutro) {
     let maiorOcorrencia = document.getElementById("subtitleHardInfo");
     let qntOcorrencias = document.getElementById("qntOcorrencias");
 
@@ -542,27 +515,51 @@ function atualizarChamados(){
 }
 
 function atualizarVariacaoRelatorios() {
-    let variacaoRelatorios = document.getElementById("variacaoRelatorios")
-    let variacao;
-    if (totalRegistrosSemanaPassada == 0) {
-        variacao = (totalRegistrosSemanaAtual / 1) * 100;
-        variacaoRelatorios.className = 'percent memory'
-    } else if (totalRegistrosSemanaAtual > totalRegistrosSemanaPassada) {
-        variacao = ((totalRegistrosSemanaAtual - totalRegistrosSemanaPassada) / totalRegistrosSemanaPassada) * 100;
-        variacaoRelatorios.className = 'percent memory'
-    } else if (totalRegistrosSemanaAtual < totalRegistrosSemanaPassada) {
-        variacao = ((totalRegistrosSemanaAtual - totalRegistrosSemanaPassada) / totalRegistrosSemanaPassada) * 100;
-        variacaoRelatorios.className = 'percent cpu'
-    } else if (totalRegistrosSemanaAtual == totalRegistrosSemanaPassada) {
-        variacao = 0;
-        variacaoRelatorios.className = 'percent ram'
-    }
+    fkUnidade = sessionStorage.ID_UNIDADE
+    fetch(`/chamado/variacaoChamadoSemana/${fkUnidade}`, { cache: 'no-store' }).then(function (resposta) {
+        if (resposta.ok) {
+          
+            resposta.json().then(function (resposta) {
+                
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-    if(variacao < 0){
-        variacaoRelatorios.innerHTML = "<img src = './img/arrowGreen.svg'>"
-    }else if(variacao > 0){
-        variacaoRelatorios.innerHTML = "<img src = './img/arrowRed.svg'>"
-    }
-    variacao *= -1
-    variacaoRelatorios.innerHTML += variacao.toFixed(1) + "%"
+                let variacaoRelatorios = document.getElementById("variacaoRelatorios")
+                let variacao;
+                let totalRegistrosSemanaPassada = resposta[0].QuantidadeChamadosAnterior;
+                let totalRegistrosSemanaAtual = resposta[0].QuantidadeChamados;
+                if(totalRegistrosSemanaPassada == undefined){
+                    totalRegistrosSemanaPassada = 0
+                }
+                if (totalRegistrosSemanaPassada == 0) {
+                    variacao = (totalRegistrosSemanaAtual / 1) * 100;
+                    variacaoRelatorios.className = 'percent memory'
+                } else if (totalRegistrosSemanaAtual > totalRegistrosSemanaPassada) {
+                    variacao = ((totalRegistrosSemanaAtual - totalRegistrosSemanaPassada) / totalRegistrosSemanaPassada) * 100;
+                    variacaoRelatorios.className = 'percent memory'
+                } else if (totalRegistrosSemanaAtual < totalRegistrosSemanaPassada) {
+                    variacao = ((totalRegistrosSemanaAtual - totalRegistrosSemanaPassada) / totalRegistrosSemanaPassada) * 100;
+                    variacaoRelatorios.className = 'percent cpu'
+                } else if (totalRegistrosSemanaAtual == totalRegistrosSemanaPassada) {
+                    variacao = 0;
+                    variacaoRelatorios.className = 'percent ram'
+                }
+
+                if (variacao < 0) {
+                    variacaoRelatorios.innerHTML = "<img src = './img/arrowGreen.svg'>"
+                    variacao *= -1
+                } else if (variacao > 0) {
+                    variacaoRelatorios.innerHTML = "<img src = './img/arrowRed.svg'>"
+                }
+                
+                variacaoRelatorios.innerHTML += variacao.toFixed(1) + "%"
+
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
 }
