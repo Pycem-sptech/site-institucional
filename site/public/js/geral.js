@@ -75,7 +75,7 @@ function privarFuncTecnico() {
 
 function visaoTecnico() {
     if (sessionStorage.USER_CARGO == "Tecnico") {
-        chamadosAtribuidos();p
+        chamadosAtribuidos();
         let chamadosAntigos = sessionStorage.USER_CHAMADOS_ANTIGOS;
         let chamadosNovos = sessionStorage.USER_CHAMADOS;
         if (chamadosNovos != chamadosAntigos) {
