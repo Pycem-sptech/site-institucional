@@ -27,11 +27,45 @@ width: 100%;
 }
 .feed{
     width: 100%;
-    height: 86%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: scroll;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.chamado{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 15%;
+    cursor: pointer;
+}
+.chamado:hover{
+    background-color: #F2F2F2;
+    transition: all ease 1s;
+}
+.idChamado{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+.atribuicaoChamado{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+}
+.prioridadeChamado{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
 }
 .feed::-webkit-scrollbar {
     width: 10px;
@@ -45,46 +79,7 @@ width: 100%;
     background-color: #acacac;    
     border-radius: 20px;       
 }
-.boxChamado{
-    box-sizing: border-box;
-    width: 90%;
-    margin-top: 5%;
-    background-color: #F8F8F8;
-    border: 1px solid #C6C6C6;
-    border-radius: 10px;
-    cursor: pointer;
-}
-.boxChamado:hover{
-    border: 1px solid #000;
-    transition: ease 0.8s;
-}
-.infoChamado{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.18);
-}
-.infoChamado h3{
-    padding-top: 3%;
-    padding-left: 5%;
-    padding-bottom: 7%;
-}
-.infoMaquina{
-    display: flex;
-    flex-direction: column;
-    margin-left: 5%;
-    margin-bottom: 1%;
-}
-.infoAtribuicao{
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 10px 5%;
-}
-.infoAtribuicao span{
-    text-align: center;
-    font-weight: 500;
-}
+
 .leftMain::-webkit-scrollbar {
     width: 5px;
   }
@@ -131,6 +126,11 @@ width: 100%;
     justify-content: center;
     align-items: center;
 }
+.machineField{
+    overflow: hidden;
+    overflow-y: hidden;
+}
+
 .titleBoxGraph .container{
     width: 80%;
 }

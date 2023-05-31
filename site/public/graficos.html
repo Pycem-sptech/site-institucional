@@ -84,7 +84,7 @@
                 <div class="boxHardInfo center">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3>Memoria Ram</h3>
+                            <h3>Memória Ram</h3>
                             <h5 class="subtitleHardInfo" id="qtd_ram"></h5>
                         </div>
                     </div>
@@ -155,17 +155,29 @@
             <section class="listMachine">
                 <div class="titleListMachine">
                          <div class="container">
-                            <h3 id="tituloMaquinas" class="tituloMaquinas">Chamados Aberto</h3>
+                            <h3 id="tituloMaquinas" class="tituloMaquinas">Chamados Abertos</h3>
                             <input id="campoPesquisa" type="text" onkeyup="filtrarRelatorios(sessionStorage.ID_TOTEM, this.value)">
                             <img onclick="pesquisar()" id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
                             <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                      </div>
                 </div>
                 <div class="machineField" id="machineField">
-                    <div class="feed"></div>
+                    <div class="feed">
+                        <div class="chamado">
+                            <div class="idChamado">
+                                MC00012
+                            </div>
+                            <div class="atribuicaoChamado">
+                                Eduardo
+                            </div>
+                            <div class="prioridadeChamado">
+                                P1
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="divBtnAddReport">
-                    <button class="btnAddReport" onclick="mostrarModalNovoChamado()">Novo chamado +</button>
+                    <button class="btnAddReport" onclick="mostrarModalNovoChamado()">Novo chamado</button>
 
                 </div>
             </section>
@@ -220,7 +232,7 @@
                         <option value="" disabled>Tipo</option>
                         <option value="Desligamento">Desligamento</option>
                         <option value="Sobrecarga">Sobrecarga</option>
-                        <option value="MauFuncionamento">MauFuncionamento</option>
+                        <option value="MauFuncionamento">Mau Funcionamento</option>
                         <option value="Outro">Outro</option>
                     </select></span>
             </div>
