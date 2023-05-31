@@ -6,7 +6,16 @@ function listar(fkEmpresa, fkUnidade) {
 }
 
 function listarStatusTotem(fkEmpresa) {
-  var instrucao = `select t.estado from totem t join unidade u on u.idUnidade = t.fkUnidade join empresa e on e.idEmpresa = u.fkEmpresa where idEmpresa = '${fkEmpresa}';`;
+  var instrucao = `
+  select count(t.estado) as totalDesligado,
+    (select count(t.estado) from totem t join unidade u 
+    on u.idUnidade = t.fkUnidade join empresa e on e.idEmpresa = u.fkEmpresa where idEmpresa = '${fkEmpresa}' and t.estado = 'Manutencao') as totalManutencao,
+    (select count(t.estado) from totem t join unidade u 
+    on u.idUnidade = t.fkUnidade join empresa e on e.idEmpresa = u.fkEmpresa where idEmpresa = '${fkEmpresa}' and t.estado = 'Disponivel') as totalDisponivel,
+    (select count(t.idTotem) from totem t join unidade u 
+    on u.idUnidade = t.fkUnidade join empresa e on e.idEmpresa = u.fkEmpresa where idEmpresa = '${fkEmpresa}') as totalMaquinas
+  from totem t join unidade u 
+  on u.idUnidade = t.fkUnidade join empresa e on e.idEmpresa = u.fkEmpresa where idEmpresa = '${fkEmpresa}' and t.estado = 'Desligado';`;
   return database.executar(instrucao);
 }
 
