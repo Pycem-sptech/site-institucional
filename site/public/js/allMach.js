@@ -168,3 +168,4 @@ function mostrarTodasMaquinas(listaMaquina) {
         imprimirMaquina(listaMaquina[i], i);
     }
 }
+

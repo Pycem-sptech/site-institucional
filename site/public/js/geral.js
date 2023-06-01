@@ -408,7 +408,6 @@ function redirectAllMach() {
         sessionStorage.TIPO_TELA = "2";
         window.location = "./unidade.html";
     }, 200);
-
 }
 function redirectSuport() {
     setTimeout(function () {

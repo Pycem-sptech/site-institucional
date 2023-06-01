@@ -67,114 +67,6 @@ function plotarGrafico(resposta) {
     );
 }
 
-// function obterDadosGraficoFrequenciaProblemasMensal(fkEmpresa, idUnidade) {
-//     fetch(`/chamado/frequenciaProblemasMensal/${fkEmpresa}/${idUnidade}`, { cache: 'no-store' }).then(function (response) {
-//         if (response.ok) {
-//             response.json().then(function (resposta) {
-//                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-//                 plotarGraficoFrequenciaProblemasMensal(resposta);
-//             });
-//         } else {
-//             console.error('Nenhum dado encontrado ou erro na API');
-//         }
-//     })
-//         .catch(function (error) {
-//             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-//         });
-// }
-
-// function plotarGraficoFrequenciaProblemasMensal(resposta) {
-
-//     let labels = [];
-//     let dados = {
-//         labels: labels,
-//         datasets: [{
-//             label: 'Desligamento',
-//             data: [],
-//             fill: true,
-//             backgroundColor: 'rgba(0, 255, 232, 1)',
-//             borderColor: 'rgba(0, 255, 232, 1)',
-//             tension: 0.1
-//         }, {
-//             label: 'Sobrecarga',
-//             data: [],
-//             fill: true,
-//             backgroundColor: 'rgba(0, 150, 232, 1)',
-//             borderColor: 'rgba(0, 150, 232, 1)',
-//             tension: 0.1
-//         }, {
-//             label: 'Mau funcionamento',
-//             data: [],
-//             fill: true,
-//             backgroundColor: 'rgba(0, 12, 232, 1)',
-//             borderColor: 'rgba(0, 12, 232, 1)',
-//             tension: 0.1
-//         }, {
-//             label: 'Outro',
-//             data: [],
-//             fill: true,
-//             backgroundColor: 'rgba(0, 23, 100, 1)',
-//             borderColor: 'rgba(0, 23, 100, 1)',
-//             tension: 0.1
-//         }]
-//     };
-
-//     for (i = 0; i < resposta.length; i++) {
-//         var registro = resposta[i];
-//         labels.push(registro.primeiroDiaSemana + " - " + registro.ultimoDiaSemana);
-
-//         dados.datasets[0].data.push(registro.Desligamento);
-//         dados.datasets[1].data.push(registro.Sobrecarga);
-//         dados.datasets[2].data.push(registro.MauFuncionamento);
-//         dados.datasets[3].data.push(registro.Outro);
-//     }
-
-//     const configFrequenciaProblemasMensal = {
-//         type: 'bar',
-//         data: dados,
-//         options: {
-//             plugins: {
-//                 legend: {
-//                     labels: {
-//                         font: {
-//                             family: 'Inter',
-//                             size: 17
-//                         }
-//                     }
-//                 }
-//             },
-//             scales: {
-//                 y: {
-//                     min: 0,
-//                     beginAtZero: true
-//                 }
-//             }
-//         },
-//     };
-
-//     let frequenciaProblemasMensal = new Chart(
-//         document.getElementById(`frequenciaProblemasMensal`),
-//         configFrequenciaProblemasMensal
-//     );
-// }
-
-// function obterFrequenciaDeOcorrencias(fkEmpresa) {
-//     fetch(`/unidade/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
-//         if (response.ok) {
-//             response.json().then(function (resposta) {
-//                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-//                 resposta.reverse();
-//                 plotarGrafico(resposta);
-//             });
-//         } else {
-//             console.error('Nenhum dado encontrado ou erro na API');
-//         }
-//     })
-//         .catch(function (error) {
-//             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-//         });
-// }
-
 // const tempoDeAtualizacao = sessionStorage.ATT_FREQ
 function listarUsoMaquina(fkTotem) {
     fetch(`/maquina/listarUsoMaquina/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
@@ -589,7 +481,7 @@ function exibirChamadosAbertosPorMaquina(idTotem) {
                         divAtribuicaoChamado.className = "atribuicaoChamado"
                         divPrioridadeChamado.className = "prioridadeChamado"
             
-                        
+                        divChamado.setAttribute('onclick',`mostrarModalChamado('${sessionStorage.ID_TOTEM}', '${"chamadosAbertos"}')`)
                         divIdChamado.innerHTML = publicacao.titulo;
                         divAtribuicaoChamado.innerHTML = publicacao.prioridade;
                         divPrioridadeChamado.innerHTML = publicacao.atribuido_nome;

@@ -1,3 +1,44 @@
+const listaUnidades = [];
+
+let unidades = [{
+    idUnidade: '',
+    nomeUnidade: '',
+    estadoMaquinas: {
+        desligado: '',
+        manutencao: '',
+        ligado: ''
+    }
+}]
+
+function atualizarJsonUnidades() {
+    fetch(`/unidade/atualizarListaUnidades/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                console.log("Nenhum resultado encontrado!!");
+                throw "Nenhum resultado encontrado!!";
+            }
+            resposta.json().then(function (resposta) {
+                let idAntigo = resposta[0].idUnidade;
+                for (var i = 0; i < resposta.length; i++) {
+                     
+                    
+
+                }
+
+            });
+            setTimeout(function () { mostrarTodasUnidades(listaUnidades) }, 300)
+        } else {
+            throw "Houve um erro na API!";
+        }
+    })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+
+    return false;
+}
+
+
 function atualizarListaUnidades() {
     const listaUnidades = [];
     const fkEmpresa = sessionStorage.FK_EMPRESA;
@@ -39,7 +80,7 @@ function atualizarListaUnidadesFiltradas(nomeDigitado) {
                         console.log("Nenhum resultado encontrado!!");
                         limparFeed();
                         throw "Nenhum resultado encontrado!!";
-                        
+
                     }
                     resposta.json().then(function (resposta) {
                         for (var i = 0; i < resposta.length; i++) {
@@ -60,7 +101,7 @@ function atualizarListaUnidadesFiltradas(nomeDigitado) {
             });
 
         return false;
-    }else {limparFeed();}
+    } else { limparFeed(); }
 }
 
 function imprimirUnidade(fkEmpresa, fkUnidade, id) {
@@ -84,7 +125,7 @@ function imprimirUnidade(fkEmpresa, fkUnidade, id) {
                     var divBoxId = document.createElement("div");
                     divBoxId.className = "box idUnit";
                     var spanId = document.createElement("span");
-                    spanId.innerHTML = id+1;
+                    spanId.innerHTML = id + 1;
 
                     var divBoxName = document.createElement("div");
                     divBoxName.className = "box nameUnit";
@@ -149,7 +190,7 @@ function mostrarTodasUnidades(listaUnidades) {
     limparFeed();
     const fkEmpresa = sessionStorage.FK_EMPRESA;
 
-    for (i = 0; i < listaUnidades.length; i++){
+    for (i = 0; i < listaUnidades.length; i++) {
         imprimirUnidade(fkEmpresa, listaUnidades[i].idUnidade, i);
     }
 }
