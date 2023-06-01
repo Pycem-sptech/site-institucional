@@ -258,6 +258,23 @@ function frequenciaProblemasMensal(req, res) {
         }
     );
 }
+function exibirChamadosAbertosPorMaquina(req, res) {
+    const idTotem = req.params.idTotem;
+    chamadoModel.exibirChamadosAbertosPorMaquina(idTotem).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("entrou no controller");
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 
 module.exports = {
     listar,
@@ -271,5 +288,6 @@ module.exports = {
     editar,
     deletar,
     frequenciaProblemasMensal,
-    variacaoChamadoSemana
+    variacaoChamadoSemana,
+    exibirChamadosAbertosPorMaquina
 }

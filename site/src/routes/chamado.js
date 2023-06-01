@@ -25,6 +25,9 @@ router.get("/variacaoChamadoSemana/:fkUnidade", function (req, res) {
 router.get("/buscarChamado/:idChamado", function (req, res) {
     chamadoController.buscarChamado(req, res);
 });
+router.get("/exibirChamadosAbertosPorMaquina/:idTotem", function (req, res) {
+    chamadoController.exibirChamadosAbertosPorMaquina(req, res);
+});
 
 router.post("/cadastrarChamado/", function (req, res) {
     chamadoController.cadastrar(req, res);

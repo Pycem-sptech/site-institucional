@@ -25,7 +25,10 @@
 </head>
 
 <body
-    onload="validarSessao(), listarUsoMaquina(`${sessionStorage.ID_TOTEM}`),atualizarNomeMaquina(),buscarDadosEstado(`${sessionStorage.ID_TOTEM}`),atualizarSelectMaquinaChamado(),atualizarSelectUnidadesChamado(), atualizarSelectAtribuicaoChamado()">
+    onload="validarSessao(), listarUsoMaquina(`${sessionStorage.ID_TOTEM}`),atualizarNomeMaquina(),buscarDadosEstado(`${sessionStorage.ID_TOTEM}`),atualizarSelectMaquinaChamado(), 
+     atualizarSelectUnidadesChamado(), atualizarSelectAtribuicaoChamado(), 
+    exibirChamadosAbertosPorMaquina(`${sessionStorage.ID_TOTEM}`)"
+    >
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -162,17 +165,9 @@
                      </div>
                 </div>
                 <div class="machineField" id="machineField">
-                    <div class="feed">
+                    <div class="feed" id="feed">
                         <div class="chamado">
-                            <div class="idChamado">
-                                MC00012
-                            </div>
-                            <div class="atribuicaoChamado">
-                                Eduardo
-                            </div>
-                            <div class="prioridadeChamado">
-                                P1
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

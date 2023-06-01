@@ -134,6 +134,11 @@ function frequenciaProblemasMensal(fkEmpresa, idUnidade) {
     return database.executar(instrucao);
 }
 
+function exibirChamadosAbertosPorMaquina(idTotem){
+    var instrucao = `select titulo, prioridade, atribuido_nome from chamado where fkTotem = ${idTotem} and estado = 'Aberto';`;
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar,
     listarChamados,
@@ -146,5 +151,6 @@ module.exports = {
     cadastrar,
     editar,
     deletar,
-    variacaoChamadoSemana
+    variacaoChamadoSemana,
+    exibirChamadosAbertosPorMaquina
 }

@@ -558,3 +558,55 @@ function atualizarRelatorios(idTotem) {
             console.error(resposta);
         });
 }
+
+function exibirChamadosAbertosPorMaquina(idTotem) {
+        fetch(`/chamado/exibirChamadosAbertosPorMaquina/${idTotem}`)
+        .then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        var feed = document.getElementById("feed");
+                        feed.innerHTML = '';
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Não há nenhum chamado em aberto.";
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+                    resposta.json().then(function (resposta) {
+                      console.log("Dados recebidos: ", JSON.stringify(resposta));
+            
+                      var feed = document.getElementById("feed");
+                      feed.innerHTML = "";
+                      for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+            
+                        var divChamado = document.createElement("div");
+                        var divIdChamado = document.createElement("div");
+                        var divAtribuicaoChamado = document.createElement("div");
+                        var divPrioridadeChamado = document.createElement("div");
+                        
+                        divChamado.className = "chamado"
+                        divIdChamado.className = "idChamado"
+                        divAtribuicaoChamado.className = "atribuicaoChamado"
+                        divPrioridadeChamado.className = "prioridadeChamado"
+            
+                        
+                        divIdChamado.innerHTML = publicacao.titulo;
+                        divAtribuicaoChamado.innerHTML = publicacao.prioridade;
+                        divPrioridadeChamado.innerHTML = publicacao.atribuido_nome;
+
+                        divChamado.appendChild(divIdChamado);
+                        divChamado.appendChild(divAtribuicaoChamado);
+                        divChamado.appendChild(divPrioridadeChamado);
+                        feed.appendChild(divChamado);
+                      }
+            
+                    });
+                  } else {
+                    throw "Houve um erro na API!";
+                  }
+                })
+                .catch(function (resposta) {
+                  console.error(resposta);
+                });
+    } 
+  
