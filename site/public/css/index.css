@@ -37,6 +37,11 @@ PRIMEIRA SESSÃO
     border: none;
     color: white;
     cursor: pointer;
+    transition: 1s ease;
+}
+.corpoBotao:hover {
+    font-size: 15px;
+    transform: scale(1.1);
 }
 
 .divImagem {

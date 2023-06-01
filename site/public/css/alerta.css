@@ -1,3 +1,6 @@
+.telaAtual{
+    opacity: 1;
+}   
 .main{
     height: 73vh;    
     display: flex;
@@ -128,6 +131,7 @@
     background: url(../img/timer\ 1.svg) no-repeat left / 2em;
     background-position: 5px;
 }
+
 @media (max-width:1400px){
     .orgBoxParam{
         height: 65%;

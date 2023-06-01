@@ -16,6 +16,7 @@ var maquinaRouter = require("./src/routes/maquina");
 var relatorioRouter = require("./src/routes/relatorio");
 var alertaRouter = require("./src/routes/alerta");
 var historicoRouter = require("./src/routes/historico");
+var chamadoRouter = require("./src/routes/chamado");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,6 +32,7 @@ app.use("/maquina", maquinaRouter)
 app.use("/relatorio", relatorioRouter)
 app.use("/alerta", alertaRouter)
 app.use("/historico", historicoRouter)
+app.use("/chamado", chamadoRouter)
 
 app.listen(PORTA, function () {
     if (process.env.AMBIENTE_PROCESSO == 'desenvolvimento') {

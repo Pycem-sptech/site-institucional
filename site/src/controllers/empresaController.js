@@ -52,19 +52,22 @@ function cadastrar(req, res) {
     var telefone = req.body.telefoneServer;
     var email = req.body.emailServer;
     var emailUser = req.body.emailUserServer;
+    var sigla = req.body.siglaCompanyServer;
    
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (telefone == undefined) {
-        res.status(400).send("Sua telefone está undefined!");
+        res.status(400).send("Seu telefone está undefined!");
     } else if (cnpj == undefined) {
-        res.status(400).send("Sua cnpj está undefined!");
+        res.status(400).send("Seu cnpj está undefined!");
+    }else if (sigla == undefined) {
+        res.status(400).send("Sua sigla está undefined!");
     }
     else {
 
-        empresaModel.cadastrar(nome, email, telefone, cnpj, emailUser).then(
+        empresaModel.cadastrar(nome, email, telefone, cnpj, emailUser,sigla).then(
             function (resultado) {
                 res.json(resultado);
             }

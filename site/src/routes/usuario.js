@@ -15,6 +15,13 @@ router.get("/listarFuncionarios/:fkEmpresa", function (req, res) {
     usuarioController.listarFuncionarios(req, res);
 });
 
+router.get("/listarTecnicos/:fkEmpresa", function (req, res) {
+    usuarioController.listarTecnicos(req, res);
+});
+router.get("/listarChamadosUsuario/:idUsuario", function (req, res) {
+    usuarioController.listarChamadosUsuario(req, res);
+});
+
 router.get("/verificarCpf/:cpf", function (req, res) {
     usuarioController.verificarCpf(req, res);
 });

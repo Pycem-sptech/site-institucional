@@ -6,7 +6,56 @@ function mostrarModal(id) {
   modal.style.display = 'block';
 }
 
-function mostrarModalRelatorio(chamada=0) {
+function mostrarModalChamado(idChamado, statusChamado) {
+  sessionStorage.ID_CHAMADO_ATUAL = idChamado;
+  fetch(`/chamado/buscarChamado/${idChamado}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          console.log("Nenhum resultado encontrado!!");
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then(function (resposta) {
+          //Atualiza o modal
+          let tituloModal = document.getElementById("titulo");
+          tituloModal.innerHTML = resposta[0].titulo;
+          atualizarDadosModal(idChamado, statusChamado)
+          //Atualiza a Máquina
+          //Atualiza a Unidade
+
+
+          //Atualiza a prioridade
+          
+          
+
+          //Mostra o modal
+          let overlay = document.querySelector('.overlay')
+          let modal = document.querySelector('.modalChamado')
+          overlay.style.display = 'block';
+          modal.style.display = 'block';
+        }
+        );
+      } else {
+        throw "Houve um erro na API!";
+      }
+    })
+    .catch(function (resposta) {
+      console.error(resposta);
+    });
+
+  return false;
+
+
+}
+
+function mostrarModalNovoChamado() {
+  let overlayNovoChamado = document.querySelector('.overlayNovoChamado')
+  let modal = document.querySelector('.modalNovoChamado')
+  overlayNovoChamado.style.display = 'block';
+  modal.style.display = 'block';
+}
+
+function mostrarModalRelatorio(chamada = 0) {
   let overlay = document.querySelector('.overlay')
   let modalRelatorio = document.querySelector('.modalRelatorio')
   overlay.style.display = 'block';
@@ -41,7 +90,23 @@ function fecharModalRelatorio() {
   modalRelatorio.style.display = 'none';
 }
 
-function salvarEdicaoMaquina(idMaquina) {
+function fecharModalChamado() {
+  sessionStorage.ID_SELECIONADO = "";
+  let overlay = document.querySelector('.overlay')
+  let modal = document.querySelector('.modalChamado')
+  overlay.style.display = 'none';
+  modal.style.display = 'none';
+}
+
+function fecharModalNovoChamado() {
+  sessionStorage.ID_SELECIONADO = "";
+  let overlayNovoChamado = document.querySelector('.overlayNovoChamado')
+  let modalNovoChamado = document.querySelector('.modalNovoChamado')
+  overlayNovoChamado.style.display = 'none';
+  modalNovoChamado.style.display = 'none';
+}
+
+function salvarEdicaoMaquina(idTotem) {
   let fkUnidade = document.getElementById("escolherUnidadeModal").value;
   let usuario = document.getElementById("usuarioModal").value;
   let senha = document.getElementById("senhaModal").value;
@@ -62,7 +127,7 @@ function salvarEdicaoMaquina(idMaquina) {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`maquina/editar/${idMaquina}`, {
+        fetch(`maquina/editar/${idTotem}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -70,7 +135,7 @@ function salvarEdicaoMaquina(idMaquina) {
           body: JSON.stringify({
             fkUnidade: fkUnidade,
             usuario: usuario,
-            senha:senha,
+            senha: senha,
             numeroDeSerie: numeroDeSerie,
             processador: processador,
             memoriaRam: memoriaRam,
@@ -123,9 +188,9 @@ function deletarMaquina(idMaquina) {
       fetch(`/maquina/deletar/${idMaquina}`, {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json"
+          "Content-Type": "application/json"
         }
-    }).then(function (resposta) {
+      }).then(function (resposta) {
 
         if (resposta.ok) {
           Swal.fire(
@@ -139,13 +204,13 @@ function deletarMaquina(idMaquina) {
             }
           })
         } else if (resposta.status == 404) {
-            console.log("Deu 404!");
+          console.log("Deu 404!");
         } else {
-            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+          throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
         }
-    }).catch(function (resposta) {
+      }).catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-    });
+      });
     }
   })
 }
@@ -232,9 +297,9 @@ function deletarUnidade(idUnidade) {
       fetch(`/unidade/deletar/${idUnidade}`, {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json"
+          "Content-Type": "application/json"
         }
-    }).then(function (resposta) {
+      }).then(function (resposta) {
 
         if (resposta.ok) {
           Swal.fire(
@@ -247,13 +312,13 @@ function deletarUnidade(idUnidade) {
             }
           })
         } else if (resposta.status == 404) {
-            console.log("Deu 404!");
+          console.log("Deu 404!");
         } else {
-            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+          throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
         }
-    }).catch(function (resposta) {
+      }).catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-    });
+      });
     }
   })
 }
@@ -266,7 +331,7 @@ function salvarEdicaoFuncionario(idFuncionario) {
   let cpfFuncionario = document.getElementById('cpfModal').value;
   let senhaFuncionario = document.getElementById('senhaModal').value;
 
-  if (nomeFuncionario != undefined && nomeFuncionario != ''  && cargoFuncionario != undefined && cargoFuncionario != '' && emailFuncionario != undefined && emailFuncionario != '' && cpfFuncionario != undefined && cpfFuncionario != '' && senhaFuncionario != undefined && senhaFuncionario != '') {
+  if (nomeFuncionario != undefined && nomeFuncionario != '' && cargoFuncionario != undefined && cargoFuncionario != '' && emailFuncionario != undefined && emailFuncionario != '' && cpfFuncionario != undefined && cpfFuncionario != '' && senhaFuncionario != undefined && senhaFuncionario != '') {
     Swal.fire({
       title: 'Deseja mesmo salvar as alterações?',
       icon: 'warning',
@@ -287,7 +352,7 @@ function salvarEdicaoFuncionario(idFuncionario) {
             cargo: cargoFuncionario,
             email: emailFuncionario,
             cpf: cpfFuncionario,
-            senha: senhaFuncionario 
+            senha: senhaFuncionario
           })
         }).then(function (resposta) {
 
@@ -333,9 +398,9 @@ function deletarFuncionario(idFuncionario) {
       fetch(`/usuario/deletar/${idFuncionario}`, {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json"
+          "Content-Type": "application/json"
         }
-    }).then(function (resposta) {
+      }).then(function (resposta) {
 
         if (resposta.ok) {
           Swal.fire(
@@ -348,13 +413,173 @@ function deletarFuncionario(idFuncionario) {
             }
           })
         } else if (resposta.status == 404) {
-            console.log("Deu 404!");
+          console.log("Deu 404!");
         } else {
-            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+          throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
         }
-    }).catch(function (resposta) {
+      }).catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-    });
+      });
     }
   })
+}
+
+function atualizarSelectUnidadesChamado() {
+  const selectChamado = document.querySelector('#escolherUnidadeModal');
+  const selectNovoChamado = document.querySelector('#escolherUnidadeModalNovoChamado');
+  const fkEmpresa = sessionStorage.FK_EMPRESA;
+  var fkEmpresaVar = fkEmpresa;
+
+  fetch(`/unidade/listarUnidades/${fkEmpresaVar}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          console.log("Nenhum resultado encontrado!!");
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then(function (resposta) {
+          for (var i = 0; i < resposta.length; i++) {
+            selectChamado.options[selectChamado.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
+            selectNovoChamado.options[selectNovoChamado.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
+            selectChamado.options[selectChamado.options.length -1].id = resposta[i].nome;
+            selectNovoChamado.options[selectNovoChamado.options.length -1].id = resposta[i].nome;
+          }
+        }
+        );
+      } else {
+        throw "Houve um erro na API!";
+      }
+    })
+    .catch(function (resposta) {
+      console.error(resposta);
+    });
+
+  return false;
+}
+
+function atualizarSelectMaquinaChamado() {
+  const selectChamado = document.querySelector('#escolherMaquinaModal');
+  const selectNovoChamado = document.querySelector('#escolherMaquinaModalNovoChamado');  
+  const fkEmpresa = sessionStorage.FK_EMPRESA;
+  var fkEmpresaVar = fkEmpresa;
+  fetch(`/maquina/listarMaquinas/${fkEmpresaVar}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          console.log("Nenhum resultado encontrado!!");
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then(function (resposta) {
+          for (var i = 0; i < resposta.length; i++) {
+            selectChamado.options[selectChamado.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
+            selectNovoChamado.options[selectNovoChamado.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
+            selectChamado.options[selectChamado.options.length -1].id = resposta[i].usuario;
+            selectNovoChamado.options[selectNovoChamado.options.length -1].id = resposta[i].usuario;
+          }
+        }
+        );
+      } else {
+        throw "Houve um erro na API!";
+      }
+    })
+    .catch(function (resposta) {
+      console.error(resposta);
+    });
+
+  return false;
+}
+
+function atualizarSelectUnidadeNovoChamadoPorMaquina() {
+  const select = document.querySelector('#escolherUnidadeModalNovoChamado');
+  const maquinaSelecionada = escolherMaquinaModalNovoChamado.value;
+  fetch(`/chamado/listarUnidadesPorMaquina/${maquinaSelecionada}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          console.log("Nenhum resultado encontrado!!");
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then(function (resposta) {
+          for (var i = 0; i < select.options.length; i++) {
+            if (resposta[0].fkUnidade == select.options[i].value) {
+              select.options[i].selected = true;
+            }
+          }
+
+        }
+        );
+      } else {
+        throw "Houve um erro na API!";
+      }
+    })
+    .catch(function (resposta) {
+      console.error(resposta);
+    });
+
+  return false;
+}
+
+function atualizarSelectMaquinaChamadoPorUnidade() {
+  const select = document.querySelector('#escolherMaquinaModalNovoChamado');
+  const unidadeSelecionada = escolherUnidadeModalNovoChamado.value;
+  fetch(`/chamado/listarMaquinasPorUnidade/${unidadeSelecionada}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          console.log("Nenhum resultado encontrado!!");
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then(function (resposta) {
+          select.options.length = 0;
+          select.options[select.options.length] = new Option('Máquina', '');
+          select.options[select.options.length - 1].select = true;
+          select.options[select.options.length - 1].disabled = true;
+          for (var i = 0; i < resposta.length; i++) {
+            select.options[select.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
+            select.options[select.options.length -1].id = resposta[i].usuario;
+          }
+          if (resposta.length == 0) {
+            select.options[select.options.length] = new Option('Nenhuma Máquina encontrada', '');
+            select.options[select.options.length - 1].disabled = true;
+          }
+        }
+        );
+      } else {
+        throw "Houve um erro na API!";
+      }
+    })
+    .catch(function (resposta) {
+      console.error(resposta);
+    });
+
+  return false;
+}
+
+function atualizarSelectAtribuicaoChamado() {
+  const select = document.querySelector('#escolherAtribuicaoModal');
+  const empresa = sessionStorage.FK_EMPRESA;
+  fetch(`/usuario/listarTecnicos/${empresa}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          console.log("Nenhum resultado encontrado!!");
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then(function (resposta) {
+          for (var i = 0; i < resposta.length; i++) {
+            select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUsuario);
+            select.options[select.options.length -1].id = resposta[i].nome;
+          }
+      
+        }
+        );
+      } else {
+        throw "Houve um erro na API!";
+      }
+    })
+    .catch(function (resposta) {
+      console.error(resposta);
+    });
+
+  return false;
 }

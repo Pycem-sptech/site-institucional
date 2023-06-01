@@ -55,12 +55,15 @@ PRIMARY KEY(fkUsuario,fkEmpresa,fkUnidade)
 
 create table totem(
 idTotem int primary key auto_increment,
-numeroSerie varchar(30) not null,
-processador varchar(30) not null,
-freq_processador varchar(10) not null,
-ram int not null,
-tipo_armazenamento varchar(3) not null,  constraint chkArmazenamento check (tipo_armazenamento in('HD','SSD')),
-qtd_armazenamento int not null,
+usuario varchar(20) not null unique,
+senha varchar(10) not null,
+numeroSerie varchar(30) not null default 'Não Especificado',
+processador varchar(80) not null default 'Não Especificado',
+ram varchar(30) not null default 'Não Especificado',
+tipo_armazenamento varchar(3) not null default 'HD', constraint chkArmazenamento check (tipo_armazenamento in('HD','SSD')),
+qtd_armazenamento varchar(30) not null default 'Não Especificado',
+ipv6 varchar(40) not null default 'Não Especificado',
+mac_address varchar(18) default 'Não Especificado',
 estado varchar(10) not null default 'Desligado', constraint chkEstado check (estado in('Disponivel','Manutencao','Desligado')),
 fkUnidade int, FOREIGN KEY (fkUnidade) REFERENCES unidade(idUnidade) ON DELETE CASCADE
 );

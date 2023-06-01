@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/dashboardMaquina.css">
     <link rel="stylesheet" href="css/graficos.css">
     <link rel="stylesheet" href="css/modal.css">
+
     <script src="./js/gerenciarDashMaquina.js"></script>
     <script src="./js/modal.js"></script>
     <script src="./js/charts.js"></script>
@@ -24,17 +25,19 @@
 </head>
 
 <body
-    onload="validarSessao(), listarUsoMaquina(`${sessionStorage.ID_TOTEM}`),atualizarNomeMaquina(),atualizarRelatorios(`${sessionStorage.ID_TOTEM}`) , buscarDadosEstado(`${sessionStorage.ID_TOTEM}`)">
+    onload="validarSessao(), listarUsoMaquina(`${sessionStorage.ID_TOTEM}`),atualizarNomeMaquina(),buscarDadosEstado(`${sessionStorage.ID_TOTEM}`),atualizarSelectMaquinaChamado(), 
+     atualizarSelectUnidadesChamado(), atualizarSelectAtribuicaoChamado(), 
+    exibirChamadosAbertosPorMaquina(`${sessionStorage.ID_TOTEM}`)"
+    >
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons">
                 <h2 onclick="redirectHome()">Py</h2>
-                <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon privGer" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
-                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg" onclick="redirectSuport()">
             </div>
             <div class="footerButtons">
                 <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
@@ -50,7 +53,7 @@
                         src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
-                    <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                    <li onclick="redirectAllMach()">Gerenciar Maquinas</li>
                     <li onclick="redirectAllUnits()">Unidades</li>
                     <li onclick="redirectVisaoGeral()">Visão Geral</li>
                     <li onclick="redirectConfig()">Configurações</li>
@@ -58,8 +61,8 @@
                 </ul>
             </nav>
             <div class="user">
-                <h4 class="usuarioLogado">Usuário</h4>
-                <img class="iconUser" src="img/personIcon.svg">
+                <h4 class="usuarioLogado" onclick="redirectMeuPerfil()">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg" onclick="redirectMeuPerfil()">
             </div>
         </div>
     </header>
@@ -84,7 +87,7 @@
                 <div class="boxHardInfo center">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3>Memoria Ram</h3>
+                            <h3>Memória Ram</h3>
                             <h5 class="subtitleHardInfo" id="qtd_ram"></h5>
                         </div>
                     </div>
@@ -154,63 +157,167 @@
             </div>
             <section class="listMachine">
                 <div class="titleListMachine">
-                    <div class="container">
-                        <h3 id="tituloMaquinas">Relatórios</h3>
-                        <input id="campoPesquisa" type="text" onkeyup="filtrarRelatorios(sessionStorage.ID_TOTEM, this.value)">
-                        <img onclick="pesquisar()" id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
-                        <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
-                    </div>
+                         <div class="container">
+                            <h3 id="tituloMaquinas" class="tituloMaquinas">Chamados Abertos</h3>
+                            <input id="campoPesquisa" type="text" onkeyup="filtrarRelatorios(sessionStorage.ID_TOTEM, this.value)">
+                            <img onclick="pesquisar()" id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                            <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
+                     </div>
                 </div>
                 <div class="machineField" id="machineField">
-
+                    <div class="feed" id="feed">
+                        <div class="chamado">
+                            
+                        </div>
+                    </div>
                 </div>
                 <div class="divBtnAddReport">
-                    <button class="btnAddReport" onclick="mostrarModalRelatorio()">Adicionar Relatório</button>
+                    <button class="btnAddReport" onclick="mostrarModalNovoChamado()">Novo chamado</button>
+
                 </div>
             </section>
         </div>
-        <div class="overlay" id="overlay">
-            <div class="modalRelatorio" id="modalRelatorio">
-                <div class="headerModal">
-                    <span class="tituloModal">Relatório</span>
-                    <span class="fecharModal btnFechar" onclick="fecharModalRelatorio()"></span>
-                </div>
-                <div class="bodyModal">
-                    <div class="bloco">
 
-                        <span class="estilo tamanho9"><span class="subTitulo">Titulo:</span>
-                            <input class="inputModal" id="tituloModal"></span>
-                    </div>
+   <!-- Modal Chamado -->
+   <div class="overlay" id="overlay">
+    <div class="modalChamado" id="modalChamado">
+        <div class="headerModalChamado">
+            <span class="tituloModal">Chamado <span id="titulo">-------</span></span>
+            <span class="fecharModal btnFechar" onclick="fecharModalChamado()"></span>
+        </div>
+        <div class="bodyModal">
+            <div class="bloco">
+                <span class="estilo tamanho10"><span class="subTitulo">Máquina:</span>
+                    <select class="selectModal" id="escolherMaquinaModal">
+                        <option value="" name="" disabled selected>Máquina</option>
+                    </select></span>
 
-                    <div class="bloco">
+                <span class="estilo tamanho10"><span class="subTitulo">Prioridade:</span>
+                    <select class="selectModal" id="escolherPrioridadeModal">
+                        <option value="" disabled selected>Prioridade</option>
+                        <option value="P1">P1</option>
+                        <option value="P2">P2</option>
+                        <option value="P3">P3</option>
+                        <option value="P4">P4</option>
+                        <option value="P5">P5</option>
+                    </select></span>
+            </div>
 
-                        <span class="estilo tamanho4"><span class="subTitulo">Data:</span>
-                            <input class="inputModal" type="text" id="dataModal" disabled></span>
+            <div class="bloco">
 
-                        <span class="estilo tamanho10"><span class="subTitulo">Tipo do problema:</span>
-                            <select class="selectModal" id="escolherTipoProblemaModal">                              
-                                <option value="" disabled></option>
-                                <option value="Desligamento">Desligamento</option>
-                                <option value="Sobrecarga">Sobrecarga</option>
-                                <option value="MauFuncionamento">Mau Funcionamento</option>
-                                <option value="Outro">Outro</option>
-                            </select></span>
+                <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
+                    <select class="selectModal" id="escolherUnidadeModal">
+                        <option value="" name="0" disabled selected>Unidade</option>
+                    </select></span>
+                <span class="estilo tamanho8"><span class="subTitulo">Estado:</span>
+                    <select class="selectModal" id="escolherEstadoModal">
+                        <option value="" disabled>Estado</option>
+                        <option value="Aberto">Aberto</option>
+                        <option value="EmAndamento">Em Andamento</option>
+                        <option value="Encerrado">Encerrado</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select></span>
+            </div>
+            <div class="bloco">
+                <span class="estilo tamanho12"><span class="subTitulo">Data Inicial:</span>
+                    <input class="inputModal" type="text" id="dataInicialModal" disabled></span>
 
-                    </div>
-                    <div class="bloco">
-                        <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
-                            <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
-                    </div>
-                </div>
-                <div class="modalFooter">
-                    <button class="btnSalvar" id="btnSalvarModal" onclick="cadastrarRelatorio()">Salvar</button>
-                </div>
+                <span class="estilo tamanho8"><span class="subTitulo">Tipo:</span>
+                    <select class="selectModal2" id="escolherTipoModal">
+                        <option value="" disabled>Tipo</option>
+                        <option value="Desligamento">Desligamento</option>
+                        <option value="Sobrecarga">Sobrecarga</option>
+                        <option value="MauFuncionamento">Mau Funcionamento</option>
+                        <option value="Outro">Outro</option>
+                    </select></span>
+            </div>
+            <div class="bloco">
+                <span class="estilo tamanho12"><span class="subTitulo">Data Encerramento:</span>
+                    <input class="inputModal" type="text" id="dataEncerramentoModal" disabled></span>
+
+                <span class="estilo tamanho8"><span class="subTitulo">Atribuição:</span>
+                    <select class="selectModal2" id="escolherAtribuicaoModal">
+                        <option value="null" disabled selected>Não atribuido</option>
+                    </select></span>
+            </div>
+            <div class="bloco">
+                <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
+                    <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
+            </div>
+
+            <div class="bloco">
+                <span class="estilo tamanho9"><span class="subTitulo">Resolução:</span>
+                    <textarea disabled class="textAreaModal" id="resolucaoModal" maxlength="255"></textarea>
             </div>
         </div>
+
+        <div class="modalFooter">
+            <button class="btnSalvar" id="btnSalvarModal" onclick="editarChamado(sessionStorage.ID_CHAMADO_ATUAL)">Salvar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Novo Chamado -->
+<div class="overlayNovoChamado" id="overlayNovoChamado">
+    <div class="modalNovoChamado" id="modalNovoChamado">
+        <div class="headerModalChamado">
+            <span class="tituloModal">Novo Chamado</span>
+            <span class="fecharModal btnFechar" onclick="fecharModalNovoChamado()"></span>
+        </div>
+        <div class="bodyModal">
+            <div class="bloco">
+               
+                <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
+                <select class="selectModal" id="escolherUnidadeModalNovoChamado" onchange="atualizarSelectMaquinaChamadoPorUnidade()">
+                    <option value="" disabled selected>Unidade</option>
+                </select></span>
+
+                <span class="estilo tamanho8"><span class="subTitulo">Prioridade:</span>
+                    <select class="selectModal" id="escolherPrioridadeModalNovoChamado" >
+                        <option value="" disabled selected>Prioridade</option>
+                        <option value="P1">P1</option>
+                        <option value="P2">P2</option>
+                        <option value="P3">P3</option>
+                        <option value="P4">P4</option>
+                        <option value="P5">P5</option>
+                    </select></span>
+            </div>
+
+            <div class="bloco">
+                <span class="estilo tamanho8"><span class="subTitulo">Máquina:</span>
+                <select class="selectModal" id="escolherMaquinaModalNovoChamado" onchange="atualizarSelectUnidadeNovoChamadoPorMaquina()">
+                    <option value="" disabled selected>Máquina</option>
+                </select></span>
+                
+                <span class="estilo tamanho8"><span class="subTitulo">Tipo:</span>
+                    <select class="selectModal" id="escolherTipoModalNovoChamado">
+                        <option value="" disabled selected>Tipo</option>
+                        <option value="Desligamento">Desligamento</option>
+                        <option value="Sobrecarga">Sobrecarga</option>
+                        <option value="MauFuncionamento">MauFuncionamento</option>
+                        <option value="Outro">Outro</option>
+                    </select></span>
+            </div>
+    
+            <div class="bloco">
+                <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
+                    <textarea class="textAreaModal" id="descricaoModalNovoChamado" maxlength="255"></textarea>
+            </div>
+
+            
+        </div>
+
+        <div class="modalFooter">
+            <button class="btnSalvar" id="btnSalvarModal" onclick="criarChamado()">Salvar</button>
+        </div>
+    </div>
+</div>
     </main>
 </body>
 
 </html>
+<script src="js/chamado.js"></script>
+
 <script>
     buscarDadosMaquina(sessionStorage.ID_TOTEM, 'subTitulo');
     
