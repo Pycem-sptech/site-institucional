@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pycem²</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/chamadoTecnico.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="js/modal.js"></script>
+    <script src="js/geral.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+</head>
+
+<body onload="validarSessao(),verificarTamanhoTela(),atualizarSelectMaquinaChamado(),atualizarSelectUnidadesChamado(), atualizarSelectAtribuicaoChamado(), filtrarAndamentoChamado()">
+    <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
+    <nav class="sidebar">
+        <div class="container">
+            <div class="navigationButtons" id="navIcons">
+                <h2 onclick="redirectHome()">Py</h2>
+                <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
+                
+                <img class="iconSidebar navigationIcon privGer" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
+                <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
+                <img class="iconSidebar navigationIcon atual" src="img/supportIcon.svg">
+            </div>
+            <div class="footerButtons">
+                <img class="iconSidebar telaAtual" src="img/settingIcon.svg" onclick="redirectConfig()">
+                <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
+            </div>
+        </div>
+    </nav>
+    <header class="header">
+        <div class="container">
+            <h3 class="homeHeader" style="cursor:pointer" onclick="redirectHome()">Home</h3>
+            <nav id="nav" class="navbarHamburguer">
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg"
+                        src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <ul class="menu" id="menu">
+                    <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
+                    <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                    <li onclick="redirectAllUnits()">Unidades</li>
+                    <li onclick="redirectVisaoGeral()">Visão Geral</li>
+                    <li onclick="redirectConfig()">Configurações</li>
+                    <li onclick="limparSessao()">Sair</li>
+                </ul>
+            </nav>
+            <div class="user">
+                <h4 class="usuarioLogado" onclick="redirectMeuPerfil()">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg" onclick="redirectMeuPerfil()">
+            </div>
+        </div>
+    </header>
+    <div class="guideText">
+        <span class="welcomeSentence">Chamados</span>
+        <span class="firstStep">Chamados</span>
+    </div>
+    <div class="divBtnChamado">
+        <button class="btnNovoChamado" onclick="mostrarModalNovoChamado()">Novo chamado +</button>
+        <select class="selectFiltrarChamados" id="filtrarChamados" onchange="filtrarChamados()">
+            <option value="todos">Todos</option>
+            <option value="meusChamados">Meus chamados</option>
+        </select>
+        <select class="selectFiltrarChamados mobile" id="filtrarAndamentoChamados" onchange="filtrarAndamentoChamado()">
+            <option value="abertos">Abertos</option>
+            <option value="andamento">Em andamento</option>
+            <option value="encerrados">Encerrados</option>
+        </select>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            <div class="boxListaChamados abertos" id="abertos">
+                <div class="titleBox">
+                    <h1>Aberto</h1>
+                </div>
+                <div class="feed">
+
+                </div>
+            </div>
+            <div class="boxListaChamados andamento" id="andamento">
+                <div class="titleBox">
+                    <h1>Em Andamento</h1>
+                </div>
+                <div class="feed">
+
+                </div>
+            </div>
+            <div class="boxListaChamados encerrados" id="encerrados">
+                <div class="titleBox">
+                    <h1>Encerrado</h1>
+                </div>
+                <div class="feed">
+                   
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Chamado -->
+        <div class="overlay" id="overlay">
+            <div class="modalChamado" id="modalChamado">
+                <div class="headerModalChamado">
+                    <span class="tituloModal">Chamado <span id="titulo">-------</span></span>
+                    <span class="fecharModal btnFechar" onclick="fecharModalChamado()"></span>
+                </div>
+                <div class="bodyModal">
+                    <div class="bloco">
+                        <span class="estilo tamanho10"><span class="subTitulo">Máquina:</span>
+                            <select class="selectModal" id="escolherMaquinaModal">
+                                <option value="" name="" disabled selected>Máquina</option>
+                            </select></span>
+
+                        <span class="estilo tamanho10"><span class="subTitulo">Prioridade:</span>
+                            <select class="selectModal" id="escolherPrioridadeModal">
+                                <option value="" disabled selected>Prioridade</option>
+                                <option value="P1">P1</option>
+                                <option value="P2">P2</option>
+                                <option value="P3">P3</option>
+                                <option value="P4">P4</option>
+                                <option value="P5">P5</option>
+                            </select></span>
+                    </div>
+
+                    <div class="bloco">
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
+                            <select class="selectModal" id="escolherUnidadeModal">
+                                <option value="" name="0" disabled selected>Unidade</option>
+                            </select></span>
+                        <span class="estilo tamanho8"><span class="subTitulo">Estado:</span>
+                            <select class="selectModal" id="escolherEstadoModal">
+                                <option value="" disabled>Estado</option>
+                                <option value="Aberto">Aberto</option>
+                                <option value="EmAndamento">Em Andamento</option>
+                                <option value="Encerrado">Encerrado</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select></span>
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho12"><span class="subTitulo">Data Inicial:</span>
+                            <input class="inputModal" type="text" id="dataInicialModal" disabled></span>
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Tipo:</span>
+                            <select class="selectModal2" id="escolherTipoModal">
+                                <option value="" disabled>Tipo</option>
+                                <option value="Desligamento">Desligamento</option>
+                                <option value="Sobrecarga">Sobrecarga</option>
+                                <option value="MauFuncionamento">MauFuncionamento</option>
+                                <option value="Outro">Outro</option>
+                            </select></span>
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho12"><span class="subTitulo">Data Encerramento:</span>
+                            <input class="inputModal" type="text" id="dataEncerramentoModal" disabled></span>
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Atribuição:</span>
+                            <select class="selectModal2" id="escolherAtribuicaoModal">
+                                <option value="null" disabled selected>Não atribuido</option>
+                            </select></span>
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
+                            <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
+                    </div>
+
+                    <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Resolução:</span>
+                            <textarea disabled class="textAreaModal" id="resolucaoModal" maxlength="255"></textarea>
+                    </div>
+                </div>
+
+                <div class="modalFooter">
+                    <button class="btnSalvar" id="btnSalvarModal" onclick="editarChamado(sessionStorage.ID_CHAMADO_ATUAL)">Salvar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Novo Chamado -->
+        <div class="overlayNovoChamado" id="overlayNovoChamado">
+            <div class="modalNovoChamado" id="modalNovoChamado">
+                <div class="headerModalChamado">
+                    <span class="tituloModal">Novo Chamado</span>
+                    <span class="fecharModal btnFechar" onclick="fecharModalNovoChamado()"></span>
+                </div>
+                <div class="bodyModal">
+                    <div class="bloco">
+                       
+                        <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
+                        <select class="selectModal" id="escolherUnidadeModalNovoChamado" onchange="atualizarSelectMaquinaChamadoPorUnidade()">
+                            <option value="" disabled selected>Unidade</option>
+                        </select></span>
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Prioridade:</span>
+                            <select class="selectModal" id="escolherPrioridadeModalNovoChamado" >
+                                <option value="" disabled selected>Prioridade</option>
+                                <option value="P1">P1</option>
+                                <option value="P2">P2</option>
+                                <option value="P3">P3</option>
+                                <option value="P4">P4</option>
+                                <option value="P5">P5</option>
+                            </select></span>
+                    </div>
+
+                    <div class="bloco">
+                        <span class="estilo tamanho8"><span class="subTitulo">Máquina:</span>
+                        <select class="selectModal" id="escolherMaquinaModalNovoChamado" onchange="atualizarSelectUnidadeNovoChamadoPorMaquina()">
+                            <option value="" disabled selected>Máquina</option>
+                        </select></span>
+                        
+                        <span class="estilo tamanho8"><span class="subTitulo">Tipo:</span>
+                            <select class="selectModal" id="escolherTipoModalNovoChamado">
+                                <option value="" disabled selected>Tipo</option>
+                                <option value="Desligamento">Desligamento</option>
+                                <option value="Sobrecarga">Sobrecarga</option>
+                                <option value="MauFuncionamento">MauFuncionamento</option>
+                                <option value="Outro">Outro</option>
+                            </select></span>
+                    </div>
+            
+                    <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
+                            <textarea class="textAreaModal" id="descricaoModalNovoChamado" maxlength="255"></textarea>
+                    </div>
+
+                    
+                </div>
+
+                <div class="modalFooter">
+                    <button class="btnSalvar" id="btnSalvarModal" onclick="criarChamado()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
+<script src="js/chamado.js"></script>
+<script>
+
+    var overlay = document.getElementById('overlay');
+    overlay.addEventListener('click', function (e) {
+        if (e.target == this) {
+            fecharModalChamado()
+        };
+    });
+    var overlayNovoChamado = document.getElementById('overlayNovoChamado');
+    overlayNovoChamado.addEventListener('click', function (e) {
+        if (e.target == this) {
+            fecharModalNovoChamado()
+        };
+    });
+    
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+    if (event.type === 'touchstart') event.preventDefault();  
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('active');
+
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+
+    function filtrarAndamentoChamado(){
+        var opcao = filtrarAndamentoChamados.value;
+
+        if(opcao == "abertos"){
+            encerrados.style.display = 'none';
+            abertos.style.display = 'block';
+            andamento.style.display = 'none';
+        } else if(opcao == "andamento"){
+            abertos.style.display = 'none';
+            encerrados.style.display = 'none';
+            andamento.style.display = 'block';
+        }else if (opcao == "encerrados"){
+            abertos.style.display = 'none';
+            encerrados.style.display = 'block';
+            andamento.style.display = 'none';
+        }
+    }
+
+    function verificarTamanhoTela(){
+        var x = window.screen.width;
+        if($(x <= 800)){
+            encerrados.style.display = 'none';
+            abertos.style.display = 'block';
+            andamento.style.display = 'none';
+        } else {
+            encerrados.style.display = 'block';
+            abertos.style.display = 'block';
+            andamento.style.display = 'block';
+        }
+    }
+
+    window.addEventListener('resize', function () {
+    
+    var largura = window.innerWidth;
+
+    if (largura < 800) {
+        encerrados.style.display = 'none';
+            abertos.style.display = 'block';
+            andamento.style.display = 'none';
+    } else {
+        encerrados.style.display = 'block';
+            abertos.style.display = 'block';
+            andamento.style.display = 'block';
+    } 
+});
+
+</script>
+
+
+

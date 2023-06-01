@@ -1,5 +1,9 @@
-function mudarLista(valorCombo) {
-    if (valorCombo == "1") {
+
+function mudarLista(valorCombo = "0") {
+    if (valorCombo != "0") {
+        sessionStorage.TIPO_TELA = valorCombo;
+    }
+    if (sessionStorage.TIPO_TELA == "1") {
         listUnit.innerHTML = ` <div class="box idUnit">
                     <span>ID</span>
                 </div>
@@ -22,6 +26,11 @@ function mudarLista(valorCombo) {
                 <div class="box totalMachine">
                     <span>Total de máquinas</span>
                 </div>`;
+
+        navigationIconUnit.className = "iconSidebar navigationIcon telaAtual";
+        navigationIconMach.className = "iconSidebar navigationIcon";
+        firstStep.innerHTML = "Unidades";
+        welcomeSentence.innerHTML = "Todas as unidades";
         atualizarListaUnidades();
         inputSearch.setAttribute("onkeyup", "atualizarListaUnidadesFiltradas(this.value)");
     } else {
@@ -47,9 +56,14 @@ function mudarLista(valorCombo) {
                 <div class="box totalMachine">
                     <span>Status Alerta</span>
                 </div>`;
-                atualizarListaMaquinas();
-                inputSearch.setAttribute("onkeyup", "atualizarListaMaquinasFiltradas(this.value)")
+        navigationIconUnit.className = "iconSidebar navigationIcon";
+        navigationIconMach.className = "iconSidebar navigationIcon  telaAtual";
+        welcomeSentence.innerHTML = "Todas as máquinas";
+        firstStep.innerHTML = "Máquinas";
+        atualizarListaMaquinas();
+        inputSearch.setAttribute("onkeyup", "atualizarListaMaquinasFiltradas(this.value)")
     }
+    selectMachUnit.value = sessionStorage.TIPO_TELA;
 }
 
 function privarFuncTecnico() {
@@ -59,26 +73,81 @@ function privarFuncTecnico() {
     }
 }
 
+function visaoTecnico() {
+    if (sessionStorage.USER_CARGO == "Tecnico") {
+        chamadosAtribuidos();
+        let chamadosAntigos = sessionStorage.USER_CHAMADOS_ANTIGOS;
+        let chamadosNovos = sessionStorage.USER_CHAMADOS;
+        if (chamadosNovos != chamadosAntigos) {
+            sessionStorage.USER_CHAMADOS_ANTIGOS = sessionStorage.USER_CHAMADOS
+            if (chamadosNovos > 1) {
+                toastChamado('info', `Você tem ${chamadosNovos} novos chamados!`)
+            } else if (chamadosNovos > 0) {
+                toastChamado('info', `Você tem ${chamadosNovos} novo chamados!`)
+            }
+        }
+        var private = document.getElementsByClassName("privTec");
+        for (var i = 0; i < private.length; i++) {
+            private[i].style.display = "none";
+        }
+    }
+}
+
+function chamadosAtribuidos() {
+    fetch(`/usuario/listarChamadosUsuario/${sessionStorage.USER_ID}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("Nenhum resultado encontrado!!");
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+                    sessionStorage.USER_CHAMADOS = resposta[0].totalAtribuicoes;
+                }
+                );
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+
+    return false;
+}
+function visaoGerente() {
+    if (sessionStorage.USER_CARGO == "Supervisor") {
+        var private = document.getElementsByClassName("privGer");
+        for (var i = 0; i < private.length; i++) {
+            private[i].style.display = "none";
+        }
+    }
+}
 function privarFuncSupervisor() {
     if (sessionStorage.USER_CARGO == "Supervisor") {
         document.body.innerHTML = "";
-       window.location = "./erro404.html";
+        window.location = "./erro404.html";
     }
 }
 
 // sessão
 function validarSessao() {
 
-    var email = sessionStorage.USER_EMAIL;
-    var nome = sessionStorage.USER_NAME;
-    var fkEmpresa = sessionStorage.FK_EMPRESA;
+    const email = sessionStorage.USER_EMAIL;
+    const nome = sessionStorage.USER_NAME;
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
+    let cargo = sessionStorage.USER_CARGO;
 
     var campos = document.getElementsByClassName("usuarioLogado");
-
     for (var i = 0; i < campos.length; i++) {
         campos[i].innerHTML = nome;
     }
-    // else {
+    if (cargo == "Tecnico") {
+        visaoTecnico();
+    } else if (cargo == "Supervisor") {
+        visaoGerente();
+    } 
+    // else if (cargo == "" && fkEmpresa == "" && email == "" && nome == "") {
     //     window.location = "./login.html";
     // }
 }
@@ -267,26 +336,38 @@ function toastPadrao(icon, title) {
     });
 }
 
-function toastInfinito(icon, title) {
+function toastChamado(icon, title) {
     const Toast = Swal.mixin({
         toast: true,
         position: "top",
-        showConfirmButton: false,
+        showConfirmButton: true,
+        showCancelButton: true,
+        cancelButtonText: 'Ver chamados',
         timer: ``,
         timerProgressBar: true,
-        showCloseButton:true,
         didOpen: (toast) => {
             toast.addEventListener("mouseenter", Swal.stopTimer);
             toast.addEventListener("mouseleave", Swal.resumeTimer);
+
         },
     });
 
     Toast.fire({
         icon: `${icon}`,
         title: `${title}`,
-        
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isDismissed) {
+            toastPadrao('success', 'Abrindo os chamados!')
+
+            setTimeout(
+                redirectSuport()
+            ), 3000;
+
+        }
     });
-    
+
+
 }
 
 // Redirecionamentos
@@ -318,12 +399,20 @@ function redirectUnit() {
 }
 function redirectAllUnits() {
     setTimeout(function () {
+        sessionStorage.TIPO_TELA = "1";
         window.location = "./unidade.html";
     }, 200);
 }
+function redirectAllMach() {
+    setTimeout(function () {
+        sessionStorage.TIPO_TELA = "2";
+        window.location = "./unidade.html";
+    }, 200);
+
+}
 function redirectSuport() {
     setTimeout(function () {
-        window.location = "#";
+        window.location = "./chamadoGeral.html";
     }, 250);
 }
 function redirectConfig() {
@@ -356,10 +445,22 @@ function redirectVisaoGeral() {
         window.location = "home.html";
     }, 250);
 }
+function redirectMeuPerfil() {
+    setTimeout(function () {
+        window.location = "meuPerfil.html";
+    }, 250);
+}
+
+function redirectChamado() {
+    setTimeout(function () {
+        window.location = "chamadoGeral.html";
+    }, 250);
+}
 function redirect404() {
     setTimeout(function () {
         window.location = "erro404.html";
     }, 250);
 }
+
 
 

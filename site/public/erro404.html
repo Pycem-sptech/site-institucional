@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,12 +8,19 @@
     <title>Pycem² | erro 404 </title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/erro.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="./js/geral.js"></script>
+    <script src="./js/modal.js"></script>
+    <script src="./js/chamado.js"></script>
 </head>
+
 <body>
     <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons">
-                <h2 onclick="redirectHome()">
+                <h2 onclick="redirectHome(),atualizarListaUnidades(),atualizarSelectUnidades('escolherUnidadeModal')">
                     Py
                 </h2>
                 <img class="iconSidebar navigationIcon" src="img/userIcon.svg">
@@ -31,8 +39,8 @@
         <div class="container">
             <h3 class="homeHeader"></h3>
             <div class="user">
-                <h4 class="usuarioLogado">Usuário</h4>
-                <img class="iconUser" src="img/personIcon.svg">
+                <h4 class="usuarioLogado" onclick="redirectMeuPerfil()">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg" onclick="redirectMeuPerfil()">
             </div>
         </div>
     </header>
@@ -43,8 +51,15 @@
         <div class="msgErro">
             <h2>Erro no servidor pycem</h2>
             <p>Sua solicitação não pode ser processada no momento, tente novamente mais tarde.</p>
-            <button>Voltar</button>
+            <button onclick="redirectVisaoGeral()">Voltar</button>
         </div>
+
+
     </main>
 </body>
+
 </html>
+
+<script>
+ validarSessao();
+</script>

@@ -34,55 +34,6 @@ function filtrarUnidades(nomeDigitado, fkEmpresa) {
   return database.executar(instrucao);
 }
 
-
-function ocorrenciasPorMes(fkEmpresa) {
-  var instrucao = `
-      select 
-      concat(YEAR(r.data_relatorio), '/', RIGHT('00' + CONVERT(VARCHAR(2), MONTH(r.data_relatorio)), 2)) AS ano_mes, 
-      count(r.idRelatorio) AS quantidade
-    from 
-      unidade u
-      join empresa e ON u.fkEmpresa = e.idEmpresa
-      join totem t ON u.idUnidade = t.fkUnidade
-      join relatorio r ON t.idTotem = r.fkTotem
-    where 
-      e.idEmpresa = ${fkEmpresa}
-      AND r.data_relatorio >= DATEADD(MONTH, -6, GETDATE())
-    group by 
-      concat(YEAR(r.data_relatorio), '/', RIGHT('00' + CONVERT(VARCHAR(2), MONTH(r.data_relatorio)), 2))
-    order by
-      concat(YEAR(r.data_relatorio), '/', RIGHT('00' + CONVERT(VARCHAR(2), MONTH(r.data_relatorio)), 2))
-    desc
-        `;
-  return database.executar(instrucao);
-}
-
-function frequenciaProblemasMensal(fkEmpresa, idUnidade) {
-  var instrucao = `
-        SELECT 
-        DATEPART(week, r.data_relatorio) AS semana, 
-        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Desligamento' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Desligamento,
-        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Sobrecarga' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Sobrecarga,
-        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'MauFuncionamento' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS MauFuncionamento,
-        (SELECT COUNT(tipo) FROM relatorio WHERE tipo = 'Outro' AND DATEPART(week, data_relatorio) = DATEPART(week, r.data_relatorio)) AS Outro
-      FROM 
-        unidade u
-        JOIN empresa e ON u.fkEmpresa = e.idEmpresa
-        JOIN totem t ON u.idUnidade = t.fkUnidade
-        JOIN relatorio r ON t.idTotem = r.fkTotem
-      WHERE 
-        e.idEmpresa = '${fkEmpresa}' AND
-        u.idUnidade = '${idUnidade}' AND
-        YEAR(r.data_relatorio) = 2023 AND
-        MONTH(r.data_relatorio) = 4
-      GROUP BY 
-        DATEPART(week, r.data_relatorio)
-      ORDER BY 
-        semana
-        `;
-  return database.executar(instrucao);
-}
-
 function verificarTelefone(telefone) {
   var instrucao = `select telefone from unidade where telefone = '${telefone}';`;
   return database.executar(instrucao);
@@ -113,18 +64,16 @@ function deletar(idUnidade) {
 
 module.exports = {
   atualizarListaUnidades,
+  atualizarListaUnidadesFiltradas,
+  cadastrar,
+  deletar,
+  editar,
+  entrar,
+  filtrarUnidades,
   listar,
   listarUnidades,
   listarDadosUnidade,
   listarTodasUnidades,
   verificarTelefone,
   verificarNumero,
-  entrar,
-  cadastrar,
-  editar,
-  deletar,
-  filtrarUnidades,
-  ocorrenciasPorMes,
-  atualizarListaUnidadesFiltradas,
-  frequenciaProblemasMensal
 };

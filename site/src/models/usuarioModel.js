@@ -24,6 +24,14 @@ function listarFuncionarios(fkEmpresa) {
   var instrucao = `select nome, cargo, idUsuario from usuario where fkEmpresa = ${fkEmpresa} AND (cargo = 'Tecnico' OR cargo = 'Supervisor');`;
   return database.executar(instrucao);
 }
+function listarTecnicos(fkEmpresa) {
+  var instrucao = `select nome, idUsuario from usuario where fkEmpresa = ${fkEmpresa} AND cargo = 'Tecnico';`;
+  return database.executar(instrucao);
+}
+function listarChamadosUsuario(idUsuario) {
+  var instrucao = `select count(atribuido_id) as totalAtribuicoes from chamado where atribuido_id = ${idUsuario};`;
+  return database.executar(instrucao);
+}
 
 function filtrarFuncionarios(nomeDigitado, fkEmpresa) {
   var instrucao = `select idUsuario, nome, cargo from usuario where nome like '${nomeDigitado}%' and (cargo in ('Supervisor', 'Tecnico')) and fkEmpresa = ${fkEmpresa};`;
@@ -31,14 +39,38 @@ function filtrarFuncionarios(nomeDigitado, fkEmpresa) {
 }
 
 function deletar(idFuncionario) {
+  desassociarFuncionario(idFuncionario);
   var instrucao = `DELETE FROM usuario where idUsuario = ${idFuncionario};`;
+  return database.executar(instrucao);
+}
+
+function desassociarFuncionario(idFuncionario){
+  var instrucao = `exec DesatribuirChamado @idUsuario = '${idFuncionario}'`;
   return database.executar(instrucao);
 }
 
 function editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario) {
   var instrucao = ''
   if(process.env.AMBIENTE_PROCESSO == "producao"){
-    instrucao = `UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = (HASHBYTES('SHA2_256','${senha}')) WHERE idUsuario =' ${idFuncionario}';`;
+    instrucao = `
+    IF (SELECT senha FROM usuario where idUsuario = ${idFuncionario}) in ('${senha}')
+
+      BEGIN
+
+    UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}' WHERE idUsuario =' ${idFuncionario}'
+
+    END
+
+    ELSE
+
+      BEGIN
+
+    UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = (HASHBYTES('SHA2_256','${senha}')) WHERE idUsuario =' ${idFuncionario}'
+
+   END
+    
+    
+    `;
   }else{
     instrucao = `UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = sha2('${senha}', 256) WHERE idUsuario = '${idFuncionario}';`;
   }
@@ -49,7 +81,7 @@ function entrar(email, senha) {
   var instrucao = ''
   if(process.env.AMBIENTE_PROCESSO == "producao"){
     instrucao = `SELECT 
-    (SELECT SUBSTRING(nome, 1, CHARINDEX(' ', nome + ' ') - 1) AS primeiro_nome FROM usuario WHERE email = '${email}' AND senha = (HASHBYTES('SHA2_256','${senha}'))) as nome, email, cpf, senha, cargo, fkEmpresa FROM usuario WHERE email = '${email}' AND senha = (HASHBYTES('SHA2_256','${senha}'));`;
+    (SELECT SUBSTRING(nome, 1, CHARINDEX(' ', nome + ' ') - 1) AS primeiro_nome FROM usuario WHERE email = '${email}' AND senha = (HASHBYTES('SHA2_256','${senha}'))) as nome,nome as nomeCompleto, idUsuario, email, cpf, senha, cargo, fkEmpresa FROM usuario WHERE email = '${email}' AND senha = (HASHBYTES('SHA2_256','${senha}'));`;
   }else{
     instrucao = `SELECT * FROM usuario WHERE email = '${email}' AND senha = sha2('${senha}', 256);`;
   }
@@ -83,8 +115,11 @@ function cadastrarFuncionario(nome, email, cpf, senha, cargo, fkEmpresa) {
 module.exports = {
   listar,
   listarFuncionarios,
+  listarTecnicos,
+  listarChamadosUsuario,
   listarDadosFuncionario,
   verificarCpf,
+  desassociarFuncionario,
   verificarEmail,
   entrar,
   autenticar,

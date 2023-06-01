@@ -8,7 +8,9 @@
         "postinstall": "cd site && npm install"
     },
     "dependencies": {
+        "@slack/webhook": "^6.1.0",
         "chart.js": "^4.2.1",
+        "express": "^4.18.2",
         "sweetalert2": "^11.7.3"
     }
 }

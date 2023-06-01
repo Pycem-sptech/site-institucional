@@ -18,17 +18,16 @@
     <script src="js/charts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(), buscarRelatoriosCadastrados(sessionStorage.ID_UNIDADE), privarFuncSupervisor(),obterDadosGraficoFrequenciaProblemasMensal(`${sessionStorage.FK_EMPRESA}`,`${sessionStorage.ID_UNIDADE}`)">
+<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(),obterDadosGraficoFrequenciaProblemasMensal(`${sessionStorage.FK_EMPRESA}`,`${sessionStorage.ID_UNIDADE}`,atualizarVariacaoChamados())">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons">
                 <h2 onclick="redirectHome()">Py</h2>
-                <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                <img class="iconSidebar navigationIcon privGer" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
-                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg" onclick="redirectSuport()">
             </div>
             <div class="footerButtons">
                 <img class="iconSidebar" src="img/settingIcon.svg" onclick="redirectConfig()">
@@ -43,7 +42,7 @@
                 <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
-                    <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                    <li onclick="redirectAllMach()">Gerenciar Maquinas</li>
                     <li onclick="redirectAllUnits()">Unidades</li>
                     <li onclick="redirectVisaoGeral()">Visão Geral</li>
                     <li onclick="redirectConfig()">Configurações</li>
@@ -51,8 +50,8 @@
                 </ul>
             </nav>
             <div class="user">
-                <h4 class="usuarioLogado">Usuário</h4>
-                <img class="iconUser" src="img/personIcon.svg">
+                <h4 class="usuarioLogado" onclick="redirectMeuPerfil()">Usuário</h4>
+                <img class="iconUser" src="img/personIcon.svg" onclick="redirectMeuPerfil()">
             </div>
         </div>
     </header>
@@ -66,7 +65,7 @@
                 <div class="boxHardInfo left">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3>Variação de relátorios</h3>
+                            <h3>Variação de chamados</h3>
                             <h5 class="subtitleHardInfo">Semanal</h5>
                         </div>
                     </div>
@@ -77,12 +76,12 @@
                 <div class="boxHardInfo center">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3>Var. Tempo Relatório</h3>
+                            <h3>Var. Tempo Inoperante</h3>
                             <h5 class="subtitleHardInfo">Semanal</h5>
                         </div>
                     </div>
                     <div class="percentageUse">
-                        <h1 class="percent ram" id="varTempoInoperante">1 Day</h1>
+                        <h1 class="percent ram" id="varTempoInoperante">-</h1>
                     </div>
                 </div>
                 <div class="boxHardInfo right">
@@ -99,7 +98,7 @@
             </section>
             <section class="reports">
                 <div class="boxReports"> 
-                    <h3>Ocorrências</h3> 
+                    <h3>Quantidade de ocorrências x Semana</h3> 
                     <div class="graph">
                         <canvas id="frequenciaProblemasMensal" class="ocorrenciasPorUnidade"></canvas>
                     </div>
@@ -141,6 +140,7 @@
 </body>
 </html>
 <script>
+    
     let dataAtual = new Date()
     dataAtual = dataAtual.toLocaleDateString('pt-BR')
 

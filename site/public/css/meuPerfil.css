@@ -1,0 +1,175 @@
+.telaAtual{
+    opacity: 1;
+}   
+.main{
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.boxPerfil{
+    background-color: #fff;
+    height: 80%;
+    width: 60%;
+    box-shadow: 0px 1px 10px 3px rgba(0, 0, 0, 0.15);   
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.boxPerfil h2{
+    margin-top: 3%;
+    width: 80%; 
+}
+.inputField{
+    height: 75%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;align-content: space-around;
+}
+.inputNome{
+    width: 80%;
+    height: 10%;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    background: url(../img/user_icon.svg) no-repeat left / 2em;
+    background-position: 5px;
+    padding-left: 40px;
+    font-size: 15px;
+}
+.selectCargo{
+    width: 40%;
+    margin-right: 4%;
+    height: 11%;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    background: url(../img/idIcon.svg) no-repeat left / 2em;
+    background-position: 5px;
+    padding-left: 40px;
+    font-size: 15px;
+}
+.inputCpf{
+    width: 36%;
+    height: 10%;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    background: url(../img/idIcon.svg) no-repeat left / 2em;
+    background-position: 5px;
+    padding-left: 40px;
+    font-size: 15px;
+}
+
+.inputEmail{
+    width: 80%;
+    height: 10%;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    background: url(../img/mail_icon.svg) no-repeat left / 2em;
+    background-position: 5px;
+    padding-left: 40px;
+    font-size: 15px;
+}
+.inputSenha{
+    width: 36%;
+    height: 10%;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    background: url(../img/key_icon.svg) no-repeat left / 2em;
+    background-position: 5px;
+    padding-left: 40px;
+    font-size: 15px;
+}
+.atual{
+    margin-right: 4%;
+}
+.divBtn{
+    height: 12%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnSalvar{
+    background-color: #0078E8;
+    outline: none;
+    border:none;
+    color: #fff;
+    width: 25%;
+    height: 70%;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 13px;
+    cursor: pointer;
+}
+@media (max-width:1400px){
+    .boxPerfil h2{
+        font-size: 20px;
+    }
+    .inputNome{
+        height:15%;
+    }
+    .inputCpf{
+        height:15%;
+    }
+    .inputEmail{
+        height:15%;
+    }
+    .inputSenha{
+        height: 15%;
+    }
+    .selectCargo{
+        height: 15%;
+    }
+    .btnSalvar{
+        height: 85%;
+        border-radius: 10px;
+        font-size: 18px;
+    }
+}
+@media (max-width:800px){
+    .boxPerfil{
+        width: 80%;
+    }
+    .boxPerfil h2{
+        text-align: center;
+    }
+    .inputField{
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .campoEntradaDado{
+        height: 12%;
+        width: 70%;
+        margin: 0;
+    }
+    .selectCargo{
+        width: 77%;
+    }
+    .btnSalvar{
+        width: 30%;
+        height: 70%;
+    }
+}
+@media (max-width:500px){
+    .main{
+        height: 56vh;
+    }
+    .boxPerfil{
+        width: 90%;
+        height: 90%;
+    }
+    .selectCargo{
+        width: 81%;
+    }
+    .btnSalvar{
+        width: 40%;
+    }
+}

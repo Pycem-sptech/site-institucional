@@ -100,6 +100,12 @@ input{
     background-position: 5px;
     padding-left: 40px;
 }
+.siglaCompany{
+    background: url(../img/@.svg) no-repeat left / 2.0em;
+    background-position: 5px;
+    padding-left: 40px;
+}
+
 @media (max-width:1200px){
     .side{
         width: 7vw;
