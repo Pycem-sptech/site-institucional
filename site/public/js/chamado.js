@@ -91,6 +91,9 @@ function editarChamado(idChamado) {
   if ( fkMaquina == "" || atribuicao == ""  || prioridade == "" || status == "" || tipo == "" ||  descricao == "" || nome_unidade == "" || usuario_totem == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
+  } else if(status == 'Encerrado' && resolucao != '' && resolucao != null){
+    toastPadrao('error', 'Preencha a resolução que está vazia!');
+    return false;
   } else {
     fetch(`/chamado/editarChamado/${idChamado}`, {
       method: "PUT",
@@ -473,5 +476,23 @@ function atualizarDadosModal(idChamado, statusChamado){
         inputDescricao.value = todosChamados[statusChamado][i].descricao
       }
     }
+  }
+
+  let inputCriadoPor = document.querySelector('#criadoPorModal');
+  for(var i = 0; i < todosChamados[statusChamado].length; i++){
+    if(idChamado == todosChamados[statusChamado][i].idChamado){
+      inputCriadoPor.value = todosChamados[statusChamado][i].criado_por_nome;
+    }
+  }
+
+}
+
+function exibirResolucao(){
+  let estado = escolherEstadoModal.value;
+  let resolucao = document.querySelector('.resolucaoModal');
+  if(estado == 'Aberto' || estado =='Em andamento'){
+    resolucao.style.display = 'none'
+  }else if(estado == 'Encerrado' || estado =='Cancelado'){
+
   }
 }

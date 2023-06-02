@@ -20,15 +20,6 @@ function mostrarModalChamado(idChamado, statusChamado) {
           let tituloModal = document.getElementById("titulo");
           tituloModal.innerHTML = resposta[0].titulo;
           atualizarDadosModal(idChamado, statusChamado)
-          //Atualiza a Máquina
-          //Atualiza a Unidade
-
-
-          //Atualiza a prioridade
-          
-          
-
-          //Mostra o modal
           let overlay = document.querySelector('.overlay')
           let modal = document.querySelector('.modalChamado')
           overlay.style.display = 'block';
@@ -443,6 +434,7 @@ function atualizarSelectUnidadesChamado() {
             selectNovoChamado.options[selectNovoChamado.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
             selectChamado.options[selectChamado.options.length -1].id = resposta[i].nome;
             selectNovoChamado.options[selectNovoChamado.options.length -1].id = resposta[i].nome;
+            selectChamado.options[selectChamado.options.length -1].disabled = true
           }
         }
         );
@@ -475,6 +467,7 @@ function atualizarSelectMaquinaChamado() {
             selectNovoChamado.options[selectNovoChamado.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
             selectChamado.options[selectChamado.options.length -1].id = resposta[i].usuario;
             selectNovoChamado.options[selectNovoChamado.options.length -1].id = resposta[i].usuario;
+            selectChamado.options[selectChamado.options.length -1].disabled = true
           }
         }
         );
