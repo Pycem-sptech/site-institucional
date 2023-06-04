@@ -26,6 +26,7 @@ function obterDadosGraficoFrequenciaProblemasMensal(fkEmpresa, idUnidade) {
     fetch(`/chamado/frequenciaProblemasMensal/${fkEmpresa}/${idUnidade}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {
+                localStorage.resultadoEncontrado = true
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                 plotarGraficoFrequenciaProblemasMensal(resposta);
                 let i = resposta.length - 1;

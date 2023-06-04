@@ -116,7 +116,7 @@
                             <h3>Memória RAM</h3>
                         </div>
                     </div>
-                    <div class="shortGraph">
+                    <div class="shortGraph graph">
                         <canvas id="usoDaRam"></canvas>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                             <h3>Memória de massa</h3>
                         </div>
                     </div>
-                    <div class="shortGraph">
+                    <div class="shortGraph graph">
                         <canvas id="usoDoHd"></canvas>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
                             <h3>Processador</h3>
                         </div>
                     </div>
-                    <div class="longGraph">
+                    <div class="longGraph graph">
                         <canvas style="width:100%;" id="usoDoProcessador"></canvas>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                 <div class="machineField" id="machineField">
                     <div class="feed" id="feed">
                         <div class="chamado">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -348,5 +348,7 @@
         btnClose.style.display = "none";
         
     }
-
+    setTimeout(() =>{
+        adicionarImagemSemResultado(localStorage.resultadoEncontrado)
+    },2000)
 </script>

@@ -132,7 +132,7 @@ function privarFuncSupervisor() {
 
 // sessão
 function validarSessao() {
-
+    localStorage.resultadoEncontrado = ''
     const email = sessionStorage.USER_EMAIL;
     const nome = sessionStorage.USER_NAME;
     const fkEmpresa = sessionStorage.FK_EMPRESA;
@@ -370,6 +370,70 @@ function toastChamado(icon, title) {
 
 }
 
+function adicionarImagemSemResultado(resultadoEncontrado){
+    console.log("O gráfico foi encontrado")
+
+    //Atualiza os gráficos
+    if(!resultadoEncontrado){
+        console.log("O gráfico não foi encontrado")
+        let graph = document.getElementsByClassName("graph");
+        for(var i = 0;i < graph.length;i++){
+            graph[i].innerHTML = '<img src = "img/Search-rafiki 1.svg" height="100%" width="50%">'
+        }
+    }
+
+
+    //Atualiza as listas
+    if(!resultadoEncontrado){
+        console.log("A lista não foi encontrado")
+        let graph = document.getElementsByClassName("graph");
+        for(var i = 0;i < graph.length;i++){
+            graph[i].innerHTML = '<img src = "img/Search-rafiki 1.svg" height="100%" width="50%">'
+        }
+    }
+}
+
+
+// async function toastImpersonate(){
+//     const { value: cargo } = await Swal.fire({
+//         title: 'Selecione a visão desejada',
+//         input: 'select',
+//         inputOptions: {
+//           'Visões': {
+//             supervisor: 'Supervisor',
+//             tecnico: 'Tecnico'
+//           }
+//         },
+//         inputPlaceholder: 'Selecione a visão desejada',
+//         showCancelButton: true,
+//         // footer: '<a href="#" onclick = "deimpersonateUser()">Voltar para a visão de dono?</a>',
+//         inputValidator: (value) => {
+//             return new Promise((resolve) => {
+//               if (value === 'Supervisor') {
+//                 console.log("Sup")
+//               }
+//             })
+//           }
+//        })
+//         if (cargo) {
+//             Swal.fire(`You selected: ${cargo}`)
+//         }
+     
+// }
+    //     inputValidator: (value) => {
+    //       return new Promise((resolve) => {
+    //         if (value === 'oranges') {
+    //           resolve()
+    //         } else {
+    //           resolve('You need to select oranges :)')
+    //         }
+    //       })
+    //     }
+    //   })
+    
+    //   if (fruit) {
+    //     Swal.fire(`You selected: ${fruit}`)
+    //   }
 // Redirecionamentos
 
 function redirectHome() {

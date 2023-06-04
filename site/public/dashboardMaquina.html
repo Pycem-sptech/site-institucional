@@ -140,10 +140,9 @@
 </body>
 </html>
 <script>
-    
     let dataAtual = new Date()
     dataAtual = dataAtual.toLocaleDateString('pt-BR')
-
+    
     
     const btnMobile = document.getElementById('btn-mobile');
 
@@ -152,31 +151,33 @@
     const nav = document.getElementById('nav');
     nav.classList.toggle('active');
     
-    }
-
-    btnMobile.addEventListener('click', toggleMenu);
-    btnMobile.addEventListener('touchstart', toggleMenu);
-
-    function pesquisar(){
-        tituloMaquinas.style.display = "none";
-        btnSearch.style.display = "none";
-        btnClose.style.display = "block";
-        campoPesquisa.classList.add("show")
-        atulizando = true;
-        atualizarStatusMaqEmTempoReal()
 }
-    function fechar(){
-        campoPesquisa.classList.remove("show")
-        setTimeout(function () {
+
+btnMobile.addEventListener('click', toggleMenu);
+btnMobile.addEventListener('touchstart', toggleMenu);
+
+function pesquisar(){
+    tituloMaquinas.style.display = "none";
+    btnSearch.style.display = "none";
+    btnClose.style.display = "block";
+    campoPesquisa.classList.add("show")
+    atulizando = true;
+    atualizarStatusMaqEmTempoReal()
+}
+function fechar(){
+    campoPesquisa.classList.remove("show")
+    setTimeout(function () {
         
         tituloMaquinas.style.display = "block";
     }, 550);
-        btnSearch.style.display = "block";
-        btnClose.style.display = "none";
-        atulizando = false;
-        atualizarStatusMaqEmTempoReal()
+    btnSearch.style.display = "block";
+    btnClose.style.display = "none";
+    atulizando = false;
+    atualizarStatusMaqEmTempoReal()
         
-    }
-    
+}
+    setTimeout(() =>{
+        adicionarImagemSemResultado(localStorage.resultadoEncontrado)
+    },2000)
 
 </script>

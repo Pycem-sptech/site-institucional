@@ -459,7 +459,7 @@ function exibirChamadosAbertosPorMaquina(idTotem) {
                         var feed = document.getElementById("feed");
                         feed.innerHTML = '';
                         var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Não há nenhum chamado em aberto.";
+                        mensagem.innerHTML = '<div width="100%"><img src = "img/Search-rafiki 1.svg" height="100%" width="50%"></div>'
                         feed.appendChild(mensagem);
                         throw "Nenhum resultado encontrado!!";
                     }
