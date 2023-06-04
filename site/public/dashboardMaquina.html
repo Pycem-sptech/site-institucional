@@ -18,15 +18,14 @@
     <script src="js/charts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(),buscarRelatoriosMensais(sessionStorage.FK_EMPRESA,sessionStorage.VER_UNIDADE), privarFuncSupervisor(),obterDadosGraficoFrequenciaProblemasMensal(`${sessionStorage.FK_EMPRESA}`,`${sessionStorage.ID_UNIDADE}`)">
+<body onload="validarSessao(),atualizarNomeUnidade(`${sessionStorage.VER_NOME_UNIDADE}`), atualizarMaqCadastradasComStatus(),atualizarStatusMaqEmTempoReal(),obterDadosGraficoFrequenciaProblemasMensal(`${sessionStorage.FK_EMPRESA}`,`${sessionStorage.ID_UNIDADE}`,atualizarVariacaoChamados())">
      <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
      <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons">
                 <h2 onclick="redirectHome()">Py</h2>
-                <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
+                <img class="iconSidebar navigationIcon privGer" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg" onclick="redirectSuport()">
             </div>
@@ -66,7 +65,7 @@
                 <div class="boxHardInfo left">
                     <div class="titleBoxHardInfo">
                         <div class="container">
-                            <h3>Variação de relátorios</h3>
+                            <h3>Variação de chamados</h3>
                             <h5 class="subtitleHardInfo">Semanal</h5>
                         </div>
                     </div>
@@ -99,7 +98,7 @@
             </section>
             <section class="reports">
                 <div class="boxReports"> 
-                    <h3>Ocorrências</h3> 
+                    <h3>Quantidade de ocorrências x Semana</h3> 
                     <div class="graph">
                         <canvas id="frequenciaProblemasMensal" class="ocorrenciasPorUnidade"></canvas>
                     </div>
@@ -141,6 +140,7 @@
 </body>
 </html>
 <script>
+    
     let dataAtual = new Date()
     dataAtual = dataAtual.toLocaleDateString('pt-BR')
 

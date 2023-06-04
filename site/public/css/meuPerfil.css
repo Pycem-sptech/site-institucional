@@ -1,3 +1,6 @@
+.telaAtual{
+    opacity: 1;
+}   
 .main{
     height: 70vh;
     display: flex;

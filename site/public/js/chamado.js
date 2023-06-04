@@ -1,12 +1,14 @@
 let meusChamados = {
   chamadosAbertos: [],
   chamadosEmAndamento: [],
-  chamadosEncerrados: []
+  chamadosEncerrados: [],
+  chamadosCancelados: []
 }
 let todosChamados = {
   chamadosAbertos: [],
   chamadosEmAndamento: [],
-  chamadosEncerrados: []
+  chamadosEncerrados: [],
+  chamadosCancelados: []
 }
 
 function buscarChamados(titulo) {
@@ -14,16 +16,23 @@ function buscarChamados(titulo) {
 }
 
 function criarChamado() {
+  const selectUnidade = document.querySelector('#escolherUnidadeModalNovoChamado');
+  let selectedUnidadeOption = selectUnidade.options[selectUnidade.selectedIndex].id;
+  const selectTotem = document.querySelector('#escolherMaquinaModalNovoChamado');
+  let selectedTotemOption = selectTotem.options[selectTotem.selectedIndex].id;
+
   const fkEmpresa = sessionStorage.FK_EMPRESA;
   const criado_por_id = sessionStorage.USER_ID;
   const criado_por_nome = sessionStorage.USER_FULLNAME;
   const fkMaquina = escolherMaquinaModalNovoChamado.value;
   const fkUnidade = escolherUnidadeModalNovoChamado.value;
+  const nome_unidade = selectedUnidadeOption;
+  const usuario_totem = selectedTotemOption;
   const prioridade = escolherPrioridadeModalNovoChamado.value;
   const tipo = escolherTipoModalNovoChamado.value;
   const descricao = descricaoModalNovoChamado.value;
-
-  if (fkEmpresa == "" || fkMaquina == "" || criado_por_id == "" || criado_por_nome == "" || prioridade == "" || tipo == "" || fkUnidade == "" || descricao == "") {
+    
+  if (fkEmpresa == "" || fkMaquina == "" || criado_por_id == "" || criado_por_nome == "" || nome_unidade == "" || usuario_totem == "" ||prioridade == "" || tipo == "" || fkUnidade == "" || descricao == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
   } else {
@@ -37,7 +46,9 @@ function criarChamado() {
         fkEmpresa: fkEmpresa,
         criado_por_id: criado_por_id,
         criado_por_nome: criado_por_nome,
+        usuario_totem: usuario_totem,
         fkMaquina: fkMaquina,
+        nome_unidade: nome_unidade,
         fkUnidade: fkUnidade,
         prioridade: prioridade,
         tipo: tipo,
@@ -61,6 +72,13 @@ function criarChamado() {
   }
 }
 function editarChamado(idChamado) {
+  const selectUnidade = document.querySelector('#escolherUnidadeModal');
+  let selectedUnidadeOption = selectUnidade.options[selectUnidade.selectedIndex].id;
+  const selectTotem = document.querySelector('#escolherMaquinaModal');
+  let selectedTotemOption = selectTotem.options[selectTotem.selectedIndex].id;
+  const nome_unidade = selectedUnidadeOption;
+  const usuario_totem = selectedTotemOption;
+
   const atribuicao = escolherAtribuicaoModal.value;
   const prioridade = escolherPrioridadeModal.value;
   const status = escolherEstadoModal.value;
@@ -70,8 +88,11 @@ function editarChamado(idChamado) {
   const fkMaquina = escolherMaquinaModal.value;
 
   
-  if ( fkMaquina == "" || atribuicao == ""  || prioridade == "" || status == "" || tipo == "" ||  descricao == "") {
+  if ( fkMaquina == "" || atribuicao == ""  || prioridade == "" || status == "" || tipo == "" ||  descricao == "" || nome_unidade == "" || usuario_totem == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
+    return false;
+  } else if(status == 'Encerrado' && resolucao != '' && resolucao != null){
+    toastPadrao('error', 'Preencha a resolução que está vazia!');
     return false;
   } else {
     fetch(`/chamado/editarChamado/${idChamado}`, {
@@ -82,6 +103,8 @@ function editarChamado(idChamado) {
       body: JSON.stringify({
         fkMaquina: fkMaquina,
         prioridade: prioridade,
+        nome_unidade:nome_unidade,
+        usuario_totem:usuario_totem,
         tipo: tipo,
         status: status,
         descricao: descricao,
@@ -205,8 +228,10 @@ function atualizarListaChamados() {
               todosChamados.chamadosAbertos.push(resposta[i])
             } else if (resposta[i].estado[0] == ("EmAndamento")) {
               todosChamados.chamadosEmAndamento.push(resposta[i])
-            } else if (resposta[i].estado[0] == ("Encerrado")) {
+            } else if (resposta[i].estado[0] == ("Encerrado")){
               todosChamados.chamadosEncerrados.push(resposta[i])
+            } else if (resposta[i].estado[0] == ("Cancelado")){
+              todosChamados.chamadosCancelados.push(resposta[i])
             }
           }
 
@@ -288,7 +313,7 @@ let boxChamados = document.querySelectorAll(".feed")
 let chamadosAbertos = boxChamados[0]
 let chamadosEmAndamento = boxChamados[1]
 let chamadosEncerrados = boxChamados[2]
-
+let chamadosCancelados = boxChamados[2]
 function exibirChamados() {
   // Exibindo o chamado
   console.log(todosChamados.chamadosEmAndamento.length)
@@ -309,7 +334,6 @@ function exibirChamados() {
   }
 
   for(let i = 0; i < todosChamados.chamadosEmAndamento.length; i++){
-    console.log("OPA!")
     chamadosEmAndamento.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosEmAndamento[i].idChamado}, 'chamadosEmAndamento')">
                                       <div class="infoChamado">
                                           <h3>${todosChamados.chamadosEmAndamento[i].titulo}</h3>
@@ -341,7 +365,21 @@ function exibirChamados() {
                                       </div> `
   }
   
-
+  for(let i = 0; i < todosChamados.chamadosCancelados.length; i++){
+    chamadosEncerrados.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosCancelados[i].idChamado}, 'chamadosCancelados')">
+    <div class="infoChamado">
+        <h3>${todosChamados.chamadosCancelados[i].titulo}</h3>
+        <div class="infoMaquina">
+            <span>Máquina: <span>${todosChamados.chamadosCancelados[i].usuario}</span></span>
+            <span>Tipo: <span>${todosChamados.chamadosCancelados[i].tipo}</span></span>
+        </div>
+    </div>
+    <div class="infoAtribuicao">
+        <span>${todosChamados.chamadosCancelados[i].atribuido_nome}</span>
+        <span>${todosChamados.chamadosCancelados[i].prioridade}</span>
+    </div>
+    </div> `
+  }
 }
 
 function atualizarDadosModal(idChamado, statusChamado){
@@ -438,5 +476,23 @@ function atualizarDadosModal(idChamado, statusChamado){
         inputDescricao.value = todosChamados[statusChamado][i].descricao
       }
     }
+  }
+
+  let inputCriadoPor = document.querySelector('#criadoPorModal');
+  for(var i = 0; i < todosChamados[statusChamado].length; i++){
+    if(idChamado == todosChamados[statusChamado][i].idChamado){
+      inputCriadoPor.value = todosChamados[statusChamado][i].criado_por_nome;
+    }
+  }
+
+}
+
+function exibirResolucao(){
+  let estado = escolherEstadoModal.value;
+  let resolucao = document.querySelector('.resolucaoModal');
+  if(estado == 'Aberto' || estado =='Em andamento'){
+    resolucao.style.display = 'none'
+  }else if(estado == 'Encerrado' || estado =='Cancelado'){
+
   }
 }

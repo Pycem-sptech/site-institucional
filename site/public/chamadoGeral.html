@@ -14,21 +14,21 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
-
-<body onload="validarSessao(),atualizarSelectUnidadesChamado(),atualizarSelectMaquinaChamado(),atualizarSelectAtribuicaoChamado()">
+<!-- ,verificarTamanhoTela() -->
+<body onload="validarSessao(),atualizarSelectMaquinaChamado(),atualizarSelectUnidadesChamado(), atualizarSelectAtribuicaoChamado(), filtrarAndamentoChamado()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons" id="navIcons">
                 <h2 onclick="redirectHome()">Py</h2>
-                <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectMachine()">
+                
+                <img class="iconSidebar navigationIcon privGer" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
-                <img class="iconSidebar navigationIcon" src="img/supportIcon.svg">
+                <img class="iconSidebar navigationIcon atual" src="img/supportIcon.svg">
             </div>
             <div class="footerButtons">
-                <img class="iconSidebar telaAtual" src="img/settingIcon.svg"><!-- onclick="redirectConfig()" -->
+                <img class="iconSidebar telaAtual" src="img/settingIcon.svg" onclick="redirectConfig()">
                 <img class="iconSidebar" src="img/exitIcon.svg" onclick="limparSessao()">
             </div>
         </div>
@@ -60,15 +60,20 @@
     </div>
     <div class="divBtnChamado">
         <button class="btnNovoChamado" onclick="mostrarModalNovoChamado()">Novo chamado +</button>
-        <select class="selectFiltrarChamados" name="" id="filtrarChamados" onchange="filtrarChamados()">
+        <select class="selectFiltrarChamados" id="filtrarChamados" onchange="filtrarChamados()">
             <option value="todos">Todos</option>
             <option value="meusChamados">Meus chamados</option>
+        </select>
+        <select class="selectFiltrarChamados mobile" id="filtrarAndamentoChamados" onchange="filtrarAndamentoChamado()">
+            <option value="abertos">Abertos</option>
+            <option value="andamento">Em andamento</option>
+            <option value="encerrados">Encerrados</option>
         </select>
     </div>
 
     <main class="main">
         <div class="container">
-            <div class="boxListaChamados">
+            <div class="boxListaChamados abertos" id="abertos">
                 <div class="titleBox">
                     <h1>Aberto</h1>
                 </div>
@@ -76,7 +81,7 @@
 
                 </div>
             </div>
-            <div class="boxListaChamados">
+            <div class="boxListaChamados andamento" id="andamento">
                 <div class="titleBox">
                     <h1>Em Andamento</h1>
                 </div>
@@ -84,12 +89,12 @@
 
                 </div>
             </div>
-            <div class="boxListaChamados">
+            <div class="boxListaChamados encerrados" id="encerrados">
                 <div class="titleBox">
                     <h1>Encerrado</h1>
                 </div>
                 <div class="feed">
-
+                   
                 </div>
             </div>
         </div>
@@ -105,7 +110,7 @@
                     <div class="bloco">
                         <span class="estilo tamanho10"><span class="subTitulo">Máquina:</span>
                             <select class="selectModal" id="escolherMaquinaModal">
-                                <option value="" disabled selected>Máquina</option>
+                                <option value="" name="" disabled selected>Máquina</option>
                             </select></span>
 
                         <span class="estilo tamanho10"><span class="subTitulo">Prioridade:</span>
@@ -126,14 +131,13 @@
                                 <option value="" disabled selected>Unidade</option>
                             </select></span>
                         <span class="estilo tamanho8"><span class="subTitulo">Estado:</span>
-                            <select class="selectModal" id="escolherEstadoModal">
+                            <select class="selectModal" id="escolherEstadoModal" onchange="exibirResolucao()">
                                 <option value="" disabled>Estado</option>
                                 <option value="Aberto">Aberto</option>
                                 <option value="EmAndamento">Em Andamento</option>
                                 <option value="Encerrado">Encerrado</option>
                                 <option value="Cancelado">Cancelado</option>
                             </select></span>
-
                     </div>
                     <div class="bloco">
                         <span class="estilo tamanho12"><span class="subTitulo">Data Inicial:</span>
@@ -158,11 +162,15 @@
                             </select></span>
                     </div>
                     <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Criado por:</span>
+                            <input class="inputModal" type="text" id="criadoPorModal" disabled></span>
+                    </div>
+                    <div class="bloco">
                         <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
                             <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
                     </div>
 
-                    <div class="bloco">
+                    <div class="bloco resolucaoModal">
                         <span class="estilo tamanho9"><span class="subTitulo">Resolução:</span>
                             <textarea disabled class="textAreaModal" id="resolucaoModal" maxlength="255"></textarea>
                     </div>
@@ -214,7 +222,6 @@
                                 <option value="MauFuncionamento">MauFuncionamento</option>
                                 <option value="Outro">Outro</option>
                             </select></span>
-
                     </div>
             
                     <div class="bloco">
@@ -250,6 +257,64 @@
         };
     });
     
+    const btnMobile = document.getElementById('btn-mobile');
+
+    function toggleMenu(event) {
+    if (event.type === 'touchstart') event.preventDefault();  
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('active');
+
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+
+    function filtrarAndamentoChamado(){
+        var opcao = filtrarAndamentoChamados.value;
+
+        if(opcao == "abertos"){
+            encerrados.style.display = 'none';
+            abertos.style.display = 'block';
+            andamento.style.display = 'none';
+        } else if(opcao == "andamento"){
+            abertos.style.display = 'none';
+            encerrados.style.display = 'none';
+            andamento.style.display = 'block';
+        }else if (opcao == "encerrados"){
+            abertos.style.display = 'none';
+            encerrados.style.display = 'block';
+            andamento.style.display = 'none';
+        }
+    }
+
+    function verificarTamanhoTela(){
+        var x = window.screen.width;
+        if($(x <= 800)){
+            encerrados.style.display = 'none';
+            abertos.style.display = 'block';
+            andamento.style.display = 'none';
+        } else {
+            encerrados.style.display = 'block';
+            abertos.style.display = 'block';
+            andamento.style.display = 'block';
+        }
+    }
+
+    window.addEventListener('resize', function () {
+    
+    var largura = window.innerWidth;
+
+    if (largura < 800) {
+        encerrados.style.display = 'none';
+            abertos.style.display = 'block';
+            andamento.style.display = 'none';
+    } else {
+        encerrados.style.display = 'block';
+            abertos.style.display = 'block';
+            andamento.style.display = 'block';
+    } 
+});
+
 </script>
 
 

@@ -1,3 +1,6 @@
+.telaAtual{
+    opacity: 1;
+}
 .guideText{
     height: 12vh;
     display: flex;

@@ -17,15 +17,15 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <title>Pycem² | Home</title>
 </head>
-<body id="body" onload="validarSessao(),atualizarUnidadesCadastradas(),obterDadosGraficoQtdRelatorios(`${sessionStorage.FK_EMPRESA}`),listarStatusGeralTotem(`${sessionStorage.FK_EMPRESA}`), listarAlertas()">
+<body id="body" onload="validarSessao(),atualizarUnidadesCadastradas(),obterDadosGraficoQtdChamados(`${sessionStorage.FK_EMPRESA}`),listarStatusGeralTotem(`${sessionStorage.FK_EMPRESA}`), listarAlertas()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons" id="navIcons">
                 <h2 onclick="redirectHome()">Py</h2>
-                <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()">
+                <!-- <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()"> -->
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
-                <img class="iconSidebar navigationIcon" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
+                <img class="iconSidebar navigationIcon privGer" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
                 <img class="iconSidebar navigationIcon telaAtual" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg" onclick="redirectChamado()">
             </div>
@@ -67,7 +67,7 @@
                     <p>
                         Geral Máquinas
                     </p>
-                    <div style="background-color: greenyellow;" class="bolinha"></div>
+                    <div style="background-color: #00E909;" class="bolinha"></div>
                 </div>
                 <div class="info-maq">
                     <p class="info">
@@ -83,7 +83,7 @@
                 <div class="title-status">
                     <p>
                     </p>
-                    <div style="background-color: orange;" class="bolinha"></div>
+                    <div style="background-color: #E97E00;" class="bolinha"></div>
                 </div>
                 <div class="info-maq">
                     <p class="info">
@@ -99,7 +99,7 @@
                 <div class="title-status">
                     <p>
                     </p>
-                    <div style="background-color: red;" class="bolinha"></div>
+                    <div style="background-color: #E90000;" class="bolinha"></div>
                 </div>
                 <div class="info-maq">
                     <p class="info">
