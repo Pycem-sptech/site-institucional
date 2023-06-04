@@ -87,6 +87,17 @@ function fecharModalChamado() {
   let modal = document.querySelector('.modalChamado')
   overlay.style.display = 'none';
   modal.style.display = 'none';
+  escolherMaquinaModal.value = "";
+  escolherPrioridadeModal.value = "";
+  escolherUnidadeModal.value = "";
+  escolherEstadoModal.value = "";
+  dataInicialModal.value = "";
+  escolherTipoModal.value = "";
+  dataEncerramentoModal.value = "";
+  escolherAtribuicaoModal.value = "";
+  criadoPorModal.value = "";
+  descricaoModal.value = "";
+  resolucaoModal.value = "";
 }
 
 function fecharModalNovoChamado() {
@@ -95,6 +106,11 @@ function fecharModalNovoChamado() {
   let modalNovoChamado = document.querySelector('.modalNovoChamado')
   overlayNovoChamado.style.display = 'none';
   modalNovoChamado.style.display = 'none';
+  escolherUnidadeModalNovoChamado.value = "";
+  escolherPrioridadeModalNovoChamado.value = "";
+  escolherMaquinaModalNovoChamado.value = "";
+  escolherTipoModalNovoChamado.value = "";
+  descricaoModalNovoChamado.value = "";
 }
 
 function salvarEdicaoMaquina(idTotem) {
