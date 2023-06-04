@@ -11,8 +11,10 @@ let todosChamados = {
   chamadosCancelados: []
 }
 
+
+var jsonChamadosGlobal;
 function buscarChamados(titulo) {
-                ' '
+  ' '
 }
 
 function criarChamado() {
@@ -31,8 +33,8 @@ function criarChamado() {
   const prioridade = escolherPrioridadeModalNovoChamado.value;
   const tipo = escolherTipoModalNovoChamado.value;
   const descricao = descricaoModalNovoChamado.value;
-    
-  if (fkEmpresa == "" || fkMaquina == "" || criado_por_id == "" || criado_por_nome == "" || nome_unidade == "" || usuario_totem == "" ||prioridade == "" || tipo == "" || fkUnidade == "" || descricao == "") {
+
+  if (fkEmpresa == "" || fkMaquina == "" || criado_por_id == "" || criado_por_nome == "" || nome_unidade == "" || usuario_totem == "" || prioridade == "" || tipo == "" || fkUnidade == "" || descricao == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
   } else {
@@ -87,11 +89,11 @@ function editarChamado(idChamado) {
   const resolucao = resolucaoModal.value;
   const fkMaquina = escolherMaquinaModal.value;
 
-  
-  if ( fkMaquina == "" || atribuicao == ""  || prioridade == "" || status == "" || tipo == "" ||  descricao == "" || nome_unidade == "" || usuario_totem == "") {
+
+  if (fkMaquina == "" || atribuicao == "" || prioridade == "" || status == "" || tipo == "" || descricao == "" || nome_unidade == "" || usuario_totem == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
-  } else if(status == 'Encerrado' && resolucao != '' && resolucao != null){
+  } else if (status == 'Encerrado' && resolucao != '' && resolucao != null) {
     toastPadrao('error', 'Preencha a resolução que está vazia!');
     return false;
   } else {
@@ -103,8 +105,8 @@ function editarChamado(idChamado) {
       body: JSON.stringify({
         fkMaquina: fkMaquina,
         prioridade: prioridade,
-        nome_unidade:nome_unidade,
-        usuario_totem:usuario_totem,
+        nome_unidade: nome_unidade,
+        usuario_totem: usuario_totem,
         tipo: tipo,
         status: status,
         descricao: descricao,
@@ -182,8 +184,11 @@ function imprimirChamado() {
 }
 
 function filtrarChamados() {
+  const fkUsuario = sessionStorage.USER_ID;
   const fkEmpresa = sessionStorage.FK_EMPRESA;
-  fetch(`/maquina/listarChamadoFiltrado/${fkEmpresa}`)
+  console.log(fkEmpresa)
+  console.log(fkUsuario)
+  fetch(`/chamado/listarChamadoFiltrado/${fkUsuario}/${fkEmpresa}`)
     .then(function (resposta) {
       if (resposta.ok) {
         if (resposta.status == 204) {
@@ -191,14 +196,30 @@ function filtrarChamados() {
           throw "Nenhum resultado encontrado!!";
         }
         resposta.json().then(function (resposta) {
-
-          for (var i = 0; i < resposta.length; i++) {
-
-            listaMaquinas.push(resposta[i]);
+          limparFeedChamados();
+          console.log("TEM DADOS")
+          if (resposta.length > 0) {
+            for (var i = 0; i < resposta.length; i++) {
+              if (resposta[i].estado[0] == "Aberto") {
+                meusChamados.chamadosAbertos.push(resposta[i])
+              } else if (resposta[i].estado[0] == ("EmAndamento")) {
+                meusChamados.chamadosEmAndamento.push(resposta[i])
+              } else if (resposta[i].estado[0] == ("Encerrado")) {
+                meusChamados.chamadosEncerrados.push(resposta[i])
+              } else if (resposta[i].estado[0] == ("Cancelado")) {
+                meusChamados.chamadosCancelados.push(resposta[i])
+              }
+              console.log(resposta[i])
+            }
+            exibirChamados(meusChamados);
+            jsonChamadosGlobal = meusChamados;
+          } else {
+            limparFeedChamados();
           }
-          console.log(listaMaquinas);
-        });
-        setTimeout(function () { mostrarTodasMaquinas(listaMaquinas) }, 300)
+
+
+        }
+        );
       } else {
         throw "Houve um erro na API!";
       }
@@ -222,20 +243,25 @@ function atualizarListaChamados() {
         }
         resposta.json().then(function (resposta) {
           console.log("Dados: ", JSON.stringify(resposta))
-
-          for (var i = 0; i < resposta.length; i++) {
-            if (resposta[i].estado[0] == "Aberto") {
-              todosChamados.chamadosAbertos.push(resposta[i])
-            } else if (resposta[i].estado[0] == ("EmAndamento")) {
-              todosChamados.chamadosEmAndamento.push(resposta[i])
-            } else if (resposta[i].estado[0] == ("Encerrado")){
-              todosChamados.chamadosEncerrados.push(resposta[i])
-            } else if (resposta[i].estado[0] == ("Cancelado")){
-              todosChamados.chamadosCancelados.push(resposta[i])
+          if (resposta.length > 0) {
+            for (var i = 0; i < resposta.length; i++) {
+              if (resposta[i].estado[0] == "Aberto") {
+                todosChamados.chamadosAbertos.push(resposta[i])
+              } else if (resposta[i].estado[0] == ("EmAndamento")) {
+                todosChamados.chamadosEmAndamento.push(resposta[i])
+              } else if (resposta[i].estado[0] == ("Encerrado")) {
+                todosChamados.chamadosEncerrados.push(resposta[i])
+              } else if (resposta[i].estado[0] == ("Cancelado")) {
+                todosChamados.chamadosCancelados.push(resposta[i])
+              }
             }
+            exibirChamados(todosChamados);
+            jsonChamadosGlobal = todosChamados;
+          } else {
+            limparFeedChamados();
           }
 
-          exibirChamados()
+
         }
         );
       } else {
@@ -314,114 +340,114 @@ let chamadosAbertos = boxChamados[0]
 let chamadosEmAndamento = boxChamados[1]
 let chamadosEncerrados = boxChamados[2]
 let chamadosCancelados = boxChamados[2]
-function exibirChamados() {
+function exibirChamados(jsonChamados) {
   // Exibindo o chamado
-  console.log(todosChamados.chamadosEmAndamento.length)
-  for (let i = 0; i < todosChamados.chamadosAbertos.length; i++) {
-    chamadosAbertos.innerHTML += `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosAbertos[i].idChamado}, 'chamadosAbertos')">
+  console.log(jsonChamados.chamadosEmAndamento.length)
+  for (let i = 0; i < jsonChamados.chamadosAbertos.length; i++) {
+    chamadosAbertos.innerHTML += `<div class="boxChamado" onclick="mostrarModalChamado(${jsonChamados.chamadosAbertos[i].idChamado}, 'chamadosAbertos')">
                                   <div class="infoChamado">
-                                      <h3>${todosChamados.chamadosAbertos[i].titulo}</h3>
+                                      <h3>${jsonChamados.chamadosAbertos[i].titulo}</h3>
                                       <div class="infoMaquina">
-                                          <span>Máquina: <span>${todosChamados.chamadosAbertos[i].usuario}</span></span>
-                                          <span>Tipo: <span>${todosChamados.chamadosAbertos[i].tipo}</span></span>
+                                          <span>Máquina: <span>${jsonChamados.chamadosAbertos[i].usuario}</span></span>
+                                          <span>Tipo: <span>${jsonChamados.chamadosAbertos[i].tipo}</span></span>
                                       </div>
                                   </div>
                                   <div class="infoAtribuicao">
-                                      <span>${todosChamados.chamadosAbertos[i].atribuido_nome}</span>
-                                      <span>${todosChamados.chamadosAbertos[i].prioridade}</span>
+                                      <span>${jsonChamados.chamadosAbertos[i].atribuido_nome}</span>
+                                      <span>${jsonChamados.chamadosAbertos[i].prioridade}</span>
                                   </div>
                               </div> `
   }
 
-  for(let i = 0; i < todosChamados.chamadosEmAndamento.length; i++){
-    chamadosEmAndamento.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosEmAndamento[i].idChamado}, 'chamadosEmAndamento')">
+  for (let i = 0; i < jsonChamados.chamadosEmAndamento.length; i++) {
+    chamadosEmAndamento.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${jsonChamados.chamadosEmAndamento[i].idChamado}, 'chamadosEmAndamento')">
                                       <div class="infoChamado">
-                                          <h3>${todosChamados.chamadosEmAndamento[i].titulo}</h3>
+                                          <h3>${jsonChamados.chamadosEmAndamento[i].titulo}</h3>
                                           <div class="infoMaquina">
-                                              <span>Máquina: <span>${todosChamados.chamadosEmAndamento[i].usuario}</span></span>
-                                              <span>Tipo: <span>${todosChamados.chamadosEmAndamento[i].tipo}</span></span>
+                                              <span>Máquina: <span>${jsonChamados.chamadosEmAndamento[i].usuario}</span></span>
+                                              <span>Tipo: <span>${jsonChamados.chamadosEmAndamento[i].tipo}</span></span>
                                           </div>
                                       </div>
                                       <div class="infoAtribuicao">
-                                          <span>${todosChamados.chamadosEmAndamento[i].atribuido_nome}</span>
-                                          <span>${todosChamados.chamadosEmAndamento[i].prioridade}</span>
+                                          <span>${jsonChamados.chamadosEmAndamento[i].atribuido_nome}</span>
+                                          <span>${jsonChamados.chamadosEmAndamento[i].prioridade}</span>
                                       </div>
                                   </div> `
   }
 
-  for(let i = 0; i < todosChamados.chamadosEncerrados.length; i++){
-    chamadosEncerrados.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosEncerrados[i].idChamado}, 'chamadosEncerrados')">
+  for (let i = 0; i < jsonChamados.chamadosEncerrados.length; i++) {
+    chamadosEncerrados.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${jsonChamados.chamadosEncerrados[i].idChamado}, 'chamadosEncerrados')">
                                       <div class="infoChamado">
-                                          <h3>${todosChamados.chamadosEncerrados[i].titulo}</h3>
+                                          <h3>${jsonChamados.chamadosEncerrados[i].titulo}</h3>
                                           <div class="infoMaquina">
-                                              <span>Máquina: <span>${todosChamados.chamadosEncerrados[i].usuario}</span></span>
-                                              <span>Tipo: <span>${todosChamados.chamadosEncerrados[i].tipo}</span></span>
+                                              <span>Máquina: <span>${jsonChamados.chamadosEncerrados[i].usuario}</span></span>
+                                              <span>Tipo: <span>${jsonChamados.chamadosEncerrados[i].tipo}</span></span>
                                           </div>
                                       </div>
                                       <div class="infoAtribuicao">
-                                          <span>${todosChamados.chamadosEncerrados[i].atribuido_nome}</span>
-                                          <span>${todosChamados.chamadosEncerrados[i].prioridade}</span>
+                                          <span>${jsonChamados.chamadosEncerrados[i].atribuido_nome}</span>
+                                          <span>${jsonChamados.chamadosEncerrados[i].prioridade}</span>
                                       </div>
                                       </div> `
   }
-  
-  for(let i = 0; i < todosChamados.chamadosCancelados.length; i++){
-    chamadosEncerrados.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${todosChamados.chamadosCancelados[i].idChamado}, 'chamadosCancelados')">
+
+  for (let i = 0; i < jsonChamados.chamadosCancelados.length; i++) {
+    chamadosEncerrados.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${jsonChamados.chamadosCancelados[i].idChamado}, 'chamadosCancelados')">
     <div class="infoChamado">
-        <h3>${todosChamados.chamadosCancelados[i].titulo}</h3>
+        <h3>${jsonChamados.chamadosCancelados[i].titulo}</h3>
         <div class="infoMaquina">
-            <span>Máquina: <span>${todosChamados.chamadosCancelados[i].usuario}</span></span>
-            <span>Tipo: <span>${todosChamados.chamadosCancelados[i].tipo}</span></span>
+            <span>Máquina: <span>${jsonChamados.chamadosCancelados[i].usuario}</span></span>
+            <span>Tipo: <span>${jsonChamados.chamadosCancelados[i].tipo}</span></span>
         </div>
     </div>
     <div class="infoAtribuicao">
-        <span>${todosChamados.chamadosCancelados[i].atribuido_nome}</span>
-        <span>${todosChamados.chamadosCancelados[i].prioridade}</span>
+        <span>${jsonChamados.chamadosCancelados[i].atribuido_nome}</span>
+        <span>${jsonChamados.chamadosCancelados[i].prioridade}</span>
     </div>
     </div> `
   }
 }
 
-function atualizarDadosModal(idChamado, statusChamado){
+function atualizarDadosModal(idChamado, statusChamado, jsonChamados) {
   let selectMaquina = document.querySelector("#escolherMaquinaModal")
-  for(var i = 0; i < todosChamados[statusChamado].length; i++){
-    if(idChamado == todosChamados[statusChamado][i].idChamado){
-      for(var j = 0; j < selectMaquina.options.length; j++){
-        if(todosChamados[statusChamado][i].idTotem == selectMaquina.options[j].value){
+  for (var i = 0; i < jsonChamados[statusChamado].length; i++) {
+    if (idChamado == jsonChamados[statusChamado][i].idChamado) {
+      for (var j = 0; j < selectMaquina.options.length; j++) {
+        if (jsonChamados[statusChamado][i].idTotem == selectMaquina.options[j].value) {
           selectMaquina.options[j].selected = true;
         }
       }
     }
   }
-  
+
   let selectUnidade = document.querySelector("#escolherUnidadeModal")
-  for(var i = 0; i < todosChamados[statusChamado].length; i++){
-    if(idChamado == todosChamados[statusChamado][i].idChamado){
-      for(var j = 0; j < selectUnidade.options.length; j++){
-        if(todosChamados[statusChamado][i].idUnidade == selectUnidade.options[j].value){
+  for (var i = 0; i < jsonChamados[statusChamado].length; i++) {
+    if (idChamado == jsonChamados[statusChamado][i].idChamado) {
+      for (var j = 0; j < selectUnidade.options.length; j++) {
+        if (jsonChamados[statusChamado][i].idUnidade == selectUnidade.options[j].value) {
           selectUnidade.options[j].selected = true;
         }
       }
     }
   }
-  
+
   let selectPrioridade = document.querySelector('#escolherPrioridadeModal');
-  for(var i = 0; i < todosChamados[statusChamado].length; i++){
-    if(idChamado == todosChamados[statusChamado][i].idChamado){
-      for(var j = 0; j < selectPrioridade.options.length; j++){
-        if(todosChamados[statusChamado][i].prioridade == selectPrioridade.options[j].value){
+  for (var i = 0; i < jsonChamados[statusChamado].length; i++) {
+    if (idChamado == jsonChamados[statusChamado][i].idChamado) {
+      for (var j = 0; j < selectPrioridade.options.length; j++) {
+        if (jsonChamados[statusChamado][i].prioridade == selectPrioridade.options[j].value) {
           selectPrioridade.options[j].selected = true;
         }
       }
     }
   }
 
- 
+
   let selectEstado = document.querySelector('#escolherEstadoModal')
-  for(var i = 0; i < todosChamados[statusChamado].length; i++){
-    if(idChamado == todosChamados[statusChamado][i].idChamado){
-      for(var j = 0; j < selectEstado.options.length; j++){
-        if(todosChamados[statusChamado][i].estado[0] == selectEstado.options[j].value){
+  for (var i = 0; i < jsonChamados[statusChamado].length; i++) {
+    if (idChamado == jsonChamados[statusChamado][i].idChamado) {
+      for (var j = 0; j < selectEstado.options.length; j++) {
+        if (jsonChamados[statusChamado][i].estado[0] == selectEstado.options[j].value) {
           selectEstado.options[j].selected = true;
         }
       }
@@ -429,10 +455,10 @@ function atualizarDadosModal(idChamado, statusChamado){
   }
 
   let selectTipo = document.querySelector('#escolherTipoModal')
-  for(var i = 0; i < todosChamados[statusChamado].length; i++){
-    if(idChamado == todosChamados[statusChamado][i].idChamado){
-      for(var j = 0; j < selectTipo.options.length; j++){
-        if(todosChamados[statusChamado][i].tipo == selectTipo.options[j].value){
+  for (var i = 0; i < jsonChamados[statusChamado].length; i++) {
+    if (idChamado == jsonChamados[statusChamado][i].idChamado) {
+      for (var j = 0; j < selectTipo.options.length; j++) {
+        if (jsonChamados[statusChamado][i].tipo == selectTipo.options[j].value) {
           selectTipo.options[j].selected = true;
         }
       }
@@ -440,13 +466,12 @@ function atualizarDadosModal(idChamado, statusChamado){
   }
 
   let selectAtribuicao = document.querySelector('#escolherAtribuicaoModal')
-  for(var i = 0; i < todosChamados[statusChamado].length; i++){
-    var existe = false;
-    if(idChamado == todosChamados[statusChamado][i].idChamado){
-      for(var j = 0; j < selectAtribuicao.options.length; j++){
-        if(todosChamados[statusChamado][i].atribuido_id == selectAtribuicao.options[j].value){
+  for (var i = 0; i < jsonChamados[statusChamado].length; i++) {
+    if (idChamado == jsonChamados[statusChamado][i].idChamado) {
+      for (var j = 0; j < selectAtribuicao.options.length; j++) {
+        if (jsonChamados[statusChamado][i].atribuido_id == selectAtribuicao.options[j].value) {
           selectAtribuicao.options[j].selected = true;
-        }else if (todosChamados[statusChamado][i].atribuido_id == null){
+        } else if (jsonChamados[statusChamado][i].atribuido_id == null) {
           selectAtribuicao.options[0].selected = true;
         }
       }
@@ -454,45 +479,59 @@ function atualizarDadosModal(idChamado, statusChamado){
   }
 
   let inputDataInicial = document.querySelector('#dataInicialModal')
-  for(var i = 0; i < todosChamados[statusChamado].length; i++){
-    if(idChamado == todosChamados[statusChamado][i].idChamado){
-      inputDataInicial.value = todosChamados[statusChamado][i].data_inicio
+  for (var i = 0; i < jsonChamados[statusChamado].length; i++) {
+    if (idChamado == jsonChamados[statusChamado][i].idChamado) {
+      inputDataInicial.value = jsonChamados[statusChamado][i].data_inicio
     }
   }
 
   let inputDataFinal = document.querySelector('#dataEncerramentoModal')
-  for(var i = 0; i < todosChamados[statusChamado].length; i++){
-    if(idChamado == todosChamados[statusChamado][i].idChamado){
-      inputDataFinal.value = todosChamados[statusChamado][i].data_fim
+  for (var i = 0; i < jsonChamados[statusChamado].length; i++) {
+    if (idChamado == jsonChamados[statusChamado][i].idChamado) {
+      inputDataFinal.value = jsonChamados[statusChamado][i].data_fim
     }
   }
 
   let inputDescricao = document.querySelector('#descricaoModal')
-  for(var i = 0; i < todosChamados[statusChamado].length; i++){
-    if(idChamado == todosChamados[statusChamado][i].idChamado){
-      if(todosChamados[statusChamado][i].descricao == null){
+  for (var i = 0; i < jsonChamados[statusChamado].length; i++) {
+    if (idChamado == jsonChamados[statusChamado][i].idChamado) {
+      if (jsonChamados[statusChamado][i].descricao == null) {
         inputDescricao.value = "Nenhuma descrição"
       } else {
-        inputDescricao.value = todosChamados[statusChamado][i].descricao
+        inputDescricao.value = jsonChamados[statusChamado][i].descricao
       }
     }
   }
 
   let inputCriadoPor = document.querySelector('#criadoPorModal');
-  for(var i = 0; i < todosChamados[statusChamado].length; i++){
-    if(idChamado == todosChamados[statusChamado][i].idChamado){
-      inputCriadoPor.value = todosChamados[statusChamado][i].criado_por_nome;
+  for (var i = 0; i < jsonChamados[statusChamado].length; i++) {
+    if (idChamado == jsonChamados[statusChamado][i].idChamado) {
+      inputCriadoPor.value = jsonChamados[statusChamado][i].criado_por_nome;
     }
   }
 
 }
 
-function exibirResolucao(){
+function exibirResolucao() {
   let estado = escolherEstadoModal.value;
   let resolucao = document.querySelector('.resolucaoModal');
-  if(estado == 'Aberto' || estado =='Em andamento'){
+  if (estado == 'Aberto' || estado == 'Em andamento') {
     resolucao.style.display = 'none'
-  }else if(estado == 'Encerrado' || estado =='Cancelado'){
+  } else if (estado == 'Encerrado' || estado == 'Cancelado') {
 
   }
+}
+
+function analizeChamado(valor) {
+  if (valor == 'todos') {
+    atualizarListaChamados();
+  } else {
+    filtrarChamados();
+  }
+}
+
+function limparFeedChamados() {
+  chamadosAbertos.innerHTML = "";
+  chamadosEncerrados.innerHTML = "";
+  chamadosEmAndamento.innerHTML = "";
 }

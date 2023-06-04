@@ -13,6 +13,17 @@ function listarChamados(fkEmpresa) {
     where chamado.fkEmpresa = ${fkEmpresa};`;
     return database.executar(instrucao);
 }
+
+function listarChamadoFiltrado(fkEmpresa, fkUsuario) {
+    console.log(fkEmpresa)
+    console.log(fkUsuario)
+    var instrucao = `select * from chamado
+    left join usuario on chamado.atribuido_id = usuario.idUsuario
+    join totem on chamado.fkTotem = totem.idTotem
+    join unidade on chamado.fkUnidade = unidade.idUnidade
+    where chamado.fkEmpresa = ${fkEmpresa} and chamado.atribuido_id = ${fkUsuario};`;
+    return database.executar(instrucao);
+}
 function listarOcorrenciasChamados(fkEmpresa) {
     var instrucao = `select
     (select count(idChamado) from chamado where tipo = 'Desligamento') as 'totalDesligamento',
@@ -145,6 +156,7 @@ module.exports = {
     listarOcorrenciasChamados,
     listarMaquinasPorUnidade,
     listarUnidadesPorMaquina,
+    listarChamadoFiltrado,
     ocorrenciasPorMes,
     frequenciaProblemasMensal,
     buscarChamado,

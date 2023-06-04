@@ -6,7 +6,7 @@ function mostrarModal(id) {
   modal.style.display = 'block';
 }
 
-function mostrarModalChamado(idChamado, statusChamado) {
+function mostrarModalChamado(idChamado, statusChamado, jsonChamados=jsonChamadosGlobal) {
   sessionStorage.ID_CHAMADO_ATUAL = idChamado;
   fetch(`/chamado/buscarChamado/${idChamado}`)
     .then(function (resposta) {
@@ -19,7 +19,7 @@ function mostrarModalChamado(idChamado, statusChamado) {
           //Atualiza o modal
           let tituloModal = document.getElementById("titulo");
           tituloModal.innerHTML = resposta[0].titulo;
-          atualizarDadosModal(idChamado, statusChamado)
+          atualizarDadosModal(idChamado, statusChamado, jsonChamados)
           let overlay = document.querySelector('.overlay')
           let modal = document.querySelector('.modalChamado')
           overlay.style.display = 'block';

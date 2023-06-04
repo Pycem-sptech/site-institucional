@@ -60,7 +60,7 @@
     </div>
     <div class="divBtnChamado">
         <button class="btnNovoChamado" onclick="mostrarModalNovoChamado()">Novo chamado +</button>
-        <select class="selectFiltrarChamados" id="filtrarChamados" onchange="filtrarChamados()">
+        <select class="selectFiltrarChamados" id="filtrarChamados" onchange="analizeChamado(this.value)">
             <option value="todos">Todos</option>
             <option value="meusChamados">Meus chamados</option>
         </select>
