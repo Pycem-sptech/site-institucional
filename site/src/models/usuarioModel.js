@@ -43,24 +43,21 @@ function editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario) {
   var instrucao = ''
   if(process.env.AMBIENTE_PROCESSO == "producao"){
     instrucao = `
-    IF (SELECT senha FROM usuario where idUsuario = ${idFuncionario}) in ('${senha}')
+    IF (SELECT senha FROM usuario where idUsuario = ${idFuncionario}) = '${senha}'
 
       BEGIN
 
-    UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}' WHERE idUsuario =' ${idFuncionario}'
+      UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}' WHERE idUsuario =' ${idFuncionario}'
 
-    END
+      END
 
     ELSE
 
       BEGIN
 
-    UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = (HASHBYTES('SHA2_256','${senha}')) WHERE idUsuario =' ${idFuncionario}'
+      UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = (HASHBYTES('SHA2_256','${senha}')) WHERE idUsuario =' ${idFuncionario}'
 
-   END
-    
-    
-    `;
+      END`;
   }else{
     instrucao = `UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = sha2('${senha}', 256) WHERE idUsuario = '${idFuncionario}';`;
   }

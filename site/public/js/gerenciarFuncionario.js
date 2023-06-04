@@ -376,7 +376,6 @@ function atualizarDadosUsuarioLogado(idFunc){
   var cpf = inputCpf.value;
   var email = inputEmail.value;
   var senha = inputSenha.value;
-  var confirmarSenha = inputConfirmarSenha.value;
   
   if(nome.trim() != '' && cargo.trim() != '' && cpf.trim() != '' && email.trim() != '' && senha.trim() != '' && confirmarSenha.trim() != '' && senha.trim() == confirmarSenha && senha != '********'){
     Swal.fire({
