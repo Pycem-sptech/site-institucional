@@ -24,7 +24,7 @@ function plotarGrafico(resposta) {
     let dados = {
         labels: labels,
         datasets: [{
-            label: 'Quantidade de relátorios',
+            label: 'Quantidade de chamados',
             data: [],
             fill: true,
             backgroundColor: 'rgba(0, 120, 232, 1)',
