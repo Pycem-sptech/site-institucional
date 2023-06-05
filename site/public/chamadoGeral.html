@@ -60,7 +60,7 @@
     </div>
     <div class="divBtnChamado">
         <button class="btnNovoChamado" onclick="mostrarModalNovoChamado()">Novo chamado +</button>
-        <select class="selectFiltrarChamados" id="filtrarChamados" onchange="filtrarChamados()">
+        <select class="selectFiltrarChamados" id="filtrarChamados" onchange="analizeChamado(this.value)">
             <option value="todos">Todos</option>
             <option value="meusChamados">Meus chamados</option>
         </select>
@@ -128,10 +128,10 @@
 
                         <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
                             <select class="selectModal" id="escolherUnidadeModal">
-                                <option value="" name="0" disabled selected>Unidade</option>
+                                <option value="" disabled selected>Unidade</option>
                             </select></span>
                         <span class="estilo tamanho8"><span class="subTitulo">Estado:</span>
-                            <select class="selectModal" id="escolherEstadoModal">
+                            <select class="selectModal" id="escolherEstadoModal" onchange="exibirResolucao()">
                                 <option value="" disabled>Estado</option>
                                 <option value="Aberto">Aberto</option>
                                 <option value="EmAndamento">Em Andamento</option>
@@ -162,11 +162,15 @@
                             </select></span>
                     </div>
                     <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Criado por:</span>
+                            <input class="inputModal" type="text" id="criadoPorModal" disabled></span>
+                    </div>
+                    <div class="bloco">
                         <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
                             <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
                     </div>
 
-                    <div class="bloco">
+                    <div class="bloco resolucaoModal">
                         <span class="estilo tamanho9"><span class="subTitulo">Resolução:</span>
                             <textarea disabled class="textAreaModal" id="resolucaoModal" maxlength="255"></textarea>
                     </div>

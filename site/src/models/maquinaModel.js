@@ -100,7 +100,12 @@ function atualizarHistoricoStatusMaquina(idMaquina,statusNovo){
 }
 
 function deletarRegistroMaquina(idMaquina) {
-  var instrucao = `DELETE FROM totem WHERE idTotem = ${idMaquina};`;
+  desatribuirMaquina(idMaquina)
+  var instrucao = `DELETE FROM totem WHERE idTotem = '${idMaquina}';`;
+  return database.executar(instrucao);
+}
+function desatribuirMaquina(idMaquina) {
+  var instrucao = `exec DesatribuirTotem @idTotem = '${idMaquina}';`;
   return database.executar(instrucao);
 }
 
@@ -111,6 +116,7 @@ module.exports = {
   listarStatusMaqEmTempoReal,
   cadastrarMaquina,
   editar,
+  desatribuirMaquina,
   deletarRegistroMaquina,
   filtrarMaquinas,
   listarUsoMaquina,
