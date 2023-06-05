@@ -15,7 +15,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
 
-<body onload="validarSessao(),verificarTamanhoTela(),atualizarSelectMaquinaChamado(),atualizarSelectUnidadesChamado(), atualizarSelectAtribuicaoChamado(), filtrarAndamentoChamado()">
+<body onload="validarSessao(),atualizarSelectMaquinaChamado(),atualizarSelectUnidadesChamado(), atualizarSelectAtribuicaoChamado()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -60,7 +60,7 @@
     </div>
     <div class="divBtnChamado">
         <button class="btnNovoChamado" onclick="mostrarModalNovoChamado()">Novo chamado +</button>
-        <select class="selectFiltrarChamados" id="filtrarChamados" onchange="filtrarChamados()">
+        <select class="selectFiltrarChamados" id="filtrarChamados" onchange="analizeChamado(this.value)">
             <option value="todos">Todos</option>
             <option value="meusChamados">Meus chamados</option>
         </select>
@@ -128,10 +128,10 @@
 
                         <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
                             <select class="selectModal" id="escolherUnidadeModal">
-                                <option value="" name="0" disabled selected>Unidade</option>
+                                <option value="" disabled selected>Unidade</option>
                             </select></span>
                         <span class="estilo tamanho8"><span class="subTitulo">Estado:</span>
-                            <select class="selectModal" id="escolherEstadoModal">
+                            <select class="selectModal" id="escolherEstadoModal" onchange="exibirResolucao()">
                                 <option value="" disabled>Estado</option>
                                 <option value="Aberto">Aberto</option>
                                 <option value="EmAndamento">Em Andamento</option>
@@ -162,11 +162,15 @@
                             </select></span>
                     </div>
                     <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Criado por:</span>
+                            <input class="inputModal" type="text" id="criadoPorModal" disabled></span>
+                    </div>
+                    <div class="bloco">
                         <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
                             <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
                     </div>
 
-                    <div class="bloco">
+                    <div class="bloco resolucaoModal">
                         <span class="estilo tamanho9"><span class="subTitulo">Resolução:</span>
                             <textarea disabled class="textAreaModal" id="resolucaoModal" maxlength="255"></textarea>
                     </div>
@@ -239,7 +243,6 @@
 </html>
 <script src="js/chamado.js"></script>
 <script>
-
     var overlay = document.getElementById('overlay');
     overlay.addEventListener('click', function (e) {
         if (e.target == this) {
@@ -265,6 +268,22 @@
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
 
+    window.addEventListener('resize', function () {
+    
+    var largura = window.innerWidth;
+
+    if (largura < 800) {
+        encerrados.style.display = 'none';
+            abertos.style.display = 'block';
+            andamento.style.display = 'none';
+    } else {
+        encerrados.style.display = 'block';
+            abertos.style.display = 'block';
+            andamento.style.display = 'block';
+    } 
+});
+
+
     function filtrarAndamentoChamado(){
         var opcao = filtrarAndamentoChamados.value;
 
@@ -282,35 +301,6 @@
             andamento.style.display = 'none';
         }
     }
-
-    function verificarTamanhoTela(){
-        var x = window.screen.width;
-        if($(x <= 800)){
-            encerrados.style.display = 'none';
-            abertos.style.display = 'block';
-            andamento.style.display = 'none';
-        } else {
-            encerrados.style.display = 'block';
-            abertos.style.display = 'block';
-            andamento.style.display = 'block';
-        }
-    }
-
-    window.addEventListener('resize', function () {
-    
-    var largura = window.innerWidth;
-
-    if (largura < 800) {
-        encerrados.style.display = 'none';
-            abertos.style.display = 'block';
-            andamento.style.display = 'none';
-    } else {
-        encerrados.style.display = 'block';
-            abertos.style.display = 'block';
-            andamento.style.display = 'block';
-    } 
-});
-
 </script>
 
 

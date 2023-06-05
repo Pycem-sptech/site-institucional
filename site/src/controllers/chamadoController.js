@@ -18,6 +18,24 @@ function listar(req, res) {
 
 }
 
+function listarChamadoFiltrado(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    const fkUsuario = req.params.fkUsuario;
+    console.log(fkEmpresa)
+    console.log(fkUsuario)
+    chamadoModel.listarChamadoFiltrado(fkEmpresa, fkUsuario).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+
+}
+
 function listarChamados(req, res) {
     const fkEmpresa = req.params.fkEmpresa;
 
@@ -282,6 +300,7 @@ module.exports = {
     listarOcorrenciasChamados,
     listarMaquinasPorUnidade,
     listarUnidadesPorMaquina,
+    listarChamadoFiltrado,
     ocorrenciasPorMes,
     buscarChamado,
     cadastrar,

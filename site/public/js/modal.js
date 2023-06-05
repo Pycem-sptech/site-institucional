@@ -6,7 +6,7 @@ function mostrarModal(id) {
   modal.style.display = 'block';
 }
 
-function mostrarModalChamado(idChamado, statusChamado) {
+function mostrarModalChamado(idChamado, statusChamado, jsonChamados=jsonChamadosGlobal) {
   sessionStorage.ID_CHAMADO_ATUAL = idChamado;
   fetch(`/chamado/buscarChamado/${idChamado}`)
     .then(function (resposta) {
@@ -19,16 +19,7 @@ function mostrarModalChamado(idChamado, statusChamado) {
           //Atualiza o modal
           let tituloModal = document.getElementById("titulo");
           tituloModal.innerHTML = resposta[0].titulo;
-          atualizarDadosModal(idChamado, statusChamado)
-          //Atualiza a Máquina
-          //Atualiza a Unidade
-
-
-          //Atualiza a prioridade
-          
-          
-
-          //Mostra o modal
+          atualizarDadosModal(idChamado, statusChamado, jsonChamados)
           let overlay = document.querySelector('.overlay')
           let modal = document.querySelector('.modalChamado')
           overlay.style.display = 'block';
@@ -96,6 +87,17 @@ function fecharModalChamado() {
   let modal = document.querySelector('.modalChamado')
   overlay.style.display = 'none';
   modal.style.display = 'none';
+  escolherMaquinaModal.value = "";
+  escolherPrioridadeModal.value = "";
+  escolherUnidadeModal.value = "";
+  escolherEstadoModal.value = "";
+  dataInicialModal.value = "";
+  escolherTipoModal.value = "";
+  dataEncerramentoModal.value = "";
+  escolherAtribuicaoModal.value = "";
+  criadoPorModal.value = "";
+  descricaoModal.value = "";
+  resolucaoModal.value = "";
 }
 
 function fecharModalNovoChamado() {
@@ -104,6 +106,11 @@ function fecharModalNovoChamado() {
   let modalNovoChamado = document.querySelector('.modalNovoChamado')
   overlayNovoChamado.style.display = 'none';
   modalNovoChamado.style.display = 'none';
+  escolherUnidadeModalNovoChamado.value = "";
+  escolherPrioridadeModalNovoChamado.value = "";
+  escolherMaquinaModalNovoChamado.value = "";
+  escolherTipoModalNovoChamado.value = "";
+  descricaoModalNovoChamado.value = "";
 }
 
 function salvarEdicaoMaquina(idTotem) {
@@ -443,6 +450,7 @@ function atualizarSelectUnidadesChamado() {
             selectNovoChamado.options[selectNovoChamado.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
             selectChamado.options[selectChamado.options.length -1].id = resposta[i].nome;
             selectNovoChamado.options[selectNovoChamado.options.length -1].id = resposta[i].nome;
+            selectChamado.options[selectChamado.options.length -1].disabled = true
           }
         }
         );
@@ -475,6 +483,7 @@ function atualizarSelectMaquinaChamado() {
             selectNovoChamado.options[selectNovoChamado.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
             selectChamado.options[selectChamado.options.length -1].id = resposta[i].usuario;
             selectNovoChamado.options[selectNovoChamado.options.length -1].id = resposta[i].usuario;
+            selectChamado.options[selectChamado.options.length -1].disabled = true
           }
         }
         );

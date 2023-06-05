@@ -10,8 +10,8 @@ router.get("/listarOcorrenciasChamados/:fkEmpresa", function (req, res) {
     chamadoController.listarOcorrenciasChamados(req, res);
 });
 
-router.get("/listarChamadoFiltrado/:fkUsuario", function (req, res) {
-    chamadoController.listar(req, res);
+router.get("/listarChamadoFiltrado/:fkUsuario/:fkEmpresa", function (req, res) {
+    chamadoController.listarChamadoFiltrado(req, res);
 });
 router.get("/listarMaquinasPorUnidade/:fkUnidade", function (req, res) {
     chamadoController.listarMaquinasPorUnidade(req, res);
