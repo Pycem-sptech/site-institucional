@@ -4,6 +4,7 @@ function obterDadosGraficoQtdChamados(fkEmpresa) {
     fetch(`/chamado/ocorrenciasPorMes/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {
+                localStorage.resultadoEncontrado = true
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                 resposta.reverse();
 
@@ -73,6 +74,7 @@ function listarUsoMaquina(fkTotem) {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                localStorage.resultadoEncontrado = true
                 plotarGraficos(resposta.reverse(), fkTotem)
             });
         } else {

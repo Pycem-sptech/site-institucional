@@ -8,7 +8,7 @@ function listar(fkEmpresa) {
 function listarChamados(fkEmpresa) {
     var instrucao = `select * from chamado
     left join usuario on chamado.atribuido_id = usuario.idUsuario
-    join totem on chamado.fkTotem = totem.idTotem
+    right join totem on chamado.fkTotem = totem.idTotem
     join unidade on chamado.fkUnidade = unidade.idUnidade
     where chamado.fkEmpresa = ${fkEmpresa};`;
     return database.executar(instrucao);

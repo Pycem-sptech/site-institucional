@@ -153,6 +153,10 @@ function atualizarMaiorOcorrencia(totalDesligamento, totalSobrecarga, totalMauFu
         qntOcorrencias.innerHTML = totalOutro;
         maiorOcorrencia.innerHTML = 'Outro';
     }
+
+    if(totalDesligamento == 0 || totalSobrecarga == 0 || totalMauFuncionamento == 0 || totalOutro == 0){
+        
+    }
 }
 
 function atualizarVariacaoChamados() {
