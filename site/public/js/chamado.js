@@ -194,6 +194,7 @@ function mostrarChamado(lista) {
 
 
 function filtrarChamados() {
+  limparJSONChamado()
   const fkUsuario = sessionStorage.USER_ID;
   const fkEmpresa = sessionStorage.FK_EMPRESA;
   console.log(fkEmpresa)
@@ -242,6 +243,7 @@ function filtrarChamados() {
 }
 
 function atualizarListaChamados() {
+  limparJSONChamado()
   const fkEmpresa = sessionStorage.FK_EMPRESA;
 
   fetch(`/chamado/listarChamados/${fkEmpresa}`)
@@ -266,8 +268,8 @@ function atualizarListaChamados() {
               }
             }
             exibirChamados(todosChamados);
-            limparJSONChamado();
             jsonChamadosGlobal = todosChamados;
+            
           } else {
             limparFeedChamados();
           }
