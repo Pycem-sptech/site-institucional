@@ -11,11 +11,21 @@ let todosChamados = {
   chamadosCancelados: []
 }
 
-
-var jsonChamadosGlobal;
-function buscarChamados(titulo) {
-  ' '
+function limparJSONChamado(){
+   meusChamados = {
+    chamadosAbertos: [],
+    chamadosEmAndamento: [],
+    chamadosEncerrados: [],
+    chamadosCancelados: []
+  }
+  todosChamados = {
+    chamadosAbertos: [],
+    chamadosEmAndamento: [],
+    chamadosEncerrados: [],
+    chamadosCancelados: []
+  }
 }
+var jsonChamadosGlobal;
 
 function criarChamado() {
   const selectUnidade = document.querySelector('#escolherUnidadeModalNovoChamado');
@@ -62,6 +72,7 @@ function criarChamado() {
 
         if (resposta.ok) {
           toastPadrao('success', 'Cadastro realizado com sucesso!')
+          atualizarListaChamados();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
@@ -119,6 +130,7 @@ function editarChamado(idChamado) {
 
         if (resposta.ok) {
           toastPadrao('success', 'Atualização realizada com sucesso!')
+          atualizarListaChamados();
         } else {
           throw "Houve um erro ao tentar realizar a atualização!";
         }
@@ -179,9 +191,7 @@ function mostrarChamado(lista) {
   }
 }
 
-function imprimirChamado() {
 
-}
 
 function filtrarChamados() {
   const fkUsuario = sessionStorage.USER_ID;
@@ -256,6 +266,7 @@ function atualizarListaChamados() {
               }
             }
             exibirChamados(todosChamados);
+            limparJSONChamado();
             jsonChamadosGlobal = todosChamados;
           } else {
             limparFeedChamados();
@@ -534,4 +545,5 @@ function limparFeedChamados() {
   chamadosAbertos.innerHTML = "";
   chamadosEncerrados.innerHTML = "";
   chamadosEmAndamento.innerHTML = "";
+  limparJSONChamado();
 }
