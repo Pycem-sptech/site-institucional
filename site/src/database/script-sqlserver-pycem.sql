@@ -213,7 +213,7 @@ BEGIN
         BEGIN
 			DECLARE @idChamado INT;
 			SET @idChamado = (select top 1 idChamado from chamado where fkTotem = @idTotem);
-			update chamado set atribuido_id = null, atribuido_nome = 'Nao Atribuido' where idChamado = @idChamado;
+			update chamado set fkTotem = null, estado = 'Cancelado', resolucao = 'O chamado foi cancelado porque a máquina não existe mais' where idChamado = @idChamado;
         END
 END
 
