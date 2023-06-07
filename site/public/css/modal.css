@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&family=Hurricane&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-*{
+* {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
@@ -19,6 +19,7 @@
     justify-content: center;
     overflow-y: auto;
 }
+
 .overlayNovoChamado {
     background-color: rgba(0, 0, 0, 0.6);
     width: 100vw;
@@ -33,7 +34,7 @@
     overflow-y: auto;
 }
 
-.modal{
+.modal {
     display: flex;
     align-items: flex-start;
     width: 50%;
@@ -45,16 +46,16 @@
     top: 30%;
     left: 30%;
     z-index: 1;
-    overflow:auto;
+    overflow: auto;
     top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
-        animation: animate;
-        animation-duration: 780ms;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    animation: animate;
+    animation-duration: 780ms;
 }
 
-.modalRelatorio{
+.modalRelatorio {
     display: flex;
     align-items: flex-start;
     width: 45%;
@@ -66,17 +67,17 @@
     top: 30%;
     left: 30%;
     z-index: 1;
-    overflow:scroll;
-    overflow:hidden;
+    overflow: scroll;
+    overflow: hidden;
     top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
-        animation: animate;
-        animation-duration: 780ms;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    animation: animate;
+    animation-duration: 780ms;
 }
 
-.modalChamado{
+.modalChamado {
     display: flex;
     align-items: flex-start;
     width: 45%;
@@ -88,16 +89,16 @@
     top: 30%;
     left: 30%;
     z-index: 1;
-    overflow:scroll;
+    overflow: scroll;
     top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
-        animation: animate;
-        animation-duration: 780ms;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    animation: animate;
+    animation-duration: 780ms;
 }
 
-.modalNovoChamado{
+.modalNovoChamado {
     display: flex;
     align-items: flex-start;
     width: 45%;
@@ -109,24 +110,30 @@
     top: 30%;
     left: 30%;
     z-index: 1;
-    overflow:scroll;
-    overflow:hidden;
+    overflow: scroll;
+    overflow: hidden;
     top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
-        animation: animate;
-        animation-duration: 780ms;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    animation: animate;
+    animation-duration: 780ms;
 }
 
 
-@keyframes animate{
+@keyframes animate {
 
-    from{opacity: 1;}
-    from{opacity: 0;}
+    from {
+        opacity: 1;
+    }
+
+    from {
+        opacity: 0;
+    }
 
 }
-.headerModal{
+
+.headerModal {
     display: flex;
     justify-content: space-between;
     height: 10%;
@@ -136,7 +143,8 @@
     font-size: 1.3vw;
 
 }
-.headerModalChamado{
+
+.headerModalChamado {
     display: flex;
     justify-content: space-between;
     height: 5%;
@@ -146,15 +154,17 @@
     font-size: 1.3vw;
 
 }
-.tituloModal{
+
+.tituloModal {
     padding-left: 4%;
     padding-bottom: 4%;
 }
-.fecharModal{
+
+.fecharModal {
     padding-right: 4%;
 }
 
-.subTitulo{
+.subTitulo {
     height: 100%;
     width: 100%;
     padding-bottom: 2%;
@@ -162,67 +172,83 @@
     font-size: 1.3vw;
 }
 
-.bodyModal{
+.bodyModal {
     padding-left: 4%;
     padding-bottom: 4%;
 }
-.modalFooter{
+
+.modalFooter {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.estilo{
+
+.estilo {
     display: flex;
     flex-direction: column;
     padding-right: 3%;
 }
-.tamanho1{
+
+.tamanho1 {
     width: 45%;
 }
-.tamanho2{
+
+.tamanho2 {
     width: 25%;
 }
-.tamanho3{
+
+.tamanho3 {
     width: 30%;
 }
-.tamanho4{
+
+.tamanho4 {
     width: 35%;
 }
-.tamanho5{
+
+.tamanho5 {
     width: 20%;
 }
-.tamanho6{
+
+.tamanho6 {
     width: 15%;
 }
-.tamanho7{
+
+.tamanho7 {
     width: 10%;
 }
-.tamanho8{
+
+.tamanho8 {
     width: 50%;
 }
-.tamanho9{
+
+.tamanho9 {
     width: 94%;
 }
-.tamanho10{
+
+.tamanho10 {
     width: 59%;
 }
-.tamanho11{
+
+.tamanho11 {
     width: 100%;
 }
-.tamanho12{
+
+.tamanho12 {
     width: 47%;
 }
 
-.data{
+.data {
     padding-right: 2%;
 }
-.bloco{
+
+.bloco {
     padding-top: 2%;
-    display: flex; 
-    align-items:flex-start;
+    display: flex;
+    align-items: flex-start;
     width: 100%;
 }
-.selectModal{
+
+.selectModal {
     width: 100%;
     height: 6.4vh;
     background: #FFFFFF;
@@ -232,7 +258,8 @@
     font-size: 1.3vw;
     padding-left: 4%;
 }
-.selectModal2{
+
+.selectModal2 {
     width: 98%;
     margin-left: 3%;
     height: 6.4vh;
@@ -244,7 +271,7 @@
     padding-left: 4%;
 }
 
-.inputModal{
+.inputModal {
     width: 100%;
     height: 6vh;
     background: #FFFFFF;
@@ -254,7 +281,8 @@
     font-size: 1.3vw;
     padding-left: 3%;
 }
-.inputModal2{
+
+.inputModal2 {
     width: 100%;
     height: 6vh;
     background: #FFFFFF;
@@ -264,9 +292,12 @@
     font-size: 1.3vw;
     padding-left: 3%;
 }
-.textAreaModal{
-    width: 100%;
-    height: 20vh;
+
+.textAreaModal {
+    width: 98%;
+    height: 10vh;
+    padding-top: 2%;
+    padding-right: 2%;
     background: #FFFFFF;
     border: 0.3vh solid rgba(0, 0, 0, 0.18);
     border-radius: 0.8vw;
@@ -274,7 +305,8 @@
     font-size: 1.3vw;
     padding-left: 3%;
 }
-.btnFechar{
+
+.btnFechar {
     cursor: pointer;
     background-image: url("/img/fechar.svg");
     background-repeat: no-repeat;
@@ -283,7 +315,7 @@
     margin-right: 1vw;
 }
 
-.btnSalvar{
+.btnSalvar {
     height: 6vh;
     width: 13vw;
     border-radius: 0.8vw;
@@ -299,74 +331,91 @@
 
 ::-webkit-scrollbar {
     width: 10px;
-  }
-  
-::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.15);   
-    border-radius: 20px; 
-  }
-::-webkit-scrollbar-thumb {
-    background-color: rgba(97, 165, 227, 0.6);    
-    border-radius: 20px;       
 }
-@media (max-width:500px){
-    .modal{
-        width:90%;
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(97, 165, 227, 0.6);
+    border-radius: 20px;
+}
+
+@media (max-width:500px) {
+    .modal {
+        width: 90%;
         height: 85%;
     }
-    .headerModal{
+
+    .headerModal {
         height: 8%;
         font-size: 4.3vw;
     }
-    .tituloModal{
+
+    .tituloModal {
         padding-bottom: 0;
     }
-    .btnFechar{
+
+    .btnFechar {
         background-size: 100%;
         margin-right: 4vw;
     }
-    .bloco{
+
+    .bloco {
         flex-wrap: wrap;
     }
-    .tamanho1{
+
+    .tamanho1 {
         width: 90%;
     }
-    .subTitulo{
+
+    .subTitulo {
         font-size: 4.3vw;
     }
-    .inputModal{
+
+    .inputModal {
         height: 4vh;
         font-size: 3.3vw;
     }
-    .tamanho3{
+
+    .tamanho3 {
         width: 94%;
     }
-    .selectModal{
+
+    .selectModal {
         font-size: 3.3vw;
         height: 4vh;
         outline: none;
     }
-    .btnSalvar{
+
+    .btnSalvar {
         height: 5vh;
         width: 39vw;
         font-size: 5.3vw;
     }
-    .headerModalChamado{
+
+    .headerModalChamado {
         height: 6%;
     }
-    .modalNovoChamado{
+
+    .modalNovoChamado {
         width: 90%;
         height: 59%;
         top: 46%
     }
-    .tituloModal{
+
+    .tituloModal {
         font-size: 20px;
     }
-    .estilo{
+
+    .estilo {
         width: 95%;
         margin-top: 1.5%;
     }
-    .textAreaModal{
+
+    .textAreaModal {
         height: 10vh;
         outline: none;
         font-size: 15px;

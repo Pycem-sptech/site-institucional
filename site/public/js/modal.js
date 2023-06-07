@@ -6,8 +6,9 @@ function mostrarModal(id) {
   modal.style.display = 'block';
 }
 
-function mostrarModalChamado(idChamado, statusChamado, jsonChamados=jsonChamadosGlobal) {
+function mostrarModalChamado(idChamado, statusChamado, jsonChamados = jsonChamadosGlobal) {
   sessionStorage.ID_CHAMADO_ATUAL = idChamado;
+
   fetch(`/chamado/buscarChamado/${idChamado}`)
     .then(function (resposta) {
       if (resposta.ok) {
@@ -39,7 +40,10 @@ function mostrarModalChamado(idChamado, statusChamado, jsonChamados=jsonChamados
 
 }
 
-function mostrarModalNovoChamado() {
+function mostrarModalNovoChamado(tela) {
+  if (tela == 'graficos') {
+    atualizarSelectUnidadeNovoChamadoPorMaquina(sessionStorage.ID_TOTEM);
+  }
   let overlayNovoChamado = document.querySelector('.overlayNovoChamado')
   let modal = document.querySelector('.modalNovoChamado')
   overlayNovoChamado.style.display = 'block';
@@ -107,7 +111,6 @@ function fecharModalNovoChamado() {
   overlayNovoChamado.style.display = 'none';
   modalNovoChamado.style.display = 'none';
   escolherUnidadeModalNovoChamado.value = "";
-  escolherPrioridadeModalNovoChamado.value = "";
   escolherMaquinaModalNovoChamado.value = "";
   escolherTipoModalNovoChamado.value = "";
   descricaoModalNovoChamado.value = "";
@@ -448,9 +451,9 @@ function atualizarSelectUnidadesChamado() {
           for (var i = 0; i < resposta.length; i++) {
             selectChamado.options[selectChamado.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
             selectNovoChamado.options[selectNovoChamado.options.length] = new Option(resposta[i].nome, resposta[i].idUnidade);
-            selectChamado.options[selectChamado.options.length -1].id = resposta[i].nome;
-            selectNovoChamado.options[selectNovoChamado.options.length -1].id = resposta[i].nome;
-            selectChamado.options[selectChamado.options.length -1].disabled = true
+            selectChamado.options[selectChamado.options.length - 1].id = resposta[i].nome;
+            selectNovoChamado.options[selectNovoChamado.options.length - 1].id = resposta[i].nome;
+            selectChamado.options[selectChamado.options.length - 1].disabled = true
           }
         }
         );
@@ -467,7 +470,7 @@ function atualizarSelectUnidadesChamado() {
 
 function atualizarSelectMaquinaChamado() {
   const selectChamado = document.querySelector('#escolherMaquinaModal');
-  const selectNovoChamado = document.querySelector('#escolherMaquinaModalNovoChamado');  
+  const selectNovoChamado = document.querySelector('#escolherMaquinaModalNovoChamado');
   const fkEmpresa = sessionStorage.FK_EMPRESA;
   var fkEmpresaVar = fkEmpresa;
   fetch(`/maquina/listarMaquinas/${fkEmpresaVar}`)
@@ -481,9 +484,9 @@ function atualizarSelectMaquinaChamado() {
           for (var i = 0; i < resposta.length; i++) {
             selectChamado.options[selectChamado.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
             selectNovoChamado.options[selectNovoChamado.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
-            selectChamado.options[selectChamado.options.length -1].id = resposta[i].usuario;
-            selectNovoChamado.options[selectNovoChamado.options.length -1].id = resposta[i].usuario;
-            selectChamado.options[selectChamado.options.length -1].disabled = true
+            selectChamado.options[selectChamado.options.length - 1].id = resposta[i].usuario;
+            selectNovoChamado.options[selectNovoChamado.options.length - 1].id = resposta[i].usuario;
+            selectChamado.options[selectChamado.options.length - 1].disabled = true
           }
         }
         );
@@ -498,9 +501,14 @@ function atualizarSelectMaquinaChamado() {
   return false;
 }
 
-function atualizarSelectUnidadeNovoChamadoPorMaquina() {
+function atualizarSelectUnidadeNovoChamadoPorMaquina(maquina) {
+  let maquinaSelecionada;
+  if (maquina) {
+    maquinaSelecionada = maquina;
+  } else {
+    maquinaSelecionada = escolherMaquinaModalNovoChamado.value;
+  }
   const select = document.querySelector('#escolherUnidadeModalNovoChamado');
-  const maquinaSelecionada = escolherMaquinaModalNovoChamado.value;
   fetch(`/chamado/listarUnidadesPorMaquina/${maquinaSelecionada}`)
     .then(function (resposta) {
       if (resposta.ok) {
@@ -514,7 +522,16 @@ function atualizarSelectUnidadeNovoChamadoPorMaquina() {
               select.options[i].selected = true;
             }
           }
-
+          if (maquina) {
+            const selectTotem = document.querySelector('#escolherMaquinaModalNovoChamado');
+            for (var i = 0; i < selectTotem.options.length; i++) {
+              selectTotem.disabled = true
+              select.disabled = true
+              if (maquina == selectTotem[i].value) {
+                selectTotem.options[i].selected = true;
+              }
+            }
+          }
         }
         );
       } else {
@@ -545,7 +562,7 @@ function atualizarSelectMaquinaChamadoPorUnidade() {
           select.options[select.options.length - 1].disabled = true;
           for (var i = 0; i < resposta.length; i++) {
             select.options[select.options.length] = new Option(resposta[i].usuario, resposta[i].idTotem);
-            select.options[select.options.length -1].id = resposta[i].usuario;
+            select.options[select.options.length - 1].id = resposta[i].usuario;
           }
           if (resposta.length == 0) {
             select.options[select.options.length] = new Option('Nenhuma Máquina encontrada', '');
@@ -577,9 +594,9 @@ function atualizarSelectAtribuicaoChamado() {
         resposta.json().then(function (resposta) {
           for (var i = 0; i < resposta.length; i++) {
             select.options[select.options.length] = new Option(resposta[i].nome, resposta[i].idUsuario);
-            select.options[select.options.length -1].id = resposta[i].nome;
+            select.options[select.options.length - 1].id = resposta[i].nome;
           }
-      
+
         }
         );
       } else {

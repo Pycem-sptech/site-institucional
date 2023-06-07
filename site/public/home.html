@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/home.css">
-    
+
     <script src="./js/geral.js"></script>
     <script src="./js/gerenciarUnidade.js"></script>
     <script src="./js/home.js"></script>
@@ -17,7 +18,9 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <title>Pycem² | Home</title>
 </head>
-<body id="body" onload="validarSessao(),atualizarUnidadesCadastradas(),obterDadosGraficoQtdChamados(`${sessionStorage.FK_EMPRESA}`),listarStatusGeralTotem(`${sessionStorage.FK_EMPRESA}`), listarAlertas()">
+
+<body id="body"
+    onload="validarSessao(),atualizarUnidadesCadastradas(),obterDadosGraficoQtdChamados(`${sessionStorage.FK_EMPRESA}`),listarStatusGeralTotem(`${sessionStorage.FK_EMPRESA}`), listarAlertas()">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
@@ -25,8 +28,10 @@
                 <h2 onclick="redirectHome()">Py</h2>
                 <!-- <img class="iconSidebar navigationIcon" src="img/userIcon.svg" onclick="redirectFunc()"> -->
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
-                <img class="iconSidebar navigationIcon privGer" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
-                <img class="iconSidebar navigationIcon telaAtual" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
+                <img class="iconSidebar navigationIcon privGer" src="img/smartphoneIcon.svg"
+                    onclick="redirectAllMach()">
+                <img class="iconSidebar navigationIcon telaAtual" src="img/desktopIcon.svg"
+                    onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg" onclick="redirectChamado()">
             </div>
             <div class="footerButtons">
@@ -39,7 +44,8 @@
         <div class="container">
             <h3 class="homeHeader" onclick="redirectHome()">Home</h3>
             <nav id="nav" class="navbarHamburguer">
-                <button id="btn-mobile" class="btn-mobile"><img class="menuImg" src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
+                <button id="btn-mobile" class="btn-mobile"><img class="menuImg"
+                        src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
                     <li onclick="redirectFunc()">Funcionarios</li>
                     <li onclick="redirectAllMach()">Maquinas</li>
@@ -56,8 +62,8 @@
         </div>
     </header>
     <div class="guideText">
-            <span class="welcomeSentence">Olá <span class="usuarioLogado">-</span>, Seja bem-vindo!</span>
-            <span class="firstStep">Tela de início</span>
+        <span class="welcomeSentence">Olá <span class="usuarioLogado">-</span>, Seja bem-vindo!</span>
+        <span class="firstStep">Tela de início</span>
     </div>
     <main class="main">
         <!-- cards -->
@@ -114,7 +120,7 @@
         <!-- container com grafico e lista princ unidades -->
         <div class="wrap-dados">
             <div class="containerGrafico">
-                <h3>Quantidade de chamados</h3>
+                <h3>Quantidade de chamados x Mês</h3>
                 <div class="graph">
                     <canvas id="ocorrenciasPorUnidade"><span id="ocorrenciasPorUnidadeMensagem"></span></canvas>
                 </div>
@@ -124,7 +130,7 @@
                     <div class="containerBoxUnits">
                         <h3 id="titleBoxUnit" class="titleBoxUnit">Unidades</h3>
                         <input id="campoPesquisa" type="text" onkeyup="filtrarUnidadesHome(this.value)">
-                        <img onclick="pesquisar()"  id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                        <img onclick="pesquisar()" id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
                         <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
                     </div>
                     <hr>
@@ -136,23 +142,24 @@
     </main>
 
 </body>
+
 </html>
 <script>
     const btnMobile = document.getElementById('btn-mobile');
 
-    function pesquisar(){
+    function pesquisar() {
         titleBoxUnit.style.display = "none";
         btnSearch.style.display = "none";
         btnClose.style.display = "block";
-        campoPesquisa.classList.add("show") 
+        campoPesquisa.classList.add("show")
     }
 
-    function fechar(){
+    function fechar() {
         campoPesquisa.classList.remove("show")
         setTimeout(function () {
-        
+
             titleBoxUnit.style.display = "block";
-    }, 550);
+        }, 550);
         btnSearch.style.display = "block";
         btnClose.style.display = "none";
     }
@@ -166,4 +173,7 @@
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
 
+    setTimeout(() => {
+        adicionarImagemSemResultado(localStorage.resultadoEncontrado)
+    }, 2000)
 </script>
