@@ -24,18 +24,17 @@
     <!-- <script src="js/chart.js"></script> -->
 </head>
 
-<body
-    onload="validarSessao(), listarUsoMaquina(`${sessionStorage.ID_TOTEM}`),atualizarNomeMaquina(),buscarDadosEstado(`${sessionStorage.ID_TOTEM}`),atualizarSelectMaquinaChamado(), 
+<body onload="validarSessao(), listarUsoMaquina(`${sessionStorage.ID_TOTEM}`),atualizarNomeMaquina(),buscarDadosEstado(`${sessionStorage.ID_TOTEM}`),atualizarSelectMaquinaChamado(), 
      atualizarSelectUnidadesChamado(), atualizarSelectAtribuicaoChamado(), 
-    exibirChamadosAbertosPorMaquina(`${sessionStorage.ID_TOTEM}`)"
-    >
+    exibirChamadosAbertosPorMaquina(`${sessionStorage.ID_TOTEM}`)">
     <!-- UTILIZAR A ESTRUTURA HTML DE NAV E HEADER NAS DASHBOARDS COM DASHBOARD.CSS -->
     <nav class="sidebar">
         <div class="container">
             <div class="navigationButtons">
                 <h2 onclick="redirectHome()">Py</h2>
                 <img class="iconSidebar navigationIcon" src="img/storeIcon.svg" onclick="redirectAllUnits()">
-                <img class="iconSidebar navigationIcon privGer" src="img/smartphoneIcon.svg" onclick="redirectAllMach()">
+                <img class="iconSidebar navigationIcon privGer" src="img/smartphoneIcon.svg"
+                    onclick="redirectAllMach()">
                 <img class="iconSidebar navigationIcon" src="img/desktopIcon.svg" onclick="redirectVisaoGeral()">
                 <img class="iconSidebar navigationIcon" src="img/supportIcon.svg" onclick="redirectSuport()">
             </div>
@@ -147,7 +146,7 @@
                 <div class="container">
                     <h3>Status da Máquina</h3>
                     <select name="" id="trocarStatus" class="selectStatus"
-                    onchange="atualizarStatusMaquina(`${sessionStorage.ID_TOTEM}`)">
+                        onchange="atualizarStatusMaquina(`${sessionStorage.ID_TOTEM}`)">
                         <option value="" disabled selected></option>
                         <option value="Disponivel">Disponível</option>
                         <option value="Manutencao">Manutenção</option>
@@ -157,12 +156,13 @@
             </div>
             <section class="listMachine">
                 <div class="titleListMachine">
-                         <div class="container">
-                            <h3 id="tituloMaquinas" class="tituloMaquinas">Chamados Abertos</h3>
-                            <input id="campoPesquisa" type="text" onkeyup="filtrarRelatorios(sessionStorage.ID_TOTEM, this.value)">
-                            <img onclick="pesquisar()" id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
-                            <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
-                     </div>
+                    <div class="container">
+                        <h3 id="tituloMaquinas" class="tituloMaquinas">Chamados Abertos</h3>
+                        <input id="campoPesquisa" type="text"
+                            onkeyup="filtrarRelatorios(sessionStorage.ID_TOTEM, this.value)">
+                        <img onclick="pesquisar()" id="btnSearch" src="img/search_FILL0_wght400_GRAD0_opsz48.svg">
+                        <img onclick="fechar()" id="btnClose" src="img/close_FILL0_wght400_GRAD0_opsz48.svg">
+                    </div>
                 </div>
                 <div class="machineField" id="machineField">
                     <div class="feed" id="feed">
@@ -172,146 +172,142 @@
                     </div>
                 </div>
                 <div class="divBtnAddReport">
-                    <button class="btnAddReport" onclick="mostrarModalNovoChamado()">Novo chamado</button>
+                    <button class="btnAddReport" onclick="mostrarModalNovoChamado('graficos')">Novo chamado</button>
 
                 </div>
             </section>
         </div>
 
-   <!-- Modal Chamado -->
-   <div class="overlay" id="overlay">
-    <div class="modalChamado" id="modalChamado">
-        <div class="headerModalChamado">
-            <span class="tituloModal">Chamado <span id="titulo">-------</span></span>
-            <span class="fecharModal btnFechar" onclick="fecharModalChamado()"></span>
-        </div>
-        <div class="bodyModal">
-            <div class="bloco">
-                <span class="estilo tamanho10"><span class="subTitulo">Máquina:</span>
-                    <select class="selectModal" id="escolherMaquinaModal">
-                        <option value="" name="" disabled selected>Máquina</option>
-                    </select></span>
+        <!-- Modal Chamado -->
+        <div class="overlay" id="overlay">
+            <div class="modalChamado" id="modalChamado">
+                <div class="headerModalChamado">
+                    <span class="tituloModal">Chamado <span id="titulo">-------</span></span>
+                    <span class="fecharModal btnFechar" onclick="fecharModalChamado()"></span>
+                </div>
+                <div class="bodyModal">
+                    <div class="bloco">
+                        <span class="estilo tamanho10"><span class="subTitulo">Máquina:</span>
+                            <select class="selectModal" id="escolherMaquinaModal">
+                                <option value="" name="" disabled selected>Máquina</option>
+                            </select></span>
 
-                <span class="estilo tamanho10"><span class="subTitulo">Prioridade:</span>
-                    <select class="selectModal" id="escolherPrioridadeModal">
-                        <option value="" disabled selected>Prioridade</option>
-                        <option value="P1">P1</option>
-                        <option value="P2">P2</option>
-                        <option value="P3">P3</option>
-                        <option value="P4">P4</option>
-                        <option value="P5">P5</option>
-                    </select></span>
+                        <span class="estilo tamanho10"><span class="subTitulo">Prioridade:</span>
+                            <select class="selectModal" id="escolherPrioridadeModal">
+                                <option value="" disabled selected>Prioridade</option>
+                                <option value="P1">P1</option>
+                                <option value="P2">P2</option>
+                                <option value="P3">P3</option>
+                                <option value="P4">P4</option>
+                                <option value="P5">P5</option>
+                            </select></span>
+                    </div>
+
+                    <div class="bloco">
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
+                            <select class="selectModal" id="escolherUnidadeModal">
+                                <option value="" name="0" disabled selected>Unidade</option>
+                            </select></span>
+                        <span class="estilo tamanho8"><span class="subTitulo">Estado:</span>
+                            <select class="selectModal" id="escolherEstadoModal">
+                                <option value="" disabled>Estado</option>
+                                <option value="Aberto">Aberto</option>
+                                <option value="EmAndamento">Em Andamento</option>
+                                <option value="Encerrado">Encerrado</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select></span>
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho12"><span class="subTitulo">Data Inicial:</span>
+                            <input class="inputModal" type="text" id="dataInicialModal" disabled></span>
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Tipo:</span>
+                            <select class="selectModal2" id="escolherTipoModal">
+                                <option value="" disabled>Tipo</option>
+                                <option value="Desligamento">Desligamento</option>
+                                <option value="Sobrecarga">Sobrecarga</option>
+                                <option value="MauFuncionamento">Mau Funcionamento</option>
+                                <option value="Outro">Outro</option>
+                            </select></span>
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho12"><span class="subTitulo">Data Encerramento:</span>
+                            <input class="inputModal" type="text" id="dataEncerramentoModal" disabled></span>
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Atribuição:</span>
+                            <select class="selectModal2" id="escolherAtribuicaoModal">
+                                <option value="null" disabled selected>Não atribuido</option>
+                            </select></span>
+                    </div>
+                    <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
+                            <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
+                    </div>
+
+                    <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Resolução:</span>
+                            <textarea disabled class="textAreaModal" id="resolucaoModal" maxlength="255"></textarea>
+                    </div>
+                </div>
+
+                <div class="modalFooter">
+                    <button class="btnSalvar" id="btnSalvarModal"
+                        onclick="editarChamado(sessionStorage.ID_CHAMADO_ATUAL)">Salvar</button>
+                </div>
             </div>
-
-            <div class="bloco">
-
-                <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
-                    <select class="selectModal" id="escolherUnidadeModal">
-                        <option value="" name="0" disabled selected>Unidade</option>
-                    </select></span>
-                <span class="estilo tamanho8"><span class="subTitulo">Estado:</span>
-                    <select class="selectModal" id="escolherEstadoModal">
-                        <option value="" disabled>Estado</option>
-                        <option value="Aberto">Aberto</option>
-                        <option value="EmAndamento">Em Andamento</option>
-                        <option value="Encerrado">Encerrado</option>
-                        <option value="Cancelado">Cancelado</option>
-                    </select></span>
-            </div>
-            <div class="bloco">
-                <span class="estilo tamanho12"><span class="subTitulo">Data Inicial:</span>
-                    <input class="inputModal" type="text" id="dataInicialModal" disabled></span>
-
-                <span class="estilo tamanho8"><span class="subTitulo">Tipo:</span>
-                    <select class="selectModal2" id="escolherTipoModal">
-                        <option value="" disabled>Tipo</option>
-                        <option value="Desligamento">Desligamento</option>
-                        <option value="Sobrecarga">Sobrecarga</option>
-                        <option value="MauFuncionamento">Mau Funcionamento</option>
-                        <option value="Outro">Outro</option>
-                    </select></span>
-            </div>
-            <div class="bloco">
-                <span class="estilo tamanho12"><span class="subTitulo">Data Encerramento:</span>
-                    <input class="inputModal" type="text" id="dataEncerramentoModal" disabled></span>
-
-                <span class="estilo tamanho8"><span class="subTitulo">Atribuição:</span>
-                    <select class="selectModal2" id="escolherAtribuicaoModal">
-                        <option value="null" disabled selected>Não atribuido</option>
-                    </select></span>
-            </div>
-            <div class="bloco">
-                <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
-                    <textarea class="textAreaModal" id="descricaoModal" maxlength="255"></textarea>
-            </div>
-
-            <div class="bloco">
-                <span class="estilo tamanho9"><span class="subTitulo">Resolução:</span>
-                    <textarea disabled class="textAreaModal" id="resolucaoModal" maxlength="255"></textarea>
-            </div>
-        </div>
-
-        <div class="modalFooter">
-            <button class="btnSalvar" id="btnSalvarModal" onclick="editarChamado(sessionStorage.ID_CHAMADO_ATUAL)">Salvar</button>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Novo Chamado -->
-<div class="overlayNovoChamado" id="overlayNovoChamado">
-    <div class="modalNovoChamado" id="modalNovoChamado">
-        <div class="headerModalChamado">
-            <span class="tituloModal">Novo Chamado</span>
-            <span class="fecharModal btnFechar" onclick="fecharModalNovoChamado()"></span>
-        </div>
-        <div class="bodyModal">
-            <div class="bloco">
-               
-                <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
-                <select class="selectModal" id="escolherUnidadeModalNovoChamado" onchange="atualizarSelectMaquinaChamadoPorUnidade()">
-                    <option value="" disabled selected>Unidade</option>
-                </select></span>
-
-                <span class="estilo tamanho8"><span class="subTitulo">Prioridade:</span>
-                    <select class="selectModal" id="escolherPrioridadeModalNovoChamado" >
-                        <option value="" disabled selected>Prioridade</option>
-                        <option value="P1">P1</option>
-                        <option value="P2">P2</option>
-                        <option value="P3">P3</option>
-                        <option value="P4">P4</option>
-                        <option value="P5">P5</option>
-                    </select></span>
-            </div>
-
-            <div class="bloco">
-                <span class="estilo tamanho8"><span class="subTitulo">Máquina:</span>
-                <select class="selectModal" id="escolherMaquinaModalNovoChamado" onchange="atualizarSelectUnidadeNovoChamadoPorMaquina()">
-                    <option value="" disabled selected>Máquina</option>
-                </select></span>
-                
-                <span class="estilo tamanho8"><span class="subTitulo">Tipo:</span>
-                    <select class="selectModal" id="escolherTipoModalNovoChamado">
-                        <option value="" disabled selected>Tipo</option>
-                        <option value="Desligamento">Desligamento</option>
-                        <option value="Sobrecarga">Sobrecarga</option>
-                        <option value="MauFuncionamento">MauFuncionamento</option>
-                        <option value="Outro">Outro</option>
-                    </select></span>
-            </div>
-    
-            <div class="bloco">
-                <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
-                    <textarea class="textAreaModal" id="descricaoModalNovoChamado" maxlength="255"></textarea>
-            </div>
-
-            
         </div>
 
-        <div class="modalFooter">
-            <button class="btnSalvar" id="btnSalvarModal" onclick="criarChamado()">Salvar</button>
+        <!-- Modal Novo Chamado -->
+        <div class="overlayNovoChamado" id="overlayNovoChamado">
+            <div class="modalNovoChamado" id="modalNovoChamado">
+                <div class="headerModalChamado">
+                    <span class="tituloModal">Novo Chamado</span>
+                    <span class="fecharModal btnFechar" onclick="fecharModalNovoChamado()"></span>
+                </div>
+                <div class="bodyModal">
+                    <div class="bloco">
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Unidade:</span>
+                            <select class="selectModal" id="escolherUnidadeModalNovoChamado"
+                                onchange="atualizarSelectMaquinaChamadoPorUnidade()">
+                                <option value="" disabled selected>Unidade</option>
+                            </select></span>
+
+                        <span class="estilo tamanho8"><span class="subTitulo">Máquina:</span>
+                            <select class="selectModal" id="escolherMaquinaModalNovoChamado"
+                                onchange="atualizarSelectUnidadeNovoChamadoPorMaquina()">
+                                <option value="" disabled selected>Máquina</option>
+                            </select></span>
+
+                    </div>
+
+                    <div class="bloco">
+
+
+                        <span class="estilo tamanho11"><span class="subTitulo">Tipo:</span>
+                            <select class="selectModal" id="escolherTipoModalNovoChamado">
+                                <option value="" disabled selected>Tipo</option>
+                                <option value="Desligamento">Desligamento</option>
+                                <option value="Sobrecarga">Sobrecarga</option>
+                                <option value="MauFuncionamento">MauFuncionamento</option>
+                                <option value="Outro">Outro</option>
+                            </select></span>
+                    </div>
+
+                    <div class="bloco">
+                        <span class="estilo tamanho9"><span class="subTitulo">Descrição:</span>
+                            <textarea class="textAreaModal" id="descricaoModalNovoChamado" maxlength="255"></textarea>
+                    </div>
+
+
+                </div>
+
+                <div class="modalFooter">
+                    <button class="btnSalvar" id="btnSalvarModal" onclick="criarChamado('graficos')">Salvar</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
     </main>
 </body>
 
@@ -320,7 +316,7 @@
 
 <script>
     buscarDadosMaquina(sessionStorage.ID_TOTEM, 'subTitulo');
-    
+
     const btnMobile = document.getElementById('btn-mobile');
     function toggleMenu(event) {
         if (event.type === 'touchstart') event.preventDefault();
@@ -328,7 +324,7 @@
         nav.classList.toggle('active');
 
     }
-    
+
     btnMobile.addEventListener('click', toggleMenu);
     btnMobile.addEventListener('touchstart', toggleMenu);
     function pesquisar() {
@@ -336,7 +332,7 @@
         btnSearch.style.display = "none";
         btnClose.style.display = "block";
         campoPesquisa.classList.add("show")
-        
+
     }
     function fechar() {
         campoPesquisa.classList.remove("show")
@@ -346,9 +342,10 @@
         }, 550);
         btnSearch.style.display = "block";
         btnClose.style.display = "none";
-        
+
     }
-    setTimeout(() =>{
+    setTimeout(() => {
         adicionarImagemSemResultado(localStorage.resultadoEncontrado)
-    },2000)
+    }, 2000)
+
 </script>

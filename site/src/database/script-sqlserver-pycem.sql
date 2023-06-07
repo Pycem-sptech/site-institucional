@@ -101,7 +101,7 @@ create table chamado(
 idChamado int primary key identity(1,1),
 titulo CHAR(7) not null default '--',
 tipo varchar(17) not null default 'Desligamento', constraint chkTipoChamado check (tipo in('Desligamento','Sobrecarga', 'MauFuncionamento', 'Outro')),
-prioridade varchar(10) not null default 'P1', constraint chkPrioridadeChamado check (prioridade in('P1','P2', 'P3','P4','P5')),
+prioridade varchar(10) not null default 'P5', constraint chkPrioridadeChamado check (prioridade in('P1','P2', 'P3','P4','P5')),
 estado varchar(15) not null default 'Aberto', constraint chkEstadoChamado check (estado in('Aberto','EmAndamento', 'Encerrado','Cancelado')),
 criado_por_nome varchar(50) not null default 'System Administrator',
 criado_por_id int, FOREIGN KEY (criado_por_id) REFERENCES usuario(idUsuario),
@@ -222,16 +222,3 @@ INSERT INTO chamado(prioridade,fkTotem, fkUnidade, fkEmpresa) values
 
 select top 1 * from chamado order by idChamado desc
 
-insert into [dbo].[relatorio] (titulo, descricao, tipo, data_relatorio, fkTotem) values
-('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),
-('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),
-('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),
-('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),
-('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),
-('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),
-('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),
-('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),
-('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),
-('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),
-('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1),
-('Houve uma falha','A maquina parou de funcionar apos uma alta demanda','Sobrecarga','04/04/2023',1)

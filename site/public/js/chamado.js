@@ -11,8 +11,8 @@ let todosChamados = {
   chamadosCancelados: []
 }
 
-function limparJSONChamado(){
-   meusChamados = {
+function limparJSONChamado() {
+  meusChamados = {
     chamadosAbertos: [],
     chamadosEmAndamento: [],
     chamadosEncerrados: [],
@@ -27,7 +27,7 @@ function limparJSONChamado(){
 }
 var jsonChamadosGlobal;
 
-function criarChamado() {
+function criarChamado(tela) {
   const selectUnidade = document.querySelector('#escolherUnidadeModalNovoChamado');
   let selectedUnidadeOption = selectUnidade.options[selectUnidade.selectedIndex].id;
   const selectTotem = document.querySelector('#escolherMaquinaModalNovoChamado');
@@ -40,11 +40,10 @@ function criarChamado() {
   const fkUnidade = escolherUnidadeModalNovoChamado.value;
   const nome_unidade = selectedUnidadeOption;
   const usuario_totem = selectedTotemOption;
-  const prioridade = escolherPrioridadeModalNovoChamado.value;
   const tipo = escolherTipoModalNovoChamado.value;
   const descricao = descricaoModalNovoChamado.value;
 
-  if (fkEmpresa == "" || fkMaquina == "" || criado_por_id == "" || criado_por_nome == "" || nome_unidade == "" || usuario_totem == "" || prioridade == "" || tipo == "" || fkUnidade == "" || descricao == "") {
+  if (fkEmpresa == "" || fkMaquina == "" || criado_por_id == "" || criado_por_nome == "" || nome_unidade == "" || usuario_totem == "" || tipo == "" || fkUnidade == "" || descricao == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
   } else {
@@ -62,7 +61,6 @@ function criarChamado() {
         fkMaquina: fkMaquina,
         nome_unidade: nome_unidade,
         fkUnidade: fkUnidade,
-        prioridade: prioridade,
         tipo: tipo,
         descricao: descricao,
       }),
@@ -72,7 +70,12 @@ function criarChamado() {
 
         if (resposta.ok) {
           toastPadrao('success', 'Cadastro realizado com sucesso!')
-          atualizarListaChamados();
+          if (tela == 'graficos') {
+            exibirChamadosAbertosPorMaquina(sessionStorage.ID_TOTEM);
+          } else {
+            atualizarListaChamados();
+          }
+          fecharModalNovoChamado();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
@@ -104,7 +107,7 @@ function editarChamado(idChamado) {
   if (fkMaquina == "" || atribuicao == "" || prioridade == "" || status == "" || tipo == "" || descricao == "" || nome_unidade == "" || usuario_totem == "") {
     toastPadrao('error', 'Preencha os campos que estão vazios!');
     return false;
-  } else if (status == 'Encerrado' && resolucao != '' && resolucao != null) {
+  } else if (status == 'Encerrado' && resolucao == '' && resolucao != null) {
     toastPadrao('error', 'Preencha a resolução que está vazia!');
     return false;
   } else {
@@ -130,6 +133,7 @@ function editarChamado(idChamado) {
 
         if (resposta.ok) {
           toastPadrao('success', 'Atualização realizada com sucesso!')
+          fecharModalChamado()
           atualizarListaChamados();
         } else {
           throw "Houve um erro ao tentar realizar a atualização!";
@@ -243,49 +247,57 @@ function filtrarChamados() {
 }
 
 function atualizarListaChamados() {
+
   limparJSONChamado()
-  const fkEmpresa = sessionStorage.FK_EMPRESA;
+  if (sessionStorage.USER_CARGO == 'Supervisor' || sessionStorage.MEUS_CHAMADOS == 'true') {
+    const selectChamado = document.getElementById("filtrarChamados");
+    selectChamado.options[1].selected = true
+    sessionStorage.MEUS_CHAMADOS = false;
+    filtrarChamados()
+  } else {
+    const fkEmpresa = sessionStorage.FK_EMPRESA;
 
-  fetch(`/chamado/listarChamados/${fkEmpresa}`)
-    .then(function (resposta) {
-      if (resposta.ok) {
-        if (resposta.status == 204) {
-          console.log("Nenhum resultado encontrado!!");
-          throw "Nenhum resultado encontrado!!";
-        }
-        resposta.json().then(function (resposta) {
-          console.log("Dados: ", JSON.stringify(resposta))
-          if (resposta.length > 0) {
-            for (var i = 0; i < resposta.length; i++) {
-              if (resposta[i].estado[0] == "Aberto") {
-                todosChamados.chamadosAbertos.push(resposta[i])
-              } else if (resposta[i].estado[0] == ("EmAndamento")) {
-                todosChamados.chamadosEmAndamento.push(resposta[i])
-              } else if (resposta[i].estado[0] == ("Encerrado")) {
-                todosChamados.chamadosEncerrados.push(resposta[i])
-              } else if (resposta[i].estado[0] == ("Cancelado")) {
-                todosChamados.chamadosCancelados.push(resposta[i])
-              }
-            }
-            exibirChamados(todosChamados);
-            jsonChamadosGlobal = todosChamados;
-            
-          } else {
-            limparFeedChamados();
+    fetch(`/chamado/listarChamados/${fkEmpresa}`)
+      .then(function (resposta) {
+        if (resposta.ok) {
+          if (resposta.status == 204) {
+            console.log("Nenhum resultado encontrado!!");
+            throw "Nenhum resultado encontrado!!";
           }
+          resposta.json().then(function (resposta) {
+            console.log("Dados: ", JSON.stringify(resposta))
+            limparFeedChamados();
+            if (resposta.length > 0) {
+              for (var i = 0; i < resposta.length; i++) {
+                if (resposta[i].estado[0] == "Aberto") {
+                  todosChamados.chamadosAbertos.push(resposta[i])
+                } else if (resposta[i].estado[0] == ("EmAndamento")) {
+                  todosChamados.chamadosEmAndamento.push(resposta[i])
+                } else if (resposta[i].estado[0] == ("Encerrado")) {
+                  todosChamados.chamadosEncerrados.push(resposta[i])
+                } else if (resposta[i].estado[0] == ("Cancelado")) {
+                  todosChamados.chamadosCancelados.push(resposta[i])
+                }
+              }
+              exibirChamados(todosChamados);
+              jsonChamadosGlobal = todosChamados;
 
+            } else {
+              limparFeedChamados();
+            }
 
+          }
+          );
+        } else {
+          throw "Houve um erro na API!";
         }
-        );
-      } else {
-        throw "Houve um erro na API!";
-      }
-    })
-    .catch(function (resposta) {
-      console.error(resposta);
-    });
+      })
+      .catch(function (resposta) {
+        console.error(resposta);
+      });
 
-  return false;
+    return false;
+  }
 }
 atualizarListaChamados();
 
@@ -373,7 +385,7 @@ function exibirChamados(jsonChamados) {
   }
 
   for (let i = 0; i < jsonChamados.chamadosEmAndamento.length; i++) {
-    chamadosEmAndamento.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${jsonChamados.chamadosEmAndamento[i].idChamado}, 'chamadosEmAndamento')">
+    chamadosEmAndamento.innerHTML += `<div class="boxChamado" onclick="mostrarModalChamado(${jsonChamados.chamadosEmAndamento[i].idChamado}, 'chamadosEmAndamento')">
                                       <div class="infoChamado">
                                           <h3>${jsonChamados.chamadosEmAndamento[i].titulo}</h3>
                                           <div class="infoMaquina">
@@ -389,7 +401,7 @@ function exibirChamados(jsonChamados) {
   }
 
   for (let i = 0; i < jsonChamados.chamadosEncerrados.length; i++) {
-    chamadosEncerrados.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${jsonChamados.chamadosEncerrados[i].idChamado}, 'chamadosEncerrados')">
+    chamadosEncerrados.innerHTML += `<div class="boxChamado" onclick="mostrarModalChamado(${jsonChamados.chamadosEncerrados[i].idChamado}, 'chamadosEncerrados')">
                                       <div class="infoChamado">
                                           <h3>${jsonChamados.chamadosEncerrados[i].titulo}</h3>
                                           <div class="infoMaquina">
@@ -405,7 +417,7 @@ function exibirChamados(jsonChamados) {
   }
 
   for (let i = 0; i < jsonChamados.chamadosCancelados.length; i++) {
-    chamadosEncerrados.innerHTML = `<div class="boxChamado" onclick="mostrarModalChamado(${jsonChamados.chamadosCancelados[i].idChamado}, 'chamadosCancelados')">
+    chamadosEncerrados.innerHTML += `<div class="boxChamado" onclick="mostrarModalChamado(${jsonChamados.chamadosCancelados[i].idChamado}, 'chamadosCancelados')">
     <div class="infoChamado">
         <h3>${jsonChamados.chamadosCancelados[i].titulo}</h3>
         <div class="infoMaquina">
@@ -422,6 +434,8 @@ function exibirChamados(jsonChamados) {
 }
 
 function atualizarDadosModal(idChamado, statusChamado, jsonChamados) {
+  console.log(statusChamado)
+  console.log(jsonChamados)
   let selectMaquina = document.querySelector("#escolherMaquinaModal")
   for (var i = 0; i < jsonChamados[statusChamado].length; i++) {
     if (idChamado == jsonChamados[statusChamado][i].idChamado) {
@@ -527,11 +541,12 @@ function atualizarDadosModal(idChamado, statusChamado, jsonChamados) {
 
 function exibirResolucao() {
   let estado = escolherEstadoModal.value;
-  let resolucao = document.querySelector('.resolucaoModal');
+  let resolucao = document.getElementById('resolucao');
   if (estado == 'Aberto' || estado == 'Em andamento') {
-    resolucao.style.display = 'none'
+    resolucao.style.display = "none"
   } else if (estado == 'Encerrado' || estado == 'Cancelado') {
-
+    resolucao.style.display = "block"
+    console.log('ai')
   }
 }
 

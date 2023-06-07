@@ -454,36 +454,36 @@ function atualizarRelatorios(idTotem) {
 }
 
 function exibirChamadosAbertosPorMaquina(idTotem) {
-        fetch(`/chamado/exibirChamadosAbertosPorMaquina/${idTotem}`)
+    fetch(`/chamado/exibirChamadosAbertosPorMaquina/${idTotem}`)
         .then(function (resposta) {
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        var feed = document.getElementById("feed");
-                        feed.innerHTML = '';
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = '<div width="100%"><img src = "img/Search-rafiki 1.svg" height="100%" width="50%"></div>'
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-                    resposta.json().then(function (resposta) {
-                      console.log("Dados recebidos: ", JSON.stringify(resposta));
-            
-                      var feed = document.getElementById("feed");
-                      feed.innerHTML = "";
-                      for (let i = 0; i < resposta.length; i++) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed");
+                    feed.innerHTML = '';
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = '<div width="100%"><img src = "img/Search-rafiki 1.svg" height="100%" width="50%"></div>'
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
                         var publicacao = resposta[i];
-            
+
                         var divChamado = document.createElement("div");
                         var divIdChamado = document.createElement("div");
                         var divAtribuicaoChamado = document.createElement("div");
                         var divPrioridadeChamado = document.createElement("div");
-                        
+
                         divChamado.className = "chamado"
                         divIdChamado.className = "idChamado"
                         divAtribuicaoChamado.className = "atribuicaoChamado"
                         divPrioridadeChamado.className = "prioridadeChamado"
-            
-                        divChamado.setAttribute('onclick',`mostrarModalChamado('${sessionStorage.ID_TOTEM}', '${"chamadosAbertos"}')`)
+
+                        divChamado.setAttribute('onclick', `mostrarModalChamado(${resposta[i].idChamado}, 'chamadosAbertos')`)
                         divIdChamado.innerHTML = publicacao.titulo;
                         divAtribuicaoChamado.innerHTML = publicacao.prioridade;
                         divPrioridadeChamado.innerHTML = publicacao.atribuido_nome;
@@ -492,15 +492,14 @@ function exibirChamadosAbertosPorMaquina(idTotem) {
                         divChamado.appendChild(divAtribuicaoChamado);
                         divChamado.appendChild(divPrioridadeChamado);
                         feed.appendChild(divChamado);
-                      }
-            
-                    });
-                  } else {
-                    throw "Houve um erro na API!";
-                  }
-                })
-                .catch(function (resposta) {
-                  console.error(resposta);
+                    }
+
                 });
-    } 
-  
+            } else {
+                throw "Houve um erro na API!";
+            }
+        })
+        .catch(function (resposta) {
+            console.error(resposta);
+        });
+}
