@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pycem²</title>
     <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/chamadoTecnico.css">
     <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/chamadoTecnico.css">
     <script src="js/modal.js"></script>
     <script src="js/geral.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -42,11 +42,11 @@
                 <button id="btn-mobile" class="btn-mobile"><img class="menuImg"
                         src="img/menu_FILL0_wght400_GRAD0_opsz48.svg"></button>
                 <ul class="menu" id="menu">
-                    <li onclick="redirectFunc()">Gerenciar Funcionarios</li>
-                    <li onclick="redirectMachine()">Gerenciar Maquinas</li>
+                    <li onclick="redirectAllMach()">Máquinas</li>
                     <li onclick="redirectAllUnits()">Unidades</li>
                     <li onclick="redirectVisaoGeral()">Visão Geral</li>
                     <li onclick="redirectConfig()">Configurações</li>
+                    <li onclick="redirectChamado()">Suporte</li>
                     <li onclick="limparSessao()">Sair</li>
                 </ul>
             </nav>

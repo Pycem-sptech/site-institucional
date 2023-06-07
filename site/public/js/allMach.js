@@ -113,8 +113,6 @@ function imprimirMaquina(respostas, id) {
 
     var divBoxName = document.createElement("div");
     divBoxName.className = "box nameUnit";
-    var spanImgUnit = document.createElement("span");
-    spanImgUnit.innerHTML = '<img src="img/storeIcon.svg" alt="">'
     var spanName = document.createElement("span");
     spanName.innerHTML = publicacao.usuario;
 
@@ -145,7 +143,7 @@ function imprimirMaquina(respostas, id) {
     divBoxId.appendChild(spanId);
 
     divListUnits.appendChild(divBoxName);
-    divBoxName.appendChild(spanImgUnit);
+    
     divBoxName.appendChild(spanName);
 
     divListUnits.appendChild(divBoxAvailable);

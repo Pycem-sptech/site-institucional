@@ -60,7 +60,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: scroll;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 .feed::-webkit-scrollbar {
     width: 10px;
@@ -219,6 +220,11 @@
 @media (max-width:650px){
     .selectFiltrarChamados{
         padding-right: 6%;
+    }
+}
+@media (max-width:500px){
+    .inputModal{
+        width: 96%;
     }
 }
 @media (max-width:475px){
