@@ -136,7 +136,6 @@ function cadastrar(req, res) {
     const usuario_totem = req.body.usuario_totem
     const fkMaquina = req.body.fkMaquina;
     const fkUnidade = req.body.fkUnidade;
-    const prioridade = req.body.prioridade;
     const tipo = req.body.tipo;
     const descricao = req.body.descricao;
 
@@ -147,8 +146,6 @@ function cadastrar(req, res) {
         res.status(400).send("Seu fkMaquina está undefined!");
     } else if (descricao == undefined) {
         res.status(400).send("Sua descricao está undefined!");
-    } else if (prioridade == undefined) {
-        res.status(400).send("Sua prioridade está undefined!");
     } else if (tipo == undefined) {
         res.status(400).send("A identificação do relatorio no chamado está undefined!");
     } else if (fkUnidade == undefined) {
@@ -164,7 +161,7 @@ function cadastrar(req, res) {
     } else if (nome_unidade == undefined) {
         res.status(400).send("O nome da unidade no chamado está undefined!");
     } else {
-        chamadoModel.cadastrar(descricao, prioridade,tipo, usuario_totem, fkMaquina, criado_por_id, criado_por_nome, nome_unidade, fkUnidade, fkEmpresa).then(
+        chamadoModel.cadastrar(descricao,tipo, usuario_totem, fkMaquina, criado_por_id, criado_por_nome, nome_unidade, fkUnidade, fkEmpresa).then(
             function (resultado) {
                 res.json(resultado);
             }

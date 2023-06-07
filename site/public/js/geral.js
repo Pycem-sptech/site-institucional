@@ -146,7 +146,7 @@ function validarSessao() {
         visaoTecnico();
     } else if (cargo == "Supervisor") {
         visaoGerente();
-    } 
+    }
     // else if (cargo == "" && fkEmpresa == "" && email == "" && nome == "") {
     //     window.location = "./login.html";
     // }
@@ -361,7 +361,7 @@ function toastChamado(icon, title) {
             toastPadrao('success', 'Abrindo os chamados!')
 
             setTimeout(
-                redirectSuport()
+                redirectSuportMeusChamados()
             ), 3000;
 
         }
@@ -370,25 +370,24 @@ function toastChamado(icon, title) {
 
 }
 
-function adicionarImagemSemResultado(resultadoEncontrado){
-    console.log("O gráfico foi encontrado")
+function adicionarImagemSemResultado(resultadoEncontrado) {
 
     //Atualiza os gráficos
-    if(!resultadoEncontrado){
+    if (!resultadoEncontrado) {
         console.log("O gráfico não foi encontrado")
         let graph = document.getElementsByClassName("graph");
-        for(var i = 0;i < graph.length;i++){
+        for (var i = 0; i < graph.length; i++) {
             graph[i].innerHTML = '<img src = "img/Search-rafiki 1.svg" height="100%" width="50%">'
         }
     }
 
 
     //Atualiza as listas
-    if(!resultadoEncontrado){
-        console.log("A lista não foi encontrado")
-        let graph = document.getElementsByClassName("graph");
-        for(var i = 0;i < graph.length;i++){
-            graph[i].innerHTML = '<img src = "img/Search-rafiki 1.svg" height="100%" width="50%">'
+    if (!resultadoEncontrado) {
+        console.log("A lista não foi encontrada")
+        let lista = document.getElementsByClassName("lista");
+        for (var i = 0; i < lista.length; i++) {
+            lista[i].innerHTML = '<img src = "img/Search-rafiki 1.svg" height="100%" width="50%">'
         }
     }
 }
@@ -418,22 +417,22 @@ function adicionarImagemSemResultado(resultadoEncontrado){
 //         if (cargo) {
 //             Swal.fire(`You selected: ${cargo}`)
 //         }
-     
+
 // }
-    //     inputValidator: (value) => {
-    //       return new Promise((resolve) => {
-    //         if (value === 'oranges') {
-    //           resolve()
-    //         } else {
-    //           resolve('You need to select oranges :)')
-    //         }
-    //       })
-    //     }
-    //   })
-    
-    //   if (fruit) {
-    //     Swal.fire(`You selected: ${fruit}`)
-    //   }
+//     inputValidator: (value) => {
+//       return new Promise((resolve) => {
+//         if (value === 'oranges') {
+//           resolve()
+//         } else {
+//           resolve('You need to select oranges :)')
+//         }
+//       })
+//     }
+//   })
+
+//   if (fruit) {
+//     Swal.fire(`You selected: ${fruit}`)
+//   }
 // Redirecionamentos
 
 function redirectHome() {
@@ -474,6 +473,12 @@ function redirectAllMach() {
     }, 200);
 }
 function redirectSuport() {
+    setTimeout(function () {
+        window.location = "./chamadoGeral.html";
+    }, 250);
+}
+function redirectSuportMeusChamados() {
+    sessionStorage.MEUS_CHAMADOS = true
     setTimeout(function () {
         window.location = "./chamadoGeral.html";
     }, 250);

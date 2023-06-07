@@ -21,7 +21,7 @@ function listarChamadoFiltrado(fkEmpresa, fkUsuario) {
     left join usuario on chamado.atribuido_id = usuario.idUsuario
     join totem on chamado.fkTotem = totem.idTotem
     join unidade on chamado.fkUnidade = unidade.idUnidade
-    where chamado.fkEmpresa = ${fkEmpresa} and chamado.atribuido_id = ${fkUsuario};`;
+    where chamado.fkEmpresa = ${fkEmpresa} and chamado.atribuido_id = ${fkUsuario} or chamado.criado_por_id = ${fkUsuario};`;
     return database.executar(instrucao);
 }
 function listarOcorrenciasChamados(fkEmpresa) {
@@ -66,8 +66,8 @@ function buscarChamado(idChamado) {
     return database.executar(instrucao);
 }
 
-function cadastrar(descricao, prioridade, tipo, usuario_totem, fkMaquina, criado_por_id, criado_por_nome, nome_unidade, fkUnidade, fkEmpresa) {
-    var instrucao = `insert into chamado(descricao, prioridade,tipo, criado_por_id, criado_por_nome, usuario_totem,fkTotem, nome_unidade, fkUnidade, fkEmpresa) values ('${descricao}','${prioridade}','${tipo}','${criado_por_id}','${criado_por_nome}','${usuario_totem}','${fkMaquina}','${nome_unidade}','${fkUnidade}','${fkEmpresa}');`;
+function cadastrar(descricao, tipo, usuario_totem, fkMaquina, criado_por_id, criado_por_nome, nome_unidade, fkUnidade, fkEmpresa) {
+    var instrucao = `insert into chamado(descricao,tipo, criado_por_id, criado_por_nome, usuario_totem,fkTotem, nome_unidade, fkUnidade, fkEmpresa) values ('${descricao}','${tipo}','${criado_por_id}','${criado_por_nome}','${usuario_totem}','${fkMaquina}','${nome_unidade}','${fkUnidade}','${fkEmpresa}');`;
     return database.executar(instrucao);
 }
 
@@ -145,8 +145,8 @@ function frequenciaProblemasMensal(fkEmpresa, idUnidade) {
     return database.executar(instrucao);
 }
 
-function exibirChamadosAbertosPorMaquina(idTotem){
-    var instrucao = `select titulo, prioridade, atribuido_nome from chamado where fkTotem = ${idTotem} and estado = 'Aberto';`;
+function exibirChamadosAbertosPorMaquina(idTotem) {
+    var instrucao = `select idChamado, titulo, prioridade, atribuido_nome from chamado where fkTotem = ${idTotem} and estado = 'Aberto';`;
     return database.executar(instrucao);
 }
 

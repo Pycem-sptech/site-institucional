@@ -29,7 +29,7 @@ function listarTecnicos(fkEmpresa) {
   return database.executar(instrucao);
 }
 function listarChamadosUsuario(idUsuario) {
-  var instrucao = `select count(atribuido_id) as totalAtribuicoes from chamado where atribuido_id = ${idUsuario};`;
+  var instrucao = `select count(atribuido_id) as totalAtribuicoes from chamado where atribuido_id = ${idUsuario} and estado = 'Aberto' or estado = 'EmAndamento';`;
   return database.executar(instrucao);
 }
 
@@ -44,14 +44,14 @@ function deletar(idFuncionario) {
   return database.executar(instrucao);
 }
 
-function desassociarFuncionario(idFuncionario){
+function desassociarFuncionario(idFuncionario) {
   var instrucao = `exec DesatribuirChamado @idUsuario = '${idFuncionario}'`;
   return database.executar(instrucao);
 }
 
 function editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario) {
   var instrucao = ''
-  if(process.env.AMBIENTE_PROCESSO == "producao"){
+  if (process.env.AMBIENTE_PROCESSO == "producao") {
     instrucao = `
     IF (SELECT senha FROM usuario where idUsuario = ${idFuncionario}) = '${senha}'
 
@@ -68,7 +68,7 @@ function editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario) {
       UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = (HASHBYTES('SHA2_256','${senha}')) WHERE idUsuario =' ${idFuncionario}'
 
       END`;
-  }else{
+  } else {
     instrucao = `UPDATE usuario SET nome = '${nome}', cargo = '${cargo}', email = '${email}', cpf = '${cpf}', senha = sha2('${senha}', 256) WHERE idUsuario = '${idFuncionario}';`;
   }
   return database.executar(instrucao);
@@ -76,10 +76,10 @@ function editarFuncionario(nome, cargo, email, cpf, senha, idFuncionario) {
 
 function entrar(email, senha) {
   var instrucao = ''
-  if(process.env.AMBIENTE_PROCESSO == "producao"){
+  if (process.env.AMBIENTE_PROCESSO == "producao") {
     instrucao = `SELECT 
     (SELECT SUBSTRING(nome, 1, CHARINDEX(' ', nome + ' ') - 1) AS primeiro_nome FROM usuario WHERE email = '${email}' AND senha = (HASHBYTES('SHA2_256','${senha}'))) as nome,nome as nomeCompleto, idUsuario, email, cpf, senha, cargo, fkEmpresa FROM usuario WHERE email = '${email}' AND senha = (HASHBYTES('SHA2_256','${senha}'));`;
-  }else{
+  } else {
     instrucao = `SELECT * FROM usuario WHERE email = '${email}' AND senha = sha2('${senha}', 256);`;
   }
   return database.executar(instrucao);
