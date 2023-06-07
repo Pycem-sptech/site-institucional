@@ -46,7 +46,12 @@
     justify-content: center;
 }
 .percent{
-    font-size: 4em;
+    font-size: 3em;
+    text-align: center;
+}
+.percent img{
+    height: 25px;
+    margin-bottom: 3%;
 }
 .cpu{
     color:#00E909;
@@ -245,9 +250,7 @@
     .titleBoxHardInfo{
         height: 35%;
     }
-    .percent{
-        font-size: 3.2em;
-    }
+
 }
 @media (max-width:1050px){
     .titleBoxHardInfo h3{
@@ -280,7 +283,9 @@
     .listMachine{
         width: 93%;
     }
-
+    .percent img{
+        display: none;
+    }
     .machineField::-webkit-scrollbar-thumb {
         background-color: #EFF6FD;      
     }

@@ -67,7 +67,7 @@
     top: 30%;
     left: 30%;
     z-index: 1;
-    overflow: scroll;
+    overflow-y: scroll;
     overflow: hidden;
     top: 50%;
     left: 50%;
@@ -89,7 +89,8 @@
     top: 30%;
     left: 30%;
     z-index: 1;
-    overflow: scroll;
+    overflow: hidden;
+    overflow-y: scroll;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -147,7 +148,7 @@
 .headerModalChamado {
     display: flex;
     justify-content: space-between;
-    height: 5%;
+    height: 7%;
     width: 100%;
     border-bottom: 0.1vw solid rgba(0, 0, 0, 0.3);
     font-weight: 600;
@@ -402,7 +403,7 @@
 
     .modalNovoChamado {
         width: 90%;
-        height: 59%;
+        height: 61%;
         top: 46%
     }
 
@@ -421,4 +422,14 @@
         font-size: 15px;
         width: 96%;
     }
+    .modalChamado{
+        width: 90%;
+    }
+    .selectModal2{
+        margin: 0;
+        font-size: 3.3vw;
+        height: 4.4vh;
+        width: 100%;
+    }
+    
 }

@@ -302,6 +302,9 @@ hr{
     cursor: pointer;
     width: 40px;
 }
+.btnEditDelete{
+    display: flex;
+}
 
 .feed::-webkit-scrollbar {
     width: 10px;
